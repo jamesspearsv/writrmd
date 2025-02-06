@@ -1,0 +1,15 @@
+@import 'open-props/style';
+@import 'open-props/normalize';
+@import 'open-props/buttons';
+
+body {
+  background-color: var(--stone-2);
+  color: var(--gray-9);
+  padding: var(--size-5);
+}
+/* 
+nextjs-portal {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+} */
