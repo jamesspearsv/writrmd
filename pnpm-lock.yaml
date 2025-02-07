@@ -14,9 +14,9 @@ importers:
       gray-matter:
         specifier: ^4.0.3
         version: 4.0.3
-      marked:
-        specifier: ^15.0.6
-        version: 15.0.6
+      marked-react:
+        specifier: ^3.0.0
+        version: 3.0.0(react@19.0.0)
       next:
         specifier: 15.1.6
         version: 15.1.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -1069,6 +1069,11 @@ packages:
   loose-envify@1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
     hasBin: true
+
+  marked-react@3.0.0:
+    resolution: {integrity: sha512-We5IPtdfarVIqypy4LmQ3O8xe9Hk8EBNs4MRUYg5077mbD7GJ+rmV9XAPJ0XK8LfQkCOwGv4I7niXWLXWywyoQ==}
+    peerDependencies:
+      react: ^16.8.0 || >=17.0.0
 
   marked@15.0.6:
     resolution: {integrity: sha512-Y07CUOE+HQXbVDCGl3LXggqJDbXDP2pArc2C1N1RRMN0ONiShoSsIInMd5Gsxupe7fKLpgimTV+HOJ9r7bA+pg==}
@@ -2686,6 +2691,11 @@ snapshots:
   loose-envify@1.4.0:
     dependencies:
       js-tokens: 4.0.0
+
+  marked-react@3.0.0(react@19.0.0):
+    dependencies:
+      marked: 15.0.6
+      react: 19.0.0
 
   marked@15.0.6: {}
 

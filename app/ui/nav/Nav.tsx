@@ -1,9 +1,10 @@
-import styles from 'Nav.module.css';
+import Heading from '@/app/ui/nav/Heading';
 
 export default function Nav() {
+  // todo: add additional nav items
   return (
     <nav>
-      <h1>MDwritr</h1>
+      <Heading />
     </nav>
   );
 }

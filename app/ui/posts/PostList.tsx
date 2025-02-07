@@ -1,5 +1,6 @@
 import { fetchPosts } from '@/app/lib/actions';
 import { Post } from '@/app/lib/definitions';
+import Link from 'next/link';
 
 // todo: write post components
 
@@ -14,11 +15,13 @@ export default async function PostList() {
       <p>All Posts</p>
       {posts.map((post) => (
         <div key={post.data.slug}>
-          <p>{post.data.title}</p>
+          <Link href={`/blog/${post.data.slug}`}>
+            <p>{post.data.title}</p>
+          </Link>
           <p>
             {post.data.author} {post.data.date}
           </p>
-          <p>{post.path}</p>
+          <p>{post.data.slug}</p>
         </div>
       ))}
     </div>

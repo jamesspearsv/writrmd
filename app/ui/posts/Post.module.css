@@ -1,0 +1,4 @@
+.article {
+  width: var(--size-content-3);
+  margin: auto;
+}

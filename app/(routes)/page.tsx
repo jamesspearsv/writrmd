@@ -1,5 +1,10 @@
-import PostList from '@/app/ui/posts/PostList';
+import Link from 'next/link';
 
 export default function Home() {
-  return <PostList />;
+  return (
+    <main>
+      <p>home page</p>
+      <Link href={'/blog'}>Blog</Link>
+    </main>
+  );
 }

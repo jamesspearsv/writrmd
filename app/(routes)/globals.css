@@ -1,15 +1,27 @@
 @import 'open-props/style';
-@import 'open-props/normalize';
-@import 'open-props/buttons';
+
+:root {
+  --primary-color: var(--stone-1);
+  --secondary-color: var(--stone-10);
+  --accent-color: var(--green-9);
+  --normal-weight: var(--font-weight-4);
+  --bold-weight: var(--font-weight-7);
+}
 
 body {
-  background-color: var(--stone-2);
-  color: var(--gray-9);
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
   padding: var(--size-5);
+  font-family: var(--font-neo-grotesque);
+  font-size: 18px;
+  font-weight: var(--normal-weight);
 }
-/* 
-nextjs-portal {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-} */
+
+a {
+  color: var(--secondary-color);
+
+  &:hover {
+    color: var(--blue-6);
+    text-decoration: underline;
+  }
+}

@@ -1,0 +1,21 @@
+import { fetchPostBySlug } from '@/app/lib/actions';
+import { notFound } from 'next/navigation';
+import Post from '@/app/ui/posts/Post';
+
+export default async function PostPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const slug = (await params).slug;
+  const file = await fetchPostBySlug(slug);
+
+  // return 404 if file is null
+  if (!file) notFound();
+
+  return (
+    <main>
+      <Post slug={slug} />
+    </main>
+  );
+}
