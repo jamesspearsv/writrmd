@@ -1,0 +1,20 @@
+.nav {
+  padding: var(--spacing-size);
+  border-bottom: var(--border-size-1) solid var(--secondary-color-lighter);
+  position: sticky;
+  top: 0;
+}
+
+.list {
+  display: flex;
+  list-style: none;
+  align-items: center;
+  gap: var(--spacing-size);
+
+  a,
+  a:hover {
+    color: var(--secondary-color);
+    text-decoration: none;
+    cursor: pointer;
+  }
+}

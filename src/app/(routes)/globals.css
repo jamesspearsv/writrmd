@@ -1,17 +1,18 @@
 @import 'open-props/style';
 
 :root {
-  --primary-color: var(--stone-1);
+  --primary-color: var(--stone-0);
   --secondary-color: var(--stone-10);
+  --secondary-color-lighter: var(--stone-5);
   --accent-color: var(--green-9);
   --normal-weight: var(--font-weight-4);
   --bold-weight: var(--font-weight-7);
+  --spacing-size: var(--size-4);
 }
 
 body {
   background-color: var(--primary-color);
   color: var(--secondary-color);
-  padding: var(--size-5);
   font-size: 18px;
   font-weight: var(--normal-weight);
   line-height: var(--font-lineheight-5);
