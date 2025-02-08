@@ -15,6 +15,7 @@ export interface Post extends matter.GrayMatterFile<string> {
 export interface Page extends matter.GrayMatterFile<string> {
   data: {
     title: string;
+    slug: string;
   };
   empty: string;
   isEmpty: boolean;

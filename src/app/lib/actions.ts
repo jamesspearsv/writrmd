@@ -50,7 +50,7 @@ export async function fetchPostBySlug(slug: string) {
  * @returns {string[]} - An array of strings representing page urls
  */
 export async function buildPagesIndex() {
-  const pages: string[] = [];
+  const pages: Page[] = [];
   let files: string[];
 
   try {
@@ -63,7 +63,8 @@ export async function buildPagesIndex() {
   files.forEach((file) => {
     // skip index page
     if (file !== 'index.md') {
-      const page = file.split('.')[0];
+      const page = matter.read(`${rootDir}/src/pages/${file}`) as Page;
+      page.data.slug = file.split('.')[0];
       pages.push(page);
     }
   });
