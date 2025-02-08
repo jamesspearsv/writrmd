@@ -11,3 +11,11 @@ export interface Post extends matter.GrayMatterFile<string> {
   empty: string; // Optional, because it might be an empty string or undefined
   isEmpty: boolean; // Boolean indicating if the front-matter is empty
 }
+
+export interface Page extends matter.GrayMatterFile<string> {
+  data: {
+    title: string;
+  };
+  empty: string;
+  isEmpty: boolean;
+}

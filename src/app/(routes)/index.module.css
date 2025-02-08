@@ -1,0 +1,15 @@
+.main {
+  text-align: center;
+  width: var(--size-content-3);
+  margin: auto;
+  margin-top: var(--size-10);
+}
+
+.main > * {
+  margin: var(--size-5) 0;
+}
+
+.main img {
+  margin: auto;
+  width: var(--size-10);
+}
