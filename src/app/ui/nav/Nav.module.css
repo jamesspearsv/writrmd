@@ -3,6 +3,7 @@
   border-bottom: var(--border-size-1) solid var(--secondary-color-lighter);
   position: sticky;
   top: 0;
+  background-color: var(--primary-color);
 }
 
 .list {

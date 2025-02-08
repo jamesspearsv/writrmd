@@ -1,4 +1,40 @@
-.article {
-  width: var(--size-content-3);
+.container {
+  width: calc(var(--size-content-3) * 1.5);
+  padding: var(--spacing-size-l) 0;
   margin: auto;
+  display: flex;
+  gap: var(--spacing-size);
+}
+
+.frontMatter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-size-xs);
+  width: var(--size-content-2);
+}
+
+.date {
+  font-size: var(--font-sizing-small);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-size-xs);
+
+  .tag {
+    font-size: var(--font-sizing-small);
+    padding: var(--size-1);
+  }
+}
+
+.article {
+  h1 {
+    margin-bottom: var(--spacing-size);
+  }
+
+  h2,
+  h3 {
+    margin: var(--spacing-size-s) 0;
+  }
 }

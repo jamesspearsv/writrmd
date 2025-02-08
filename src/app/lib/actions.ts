@@ -69,7 +69,6 @@ export async function buildPagesIndex() {
     }
   });
 
-  console.log(pages);
   return pages;
 }
 

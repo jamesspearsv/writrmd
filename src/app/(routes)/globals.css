@@ -7,15 +7,35 @@
   --accent-color: var(--green-9);
   --normal-weight: var(--font-weight-4);
   --bold-weight: var(--font-weight-7);
+  --font-sizing: 18px;
+  --font-sizing-small: var(--font-size-0);
+  --font-sizing-large: var(--font-size-3);
+  --spacing-size-xs: var(--size-2);
+  --spacing-size-s: var(--size-3);
   --spacing-size: var(--size-4);
+  --spacing-size-l: var(--size-7);
+  --spacing-size-xl: var(--size-10);
+  --border-radius: var(--radius-2);
 }
 
 body {
   background-color: var(--primary-color);
   color: var(--secondary-color);
-  font-size: 18px;
+  font-size: var(--font-sizing);
   font-weight: var(--normal-weight);
   line-height: var(--font-lineheight-5);
+}
+
+h1 {
+  font-size: var(--font-size-5);
+}
+
+h2 {
+  font-size: var(--font-size-4);
+}
+
+h3 {
+  font-size: var(--font-size-3);
 }
 
 a {
@@ -25,6 +45,14 @@ a {
     color: var(--blue-6);
     text-decoration: underline;
   }
+}
+
+button {
+  background-color: var(--accent-color);
+  border: none;
+  color: var(--primary-color);
+  padding: var(--spacing-size-xs);
+  border-radius: var(--border-radius);
 }
 
 /* CSS reset */
