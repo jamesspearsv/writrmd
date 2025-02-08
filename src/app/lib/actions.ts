@@ -6,7 +6,10 @@ import { Page, Post } from '@/src/app/lib/definitions';
 
 const rootDir = process.env.ROOT_PATH || process.cwd();
 
-// todo: add doc
+/**
+ * Asynchronously fetches all available posts from /src/posts
+ * @returns {Post[] | null} - Returns an array of posts or null unsuccessful
+ */
 export async function fetchPosts() {
   const posts: Post[] = [];
 
@@ -26,7 +29,11 @@ export async function fetchPosts() {
   }
 }
 
-// todo: add doc
+/**
+ * Asynchronously fetches a single post from a given slug
+ * @param {string} slug - Post slug derived from a route url
+ * @returns {Post | null} - Returns a single post or null if unsuccessful
+ */
 export async function fetchPostBySlug(slug: string) {
   const filename = slug + '.md';
   try {
@@ -38,7 +45,10 @@ export async function fetchPostBySlug(slug: string) {
   }
 }
 
-// todo: add doc
+/**
+ * Asynchronously build an index of stand alone pages
+ * @returns {string[]} - An array of strings representing page urls
+ */
 export async function buildPagesIndex() {
   const pages: string[] = [];
   let files: string[];
@@ -62,6 +72,11 @@ export async function buildPagesIndex() {
   return pages;
 }
 
+/**
+ *
+ * @param {string} page - Requested page url as a string
+ * @returns {Page | null} - Returns a single page or null if errors
+ */
 export async function fetchPage(page: string) {
   try {
     const filename = `${page}.md`;
