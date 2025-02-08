@@ -1,6 +1,6 @@
-import { fetchPostBySlug } from '@/app/lib/actions';
+import { fetchPostBySlug } from '@/src/app/lib/actions';
 import { notFound } from 'next/navigation';
-import Post from '@/app/ui/posts/Post';
+import Post from '@/src/app/ui/posts/Post';
 
 export default async function PostPage({
   params,

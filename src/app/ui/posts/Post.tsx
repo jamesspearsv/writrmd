@@ -1,4 +1,4 @@
-import { fetchPostBySlug } from '@/app/lib/actions';
+import { fetchPostBySlug } from '@/src/app/lib/actions';
 import Markdown from 'marked-react';
 import { notFound } from 'next/navigation';
 import styles from './Post.module.css';

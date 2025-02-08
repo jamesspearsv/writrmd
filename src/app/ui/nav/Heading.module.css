@@ -3,7 +3,6 @@
   text-decoration: none;
   font-weight: var(--bold-weight);
   font-size: var(--font-size-6);
-  font-family: var(--font-slab-serif);
 
   &:hover {
     text-decoration: none;

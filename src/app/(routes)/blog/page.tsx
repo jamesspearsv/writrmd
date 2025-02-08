@@ -1,4 +1,4 @@
-import PostList from '@/app/ui/posts/PostList';
+import PostList from '@/src/app/ui/posts/PostList';
 
 export default function BlogPage() {
   return (

@@ -1,5 +1,5 @@
-import { fetchPosts } from '@/app/lib/actions';
-import { Post } from '@/app/lib/definitions';
+import { fetchPosts } from '@/src/app/lib/actions';
+import { Post } from '@/src/app/lib/definitions';
 import Link from 'next/link';
 
 // todo: write post components

@@ -12,7 +12,6 @@ body {
   background-color: var(--primary-color);
   color: var(--secondary-color);
   padding: var(--size-5);
-  font-family: var(--font-neo-grotesque);
   font-size: 18px;
   font-weight: var(--normal-weight);
 }
