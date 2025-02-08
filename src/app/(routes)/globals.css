@@ -26,6 +26,10 @@ body {
   line-height: var(--font-lineheight-5);
 }
 
+main {
+  margin: var(--spacing-size);
+}
+
 h1 {
   font-size: var(--font-size-5);
 }

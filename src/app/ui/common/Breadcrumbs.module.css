@@ -1,0 +1,12 @@
+.breadcrumbs {
+  display: flex;
+}
+
+.breadcrumb:not(:last-child) {
+  margin-right: var(--spacing-size-xs);
+}
+
+.breadcrumb:not(:last-child)::after {
+  margin-left: var(--spacing-size-xs);
+  content: '/';
+}

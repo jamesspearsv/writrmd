@@ -13,10 +13,8 @@ export default async function Post(props: { slug: string }) {
   const date = new Date(file.data.date);
 
   return (
-    // todo: add breadcrumbs
-    <div className={styles.container}>
-      {/* todo: add post front matter */}
-      <div className={styles.frontMatter}>
+    <article className={styles.container}>
+      <aside className={styles.frontMatter}>
         <div>{file.data.author}</div>
         <div className={styles.date}>{date.toDateString()}</div>
         <div className={styles.tags}>
@@ -27,10 +25,10 @@ export default async function Post(props: { slug: string }) {
               </Button>
             ))}
         </div>
-      </div>
-      <article className={styles.article}>
+      </aside>
+      <section className={styles.post}>
         <Markdown value={file.content} />
-      </article>
-    </div>
+      </section>
+    </article>
   );
 }
