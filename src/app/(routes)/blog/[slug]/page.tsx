@@ -1,7 +1,6 @@
 import { fetchPostBySlug } from '@/src/app/lib/actions';
 import { notFound } from 'next/navigation';
 import Post from '@/src/app/ui/posts/Post';
-import { Silkscreen } from 'next/font/google';
 
 export default async function PostPage({
   params,
