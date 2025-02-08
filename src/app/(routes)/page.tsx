@@ -9,7 +9,9 @@ export default async function Home() {
 
   return (
     <main className={styles.main}>
-      <Markdown gfm={true}>{page.content}</Markdown>
+      <Markdown gfm={true} openLinksInNewTab={false}>
+        {page.content}
+      </Markdown>
     </main>
   );
 }

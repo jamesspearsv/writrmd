@@ -1,6 +1,6 @@
 .main {
   text-align: center;
-  width: var(--size-content-3);
+  width: var(--content-width);
   margin: auto;
   margin-top: var(--spacing-size-xl);
 }

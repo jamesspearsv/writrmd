@@ -1,0 +1,4 @@
+.section {
+  width: var(--content-width);
+  margin: auto;
+}

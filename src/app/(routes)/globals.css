@@ -3,31 +3,33 @@
 :root {
   --primary-color: var(--stone-0);
   --secondary-color: var(--stone-10);
-  --secondary-color-lighter: var(--stone-5);
+  --secondary-color-light: var(--stone-6);
+  /* --secondary-color-lighter: var(--stone-3); */
   --accent-color: var(--green-9);
   --normal-weight: var(--font-weight-4);
   --bold-weight: var(--font-weight-7);
-  --font-sizing: 18px;
   --font-sizing-small: var(--font-size-0);
   --font-sizing-large: var(--font-size-3);
+  --font-sizing-xl: var(--font-size-5);
   --spacing-size-xs: var(--size-2);
   --spacing-size-s: var(--size-3);
   --spacing-size: var(--size-4);
   --spacing-size-l: var(--size-7);
   --spacing-size-xl: var(--size-10);
   --border-radius: var(--radius-2);
+  --content-width: var(--size-content-3);
 }
 
 body {
   background-color: var(--primary-color);
   color: var(--secondary-color);
-  font-size: var(--font-sizing);
+  font-size: 18px;
   font-weight: var(--normal-weight);
   line-height: var(--font-lineheight-5);
 }
 
 main {
-  margin: var(--spacing-size);
+  margin: var(--spacing-size-l);
 }
 
 h1 {

@@ -1,0 +1,31 @@
+.article {
+  margin: var(--spacing-size-l) 0;
+  position: relative;
+}
+
+.article:not(:first-child)::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: calc(var(--spacing-size-s) * -1);
+  height: 1px;
+  width: 100%;
+  background-color: var(--secondary-color-light);
+}
+
+.title {
+  text-decoration: none;
+}
+
+.title:hover {
+  color: var(--secondary-color-light);
+  text-decoration: none;
+}
+
+.byline {
+  color: var(--secondary-color-light);
+
+  span {
+    margin: 0 var(--spacing-size-xs);
+  }
+}
