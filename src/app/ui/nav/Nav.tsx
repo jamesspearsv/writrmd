@@ -27,7 +27,7 @@ export default async function Heading() {
           pages.length > 0 &&
           pages.map((page, index) => (
             <li key={index}>
-              <Link href={page.data.slug}>{page.data.title}</Link>
+              <Link href={`/${page.data.slug}`}>{page.data.title}</Link>
             </li>
           ))}
       </ul>
