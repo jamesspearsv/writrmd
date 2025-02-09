@@ -94,7 +94,7 @@ docker pull ghcr.io/jamesspearsv/writrmd:latest
 pn docker:run
 ```
 
-You can build build the image from source if you have cloned the repo to you machine
+You can build the image from source if you have cloned the repo to you machine
 
 ```bash
 pn docker:build
@@ -105,7 +105,7 @@ This will build the `writrmd` image from the project's `Dockerfile` and start a 
 
 ### Adding new posts
 
-Publish new posts by adding markdown files to `/src/pages`
+Publish new posts by adding markdown files to `/src/posts`
 
 Filenames should not include additional `.` characters as this is reserved for parsing filenames and constructing url slugs
 
