@@ -1,3 +1,6 @@
+LABEL org.opencontainers.image.source=https://github.com/jamesspearsv/mdwritr
+LABEL org.opencontainers.image.description="MDwritr container image"
+
 # Use the official Node.js image from Docker Hub
 FROM node:18-alpine
 
@@ -9,6 +12,9 @@ WORKDIR ./mdwritr
 
 # Set root path environmental variable
 ENV ROOT_PATH='/mdwritr'
+
+# debugging step
+RUN echo 'Starting build....'
 
 # Copy the pnpm-lock.yaml and package.json to the container
 COPY package.json pnpm-lock.yaml ./
