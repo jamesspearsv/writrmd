@@ -1,6 +1,3 @@
-LABEL org.opencontainers.image.source=https://github.com/jamesspearsv/mdwritr
-LABEL org.opencontainers.image.description="MDwritr container image"
-
 # Use the official Node.js image from Docker Hub
 FROM node:18-alpine
 
