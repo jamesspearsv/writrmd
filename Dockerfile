@@ -5,10 +5,10 @@ FROM node:18-alpine
 RUN npm install -g pnpm
 
 # Set the working directory inside the container
-WORKDIR ./mdwritr
+WORKDIR ./writrmd
 
 # Set root path environmental variable
-ENV ROOT_PATH='/mdwritr'
+ENV ROOT_PATH='/writrmd'
 
 # debugging step
 RUN echo 'Starting build....'
