@@ -6,7 +6,11 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "docker:build": "docker build -t writrmd .",
+    "docker:run": "docker run -p 3000:3000 writrmd",
+    "docker:tag": "docker tag ghcr.io/jamesspearsv/writrmd:latest",
+    "docker:publish": "./push-image.sh"
   },
   "dependencies": {
     "@ariakit/react": "^0.4.15",
