@@ -4,7 +4,6 @@ import Link from 'next/link';
 import styles from './Breadcrumbs.module.css';
 
 export default function Breadcrumb({
-  className,
   title,
   index,
   path,

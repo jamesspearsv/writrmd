@@ -27,14 +27,3 @@
     padding: var(--size-1);
   }
 }
-
-.post {
-  h1 {
-    margin-bottom: var(--spacing-size);
-  }
-
-  h2,
-  h3 {
-    margin: var(--spacing-size-s) 0;
-  }
-}

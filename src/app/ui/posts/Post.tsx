@@ -26,7 +26,7 @@ export default async function Post(props: { slug: string }) {
             ))}
         </div>
       </aside>
-      <section className={styles.post}>
+      <section>
         <Markdown value={file.content} />
       </section>
     </article>

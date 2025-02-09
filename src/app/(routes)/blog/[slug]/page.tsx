@@ -1,5 +1,3 @@
-import { fetchPostBySlug } from '@/src/app/lib/actions';
-import { notFound } from 'next/navigation';
 import Post from '@/src/app/ui/posts/Post';
 import Breadcrumbs from '@/src/app/ui/common/Breadcrumbs';
 

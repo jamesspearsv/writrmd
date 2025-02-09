@@ -61,6 +61,17 @@ button {
   border-radius: var(--border-radius);
 }
 
+section {
+  h1 {
+    margin-bottom: var(--spacing-size);
+  }
+
+  h2,
+  h3 {
+    margin: var(--spacing-size-s) 0;
+  }
+}
+
 /* CSS reset */
 /* 1. Use a more-intuitive box-sizing model */
 *,

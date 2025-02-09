@@ -21,13 +21,17 @@ export default async function Heading() {
           </Link>
         </li>
         <li>
-          <Link href={'/blog'}>Blog</Link>
+          <Link className={styles.link} href={'/blog'}>
+            Blog
+          </Link>
         </li>
         {pages &&
           pages.length > 0 &&
           pages.map((page, index) => (
             <li key={index}>
-              <Link href={`/${page.data.slug}`}>{page.data.title}</Link>
+              <Link className={styles.link} href={`/${page.data.slug}`}>
+                {page.data.title}
+              </Link>
             </li>
           ))}
       </ul>

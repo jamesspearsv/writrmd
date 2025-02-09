@@ -10,8 +10,8 @@
   align-items: center;
   gap: var(--spacing-size);
 
-  a,
-  a:hover {
+  .link,
+  .link:hover {
     color: var(--secondary-color);
     text-decoration: none;
     cursor: pointer;
