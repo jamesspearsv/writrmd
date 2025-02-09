@@ -1,36 +1,160 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Writr.md
 
-## Getting Started
+![Writr.mg logo icon](./public/writrmd-logo.svg)
 
-First, run the development server:
+Self-hosted markdown blogging powered by Next.js and Docker
+
+## Table of Contents
+
+- [Writr.md](#writrmd)
+  - [Table of Contents](#table-of-contents)
+  - [Description](#description)
+    - [Technologies](#technologies)
+    - [Features](#features)
+    - [Feature Roadmap](#feature-roadmap)
+  - [Usage](#usage)
+    - [Running locally](#running-locally)
+    - [Running with Docker](#running-with-docker)
+    - [Adding new posts](#adding-new-posts)
+    - [Adding new pages](#adding-new-pages)
+
+## Description
+
+Writr.md is simple markdown blogging platform built on Next.js and using gray-matter, marked-react, open-props, and aria-kit. The project includes a basic Docker deployment method plus the option to fork and host your own version on Vercel and other platforms.
+
+### Technologies
+
+- [Next.js](https://nextjs.org/) - React framework for building high-quality web applications
+- [Docker](https://www.docker.com/) - Containerized deployment tool
+- [gray-matter](https://github.com/jonschlinkert/gray-matter) - Smarter YAML front-matter parser
+- [react-marked](https://github.com/sibiraj-s/marked-react) - React library for rendering markdown as React components using marked
+- [open-props](https://open-props.style/) - CSS design tokens for consistent design and styles
+- [ariakit](https://ariakit.org/) - Open-source component library with unstyles, primitive components and a focus on web accessibility
+- [clsx](https://github.com/lukeed/clsx) - A tiny (239B) utility for constructing `className` strings conditionally
+
+### Features
+
+- Dynamic post rendering and routing
+- Post metadata parsing
+- Post tagging
+- Customizable standalone site pages
+- Basic Docker deployment
+
+### Feature Roadmap
+
+The following features are planned and will be added in no particular order
+
+- [ ] Filtering posts by included tags
+- [ ] SEO optimization based on site and post metadata
+- [ ] Dark mode and other theming options
+- [ ] MDX support
+- [ ] RSS feed generation
+- [ ] Commenting system
+- [ ] Admin panel to simplify drafting and publishing blog posts
+- [ ] Improved Docker deployment and Docker Compose configuration
+
+## Usage
+
+> Writr.md uses pnpm for a package manager
+> You should install pnpm globally before working with this project by running `npm install -g pnpm`
+>
+> Visit the [pnpm docs](https://pnpm.io/) for more information
+
+With pnpm installed you can clone this repo to your local machine
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/jamesspearsv/writrmd
+cd writrmd
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Running locally
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Run Writr.md locally using the Next.js dev server or production builds
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Dev sever:
 
-## Learn More
+```bash
+pnpm dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Production build:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+pnpm build
+pnpm start
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Running with Docker
 
-## Deploy on Vercel
+Run Writr.md using Docker by pulling and running the latest container image
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+docker pull ghcr.io/jamesspearsv/writrmd:latest
+pn docker:run
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+You can build build the image from source if you have cloned the repo to you machine
+
+```bash
+pn docker:build
+pn docker:run
+```
+
+This will build the `writrmd` image from the project's `Dockerfile` and start a container running on `localhost:3000`
+
+### Adding new posts
+
+Publish new posts by adding markdown files to `/src/pages`
+
+Filenames should not include additional `.` characters as this is reserved for parsing filenames and constructing url slugs
+
+All posts should have YAML front-matter. Currently supported post front-matter tags include:
+
+- `title` (required): Post title for page metadata and previews
+- `date` (required): Publication date entered in YYYY-MM-DD format
+- `author` (required): Post author
+- `tags` (optional): An array of tag strings
+- `excerpt` (optional): A brief excerpt from the post content used for previews
+
+Example post with required and optional front-matter tags
+
+```markdown
+---
+title: 'Introduction to Markdown'
+date: '2025-02-06'
+author: 'John Doe'
+tags: ['Markdown', 'Beginner', 'Writing']
+excerpt: 'What is markdown and why should you use it?'
+---
+
+# Introduction to Markdown
+
+Markdown is a lightweight markup language with plain-text formatting syntax. It was created by John Gruber in 2004 with the goal of making it as readable as possible while still allowing it to be converted to valid HTML.
+
+## Why Use Markdown?
+
+Markdown is great for writing blog posts, documentation, or any content that needs to be converted into HTML. Its syntax is simple and intuitive, which makes it a favorite among developers, writers, and content creators alike.
+```
+
+### Adding new pages
+
+Add new standalone pages by adding markdown files to `/src/pages`
+
+Filenames should not include additional `.` characters as this is reserved for parsing filenames and constructing url slugs
+
+All pages should include YAML front-matter. Currently supported page front-matter include:
+
+- `title` (required): Page title used for link labels
+
+Example page with front-matter
+
+```markdown
+---
+title: About
+---
+
+# About me
+
+This is an example about me page.
+```
