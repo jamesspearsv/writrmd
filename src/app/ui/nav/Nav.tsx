@@ -14,7 +14,7 @@ export default async function Heading() {
           <Link href={'/'}>
             <Image
               src="/icon.png"
-              alt="MDwritr logo"
+              alt="Writr.md logo"
               width={logoSize}
               height={logoSize}
             />

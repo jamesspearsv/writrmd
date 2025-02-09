@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import Nav from '../ui/nav/Nav';
 
 export const metadata: Metadata = {
-  title: 'MDwritr',
+  title: 'Writr.md',
   icons: '/icon.png',
   description: 'Markdown blogging platform built with Nextjs',
 };
