@@ -3,6 +3,7 @@ version: '3.3'
 services:
   writrmd:
     image: ghcr.io/jamesspearsv/writrmd:latest
+    command: sh -c "pnpm container:rebuild"
     restart: unless-stopped
     networks:
       - writrmd_network
