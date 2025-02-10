@@ -4,7 +4,8 @@ import * as fs from 'node:fs/promises';
 import * as matter from 'gray-matter';
 import { Page, Post } from '@/src/app/lib/definitions';
 
-const rootDir = process.env.ROOT_PATH || process.cwd();
+// Absolute path to project dir from filesystem root
+const rootDir = process.env.ROOT_PATH;
 
 /**
  * Asynchronously fetches all available posts from /src/posts

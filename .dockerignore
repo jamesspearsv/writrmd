@@ -1,0 +1,12 @@
+docker
+node_modules
+.git
+.cache
+
+push-image.sh
+Dockerfile
+**/*.md
+.env*
+.vscode
+.next
+.dockerignore
