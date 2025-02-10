@@ -1,0 +1,39 @@
+version: '3.3'
+
+services:
+  writrmd:
+    image: writrmd:latest
+    #command: sh -c "pnpm container:rebuild"
+    restart: unless-stopped
+    networks:
+      - writrmd_network
+    expose:
+      - '3000' # Expose to Caddy but not to the host machine
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./docker-dev/pages:/writrmd/src/pages
+      - ./docker-dev/posts:/writrmd/src/posts
+
+  caddy:
+    image: caddy:latest
+    restart: unless-stopped
+    ports:
+      - '80:80' # Expose port 80 to the host machine
+      - '443:443' # Expose port 443 (optional, for HTTPS)
+    volumes:
+      - ./docker-dev/Caddyfile:/etc/caddy/Caddyfile # Mount the Caddyfile
+      - caddy_data:/data # Persist Caddy data
+      - caddy_config:/config # Persist Caddy config
+    networks:
+      - writrmd_network
+    depends_on:
+      - writrmd # Ensure the app is up before Caddy starts
+
+volumes:
+  caddy_data:
+  caddy_config:
+
+networks:
+  writrmd_network:
+    driver: bridge
