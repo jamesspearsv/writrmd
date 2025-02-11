@@ -26,13 +26,10 @@
   --content-width: var(--size-content-3);
 }
 
-/* dark color scheme properties */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --primary-color: var(--dark);
-    --secondary-color: var(--light);
-    --secondary-color-light: var(--darker-light);
-  }
+html[data-theme='dark'] {
+  --primary-color: var(--dark);
+  --secondary-color: var(--light);
+  --secondary-color-light: var(--darker-light);
 }
 
 body {
