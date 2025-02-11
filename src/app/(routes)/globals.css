@@ -43,6 +43,14 @@ body {
   line-height: var(--font-lineheight-5);
 }
 
+nav {
+  padding: var(--spacing-size);
+  border-bottom: var(--border-size-1) solid var(--secondary-color-light);
+  background-color: var(--primary-color);
+  display: flex;
+  justify-content: space-between;
+}
+
 main {
   margin: var(--spacing-size-l);
 }
@@ -74,6 +82,7 @@ button {
   color: var(--light);
   padding: var(--spacing-size-s);
   border-radius: var(--border-radius);
+  cursor: pointer;
 }
 
 section {

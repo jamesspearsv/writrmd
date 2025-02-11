@@ -1,9 +1,3 @@
-.nav {
-  padding: var(--spacing-size);
-  border-bottom: var(--border-size-1) solid var(--secondary-color-light);
-  background-color: var(--primary-color);
-}
-
 .list {
   display: flex;
   list-style: none;
