@@ -10,3 +10,6 @@ Dockerfile
 .vscode
 .next
 .dockerignore
+*.DS_Store
+**/.DS_Store
+.DS_Store

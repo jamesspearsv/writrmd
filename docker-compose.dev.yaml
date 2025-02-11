@@ -2,8 +2,7 @@ version: '3.3'
 
 services:
   writrmd:
-    image: writrmd:latest
-    #command: sh -c "pnpm container:rebuild"
+    image: writrmd:dev
     restart: unless-stopped
     networks:
       - writrmd_network

@@ -6,6 +6,7 @@ import { Page, Post } from '@/src/app/lib/definitions';
 
 // Absolute path to project dir from filesystem root
 const rootDir = process.env.ROOT_PATH;
+const pattern = /^[\w-]+\.md$/;
 
 /**
  * Asynchronously fetches all available posts from /src/posts
@@ -18,9 +19,11 @@ export async function fetchPosts() {
     const files = await fs.readdir(`${rootDir}/src/posts`);
 
     for (const file of files) {
-      const post = matter.read(`${rootDir}/src/posts/${file}`) as Post;
-      post.data.slug = file.split('.')[0];
-      posts.push(post);
+      if (file.match(pattern)) {
+        const post = matter.read(`${rootDir}/src/posts/${file}`) as Post;
+        post.data.slug = file.split('.')[0];
+        posts.push(post);
+      }
     }
 
     return posts;
@@ -63,7 +66,7 @@ export async function buildPagesIndex() {
 
   files.forEach((file) => {
     // skip index page
-    if (file !== 'index.md') {
+    if (file !== 'index.md' && file.match(pattern)) {
       const page = matter.read(`${rootDir}/src/pages/${file}`) as Page;
       page.data.slug = file.split('.')[0];
       pages.push(page);

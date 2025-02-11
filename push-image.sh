@@ -8,8 +8,8 @@
 
 # build and tag images
 echo "Starting build process..."
-docker build -t writrmd .
-docker tag writrmd ghcr.io/jamesspearsv/writrmd:latest
+docker build -t ghcr.io/jamesspearsv/writrmd:latest .
+#docker tag writrmd ghcr.io/jamesspearsv/writrmd:latest
 
 # login to github container registry
 echo "Logging into ghcr.io..."

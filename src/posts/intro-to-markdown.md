@@ -1,9 +1,12 @@
 ---
-title: 'Introduction to Markdown'
+title: Introduction to Markdown
 date: '2025-02-06'
-author: 'John Doe'
-tags: ['Markdown', 'Beginner', 'Writing']
-excerpt: 'What is markdown and why should you use it?'
+author: John Doe
+tags:
+  - Markdown
+  - Beginner
+  - Writing
+excerpt: What is markdown and why should you use it?
 ---
 
 # Introduction to Markdown

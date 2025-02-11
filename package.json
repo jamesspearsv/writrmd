@@ -7,9 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "docker:build": "docker build -t writrmd .",
-    "docker:run": "docker run -p 3000:3000 writrmd",
-    "docker:tag": "docker tag ghcr.io/jamesspearsv/writrmd:latest",
+    "docker:build": "docker build -t writrmd:dev .",
+    "docker:run": "docker run -p 3000:3000 writrmd:dev",
+    "docker:compose": "docker compose -f docker-compose.dev.yaml up",
     "docker:publish": "./push-image.sh",
     "container:start": "pnpm start -H 0.0.0.0 -p 3000",
     "container:rebuild": "pnpm install && pnpm build && pnpm prune --prod && pnpm container:start"

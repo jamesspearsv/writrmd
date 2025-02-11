@@ -3,6 +3,8 @@ import { inter } from '@/src/app/ui/fonts';
 import type { Metadata } from 'next';
 import Nav from '../ui/nav/Nav';
 
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   title: 'Writr.md',
   icons: '/icon.png',

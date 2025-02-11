@@ -11,7 +11,6 @@ export default function Breadcrumbs() {
   path?.splice(0, 1);
   console.log(path);
 
-  // todo: parse and style pathname
   return (
     <section className={styles.breadcrumbs}>
       {path &&
