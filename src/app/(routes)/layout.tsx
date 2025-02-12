@@ -9,7 +9,6 @@ import ThemePicker from '@/src/app/ui/themes/ThemePicker';
 # FORCE REVALIDATION ON EACH REQUEST FOR ALL PAGES
 # This ensures new files from the posts and pages dirs
 # are read without needing to rebuild the app or image 
-# hack: dynamic routes should not need this. Look into setting revalidation for specific static routes like `/` and `/blog`
 */
 export const revalidate = 0;
 

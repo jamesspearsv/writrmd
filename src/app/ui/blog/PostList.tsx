@@ -1,5 +1,5 @@
 import { Post } from '@/src/app/lib/definitions';
-import PostPreview from '@/src/app/ui/posts/PostPreview';
+import PostPreview from '@/src/app/ui/blog/PostPreview';
 import styles from './PostList.module.css';
 
 export default async function PostList({ posts }: { posts: Post[] }) {

@@ -1,4 +1,4 @@
-import Post from '@/src/app/ui/posts/Post';
+import Post from '@/src/app/ui/blog/Post';
 import Breadcrumbs from '@/src/app/ui/common/Breadcrumbs';
 
 export default async function PostPage({

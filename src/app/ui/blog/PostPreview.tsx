@@ -3,6 +3,8 @@ import styles from './PostPreview.module.css';
 import Link from 'next/link';
 
 export default function PostPreview({ post }: { post: Post }) {
+  // bug: post data is rendered as one day before date string
+  console.log(post.data.date);
   return (
     <article className={styles.article}>
       <Link href={`/blog/${post.data.slug}`} className={styles.title}>

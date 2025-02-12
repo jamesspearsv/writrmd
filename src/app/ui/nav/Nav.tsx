@@ -3,7 +3,7 @@ import styles from './Nav.module.css';
 import Image from 'next/image';
 import { buildPagesIndex } from '@/src/app/lib/actions';
 
-export default async function Heading() {
+export default async function Nav() {
   const logoSize = 50;
   const pages = await buildPagesIndex();
 
