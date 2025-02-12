@@ -1,6 +1,10 @@
 # Writr.md
 
-![Writr.mg logo icon](./public/writrmd-logo.svg)
+<p aligh="center">
+  <div>
+    <img src='./public/writrmd-logo.svg' alt='Writr.md logo' width='180' heigth='180'/>
+  </div>
+</p>
 
 Self-hosted markdown blogging powered by Next.js and Docker
 
@@ -44,9 +48,10 @@ Writr.md is simple markdown blogging platform built on Next.js and using gray-ma
 
 The following features are planned and will be added in no particular order
 
+- [x] Dark mode
 - [ ] Filtering posts by included tags
 - [ ] SEO optimization based on site and post metadata
-- [ ] Dark mode and other theming options
+- [ ] Customer theme options
 - [ ] MDX support
 - [ ] RSS feed generation
 - [ ] Commenting system
