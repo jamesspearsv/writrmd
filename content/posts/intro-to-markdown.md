@@ -1,6 +1,6 @@
 ---
 title: Introduction to Markdown
-date: '2025-02-06'
+date: '2025-02-04'
 author: John Doe
 tags:
   - Markdown

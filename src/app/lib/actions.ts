@@ -12,7 +12,7 @@ const pattern = /^[\w-]+\.md$/;
  * Asynchronously fetches all available posts from /src/posts
  * @returns {Post[] | null} - Returns an array of posts or null unsuccessful
  */
-export async function fetchPosts() {
+export async function fetchPosts(tag?: string) {
   const posts: Post[] = [];
 
   try {
@@ -25,12 +25,25 @@ export async function fetchPosts() {
         posts.push(post);
       }
     }
-
-    return posts;
   } catch (error) {
     console.error(error);
     return null;
   }
+  posts.sort(
+    (a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime()
+  );
+
+  if (tag) {
+    // todo: finish tag filtering
+    const filteredPosts = posts.filter((post) => {
+      const tags = post.data.tags;
+      tags?.forEach((tag) => tag.toLowerCase());
+      return tags?.includes(tag);
+    });
+    return filteredPosts;
+  }
+
+  return posts;
 }
 
 /**
