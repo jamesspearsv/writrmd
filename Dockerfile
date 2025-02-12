@@ -1,5 +1,5 @@
 # Use the official Node.js image from Docker Hub
-FROM node:18-alpine
+FROM node:22-alpine
 
 # Install pnpm globally
 RUN npm install -g pnpm
@@ -36,5 +36,4 @@ RUN pnpm prune --prod
 EXPOSE 3000
 
 # Start the Next.js application
-# CMD ["pnpm", "start"]
 CMD ["pnpm", "start", "-H", "0.0.0.0", "-p", "3000"]
