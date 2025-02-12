@@ -2,7 +2,9 @@ docker
 node_modules
 .git
 .cache
+docker*
 
+.gitignore
 push-image.sh
 Dockerfile
 **/*.md
@@ -13,3 +15,4 @@ Dockerfile
 *.DS_Store
 **/.DS_Store
 .DS_Store
+docker-compose.*

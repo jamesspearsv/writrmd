@@ -16,11 +16,11 @@ export async function fetchPosts() {
   const posts: Post[] = [];
 
   try {
-    const files = await fs.readdir(`${rootDir}/src/posts`);
+    const files = await fs.readdir(`${rootDir}/content/posts`);
 
     for (const file of files) {
       if (file.match(pattern)) {
-        const post = matter.read(`${rootDir}/src/posts/${file}`) as Post;
+        const post = matter.read(`${rootDir}/content/posts/${file}`) as Post;
         post.data.slug = file.split('.')[0];
         posts.push(post);
       }
@@ -41,7 +41,7 @@ export async function fetchPosts() {
 export async function fetchPostBySlug(slug: string) {
   const filename = slug + '.md';
   try {
-    const file = matter.read(`${rootDir}/src/posts/${filename}`) as Post;
+    const file = matter.read(`${rootDir}/content/posts/${filename}`) as Post;
     return file;
   } catch (error) {
     console.error(error);
@@ -58,7 +58,7 @@ export async function buildPagesIndex() {
   let files: string[];
 
   try {
-    files = await fs.readdir(`${rootDir}/src/pages`);
+    files = await fs.readdir(`${rootDir}/content/pages`);
   } catch (error) {
     console.error(error);
     return null;
@@ -67,7 +67,7 @@ export async function buildPagesIndex() {
   files.forEach((file) => {
     // skip index page
     if (file !== 'index.md' && file.match(pattern)) {
-      const page = matter.read(`${rootDir}/src/pages/${file}`) as Page;
+      const page = matter.read(`${rootDir}/content/pages/${file}`) as Page;
       page.data.slug = file.split('.')[0];
       pages.push(page);
     }
@@ -84,7 +84,7 @@ export async function buildPagesIndex() {
 export async function fetchPage(page: string) {
   try {
     const filename = `${page}.md`;
-    const file = matter.read(`${rootDir}/src/pages/${filename}`) as Page;
+    const file = matter.read(`${rootDir}/content/pages/${filename}`) as Page;
     return file;
   } catch (error) {
     console.error(error);

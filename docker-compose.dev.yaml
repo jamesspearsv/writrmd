@@ -11,8 +11,8 @@ services:
     environment:
       - NODE_ENV=production
     volumes:
-      - ./docker-dev/pages:/writrmd/src/pages
-      - ./docker-dev/posts:/writrmd/src/posts
+      - ./docker-dev/pages:/writrmd/content/pages
+      - ./docker-dev/posts:/writrmd/content/posts
 
   caddy:
     image: caddy:latest
