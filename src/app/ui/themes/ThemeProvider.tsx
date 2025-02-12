@@ -53,7 +53,8 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
       {/* Ensure theme is read when content is rendered from server */}
       <Script id="load-theme" strategy={'beforeInteractive'}>
         {`(() => {
-          if (!localStorage.getItem('writrmd-theme')) {
+          const theme = localStorage.getItem('writrmd-theme')
+          if (!theme) {
             localStorage.setItem('writrmd-theme', 'light')
           }
           const theme = localStorage.getItem('writrmd-theme')
