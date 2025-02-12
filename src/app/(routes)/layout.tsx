@@ -1,9 +1,9 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { inter } from '@/src/app/ui/fonts';
-import ThemeProvider from '@/src/app/ui/ThemeProvider';
+import ThemeProvider from '@/src/app/ui/themes/ThemeProvider';
 import Nav from '../ui/nav/Nav';
-import ThemePicker from '@/src/app/ui/nav/ThemePicker';
+import ThemePicker from '@/src/app/ui/themes/ThemePicker';
 
 export const revalidate = 0;
 

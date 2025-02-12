@@ -22,7 +22,8 @@
     "next": "15.1.6",
     "open-props": "^1.7.12",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-feather": "^2.0.10"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

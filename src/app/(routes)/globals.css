@@ -41,11 +41,12 @@ body {
 }
 
 nav {
-  padding: var(--spacing-size);
+  padding: var(--spacing-size) var(--spacing-size-l);
   border-bottom: var(--border-size-1) solid var(--secondary-color-light);
   background-color: var(--primary-color);
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 main {
@@ -77,7 +78,6 @@ button {
   background-color: var(--accent-color);
   border: none;
   color: var(--light);
-  padding: var(--spacing-size-s);
   border-radius: var(--border-radius);
   cursor: pointer;
 }
