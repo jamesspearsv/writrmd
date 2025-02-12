@@ -1,10 +1,16 @@
 @import 'open-props/style';
 
 :root {
-  --primary-color: var(--stone-0);
-  --secondary-color: var(--stone-10);
-  --secondary-color-light: var(--stone-6);
-  /* --secondary-color-lighter: var(--stone-3); */
+  /* open-props design tokens */
+  --dark: var(--gray-9);
+  --lighter-dark: var(--gray-7);
+  --light: var(--stone-1);
+  --darker-light: var(--stone-4);
+
+  /* app properties */
+  --primary-color: var(--light);
+  --secondary-color: var(--dark);
+  --secondary-color-light: var(--lighter-dark);
   --accent-color: var(--green-9);
   --normal-weight: var(--font-weight-4);
   --bold-weight: var(--font-weight-7);
@@ -20,12 +26,27 @@
   --content-width: var(--size-content-3);
 }
 
+html[data-theme='dark'] {
+  --primary-color: var(--dark);
+  --secondary-color: var(--light);
+  --secondary-color-light: var(--darker-light);
+}
+
 body {
   background-color: var(--primary-color);
   color: var(--secondary-color);
   font-size: 18px;
   font-weight: var(--normal-weight);
   line-height: var(--font-lineheight-5);
+}
+
+nav {
+  padding: var(--spacing-size) var(--spacing-size-l);
+  border-bottom: var(--border-size-1) solid var(--secondary-color-light);
+  background-color: var(--primary-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 main {
@@ -56,9 +77,9 @@ a {
 button {
   background-color: var(--accent-color);
   border: none;
-  color: var(--primary-color);
-  padding: var(--spacing-size-xs);
+  color: var(--light);
   border-radius: var(--border-radius);
+  cursor: pointer;
 }
 
 section {

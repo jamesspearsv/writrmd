@@ -9,7 +9,6 @@ export default function Breadcrumbs() {
   const pathname = usePathname();
   const path = pathname?.split('/');
   path?.splice(0, 1);
-  console.log(path);
 
   return (
     <section className={styles.breadcrumbs}>

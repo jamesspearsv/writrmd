@@ -11,8 +11,8 @@ services:
     environment:
       - NODE_ENV=production
     volumes:
-      - ./pages:/writrmd/src/pages
-      - ./posts:/writrmd/src/posts
+      - ./pages:/writrmd/content/pages
+      - ./posts:/writrmd/content/posts
 
   caddy:
     image: caddy:latest
