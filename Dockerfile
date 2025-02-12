@@ -59,12 +59,3 @@ ENV PORT=3000
 # https://nextjs.org/docs/pages/api-reference/config/next-config-js/output
 ENV HOSTNAME="0.0.0.0"
 CMD ["node", "server.js"]
-
-
-
-
-# # Expose the port that Next.js will run on
-# EXPOSE 3000
-
-# # Start the Next.js application
-# CMD ["pnpm", "start", "-H", "0.0.0.0", "-p", "3000"]

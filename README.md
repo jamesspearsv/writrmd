@@ -1,12 +1,11 @@
 # Writr.md
 
-<p aligh="center">
-  <div>
-    <img src='./public/writrmd-logo.svg' alt='Writr.md logo' width='180' heigth='180'/>
-  </div>
-</p>
-
-Self-hosted markdown blogging powered by Next.js and Docker
+<div align="center" style="display:flex;flex-direction:column;justify-content:center;align-items:center;">
+    <img src='./public/writrmd-logo.svg' alt='Writr.md logo' width='180' height='180'/>
+    </br>
+    <p>Self-hosted markdown blogging powered by Next.js and Docker
+    </p>
+</div>
 
 ## Table of Contents
 
@@ -96,14 +95,14 @@ Run Writr.md using Docker by pulling and running the latest container image
 
 ```bash
 docker pull ghcr.io/jamesspearsv/writrmd:latest
-pn docker:run
+docker compose up -d
 ```
 
 You can build the image from source if you have cloned the repo to you machine
 
 ```bash
 pn docker:build
-pn docker:run
+pn docker:compose
 ```
 
 This will build the `writrmd` image from the project's `Dockerfile` and start a container running on `localhost:3000`
