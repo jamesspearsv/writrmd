@@ -42,5 +42,8 @@ next-env.d.ts
 
 docker-dev
 
-/content/pages/*.md
-/content/posts/*.md
+# exclude all but default pages and posts
+/content/**/*.md
+!/content/pages/index.md
+!content/posts/intro-to-markdown.md
+!/content/posts/benefits-of-writing-markdown.md
