@@ -1,5 +1,23 @@
 .breadcrumbs {
   display: flex;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  padding: var(--spacing-size-l);
+  padding-top: 0;
+  transition: padding-top 250ms ease-in-out;
+}
+
+.breadcrumbs.atTop {
+  padding-top: var(--spacing-size-l);
+}
+
+html[data-theme='light'] .breadcrumbs {
+  background-color: var(--light);
+}
+
+html[data-theme='dark'] .breadcrumbs {
+  background-color: var(--dark);
 }
 
 .breadcrumb:not(:last-child) {

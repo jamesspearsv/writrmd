@@ -1,5 +1,6 @@
 import Post from '@/src/app/ui/blog/Post';
 import Breadcrumbs from '@/src/app/ui/common/Breadcrumbs';
+import ScrollBack from '@/src/app/ui/common/ScrollBack';
 
 export default async function PostPage({
   params,
@@ -9,9 +10,12 @@ export default async function PostPage({
   const slug = (await params).slug;
 
   return (
-    <main>
-      <Breadcrumbs />
-      <Post slug={slug} />
-    </main>
+    <>
+      <main>
+        <Breadcrumbs />
+        <Post slug={slug} />
+      </main>
+      <ScrollBack />
+    </>
   );
 }
