@@ -3,6 +3,7 @@ import Markdown from 'marked-react';
 import { notFound } from 'next/navigation';
 import styles from './Post.module.css';
 import { Button } from '@ariakit/react';
+import Link from 'next/link';
 
 export default async function Post(props: { slug: string }) {
   const file = await fetchPostBySlug(props.slug);
@@ -20,9 +21,9 @@ export default async function Post(props: { slug: string }) {
         <div className={styles.tags}>
           {file.data.tags &&
             file.data.tags.map((tag) => (
-              <Button key={tag} className={styles.tag}>
-                {tag}
-              </Button>
+              <Link key={tag} href={`/blog?tag=${tag}`}>
+                <Button className={styles.tag}>{tag}</Button>
+              </Link>
             ))}
         </div>
       </aside>

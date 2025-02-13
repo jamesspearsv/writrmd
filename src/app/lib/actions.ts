@@ -9,7 +9,8 @@ const rootDir = process.env.ROOT_PATH;
 const pattern = /^[\w-]+\.md$/;
 
 /**
- * Asynchronously fetches all available posts from /src/posts
+ * Asynchronously fetches all available posts
+ * @param {string} tag - Tag includes in query params for /blog route
  * @returns {Post[] | null} - Returns an array of posts or null unsuccessful
  */
 export async function fetchPosts(tag?: string) {
@@ -33,12 +34,17 @@ export async function fetchPosts(tag?: string) {
     (a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime()
   );
 
+  // filter by tag if given
   if (tag) {
-    // todo: finish tag filtering
     const filteredPosts = posts.filter((post) => {
+      let match = false;
       const tags = post.data.tags;
-      tags?.forEach((tag) => tag.toLowerCase());
-      return tags?.includes(tag);
+      if (tags) {
+        tags.forEach((t) => {
+          if (t.toLocaleLowerCase() === tag.toLocaleLowerCase()) match = true;
+        });
+      }
+      return match;
     });
     return filteredPosts;
   }

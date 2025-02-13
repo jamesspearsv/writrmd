@@ -43,7 +43,7 @@ Writr.md is markdown blogging platform built on Next.js and using gray-matter, m
 - File based routing
 - Default dark and light mode themes
 - YAML front-matter parsing
-- Post tagging
+- Post tagging and filtering
 - Customizable standalone site pages
 - Basic Docker deployment using Docker Compose
 
@@ -52,8 +52,8 @@ Writr.md is markdown blogging platform built on Next.js and using gray-matter, m
 The following features are planned and will be added in no particular order
 
 - [x] Dark mode
+- [x] Filtering posts by tags
 - [ ] Improved Docker deployment and Docker Compose configuration
-- [ ] Filtering posts by tags
 - [ ] SEO optimization based on site and post metadata
 - [ ] Customer theme options
 - [ ] MDX support

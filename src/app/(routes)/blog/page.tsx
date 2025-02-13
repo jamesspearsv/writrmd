@@ -9,13 +9,15 @@ export default async function BlogPage({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const tag = (await searchParams).tag;
+  let tag = (await searchParams).tag;
+  if (typeof tag === 'object') tag = tag[0]; // select first tag if an array
   const posts = await fetchPosts(tag);
 
   if (!posts) return <PlaceholderPage />;
 
   return (
     <main>
+      {/* todo: add filtering options to blog page */}
       <PostList posts={posts} />
     </main>
   );
