@@ -6,13 +6,13 @@ import { buildPagesIndex } from '@/src/app/lib/actions';
 export default async function HNav({
   children,
 }: {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }) {
   const logoSize = 50;
   const pages = await buildPagesIndex();
 
   return (
-    <nav>
+    <nav className={styles.nav}>
       <ul className={styles.list}>
         <li>
           <Link href={'/'}>

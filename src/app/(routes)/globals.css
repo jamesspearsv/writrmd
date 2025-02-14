@@ -24,6 +24,9 @@
   --spacing-size-xl: var(--size-10);
   --border-radius: var(--radius-2);
   --content-width: var(--size-content-3);
+  --content-width-xs: var(--size-content-1);
+  --content-width-s: var(--size-content-2);
+  --sidebar-width: var(--size-13);
 }
 
 html[data-theme='dark'] {
@@ -38,15 +41,6 @@ body {
   font-size: 18px;
   font-weight: var(--normal-weight);
   line-height: var(--font-lineheight-5);
-}
-
-nav {
-  padding: var(--spacing-size) var(--spacing-size-l);
-  border-bottom: var(--border-size-1) solid var(--secondary-color-light);
-  background-color: var(--primary-color);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 main {
@@ -161,4 +155,11 @@ h6 {
 #root,
 #__next {
   isolation: isolate;
+}
+
+/* 
+  10. Remove ul default padding
+ */
+ul {
+  padding: 0;
 }

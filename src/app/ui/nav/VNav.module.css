@@ -1,0 +1,31 @@
+.nav {
+  padding: var(--spacing-size-l);
+  padding-right: var(--spacing-size-xl);
+  height: 100dvh;
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: var(--border-size-1) solid var(--secondary-color-light);
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-size);
+  align-items: start;
+  justify-content: center;
+  text-align: left;
+}
+
+.list li {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.actions {
+  margin-top: 100%;
+}

@@ -1,3 +1,12 @@
+.nav {
+  padding: var(--spacing-size) var(--spacing-size-l);
+  border-bottom: var(--border-size-1) solid var(--secondary-color-light);
+  background-color: var(--primary-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .list {
   display: flex;
   list-style: none;
