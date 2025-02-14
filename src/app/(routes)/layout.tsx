@@ -13,7 +13,10 @@ import ThemePicker from '@/src/app/ui/themes/ThemePicker';
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  title: 'Writr.md',
+  title: {
+    default: 'Writr.md',
+    template: 'Writr.md | %s',
+  },
   icons: '/icon.png',
   description: 'Markdown blogging platform built with Nextjs',
 };
