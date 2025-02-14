@@ -49,17 +49,17 @@ Writr.md is markdown blogging platform built on Next.js and using gray-matter, m
 
 ### Feature Roadmap
 
-The following features are planned and will be added in no particular order
+The following features are planned and may or may not be added in no particular order
 
 - [x] Dark mode
 - [x] Filtering posts by tags
-- [ ] Improved Docker deployment and Docker Compose configuration
+- [x] Improved Docker deployment and Docker Compose configuration
 - [ ] SEO optimization based on site and post metadata
-- [ ] Customer theme options
+- [ ] Admin panel to simplify drafting and publishing blog posts
 - [ ] MDX support
+- [ ] Custom theme options
 - [ ] RSS feed generation
 - [ ] Commenting system
-- [ ] Admin panel to simplify drafting and publishing blog posts
 - [ ] Add navigation groups and subpages
 
 ## Usage
@@ -67,7 +67,7 @@ The following features are planned and will be added in no particular order
 > Writr.md uses pnpm for a package manager
 > You should install pnpm globally before working with this project by running `npm install -g pnpm`. Visit the [pnpm docs](https://pnpm.io/) for more information
 
-With pnpm installed you can clone this repo to your local machine
+With pnpm installed you can clone this repo to your local machine and install the project dependencies
 
 ```bash
 git clone https://github.com/jamesspearsv/writrmd
@@ -94,7 +94,9 @@ pnpm start
 
 ### Running with Docker
 
-Run Writr.md using Docker by pulling and running the latest container image
+Run Writr.md with Docker by using the latest Docker image by using the [docker compose example](https://github.com/jamesspearsv/writrmd/blob/main/docker-example/docker-compose.yaml). Make sure you copy the example `Caddyfile` and create the required `posts` and `pages` directories.
+
+Start the containers with Docker Compose
 
 ```bash
 docker pull ghcr.io/jamesspearsv/writrmd:latest
