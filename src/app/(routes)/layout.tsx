@@ -2,8 +2,6 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { inter } from '@/src/app/ui/fonts';
 import ThemeProvider from '@/src/app/ui/themes/ThemeProvider';
-import Nav from '../ui/nav/Nav';
-import ThemePicker from '@/src/app/ui/themes/ThemePicker';
 
 /* 
 # FORCE REVALIDATION ON EACH REQUEST FOR ALL PAGES
@@ -29,13 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className}`}>
-        <ThemeProvider>
-          <nav>
-            <Nav />
-            <ThemePicker />
-          </nav>
-          {children}
-        </ThemeProvider>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );
