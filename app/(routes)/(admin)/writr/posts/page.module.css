@@ -1,0 +1,5 @@
+.button {
+  position: fixed;
+  bottom: var(--spacing-size-l);
+  right: var(--spacing-size-l);
+}

@@ -1,0 +1,15 @@
+.form {
+  max-width: var(--content-width);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.editor {
+  width: 100%;
+  min-height: var(--content-width-s);
+  resize: vertical;
+  field-sizing: content;
+}
