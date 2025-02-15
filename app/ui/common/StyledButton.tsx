@@ -6,23 +6,24 @@ export default function StyledButton({
   className,
   style,
   children,
-  handleClick,
+  onClick,
 }: {
   variation?: 'circle' | 'rounded';
   className?: string;
-  style?: { readonly [key: string]: string };
+  style?: React.CSSProperties;
   children: React.ReactNode;
-  handleClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }) {
   return (
     <button
+      type="button"
       className={clsx(
         `${styles.base}`,
         variation && `${styles[variation]}`,
         className && className
       )}
       style={style}
-      onClick={handleClick}
+      onClick={onClick}
     >
       {children}
     </button>

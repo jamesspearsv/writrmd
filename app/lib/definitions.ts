@@ -21,3 +21,8 @@ export interface Page extends matter.GrayMatterFile<string> {
   empty: string;
   isEmpty: boolean;
 }
+
+export interface InputProps {
+  name: string;
+  label: string;
+}
