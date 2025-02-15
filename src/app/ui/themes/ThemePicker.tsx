@@ -4,14 +4,15 @@ import { useTheme } from '@/src/app/ui/themes/ThemeProvider';
 import { Button } from '@ariakit/react';
 import styles from './ThemePicker.module.css';
 import { Moon, Sun } from 'react-feather';
+import clsx from 'clsx';
 
-export default function ThemePicker() {
+export default function ThemePicker({ alt }: { alt?: boolean }) {
   const { theme, updateTheme } = useTheme();
   const size = 22;
 
   return (
     <Button
-      className={styles.button}
+      className={clsx(`${styles.button}`, alt && `${styles.alt}`)}
       onClick={() => {
         if (theme === 'dark') {
           updateTheme('light');
