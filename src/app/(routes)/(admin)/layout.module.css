@@ -1,12 +1,3 @@
 .container {
-  display: flex;
   height: 300dvh;
 }
-
-/* .container > *:first-child {
-  flex: 1;
-}
-
-.container > *:last-child {
-  flex: 5;
-} */

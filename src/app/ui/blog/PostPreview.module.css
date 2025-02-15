@@ -10,7 +10,7 @@
   top: calc(var(--spacing-size-s) * -1);
   height: 1px;
   width: 100%;
-  background-color: var(--secondary-color-light);
+  background-color: var(--secondary-color-alt);
 }
 
 .title {
@@ -18,12 +18,12 @@
 }
 
 .title:hover {
-  color: var(--secondary-color-light);
+  color: var(--secondary-color-alt);
   text-decoration: none;
 }
 
 .byline {
-  color: var(--secondary-color-light);
+  color: var(--secondary-color-alt);
 
   .span {
     margin: 0 var(--spacing-size-xs);

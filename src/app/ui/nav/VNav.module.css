@@ -1,13 +1,15 @@
 .nav {
-  padding: var(--spacing-size-l);
-  padding-right: var(--spacing-size-xl);
   height: 100dvh;
-  position: sticky;
+  position: fixed;
   top: 0;
+  bottom: 0;
+  left: 0;
+  width: var(--sidebar-width);
+  padding: var(--spacing-size-l);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-right: var(--border-size-1) solid var(--secondary-color-light);
+  background-color: var(--primary-color);
 }
 
 .list {

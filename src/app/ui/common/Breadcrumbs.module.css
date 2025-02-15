@@ -6,18 +6,11 @@
   padding: var(--spacing-size-l);
   padding-top: 0;
   transition: padding-top 250ms ease-in-out;
+  background-color: var(--primary-color);
 }
 
 .breadcrumbs.atTop {
   padding-top: var(--spacing-size-l);
-}
-
-html[data-theme='light'] .breadcrumbs {
-  background-color: var(--light);
-}
-
-html[data-theme='dark'] .breadcrumbs {
-  background-color: var(--dark);
 }
 
 .breadcrumb:not(:last-child) {

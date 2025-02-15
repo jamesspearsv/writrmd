@@ -8,9 +8,6 @@
   --darker-light: var(--stone-4);
 
   /* app properties */
-  --primary-color: var(--light);
-  --secondary-color: var(--dark);
-  --secondary-color-light: var(--lighter-dark);
   --accent-color: var(--green-9);
   --normal-weight: var(--font-weight-4);
   --bold-weight: var(--font-weight-7);
@@ -29,10 +26,18 @@
   --sidebar-width: var(--size-13);
 }
 
+html[data-theme='light'] {
+  --primary-color: var(--light);
+  --primary-color-alt: var(--darker-light);
+  --secondary-color: var(--dark);
+  --secondary-color-alt: var(--lighter-dark);
+}
+
 html[data-theme='dark'] {
   --primary-color: var(--dark);
+  --primary-color-alt: var(--lighter-dark);
   --secondary-color: var(--light);
-  --secondary-color-light: var(--darker-light);
+  --secondary-color-alt: var(--darker-light);
 }
 
 body {

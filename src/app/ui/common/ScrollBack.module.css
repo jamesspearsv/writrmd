@@ -7,14 +7,8 @@
   padding: var(--spacing-size-xs);
   box-shadow: var(--shadow-2);
   transition: opacity 250ms ease-in-out;
-}
-
-html[data-theme='light'] .scrollBack {
-  background-color: var(--darker-light);
-}
-
-html[data-theme='dark'] .scrollBack {
-  background-color: var(--lighter-dark);
+  background-color: var(--secondary-color-alt);
+  color: var(--primary-color);
 }
 
 .scrollBack.hidden {
