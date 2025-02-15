@@ -5,14 +5,6 @@ import ListInput from '@/app/ui/forms/ListInput';
 import TextAreaInput from '@/app/ui/forms/TextAreaInput';
 
 export default function PostForm() {
-  // todo: Implement useSererAction
-  // todo: add form styling
-  function handleSubmission(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const elements = e.currentTarget.elements;
-    const names = ['title', 'author', 'excerpt', 'tags', 'content'];
-    names.forEach((name) => console.log(elements.namedItem(name).value));
-  }
 
   return (
     <div>

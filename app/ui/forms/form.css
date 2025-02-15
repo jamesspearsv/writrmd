@@ -1,0 +1,20 @@
+input,
+textarea {
+  background-color: var(--primary-color-alt);
+  border: none;
+  border-radius: var(--radius-2);
+  padding: var(--spacing-size-xs);
+  color: var(--secondary-color);
+}
+
+input:focus,
+textarea:focus {
+  outline: solid var(--secondary-color-alt);
+}
+
+.form-group {
+  margin: var(--spacing-size-xs);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-size-xs);
+}

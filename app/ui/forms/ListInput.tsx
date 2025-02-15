@@ -2,6 +2,7 @@ import { InputProps } from '@/app/lib/definitions';
 import StyledButton from '@/app/ui/common/StyledButton';
 import { useRef, useState } from 'react';
 import { X, Plus } from 'react-feather';
+import './form.css';
 
 // todo: add type safety to ensure limit is a positive whole number
 interface ListInputProps extends InputProps {
@@ -40,9 +41,9 @@ export default function ListInput(props: ListInputProps) {
   };
 
   return (
-    <div>
+    <div className='form-group'>
       <label htmlFor={props.name}>{props.label}</label>
-      <input type="hidden" value={list} name={props.name} id={props.name} />
+      <input type="hidden" value={list} name={props.name}/>
       <input type="text" name="list" ref={tagRef} />
       {/* todo: add keyboard submission */}
       <StyledButton onClick={addToList} style={buttonStyles}>
