@@ -25,4 +25,16 @@ export interface Page extends matter.GrayMatterFile<string> {
 export interface InputProps {
   name: string;
   label: string;
+  value?: string;
 }
+
+export type FormState = {
+  error: string | null;
+  prevValues: {
+    title: string;
+    author: string;
+    excerpt: string;
+    tags: string;
+    content: string;
+  };
+};

@@ -3,9 +3,13 @@ import './form.css';
 
 export default function TextAreaInput(props: InputProps) {
   return (
-    <div className='form-group'>
+    <div className="form-group">
       <label htmlFor={props.name}>{props.label}</label>
-      <textarea name={props.name} />
+      <textarea
+        name={props.name}
+        id={props.name}
+        defaultValue={props.value ? props.value : ''}
+      />
     </div>
   );
 }

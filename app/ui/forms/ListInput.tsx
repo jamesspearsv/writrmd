@@ -10,7 +10,11 @@ interface ListInputProps extends InputProps {
 }
 
 export default function ListInput(props: ListInputProps) {
-  const [list, setList] = useState<string[]>(['test tag']);
+  const [list, setList] = useState<string[]>(() => {
+    if (!props.value) return [];
+    const items = props.value.split(',');
+    return items;
+  });
   const tagRef = useRef<HTMLInputElement | null>(null);
 
   function addToList(e: React.MouseEvent<HTMLButtonElement>) {
@@ -41,9 +45,9 @@ export default function ListInput(props: ListInputProps) {
   };
 
   return (
-    <div className='form-group'>
+    <div className="form-group">
       <label htmlFor={props.name}>{props.label}</label>
-      <input type="hidden" value={list} name={props.name}/>
+      <input type="hidden" value={list} name={props.name} id={props.name} />
       <input type="text" name="list" ref={tagRef} />
       {/* todo: add keyboard submission */}
       <StyledButton onClick={addToList} style={buttonStyles}>

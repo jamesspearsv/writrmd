@@ -2,7 +2,10 @@
 
 import * as fs from 'node:fs/promises';
 import * as matter from 'gray-matter';
-import { Page, Post } from '@/app/lib/definitions';
+import { FormState, Page, Post } from '@/app/lib/definitions';
+import exp from 'node:constants';
+import { PostSchema } from '@/app/lib/schemas';
+import { error } from 'node:console';
 
 // Absolute path to project dir from filesystem root
 const rootDir = process.env.ROOT_PATH;
@@ -109,4 +112,42 @@ export async function fetchPage(page: string) {
     console.error(error);
     return null;
   }
+}
+
+export async function addNewPost(currentState: FormState, data: FormData) {
+  // validate form data
+  const results = PostSchema.safeParse({
+    title: data.get('title'),
+    author: data.get('author'),
+    content: data.get('content'),
+    tags: data.get('tags'),
+    excerpt: data.get('excerpt'),
+  });
+
+  if (!results.success) {
+    console.error('Validation failed!');
+    return {
+      error: 'Error adding new posts',
+      prevValues: {
+        title: data.get('title'),
+        author: data.get('author'),
+        content: data.get('content'),
+        tags: data.get('tags'),
+        excerpt: data.get('excerpt'),
+      },
+    } as FormState;
+  }
+
+  console.error('Validation passed!');
+  // todo: write new post to filesystem
+  return {
+    error: null,
+    prevValues: {
+      title: '',
+      author: '',
+      excerpt: '',
+      tags: '',
+      content: '',
+    },
+  } as FormState;
 }

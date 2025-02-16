@@ -19,7 +19,8 @@
     "open-props": "^1.7.12",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-feather": "^2.0.10"
+    "react-feather": "^2.0.10",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
