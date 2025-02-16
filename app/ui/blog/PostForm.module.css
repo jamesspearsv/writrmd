@@ -1,15 +1,35 @@
-.form {
-  max-width: var(--content-width);
+.container {
+  width: 100%;
+  height: 75dvh;
 }
 
-.formGroup {
+.form {
+  display: flex;
+  gap: var(--spacing-size-l);
+  padding: 0;
+  height: 100%;
+}
+
+.fontMatter,
+.markdownEditor {
+  border: none;
+  padding: 0;
   display: flex;
   flex-direction: column;
+  gap: var(--spacing-size-xs);
 }
 
-.editor {
-  width: 100%;
-  min-height: var(--content-width-s);
-  resize: vertical;
-  field-sizing: content;
+.markdownEditor > div {
+  height: 100%;
+}
+
+.markdownEditor {
+  flex: 2;
+  display: flex;
+  height: 100%;
+}
+
+.markdownEditor textarea {
+  height: 100%;
+  resize: none;
 }

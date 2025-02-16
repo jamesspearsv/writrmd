@@ -6,6 +6,7 @@ import TextAreaInput from '@/app/ui/forms/TextAreaInput';
 import { useActionState } from 'react';
 import { FormState } from '@/app/lib/definitions';
 import { addNewPost } from '@/app/lib/actions';
+import styles from './PostForm.module.css';
 
 const initialState: FormState = {
   error: null,
@@ -22,10 +23,9 @@ export default function PostForm() {
   const [state, formAction] = useActionState(addNewPost, initialState);
 
   return (
-    <div>
-      {state.error && state.error}
-      <form action={formAction}>
-        <fieldset>
+    <div className={styles.container}>
+      <form action={formAction} className={styles.form} autoComplete="off">
+        <fieldset className={styles.fontMatter}>
           <TextInput
             name="title"
             label="Title"
@@ -43,16 +43,17 @@ export default function PostForm() {
             limit={3}
             value={state.error ? state.prevValues.tags : undefined}
           />
+          <input type="submit" value="Submit" />
         </fieldset>
-        <fieldset>
+        <fieldset className={styles.markdownEditor}>
           <TextAreaInput
             name="content"
             label="Post Body"
             value={state.error ? state.prevValues.content : undefined}
           />
         </fieldset>
-        <input type="submit" value="Submit" />
       </form>
+      {state.error && state.error}
     </div>
   );
 }

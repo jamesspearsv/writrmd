@@ -148,6 +148,7 @@ export async function addNewPost(currentState: FormState, data: FormData) {
     '---\n' +
     `title: '${data.get('title')}'\n` +
     `author: '${data.get('author')}'\n` +
+    `date: ${new Date().toISOString()}\n` +
     `tags: [${tags.map((tag) => `'${tag}'`)}]\n` +
     `excerpt: '${data.get('excerpt')}'\n` +
     '---\n\n' +

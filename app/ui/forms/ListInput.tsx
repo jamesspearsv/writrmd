@@ -39,40 +39,42 @@ export default function ListInput(props: ListInputProps) {
   }
 
   const buttonStyles: React.CSSProperties = {
-    backgroundColor: 'var(--primary-color)',
+    backgroundColor: 'var(--primary-color-alt)',
     color: 'var(--secondary-color)',
-    padding: 0,
+    padding: '0 var(--spacing-size-xs)',
+    borderRadius: 'var(--radius-2)',
   };
 
   return (
     <div className="form-group">
       <label htmlFor={props.name}>{props.label}</label>
       <input type="hidden" value={list} name={props.name} id={props.name} />
-      <input type="text" name="list" ref={tagRef} />
-      {/* todo: add keyboard submission */}
-      <StyledButton onClick={addToList} style={buttonStyles}>
-        <Plus />
-      </StyledButton>
-      <div
-        style={{ height: '30px', display: 'flex', gap: 'var(--spacing-size-s' }}
-      >
-        {list.length > 0 ? (
-          list.map((item, index) => (
-            <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
-              <p>{item}</p>
-              <StyledButton
-                onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
-                  deleteFromList(e, index)
-                }
-                style={buttonStyles}
-              >
-                <X size={18} />
-              </StyledButton>
-            </div>
-          ))
-        ) : (
-          <p>Add some tags to get started</p>
-        )}
+      <div style={{ display: 'flex', gap: 'var(--spacing-size-s)' }}>
+        <input
+          type="text"
+          name="list"
+          ref={tagRef}
+          disabled={list.length === props.limit}
+        />
+        {/* todo: add keyboard submission */}
+        <StyledButton onClick={addToList} style={buttonStyles}>
+          <Plus />
+        </StyledButton>
+      </div>
+      <div style={{ display: 'flex', gap: 'var(--spacing-size-xs)' }}>
+        {list.map((item, index) => (
+          <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
+            <p>{item}</p>
+            <StyledButton
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                deleteFromList(e, index)
+              }
+              style={buttonStyles}
+            >
+              <X size={18} />
+            </StyledButton>
+          </div>
+        ))}
       </div>
     </div>
   );
