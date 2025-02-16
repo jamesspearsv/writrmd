@@ -3,9 +3,8 @@
 import * as fs from 'node:fs/promises';
 import * as matter from 'gray-matter';
 import { FormState, Page, Post } from '@/app/lib/definitions';
-import exp from 'node:constants';
 import { PostSchema } from '@/app/lib/schemas';
-import { error } from 'node:console';
+import slugify from 'slugify';
 
 // Absolute path to project dir from filesystem root
 const rootDir = process.env.ROOT_PATH;
@@ -126,6 +125,7 @@ export async function addNewPost(currentState: FormState, data: FormData) {
 
   if (!results.success) {
     console.error('Validation failed!');
+    // todo: return more detailed errors for individual fields
     return {
       error: 'Error adding new posts',
       prevValues: {
@@ -140,6 +140,38 @@ export async function addNewPost(currentState: FormState, data: FormData) {
 
   console.error('Validation passed!');
   // todo: write new post to filesystem
+  const slug = slugify(data.get('title') as string);
+  let t = data.get('tags') as string;
+  const tags = t.split(',');
+
+  const fileContents =
+    '---\n' +
+    `title: '${data.get('title')}'\n` +
+    `author: '${data.get('author')}'\n` +
+    `tags: [${tags.map((tag) => `'${tag}'`)}]\n` +
+    `excerpt: '${data.get('excerpt')}'\n` +
+    '---\n\n' +
+    `${data.get('content')}\n`;
+
+  try {
+    await fs.writeFile(
+      `${rootDir}/content/posts/${slug.toLowerCase()}.md`,
+      fileContents
+    );
+  } catch (error) {
+    console.error(error);
+    return {
+      error: 'Server Error',
+      prevValues: {
+        title: data.get('title'),
+        author: data.get('author'),
+        content: data.get('content'),
+        tags: data.get('tags'),
+        excerpt: data.get('excerpt'),
+      },
+    } as FormState;
+  }
+
   return {
     error: null,
     prevValues: {
