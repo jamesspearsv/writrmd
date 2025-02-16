@@ -1,6 +1,6 @@
 # Writr.md Changelog
 
-Project changelog and roadmap
+Project changelog and roadmap. Version changes represent code merges into the main branch.
 
 ## Roadmap
 

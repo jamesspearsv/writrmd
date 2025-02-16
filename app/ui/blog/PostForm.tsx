@@ -3,7 +3,7 @@
 import TextInput from '@/app/ui/forms/TextInput';
 import ListInput from '@/app/ui/forms/ListInput';
 import TextAreaInput from '@/app/ui/forms/TextAreaInput';
-import { useActionState } from 'react';
+import { startTransition, useActionState, useEffect, useRef } from 'react';
 import { FormState } from '@/app/lib/definitions';
 import { addNewPost } from '@/app/lib/actions';
 import styles from './PostForm.module.css';
@@ -21,6 +21,7 @@ const initialState: FormState = {
 };
 
 export default function PostForm() {
+  const formRef = useRef<HTMLFormElement | null>(null);
   const [state, formAction] = useActionState(addNewPost, initialState);
 
   /* 
@@ -28,9 +29,42 @@ export default function PostForm() {
   Users should be able to submit form by clicking submit button or entering a mete key combination (e.g. ctrl + enter or cmd + enter) 
   */
 
+  /* 
+  Might be useful for adding additional client side validation
+  */
+  // function handleSubmission(e: React.FormEvent<HTMLFormElement>) {
+  //   e.preventDefault();
+  //   console.log(e);
+  //   console.log(formRef);
+  //   if (formRef.current) {
+  //     startTransition(() =>
+  //       formAction(new FormData(formRef.current as HTMLFormElement))
+  //     );
+  //     console.log('submitted!');
+  //   }
+  // }
+
+  // bug: this prevents the textarea from entering new lines
+  // todo: prevent submission when enter key is pressed 
+  function handleChange(e: React.KeyboardEvent<HTMLFormElement>) {
+    // check for key combinations to submit form
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      console.log('pressed enter');
+      return;
+    }
+  }
+
   return (
     <div className={styles.container}>
-      <form action={formAction} className={styles.form} autoComplete="off">
+      <form
+        action={formAction}
+        className={styles.form}
+        autoComplete="off"
+        // onSubmit={handleSubmission}
+        ref={formRef}
+        onKeyDown={handleChange}
+      >
         <fieldset className={styles.fontMatter}>
           <TextInput
             name="title"
@@ -59,7 +93,7 @@ export default function PostForm() {
           />
         </fieldset>
       </form>
-      {state.error && state.error}
+      <p>{state.error && state.error}</p>
     </div>
   );
 }

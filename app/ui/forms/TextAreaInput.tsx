@@ -10,7 +10,6 @@ export default function TextAreaInput(props: InputProps) {
     return props.value;
   });
   const [preview, setPreview] = useState(false);
-
   return (
     <div className={styles.group}>
       <div className={styles.actionButtons}>
@@ -41,6 +40,7 @@ export default function TextAreaInput(props: InputProps) {
           value={value}
           onChange={(e) => setValue(e.currentTarget.value)}
           placeholder="Start writing here..."
+          onKeyDown={() => null}
         />
       ) : (
         <div
