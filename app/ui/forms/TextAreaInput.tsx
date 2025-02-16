@@ -12,7 +12,7 @@ export default function TextAreaInput(props: InputProps) {
   const [preview, setPreview] = useState(false);
 
   return (
-    <div>
+    <div className={styles.group}>
       <div className={styles.actionButtons}>
         <button
           className={clsx(!preview && `${styles.active}`)}
@@ -44,11 +44,10 @@ export default function TextAreaInput(props: InputProps) {
         />
       ) : (
         <div
-          style={{
-            backgroundColor: 'var(--primary-color-alt)',
-            height: '100%',
-            padding: 'var(--spacing-size-l)',
-          }}
+          className={clsx(
+            `${styles.previewArea}`,
+            !value && `${styles.previewPlaceholder}`
+          )}
         >
           <Markdown
             value={value ? value : 'Write something to see a preview here'}

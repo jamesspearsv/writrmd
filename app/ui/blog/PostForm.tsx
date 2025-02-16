@@ -7,6 +7,7 @@ import { useActionState } from 'react';
 import { FormState } from '@/app/lib/definitions';
 import { addNewPost } from '@/app/lib/actions';
 import styles from './PostForm.module.css';
+import SubmitInput from '@/app/ui/forms/SubmitInput';
 
 const initialState: FormState = {
   error: null,
@@ -21,6 +22,11 @@ const initialState: FormState = {
 
 export default function PostForm() {
   const [state, formAction] = useActionState(addNewPost, initialState);
+
+  /* 
+  todo: prevent form submission on enter keypress.
+  Users should be able to submit form by clicking submit button or entering a mete key combination (e.g. ctrl + enter or cmd + enter) 
+  */
 
   return (
     <div className={styles.container}>
@@ -43,7 +49,7 @@ export default function PostForm() {
             limit={3}
             value={state.error ? state.prevValues.tags : undefined}
           />
-          <input type="submit" value="Post" />
+          <SubmitInput value="Publish Post" />
         </fieldset>
         <fieldset className={styles.markdownEditor}>
           <TextAreaInput

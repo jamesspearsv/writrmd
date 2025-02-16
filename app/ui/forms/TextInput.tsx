@@ -1,9 +1,9 @@
 import { InputProps } from '@/app/lib/definitions';
-import './form.css';
+import styles from './TextInput.module.css';
 
 export default function TextInput(props: InputProps) {
   return (
-    <div className="form-group">
+    <div className={styles.group}>
       <label htmlFor={props.name}>{props.label}</label>
       <input
         type="text"

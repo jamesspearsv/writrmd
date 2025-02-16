@@ -11,6 +11,7 @@
   --accent-color: var(--green-9);
   --normal-weight: var(--font-weight-4);
   --bold-weight: var(--font-weight-7);
+  --font-sizing: -1rem;
   --font-sizing-small: var(--font-size-0);
   --font-sizing-large: var(--font-size-3);
   --font-sizing-xl: var(--font-size-5);
@@ -24,6 +25,8 @@
   --content-width-xs: var(--size-content-1);
   --content-width-s: var(--size-content-2);
   --sidebar-width: var(--size-13);
+  --border-radius: var(--radius-2);
+  --border-size: var(--border-size-1);
 }
 
 html[data-theme='light'] {

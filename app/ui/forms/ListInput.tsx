@@ -2,7 +2,7 @@ import { InputProps } from '@/app/lib/definitions';
 import StyledButton from '@/app/ui/common/StyledButton';
 import { useRef, useState } from 'react';
 import { X, Plus } from 'react-feather';
-import './form.css';
+import styles from './ListInput.module.css';
 
 // todo: add type safety to ensure limit is a positive whole number
 interface ListInputProps extends InputProps {
@@ -10,15 +10,14 @@ interface ListInputProps extends InputProps {
 }
 
 export default function ListInput(props: ListInputProps) {
+  const tagRef = useRef<HTMLInputElement | null>(null);
   const [list, setList] = useState<string[]>(() => {
-    if (!props.value) return [];
+    if (!props.value) return ['tag'];
     const items = props.value.split(',');
     return items;
   });
-  const tagRef = useRef<HTMLInputElement | null>(null);
 
-  function addToList(e: React.MouseEvent<HTMLButtonElement>) {
-    e.preventDefault();
+  function pushToList() {
     if (list.length >= props.limit) return;
 
     const l = [...list];
@@ -26,6 +25,15 @@ export default function ListInput(props: ListInputProps) {
     l.push(tagRef.current.value);
     setList(l);
     tagRef.current.value = '';
+  }
+
+  function handleInputChange(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === 'Enter') pushToList();
+  }
+
+  function addToList(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    pushToList();
   }
 
   function deleteFromList(
@@ -38,43 +46,43 @@ export default function ListInput(props: ListInputProps) {
     setList(l);
   }
 
-  const buttonStyles: React.CSSProperties = {
-    backgroundColor: 'var(--primary-color-alt)',
-    color: 'var(--secondary-color)',
-    padding: '0 var(--spacing-size-xs)',
-    borderRadius: 'var(--radius-2)',
-  };
-
   return (
-    <div className="form-group">
+    <div className={styles.group}>
       <label htmlFor={props.name}>{props.label}</label>
       <input type="hidden" value={list} name={props.name} id={props.name} />
-      <div style={{ display: 'flex', gap: 'var(--spacing-size-s)' }}>
+      <div className={styles.itemInput}>
         <input
           type="text"
           name="list"
           ref={tagRef}
           disabled={list.length === props.limit}
+          onKeyDown={handleInputChange}
         />
         {/* todo: add keyboard submission */}
-        <StyledButton onClick={addToList} style={buttonStyles}>
+        <StyledButton onClick={addToList} className={styles.addButton}>
           <Plus />
         </StyledButton>
       </div>
-      <div style={{ display: 'flex', gap: 'var(--spacing-size-xs)' }}>
-        {list.map((item, index) => (
-          <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
-            <p>{item}</p>
-            <StyledButton
-              onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
-                deleteFromList(e, index)
-              }
-              style={buttonStyles}
-            >
-              <X size={18} />
-            </StyledButton>
-          </div>
-        ))}
+      <div className={styles.items}>
+        {list.length === 0 ? (
+          <p className={styles.listPlaceholder}>
+            Add some items to get started...
+          </p>
+        ) : (
+          list.map((item, index) => (
+            <div key={index} className={styles.item}>
+              <p>{item}</p>
+              <StyledButton
+                className={styles.removeButton}
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                  deleteFromList(e, index)
+                }
+              >
+                <X size={12} />
+              </StyledButton>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

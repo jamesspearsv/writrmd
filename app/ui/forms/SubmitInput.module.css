@@ -1,0 +1,18 @@
+.group {
+  display: flex;
+  margin-top: var(--spacing-size);
+}
+
+.group input {
+  background-color: var(--primary-color-alt);
+  color: var(--secondary-color);
+  border: none;
+  border-radius: var(--border-radius);
+  padding: var(--spacing-size-xs);
+  cursor: pointer;
+  transition: scale 250ms ease-in-out;
+}
+
+.group input:hover {
+  scale: 0.95;
+}
