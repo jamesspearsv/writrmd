@@ -43,7 +43,7 @@ export default function PostForm() {
             limit={3}
             value={state.error ? state.prevValues.tags : undefined}
           />
-          <input type="submit" value="Submit" />
+          <input type="submit" value="Post" />
         </fieldset>
         <fieldset className={styles.markdownEditor}>
           <TextAreaInput

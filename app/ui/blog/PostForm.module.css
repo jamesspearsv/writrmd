@@ -16,7 +16,18 @@
   padding: 0;
   display: flex;
   flex-direction: column;
+}
+
+.fontMatter {
   gap: var(--spacing-size-xs);
+}
+
+.markdownEditor {
+  display: flex;
+}
+
+.markdownEditor button {
+  flex: 1;
 }
 
 .markdownEditor > div {

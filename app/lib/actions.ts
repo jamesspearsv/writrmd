@@ -141,7 +141,7 @@ export async function addNewPost(currentState: FormState, data: FormData) {
   console.error('Validation passed!');
   // todo: write new post to filesystem
   const slug = slugify(data.get('title') as string);
-  let t = data.get('tags') as string;
+  const t = data.get('tags') as string;
   const tags = t.split(',');
 
   const fileContents =
