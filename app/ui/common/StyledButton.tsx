@@ -7,15 +7,18 @@ export default function StyledButton({
   style,
   children,
   onClick,
+  ref,
 }: {
   variation?: 'circle' | 'rounded';
   className?: string;
   style?: React.CSSProperties;
   children: React.ReactNode;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  ref: React.RefObject<HTMLButtonElement | null>;
 }) {
   return (
     <button
+      ref={ref}
       type="button"
       className={clsx(
         `${styles.base}`,

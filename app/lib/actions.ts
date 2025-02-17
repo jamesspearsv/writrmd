@@ -3,10 +3,12 @@
 import * as fs from 'node:fs/promises';
 import * as matter from 'gray-matter';
 import { FormState, Page, Post } from '@/app/lib/definitions';
-import { PostSchema } from '@/app/lib/schemas';
+import { PageSchema, PostSchema } from '@/app/lib/schemas';
 import slugify from 'slugify';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
+import { PageEditorState } from '@/app/ui/forms/AddPageForm';
+import { error } from 'node:console';
 
 // Absolute path to project dir from filesystem root
 const rootDir = process.env.ROOT_PATH;
@@ -115,6 +117,7 @@ export async function fetchPage(page: string) {
   }
 }
 
+// todo: write addNewPost documentation
 export async function addNewPost(currentState: FormState, data: FormData) {
   // validate form data
   const results = PostSchema.safeParse({
@@ -163,7 +166,7 @@ export async function addNewPost(currentState: FormState, data: FormData) {
   } catch (error) {
     console.error(error);
     return {
-      error: 'Server Error',
+      error: 'Error writing file',
       prevValues: {
         title: data.get('title'),
         author: data.get('author'),
@@ -174,5 +177,50 @@ export async function addNewPost(currentState: FormState, data: FormData) {
     } as FormState;
   }
 
+  // todo: update redirect
   redirect('/writr/posts');
+}
+
+// todo: write addNewPage documentation
+export async function addNewPage(
+  prevState: PageEditorState,
+  data: { title: string; content: string }
+) {
+  // console.log(prevState);
+  // console.log(data);
+
+  // Validate submitted data
+  const results = PageSchema.safeParse({
+    title: data.title,
+    content: data.content,
+  });
+
+  if (!results.success) {
+    console.log('validation failed');
+    return {
+      error: 'Validation failed!',
+      data,
+    } as PageEditorState;
+  }
+
+  const filename = `${slugify(data.title).toLowerCase()}.md`;
+  const fileContents =
+    '---\n' + `title: ${data.title}\n` + '---\n\n' + `${data.content}`;
+
+  console.log('filename', filename);
+  console.log('fileContents');
+  console.log(fileContents);
+
+  try {
+    await fs.writeFile(`${rootDir}/content/pages/${filename}`, fileContents);
+  } catch (error) {
+    console.error(error);
+    return {
+      error: 'Error writing file',
+      data,
+    } as PageEditorState;
+  }
+
+  // todo: update redirect
+  redirect('/writr/pages');
 }

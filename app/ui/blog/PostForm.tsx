@@ -20,6 +20,7 @@ const initialState: FormState = {
   },
 };
 
+// todo: refactor post editor and move to formless structure
 export default function PostForm() {
   const submitButtonRef = useRef<HTMLButtonElement | null>(null);
   const [state, formAction] = useActionState(addNewPost, initialState);
