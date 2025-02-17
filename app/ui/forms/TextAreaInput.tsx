@@ -7,6 +7,7 @@ import styles from './TextAreaInput.module.css';
 import clsx from 'clsx';
 
 //bug: the value is not cleared when a post is successfully created. This bug is hidden by redirecting to /writr/posts if successful
+// bug: default tab behavior prevents users from entering indents in the textarea
 export default function TextAreaInput(props: InputProps) {
   const [value, setValue] = useState(() => {
     if (!props.value) return '';
