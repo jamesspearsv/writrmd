@@ -174,17 +174,5 @@ export async function addNewPost(currentState: FormState, data: FormData) {
     } as FormState;
   }
 
-  revalidatePath('/writr/add');
   redirect('/writr/posts');
-
-  // return {
-  //   error: '',
-  //   prevValues: {
-  //     title: '',
-  //     author: '',
-  //     content: '',
-  //     tags: '',
-  //     excerpt: '',
-  //   },
-  // } as FormState;
 }
