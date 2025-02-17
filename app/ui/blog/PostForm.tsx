@@ -3,7 +3,7 @@
 import TextInput from '@/app/ui/forms/TextInput';
 import ListInput from '@/app/ui/forms/ListInput';
 import TextAreaInput from '@/app/ui/forms/TextAreaInput';
-import { startTransition, useActionState, useEffect, useRef } from 'react';
+import React, { useActionState, useEffect, useRef } from 'react';
 import { FormState } from '@/app/lib/definitions';
 import { addNewPost } from '@/app/lib/actions';
 import styles from './PostForm.module.css';
@@ -21,21 +21,28 @@ const initialState: FormState = {
 };
 
 export default function PostForm() {
-  const formRef = useRef<HTMLFormElement | null>(null);
+  const submitButtonRef = useRef<HTMLButtonElement | null>(null);
   const [state, formAction] = useActionState(addNewPost, initialState);
 
-  /* 
-  todo: prevent form submission on enter keypress.
-  Users should be able to submit form by clicking submit button or entering a mete key combination (e.g. ctrl + enter or cmd + enter) 
-  */
+  useEffect(() => {
+    const controller = new AbortController();
 
-  /* 
-  Might be useful for adding additional client side validation
-  */
-  // function handleSubmission(e: React.FormEvent<HTMLFormElement>) {
-  //   e.preventDefault();
-  //   console.log(e);
-  //   console.log(formRef);
+    document.body.addEventListener(
+      'keydown',
+      (e) => {
+        if (!(e.key === 'Enter' && e.metaKey)) return;
+        console.log('cmd + enter');
+        if (submitButtonRef.current) {
+          submitButtonRef.current.click();
+        }
+      },
+      { signal: controller.signal }
+    );
+  });
+
+  // function submitForm(preventSubmit = false) {
+  //   console.log('preventSubmit', preventSubmit);
+  //   if (preventSubmit) return;
   //   if (formRef.current) {
   //     startTransition(() =>
   //       formAction(new FormData(formRef.current as HTMLFormElement))
@@ -44,14 +51,14 @@ export default function PostForm() {
   //   }
   // }
 
-  // bug: this prevents the textarea from entering new lines
-  // todo: prevent submission when enter key is pressed 
-  function handleChange(e: React.KeyboardEvent<HTMLFormElement>) {
-    // check for key combinations to submit form
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      console.log('pressed enter');
-      return;
+  function handleKeyPress(e: React.KeyboardEvent<HTMLFormElement>) {
+    const exceptions = ['button', 'textarea'];
+    const target = e.target as HTMLElement;
+    if (e.key === 'Enter' && target.tagName === 'INPUT') {
+      const type = (target as HTMLInputElement).type;
+      if (!exceptions.includes(type)) {
+        e.preventDefault();
+      }
     }
   }
 
@@ -61,9 +68,7 @@ export default function PostForm() {
         action={formAction}
         className={styles.form}
         autoComplete="off"
-        // onSubmit={handleSubmission}
-        ref={formRef}
-        onKeyDown={handleChange}
+        onKeyDown={handleKeyPress}
       >
         <fieldset className={styles.fontMatter}>
           <TextInput
@@ -76,6 +81,7 @@ export default function PostForm() {
             label="Author"
             value={state.error ? state.prevValues.author : undefined}
           />
+          {/* bug: post excerpt not saved if validation is failed */}
           <TextInput name="excerpt" label="Excerpt" />
           <ListInput
             name="tags"
@@ -83,7 +89,7 @@ export default function PostForm() {
             limit={3}
             value={state.error ? state.prevValues.tags : undefined}
           />
-          <SubmitInput value="Publish Post" />
+          <SubmitInput value="Publish Post" ref={submitButtonRef} />
         </fieldset>
         <fieldset className={styles.markdownEditor}>
           <TextAreaInput

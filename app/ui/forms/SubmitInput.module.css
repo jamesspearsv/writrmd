@@ -3,7 +3,7 @@
   margin-top: var(--spacing-size);
 }
 
-.group input {
+.group button {
   background-color: var(--primary-color-alt);
   color: var(--secondary-color);
   border: none;
@@ -13,6 +13,6 @@
   transition: scale 250ms ease-in-out;
 }
 
-.group input:hover {
+.group button:hover {
   scale: 0.95;
 }

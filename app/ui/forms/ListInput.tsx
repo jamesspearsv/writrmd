@@ -1,3 +1,5 @@
+'use client';
+
 import { InputProps } from '@/app/lib/definitions';
 import StyledButton from '@/app/ui/common/StyledButton';
 import { useRef, useState } from 'react';
@@ -58,7 +60,6 @@ export default function ListInput(props: ListInputProps) {
           disabled={list.length === props.limit}
           onKeyDown={handleInputChange}
         />
-        {/* todo: add keyboard submission */}
         <StyledButton onClick={addToList} className={styles.addButton}>
           <Plus />
         </StyledButton>
@@ -74,9 +75,10 @@ export default function ListInput(props: ListInputProps) {
               <p>{item}</p>
               <StyledButton
                 className={styles.removeButton}
-                onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
-                  deleteFromList(e, index)
-                }
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                  console.log(e);
+                  deleteFromList(e, index);
+                }}
               >
                 <X size={12} />
               </StyledButton>

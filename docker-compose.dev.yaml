@@ -10,9 +10,10 @@ services:
       - '3000' # Expose to Caddy but not to the host machine
     environment:
       - NODE_ENV=production
-    volumes:
-      - ./docker-dev/pages:/writrmd/content/pages
-      - ./docker-dev/posts:/writrmd/content/posts
+    # Uncomment these lines to mount post and pages to the filesystem
+    # volumes:
+    # - ./docker-dev/pages:/writrmd/content/pages
+    # - ./docker-dev/posts:/writrmd/content/posts
 
   caddy:
     image: caddy:latest

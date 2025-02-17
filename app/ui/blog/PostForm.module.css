@@ -10,6 +10,10 @@
   height: 100%;
 }
 
+.form *:focus {
+  outline: solid var(--border-size) var(--secondary-color);
+}
+
 .fontMatter,
 .markdownEditor {
   border: none;

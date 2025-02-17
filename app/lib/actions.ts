@@ -5,6 +5,8 @@ import * as matter from 'gray-matter';
 import { FormState, Page, Post } from '@/app/lib/definitions';
 import { PostSchema } from '@/app/lib/schemas';
 import slugify from 'slugify';
+import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
 
 // Absolute path to project dir from filesystem root
 const rootDir = process.env.ROOT_PATH;
@@ -139,7 +141,6 @@ export async function addNewPost(currentState: FormState, data: FormData) {
   }
 
   console.error('Validation passed!');
-  // todo: write new post to filesystem
   const slug = slugify(data.get('title') as string);
   const t = data.get('tags') as string;
   const tags = t.split(',');
@@ -173,14 +174,17 @@ export async function addNewPost(currentState: FormState, data: FormData) {
     } as FormState;
   }
 
-  return {
-    error: null,
-    prevValues: {
-      title: '',
-      author: '',
-      excerpt: '',
-      tags: '',
-      content: '',
-    },
-  } as FormState;
+  revalidatePath('/writr/add');
+  redirect('/writr/posts');
+
+  // return {
+  //   error: '',
+  //   prevValues: {
+  //     title: '',
+  //     author: '',
+  //     content: '',
+  //     tags: '',
+  //     excerpt: '',
+  //   },
+  // } as FormState;
 }
