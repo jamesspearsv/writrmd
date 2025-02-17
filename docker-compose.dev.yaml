@@ -11,9 +11,9 @@ services:
     environment:
       - NODE_ENV=production
     # Uncomment these lines to mount post and pages to the filesystem
-    # volumes:
-    # - ./docker-dev/pages:/writrmd/content/pages
-    # - ./docker-dev/posts:/writrmd/content/posts
+    volumes:
+      - ./docker-dev/pages:/writrmd/content/pages
+      - ./docker-dev/posts:/writrmd/content/posts
 
   caddy:
     image: caddy:latest

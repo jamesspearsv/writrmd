@@ -43,12 +43,12 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
 COPY --from=builder /writrmd/public ./public
-COPY --from=builder /writrmd/content /writrmd/content
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=builder --chown=nextjs:nodejs /writrmd/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /writrmd/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /writrmd/content /writrmd/content
 
 USER nextjs
 
@@ -60,11 +60,3 @@ ENV PORT=3000
 # https://nextjs.org/docs/pages/api-reference/config/next-config-js/output
 ENV HOSTNAME="0.0.0.0"
 CMD ["node", "server.js"]
-
-# bug: fix permission error when running inside a container. EError: EACCES: permission denied, open '/writrmd/content/posts/first-post!.md'
-# writrmd-writrmd-1  |     at async t$ (.next/server/app/(routes)/(admin)/writr/posts/add/page.js:10:7) {
-#    writrmd-writrmd-1  |   errno: -13,
-#    writrmd-writrmd-1  |   code: 'EACCES',
-#    writrmd-writrmd-1  |   syscall: 'open',
-#    writrmd-writrmd-1  |   path: '/writrmd/content/posts/first-post!.md'
-#    writrmd-writrmd-1  | }
