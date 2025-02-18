@@ -1,10 +1,10 @@
-import PostForm from '@/app/ui/blog/PostForm';
+import PostEditor from '@/app/ui/editors/PostEditor';
 
 export default async function Page() {
   return (
     <main>
       <h1>Add new post</h1>
-      <PostForm />
+      <PostEditor />
     </main>
   );
 }

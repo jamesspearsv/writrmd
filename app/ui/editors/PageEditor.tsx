@@ -1,31 +1,15 @@
 'use client';
 
-import TextAreaInput from '@/app/ui/forms/TextAreaInput';
-import TextInput from '@/app/ui/forms/TextInput';
-import {
-  startTransition,
-  useActionState,
-  useEffect,
-  useReducer,
-  useRef,
-} from 'react';
+import TextAreaInput from '@/app/ui/editors/TextAreaInput';
+import TextInput from '@/app/ui/editors/TextInput';
+import { startTransition, useActionState, useEffect, useRef } from 'react';
 import { addNewPage } from '@/app/lib/actions';
 import StyledButton from '@/app/ui/common/StyledButton';
-import { title } from 'process';
-
-export type PageEditorState = {
-  error: string | null;
-  data: PageEditorData;
-};
-
-export type PageEditorData = {
-  title: string;
-  content: string;
-};
+import { PageEditorData, PageEditorState } from '@/app/lib/definitions';
 
 const initialState: PageEditorState = {
   error: null,
-  data: {
+  values: {
     title: '',
     content: '',
   },
@@ -54,7 +38,7 @@ export default function AddPageForm() {
     return () => controller.abort();
   });
 
-  function submitPage(e: React.MouseEvent<HTMLButtonElement>) {
+  function submitPage() {
     const fields = ['title', 'content'];
     if (!editorRef.current) return;
 
@@ -91,14 +75,14 @@ export default function AddPageForm() {
       <div ref={editorRef}>
         <div>
           <p>{state.error}</p>
-          <p>{state.data.title}</p>
-          <p>{state.data.content}</p>
+          <p>{state.values.title}</p>
+          <p>{state.values.content}</p>
         </div>
-        <TextInput label="Page Title" name="title" value={state.data.title} />
+        <TextInput label="Page Title" name="title" value={state.values.title} />
         <TextAreaInput
           label="Page Content"
           name="content"
-          value={state.data.content}
+          value={state.values.content}
         />
       </div>
     </>

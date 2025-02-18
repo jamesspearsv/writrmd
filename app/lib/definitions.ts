@@ -22,19 +22,36 @@ export interface Page extends matter.GrayMatterFile<string> {
   isEmpty: boolean;
 }
 
-export interface InputProps {
+// todo: improve generic typing for input components and value updater functions
+// Generic function type for updating the value of a controlled input based on a given type
+export type ValueUpdater<T> = (name: keyof T, value: T[keyof T]) => void;
+
+export interface GenericInputProps {
   name: string;
   label: string;
-  value?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  updateValue: ValueUpdater<any>;
 }
 
-export type FormState = {
+export type PostEditorData = {
+  title: string;
+  author: string;
+  excerpt: string;
+  tags: string[];
+  content: string;
+};
+
+export type PageEditorData = {
+  title: string;
+  content: string;
+};
+
+export type PostEditorState = {
   error: string | null;
-  prevValues: {
-    title: string;
-    author: string;
-    excerpt: string;
-    tags: string;
-    content: string;
-  };
+  values: PostEditorData;
+};
+
+export type PageEditorState = {
+  error: string | null;
+  values: PageEditorData;
 };

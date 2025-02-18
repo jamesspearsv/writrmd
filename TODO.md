@@ -20,16 +20,16 @@ Tasks related to the current working feature
 
 ### High Priority
 
-- [ ] Refactor new post workflow to use a 'formless' approach with server actions and useActionState
-- [ ] Refactor input components to lift up state
-- [ ] Improve sidebar navigation UI
+- [ ] _wip_ Refactor new post workflow to use a 'formless' approach with server actions and useActionState
+- [ ] Refactor new page adding workflow to use a 'formless' approach with server actions and useActionState
 - [ ] Uniquely identify post and page with unique slug generation
 - [ ] Improve new post and page server action error details
 - [ ] Add new post form error visual feedback
-- [ ] Add ability to save posts as drafts
 
 ### Next Steps
 
+- [ ] Improve sidebar navigation UI
+- [ ] Add ability to save posts as drafts
 - [ ] Update server actions documentation
 - [ ] Improve date formatting (localized and relative dates)
 - [ ] Add admin authentication
@@ -49,3 +49,5 @@ A general list of future ideas or tasks. These may or may not be implemented.
 ## Completed Tasks
 
 - [x] Add page adding workflow
+- [x] Improve input component props generic typing
+- [x] Refactor input components to lift up state. Input components should be controlled by default
