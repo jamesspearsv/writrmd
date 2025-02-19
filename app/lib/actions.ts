@@ -7,7 +7,8 @@ import {
   PageEditorData,
   PageEditorState,
   Post,
-  PostEditorState,
+  PostEditorData,
+  PostEditorActionState,
 } from '@/app/lib/definitions';
 import { PageSchema, PostSchema } from '@/app/lib/schemas';
 import slugify from 'slugify';
@@ -122,75 +123,90 @@ export async function fetchPage(page: string) {
 
 // todo: write addNewPost documentation
 // todo: fix after typing changes in tags
-export async function addNewPost() {
-  //   currentState: PostEditorState,
-  //   data: FormData
-  // ) {
-  //   // validate form data
-  //   const results = PostSchema.safeParse({
-  //     title: data.get('title'),
-  //     author: data.get('author'),
-  //     content: data.get('content'),
-  //     tags: data.get('tags'),
-  //     excerpt: data.get('excerpt'),
-  //   });
-  // if (!results.success) {
-  //   console.error('Validation failed!');
-  //   // todo: return more detailed errors for individual fields
-  //   return {
-  //     error: 'Error adding new posts',
-  //     values: {
-  //       title: data.get('title'),
-  //       author: data.get('author'),
-  //       content: data.get('content'),
-  //       tags: data.get('tags'),
-  //       excerpt: data.get('excerpt'),
-  //     },
-  //   } as PostEditorState;
-  // }
-  // console.error('Validation passed!');
-  // const slug = slugify(data.get('title') as string);
-  // const t = data.get('tags') as string;
-  // const tags = t.split(',');
-  // const fileContents =
-  //   '---\n' +
-  //   `title: '${data.get('title')}'\n` +
-  //   `author: '${data.get('author')}'\n` +
-  //   `date: ${new Date().toISOString()}\n` +
-  //   `tags: [${tags.map((tag) => `'${tag}'`)}]\n` +
-  //   `excerpt: '${data.get('excerpt')}'\n` +
-  //   '---\n\n' +
-  //   `${data.get('content')}\n`;
-  // try {
-  //   await fs.writeFile(
-  //     `${rootDir}/content/posts/${slug.toLowerCase()}.md`,
-  //     fileContents
-  //   );
-  // } catch (error) {
-  //   console.error(error);
-  //   return {
-  //     error: 'Error writing file',
-  //     values: {
-  //       title: data.get('title'),
-  //       author: data.get('author'),
-  //       content: data.get('content'),
-  //       tags: data.get('tags'),
-  //       excerpt: data.get('excerpt'),
-  //     },
-  //   } as PostEditorState;
-  // }
-  // // todo: update redirect
+export async function writeNewPost(
+  state: PostEditorActionState,
+  data: PostEditorData
+) {
+  // 1. validate submitted data
+  // 2. if validation fails return errors and data
+  // 3. else if validation succeeds attempt to write data to filesystem
+  // 4. if write successful redirect to /writr/posts
+
+  const results = PostSchema.safeParse({
+    title: data.title,
+    author: data.author,
+    excerpt: data.excerpt,
+    tags: data.tags,
+    content: data.content,
+  } as PostEditorData);
+
+  if (!results.success) {
+    console.error(`Validation failed! ${new Date().toISOString()}`);
+    console.error(results.error.flatten().fieldErrors);
+    return {
+      ok: false,
+      message: 'Validation failed',
+      errors: results.error.flatten().fieldErrors,
+      values: data,
+    } as PostEditorActionState;
+  }
+
+  console.error(`Validation passed! ${new Date().toISOString()}`);
+
+  // todo: sanitize filenames
+  // todo: uniqueify filenames
+  const slug = slugify(data.title, {
+    lower: true,
+    remove: /[<>:"/\\|?*\.,;!@#%^&(){}\[\]~`'$=+]/g,
+  });
+
+  const fileContents =
+    '---\n' +
+    `title: '${data.title}'\n` +
+    `author: '${data.author}'\n` +
+    `date: ${new Date().toISOString()}\n` +
+    `tags: [${data.tags.map((tag) => `'${tag}'`)}]\n` +
+    `excerpt: '${data.excerpt}'\n` +
+    '---\n\n' +
+    `${data.content}\n`;
+
+  try {
+    await fs.writeFile(
+      `${rootDir}/content/posts/${slug.toLowerCase()}.md`,
+      fileContents
+    );
+  } catch (error) {
+    console.error(error);
+    return {
+      ok: false,
+      message: 'Server error! Please try again later.',
+      errors: {},
+      values: data,
+    } as PostEditorActionState;
+  }
+
+  return {
+    ok: true,
+    message: null,
+    errors: {},
+    values: {
+      title: '',
+      author: '',
+      excerpt: '',
+      tags: [],
+      content: '',
+    },
+  } as PostEditorActionState;
+
   // redirect('/writr/posts');
 }
 
 // todo: write addNewPage documentation
+// todo: refactor addNewPage action
 export async function addNewPage(
   prevState: PageEditorState,
   values: PageEditorData
 ) {
-  // console.log(prevState);
-  // console.log(data);
-
   // Validate submitted data
   const results = PageSchema.safeParse({
     title: values.title,

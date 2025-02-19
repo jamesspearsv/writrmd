@@ -1,16 +1,23 @@
 'use client';
 
 import TextInput from '@/app/ui/editors/TextInput';
-import React, { useActionState, useEffect, useRef, useState } from 'react';
+import React, {
+  startTransition,
+  useActionState,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import {
   PostEditorData,
-  PostEditorState,
+  PostEditorActionState,
   ValueUpdater,
 } from '@/app/lib/definitions';
-import { addNewPost } from '@/app/lib/actions';
+import { writeNewPost } from '@/app/lib/actions';
 import styles from './PostEditor.module.css';
 import ListInput from '@/app/ui/editors/ListInput';
 import TextAreaInput from '@/app/ui/editors/TextAreaInput';
+import StyledButton from '@/app/ui/common/StyledButton';
 
 const initialLocalState: PostEditorData = {
   title: '',
@@ -20,22 +27,34 @@ const initialLocalState: PostEditorData = {
   excerpt: '',
 };
 
-const initialActionState: PostEditorState = {
-  error: null,
+const initialActionState: PostEditorActionState = {
+  ok: true,
+  message: null,
+  errors: {},
   values: initialLocalState,
 };
 
 // todo: Add editor submission logic
 export default function PostForm() {
-  const submitButtonRef = useRef<HTMLButtonElement | null>(null);
   // action state management for editor submission
-  // const [state, editorAction] = useActionState(addNewPost, initialActionState);
+  const [actionState, editorAction] = useActionState(
+    writeNewPost,
+    initialActionState
+  );
   // local state management for current editor data
   const [editorData, setEditorData] =
     useState<PostEditorData>(initialLocalState);
+  const submitButtonRef = useRef<HTMLButtonElement | null>(null);
+
+  // reset local state is action is successful
+  useEffect(() => {
+    if (actionState.ok) {
+      setEditorData(initialLocalState);
+    }
+  }, [actionState]);
 
   // todo: extract to hook
-  // useEffect to add keyboard listener to body for cmd | ctrl + enter submission
+  // Add keyboard listener to body for cmd | ctrl + enter submission
   useEffect(() => {
     const controller = new AbortController();
     document.body.addEventListener(
@@ -52,17 +71,24 @@ export default function PostForm() {
     return () => controller.abort();
   });
 
-  // local state updater that updated editorData based on the PostEditorDate type
+  // update editorData based on the PostEditorDate type
   const updateLocalState: ValueUpdater<PostEditorData> = (name, value) => {
     const newDate = { ...editorData, [name]: value };
     setEditorData(newDate);
   };
+
+  function submitEditorData() {
+    startTransition(() => {
+      editorAction(editorData);
+    });
+  }
 
   return (
     <div className={styles.container}>
       {Object.keys(editorData).map((item) => (
         <p key={item}>{editorData[item as keyof PostEditorData]}</p>
       ))}
+      <div>{!actionState.ok && actionState.message}</div>
       <div>
         <TextInput
           name="title"
@@ -95,6 +121,13 @@ export default function PostForm() {
           value={editorData.content}
           updateValue={updateLocalState}
         />
+        <StyledButton
+          ref={submitButtonRef}
+          variation={'rounded'}
+          onClick={submitEditorData}
+        >
+          Publish
+        </StyledButton>
       </div>
     </div>
   );

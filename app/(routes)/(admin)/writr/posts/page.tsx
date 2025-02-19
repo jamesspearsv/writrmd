@@ -14,7 +14,7 @@ export default async function Page() {
   return (
     <main>
       <PostList posts={posts} admin={true} />
-      <Link href={'/writr/posts/add'}>
+      <Link href={'/writr/posts/new'}>
         <StyledButton variation={'circle'} className={styles.button}>
           <Plus />
         </StyledButton>

@@ -1,4 +1,3 @@
-import styles from './page.module.css';
 import PageEditor from '@/app/ui/editors/PageEditor';
 
 export default function Page() {

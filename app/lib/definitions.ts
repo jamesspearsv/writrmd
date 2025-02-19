@@ -46,8 +46,10 @@ export type PageEditorData = {
   content: string;
 };
 
-export type PostEditorState = {
-  error: string | null;
+export type PostEditorActionState = {
+  ok: boolean;
+  message: string | null;
+  errors: Partial<Record<keyof PostEditorData, string>>;
   values: PostEditorData;
 };
 

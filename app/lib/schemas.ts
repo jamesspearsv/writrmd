@@ -4,8 +4,8 @@ export const PostSchema = z.object({
   title: z.string().min(1),
   author: z.string().min(1),
   content: z.string().min(1),
-  tags: z.string(),
-  excerpt: z.string(),
+  tags: z.array(z.string()), // optional: can be an empty array
+  excerpt: z.string(), // optional can be an empty string
 });
 
 export const PageSchema = z.object({
