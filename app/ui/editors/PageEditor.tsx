@@ -2,22 +2,39 @@
 
 import TextAreaInput from '@/app/ui/editors/TextAreaInput';
 import TextInput from '@/app/ui/editors/TextInput';
-import { startTransition, useActionState, useEffect, useRef } from 'react';
-import { addNewPage } from '@/app/lib/actions';
+import {
+  startTransition,
+  useActionState,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import StyledButton from '@/app/ui/common/StyledButton';
-import { PageEditorData, PageEditorState } from '@/app/lib/definitions';
+import {
+  PageEditorActionState,
+  PageEditorData,
+  ValueUpdater,
+} from '@/app/lib/definitions';
+import { writeNewPage } from '@/app/lib/actions';
 
-const initialState: PageEditorState = {
-  error: null,
-  values: {
-    title: '',
-    content: '',
-  },
+const initialLocalState: PageEditorData = {
+  title: '',
+  content: '',
 };
 
-export default function AddPageForm() {
-  const [state, action] = useActionState(addNewPage, initialState);
-  const editorRef = useRef<HTMLDivElement | null>(null);
+const initialActionState: PageEditorActionState = {
+  ok: true,
+  message: null,
+  errors: {},
+  values: initialLocalState,
+};
+
+export default function PageEditor() {
+  const [actionState, editorAction] = useActionState(
+    writeNewPage,
+    initialActionState
+  );
+  const [localData, setLocalData] = useState(initialLocalState);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
   // todo: extract into a useMetaEnter hook
@@ -38,51 +55,40 @@ export default function AddPageForm() {
     return () => controller.abort();
   });
 
-  function submitPage() {
-    const fields = ['title', 'content'];
-    if (!editorRef.current) return;
+  useEffect(() => {
+    if (actionState.ok) {
+      setLocalData(initialLocalState);
+    }
+  }, [actionState]);
 
-    const editorChildren = editorRef.current.children;
-    const data: PageEditorData = {
-      title: '',
-      content: '',
-    };
-
-    // look into containing div for respective title and content inputs elements
-    Array.from(editorChildren).forEach((child) => {
-      // iterate through needed fields as defined above
-      fields.forEach((field) => {
-        if (child.children.namedItem(field)) {
-          const input = child.children.namedItem(field) as HTMLInputElement;
-          // only insert data for valid fields. Should be mostly unnecessary
-          if (field === 'title' || field === 'content') {
-            data[field] = input.value;
-          }
-        }
-      });
-    });
-
+  function submitEditor() {
     startTransition(() => {
-      action(data);
+      editorAction(localData);
     });
   }
 
+  const updateLocalState: ValueUpdater<PageEditorData> = (name, value) => {
+    const newData = { ...localData, [name]: value };
+    setLocalData(newData);
+  };
+
   return (
     <>
-      <StyledButton onClick={submitPage} ref={buttonRef}>
+      <StyledButton onClick={submitEditor} ref={buttonRef}>
         Add page
       </StyledButton>
-      <div ref={editorRef}>
-        <div>
-          <p>{state.error}</p>
-          <p>{state.values.title}</p>
-          <p>{state.values.content}</p>
-        </div>
-        <TextInput label="Page Title" name="title" value={state.values.title} />
+      <div>
+        <TextInput
+          label="Page Title"
+          name="title"
+          value={localData.title}
+          updateValue={updateLocalState}
+        />
         <TextAreaInput
           label="Page Content"
           name="content"
-          value={state.values.content}
+          value={localData.content}
+          updateValue={updateLocalState}
         />
       </div>
     </>

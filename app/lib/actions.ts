@@ -3,16 +3,15 @@
 import * as fs from 'node:fs/promises';
 import * as matter from 'gray-matter';
 import {
-  Page,
-  PageEditorData,
-  PageEditorState,
   Post,
+  Page,
   PostEditorData,
+  PageEditorData,
   PostEditorActionState,
+  PageEditorActionState,
 } from '@/app/lib/definitions';
 import { PageSchema, PostSchema } from '@/app/lib/schemas';
 import slugify from 'slugify';
-import { redirect } from 'next/navigation';
 
 // Absolute path to project dir from filesystem root
 const rootDir = process.env.ROOT_PATH;
@@ -122,16 +121,10 @@ export async function fetchPage(page: string) {
 }
 
 // todo: write addNewPost documentation
-// todo: fix after typing changes in tags
 export async function writeNewPost(
   state: PostEditorActionState,
   data: PostEditorData
 ) {
-  // 1. validate submitted data
-  // 2. if validation fails return errors and data
-  // 3. else if validation succeeds attempt to write data to filesystem
-  // 4. if write successful redirect to /writr/posts
-
   const results = PostSchema.safeParse({
     title: data.title,
     author: data.author,
@@ -153,8 +146,7 @@ export async function writeNewPost(
 
   console.error(`Validation passed! ${new Date().toISOString()}`);
 
-  // todo: sanitize filenames
-  // todo: uniqueify filenames
+  // todo: uniqueify post filenames
   const slug = slugify(data.title, {
     lower: true,
     remove: /[<>:"/\\|?*\.,;!@#%^&(){}\[\]~`'$=+]/g,
@@ -202,43 +194,57 @@ export async function writeNewPost(
 }
 
 // todo: write addNewPage documentation
-// todo: refactor addNewPage action
-export async function addNewPage(
-  prevState: PageEditorState,
-  values: PageEditorData
+export async function writeNewPage(
+  state: PageEditorActionState,
+  data: PageEditorData
 ) {
-  // Validate submitted data
   const results = PageSchema.safeParse({
-    title: values.title,
-    content: values.content,
-  });
+    title: data.title,
+    content: data.content,
+  } as PageEditorData);
 
   if (!results.success) {
-    console.log('validation failed');
+    console.error(`Validation failed ${new Date().toISOString()}`);
     return {
-      error: 'Validation failed!',
-      values,
-    } as PageEditorState;
+      ok: false,
+      message: 'Validation failed',
+      errors: results.error.flatten().fieldErrors,
+      values: data,
+    } as PageEditorActionState;
   }
 
-  const filename = `${slugify(values.title).toLowerCase()}.md`;
+  // todo: uniqueify post filenames
+  const slug = slugify(data.title, {
+    lower: true,
+    remove: /[<>:"/\\|?*\.,;!@#%^&(){}\[\]~`'$=+]/g,
+  });
   const fileContents =
-    '---\n' + `title: ${values.title}\n` + '---\n\n' + `${values.content}`;
-
-  console.log('filename', filename);
+    '---\n' + `title: ${data.title}\n` + '---\n\n' + `${data.content}`;
+  console.log('slug', slug);
   console.log('fileContents');
   console.log(fileContents);
 
   try {
-    await fs.writeFile(`${rootDir}/content/pages/${filename}`, fileContents);
+    await fs.writeFile(`${rootDir}/content/pages/${slug}.md`, fileContents);
   } catch (error) {
     console.error(error);
     return {
-      error: 'Error writing file',
-      values,
-    } as PageEditorState;
+      ok: false,
+      message: 'Server error! Please try again later.',
+      errors: {},
+      values: data,
+    } as PageEditorActionState;
   }
 
-  // todo: update redirect
-  redirect('/writr/pages');
+  return {
+    ok: true,
+    message: null,
+    errors: {},
+    values: {
+      title: '',
+      content: '',
+    },
+  } as PageEditorActionState;
+
+  // redirect('/writr/pages');
 }

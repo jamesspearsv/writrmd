@@ -22,7 +22,6 @@ export interface Page extends matter.GrayMatterFile<string> {
   isEmpty: boolean;
 }
 
-// todo: improve generic typing for input components and value updater functions
 // Generic function type for updating the value of a controlled input based on a given type
 export type ValueUpdater<T> = (name: keyof T, value: T[keyof T]) => void;
 
@@ -53,7 +52,9 @@ export type PostEditorActionState = {
   values: PostEditorData;
 };
 
-export type PageEditorState = {
-  error: string | null;
+export type PageEditorActionState = {
+  ok: boolean;
+  message: string | null;
+  errors: Partial<Record<keyof PageEditorData, string>>;
   values: PageEditorData;
 };

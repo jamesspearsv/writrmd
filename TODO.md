@@ -20,8 +20,6 @@ Tasks related to the current working feature
 
 ### High Priority
 
-- [ ] Refactor new page workflow using a'formless' approach with server actions and useActionState
-- [ ] Improve error feedback for page adding server action
 - [ ] Add visual error feedback to post and page editors
 - [ ] Uniquely identify post files with unique slug generation
 - [ ] Uniquely identity page files with unique slug generation
@@ -48,8 +46,10 @@ A general list of future ideas or tasks. These may or may not be implemented.
 
 ## Completed Tasks
 
+- [x] Refactor new page workflow using a'formless' approach with server actions and useActionState
 - [x] Refactor new post workflow using 'formless' approach with server actions and useActionState
 - [x] Refactor input components to lift up state. Input components should be controlled by default
 - [x] Improve input component props generic typing
 - [x] Add page adding workflow
 - [x] Improve new post and page server action error details
+- [x] Improve error feedback for page adding server action
