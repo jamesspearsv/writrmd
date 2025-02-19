@@ -39,11 +39,13 @@ export default function ListInput(props: ListInputProps) {
           value={tagState}
           onChange={(e) => setTagState(e.currentTarget.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleListAddition()}
+          className={props.error && styles.error}
         />
         <StyledButton className={styles.addButton} onClick={handleListAddition}>
           <Plus />
         </StyledButton>
       </div>
+      {props.error && <div className={styles.error}>{props.error}</div>}
       <div className={styles.items}>
         {props.value.length === 0 ? (
           <p className={styles.listPlaceholder}>

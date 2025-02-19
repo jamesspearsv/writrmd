@@ -34,7 +34,6 @@ const initialActionState: PostEditorActionState = {
   values: initialLocalState,
 };
 
-// todo: Add editor submission logic
 export default function PostForm() {
   // action state management for editor submission
   const [actionState, editorAction] = useActionState(
@@ -88,25 +87,27 @@ export default function PostForm() {
       {Object.keys(editorData).map((item) => (
         <p key={item}>{editorData[item as keyof PostEditorData]}</p>
       ))}
-      <div>{!actionState.ok && actionState.message}</div>
       <div>
         <TextInput
           name="title"
           label="Title"
           value={editorData.title}
           updateValue={updateLocalState}
+          error={actionState.errors.title}
         />
         <TextInput
           name="author"
           label="Author"
           value={editorData.author}
           updateValue={updateLocalState}
+          error={actionState.errors.author}
         />
         <TextInput
           name="excerpt"
           label="Excerpt"
           value={editorData.excerpt}
           updateValue={updateLocalState}
+          error={actionState.errors.excerpt}
         />
         <ListInput
           name="tags"
@@ -114,12 +115,14 @@ export default function PostForm() {
           value={editorData.tags}
           updateValue={updateLocalState}
           limit={3}
+          error={actionState.errors.tags}
         />
         <TextAreaInput
           name="content"
           label="Post Body"
           value={editorData.content}
           updateValue={updateLocalState}
+          error={actionState.errors.content}
         />
         <StyledButton
           ref={submitButtonRef}

@@ -21,13 +21,14 @@ Tasks related to the current working feature
 ### High Priority
 
 - [ ] Add visual error feedback to post and page editors
+  - [x] Add error messages
+  - [ ] Add error styling to inputs
 - [ ] Uniquely identify post files with unique slug generation
-- [ ] Uniquely identity page files with unique slug generation
 
 ### Next Steps
 
 - [ ] Update server actions documentation
-- [ ] Improve page and post adding UI
+- [ ] Improve post adding UI
 - [ ] Improve sidebar navigation UI
 - [ ] Add ability to save posts as drafts
 - [ ] Improve date formatting (localized and relative dates)
@@ -37,6 +38,7 @@ Tasks related to the current working feature
 
 A general list of future ideas or tasks. These may or may not be implemented.
 
+- Add customizable elements to site landing page
 - Implement mobile layout
 - Improve post editor (Ghost and Wordpress like)
 - Custom theme options

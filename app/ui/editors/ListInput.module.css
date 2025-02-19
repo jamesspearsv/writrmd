@@ -56,3 +56,13 @@
   padding: 0;
   color: inherit;
 }
+
+input.error {
+  outline: solid var(--border-size) var(--danger-color);
+}
+
+div.error {
+  color: var(--danger-color);
+  font-size: var(--font-sizing-small);
+  font-style: italic;
+}

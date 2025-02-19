@@ -39,7 +39,10 @@ export default function TextAreaInput(props: TextAreaInputProps) {
       </div>
       {!preview ? (
         <textarea
-          className={styles.textarea}
+          className={clsx(
+            `${styles.textarea}`,
+            props.error && `${styles.error}`
+          )}
           value={props.value}
           onChange={handleChange}
           placeholder="Start writing here..."
@@ -60,6 +63,7 @@ export default function TextAreaInput(props: TextAreaInputProps) {
           />
         </div>
       )}
+      {props.error && <div className={styles.error}>{props.error}</div>}
     </div>
   );
 }

@@ -28,6 +28,7 @@ export type ValueUpdater<T> = (name: keyof T, value: T[keyof T]) => void;
 export interface GenericInputProps {
   name: string;
   label: string;
+  error?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   updateValue: ValueUpdater<any>;
 }

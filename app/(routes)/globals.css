@@ -9,6 +9,7 @@
 
   /* app properties */
   --accent-color: var(--green-9);
+  --danger-color: var(--red-6);
   --normal-weight: var(--font-weight-4);
   --bold-weight: var(--font-weight-7);
   --font-sizing: -1rem;

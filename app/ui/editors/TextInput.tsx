@@ -19,7 +19,9 @@ export default function TextInput(props: TextInputProps) {
         id={props.name}
         value={props.value}
         onChange={handleChange}
+        className={props.error && styles.error}
       />
+      {props.error && <div className={styles.error}>{props.error}</div>}
     </div>
   );
 }
