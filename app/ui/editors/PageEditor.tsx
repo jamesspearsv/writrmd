@@ -1,80 +1,80 @@
 'use client';
 
-import TextAreaInput from '@/app/ui/editors/TextAreaInput';
-import TextInput from '@/app/ui/editors/TextInput';
-import {
-  startTransition,
-  useActionState,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
-import StyledButton from '@/app/ui/common/StyledButton';
-import {
-  PageEditorActionState,
-  PageEditorData,
-  ValueUpdater,
-} from '@/app/lib/definitions';
-import { writeNewPage } from '@/app/lib/actions';
+// import TextAreaInput from '@/app/ui/editors/TextAreaInput';
+// import TextInput from '@/app/ui/editors/TextInput';
+// import {
+//   startTransition,
+//   useActionState,
+//   useEffect,
+//   useRef,
+//   useState,
+// } from 'react';
+// import StyledButton from '@/app/ui/common/StyledButton';
+// import {
+//   PageEditorActionState,
+//   PageEditorData,
+//   ValueUpdater,
+// } from '@/app/lib/definitions';
+// import { writeNewPage } from '@/app/lib/actions';
 
-const initialLocalState: PageEditorData = {
-  title: '',
-  content: '',
-};
+// const initialLocalState: PageEditorData = {
+//   title: '',
+//   content: '',
+// };
 
-const initialActionState: PageEditorActionState = {
-  ok: true,
-  message: null,
-  errors: {},
-  values: initialLocalState,
-};
+// const initialActionState: PageEditorActionState = {
+//   ok: true,
+//   message: null,
+//   errors: {},
+//   values: initialLocalState,
+// };
 
 export default function PageEditor() {
-  const [actionState, editorAction] = useActionState(
-    writeNewPage,
-    initialActionState
-  );
-  const [localData, setLocalData] = useState(initialLocalState);
-  const buttonRef = useRef<HTMLButtonElement | null>(null);
+  // const [actionState, editorAction] = useActionState(
+  //   writeNewPage,
+  //   initialActionState
+  // );
+  // const [localData, setLocalData] = useState(initialLocalState);
+  // const buttonRef = useRef<HTMLButtonElement | null>(null);
 
-  // todo: extract into a useMetaEnter hook
-  useEffect(() => {
-    const controller = new AbortController();
+  // useEffect(() => {
+  //   const controller = new AbortController();
 
-    document.body.addEventListener(
-      'keydown',
-      (e) => {
-        if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
-          if (!buttonRef.current) return;
-          buttonRef.current.click();
-        }
-      },
-      { signal: controller.signal }
-    );
+  //   document.body.addEventListener(
+  //     'keydown',
+  //     (e) => {
+  //       if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+  //         if (!buttonRef.current) return;
+  //         buttonRef.current.click();
+  //       }
+  //     },
+  //     { signal: controller.signal }
+  //   );
 
-    return () => controller.abort();
-  });
+  //   return () => controller.abort();
+  // });
 
-  useEffect(() => {
-    if (actionState.ok) {
-      setLocalData(initialLocalState);
-    }
-  }, [actionState]);
+  // useEffect(() => {
+  //   if (actionState.ok) {
+  //     setLocalData(initialLocalState);
+  //   }
+  // }, [actionState]);
 
-  function submitEditor() {
-    startTransition(() => {
-      editorAction(localData);
-    });
-  }
+  // function submitEditor() {
+  //   startTransition(() => {
+  //     editorAction(localData);
+  //   });
+  // }
 
-  const updateLocalState: ValueUpdater<PageEditorData> = (name, value) => {
-    const newData = { ...localData, [name]: value };
-    setLocalData(newData);
-  };
+  // const updateLocalState: ValueUpdater<PageEditorData> = (name, value) => {
+  //   const newData = { ...localData, [name]: value };
+  //   setLocalData(newData);
+  // };
 
   return (
     <>
-      <StyledButton onClick={submitEditor} ref={buttonRef}>
+      <p>Deprecated. Saving for future use.</p>
+      {/* <StyledButton onClick={submitEditor} ref={buttonRef}>
         Add page
       </StyledButton>
       <div>
@@ -90,7 +90,7 @@ export default function PageEditor() {
           value={localData.content}
           updateValue={updateLocalState}
         />
-      </div>
+      </div> */}
     </>
   );
 }
