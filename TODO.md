@@ -20,17 +20,14 @@ Tasks related to the current working feature
 
 ### High Priority
 
-- [ ] Add visual error feedback to post and page editors
-  - [x] Add error messages
-  - [ ] Add error styling to inputs
 - [ ] Uniquely identify post files with unique slug generation
+- [ ] Update server actions documentation
+- [ ] Improve sidebar navigation UI
+- [ ] Add ability to save posts as drafts
 
 ### Next Steps
 
-- [ ] Update server actions documentation
 - [ ] Improve post adding UI
-- [ ] Improve sidebar navigation UI
-- [ ] Add ability to save posts as drafts
 - [ ] Improve date formatting (localized and relative dates)
 - [ ] Add admin authentication
 
@@ -48,6 +45,7 @@ A general list of future ideas or tasks. These may or may not be implemented.
 
 ## Completed Tasks
 
+- [x] Add visual error feedback to post and page editors
 - [x] Refactor new page workflow using a'formless' approach with server actions and useActionState
 - [x] Refactor new post workflow using 'formless' approach with server actions and useActionState
 - [x] Refactor input components to lift up state. Input components should be controlled by default
