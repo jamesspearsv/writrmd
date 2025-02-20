@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   writrmd:
-    image: writrmd:dev
+    image: ghcr.io/jamesspearsv/writrmd:latest
     restart: unless-stopped
     networks:
       - writrmd_network
@@ -11,9 +11,9 @@ services:
     environment:
       - NODE_ENV=production
     # Uncomment these lines to mount post and pages to the filesystem
-    volumes:
-      - ./docker-dev/pages:/writrmd/content/pages
-      - ./docker-dev/posts:/writrmd/content/posts
+    # volumes:
+    # - ./pages:/writrmd/content/pages
+    # - ./posts:/writrmd/content/posts
 
   caddy:
     image: caddy:latest
@@ -22,7 +22,7 @@ services:
       - '80:80' # Expose port 80 to the host machine
       - '443:443' # Expose port 443 (optional, for HTTPS)
     volumes:
-      - ./docker-dev/Caddyfile:/etc/caddy/Caddyfile # Mount the Caddyfile
+      - ./Caddyfile:/etc/caddy/Caddyfile # Mount the Caddyfile
       - caddy_data:/data # Persist Caddy data
       - caddy_config:/config # Persist Caddy config
     networks:

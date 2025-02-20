@@ -1,0 +1,77 @@
+.group {
+  display: flex;
+  flex-direction: column;
+}
+
+.actionButtons {
+  display: flex;
+}
+
+.actionButtons button {
+  background-color: var(--primary-color-alt);
+  color: var(--secondary-color-alt);
+  padding: var(--spacing-size-xs);
+  border-bottom: solid var(--border-size-2) var(--primary-color);
+  flex: 1;
+  transition: flex 250ms ease-in-out;
+}
+
+.actionButtons button:hover {
+  text-decoration: underline;
+  font-weight: var(--bold-weight);
+}
+
+.actionButtons button:first-child {
+  border-right: solid var(--border-size-1) var(--primary-color);
+}
+
+.actionButtons button:last-child {
+  border-left: solid var(--border-size-2) var(--primary-color);
+}
+
+.actionButtons button:focus-visible {
+  outline: solid var(--border-size-2) var(--secondary-color);
+}
+
+.actionButtons button.active {
+  font-weight: var(--bold-weight);
+  color: var(--secondary-color);
+  text-decoration: underline;
+  flex: 3;
+}
+.textarea {
+  border: none;
+  background-color: var(--primary-color-alt);
+  color: var(--secondary-color);
+  padding: var(--spacing-size);
+}
+
+.textarea:focus {
+  outline: solid var(--border-size) var(--secondary-color);
+  outline-offset: -1px;
+}
+
+.textarea::placeholder {
+  color: var(--secondary-color-alt);
+}
+
+.previewArea {
+  background-color: var(--primary-color-alt);
+  height: 100%;
+  padding: var(--spacing-size);
+  overflow-y: scroll;
+}
+
+.previewPlaceholder {
+  color: var(--secondary-color-alt);
+}
+
+textarea.error {
+  outline: solid var(--border-size) var(--danger-color);
+}
+
+div.error {
+  color: var(--danger-color);
+  font-size: var(--font-sizing-small);
+  font-style: italic;
+}

@@ -1,0 +1,15 @@
+.base {
+  border: none;
+  background-color: var(--secondary-color-alt);
+  color: var(--primary-color);
+  padding: var(--spacing-size-xs);
+  cursor: pointer;
+}
+
+.circle {
+  border-radius: var(--radius-round);
+}
+
+.rounded {
+  border-radius: var(--radius-2);
+}

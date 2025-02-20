@@ -1,0 +1,22 @@
+.nav {
+  padding: var(--spacing-size) var(--spacing-size-l);
+  border-bottom: var(--border-size-1) solid var(--secondary-color-alt);
+  background-color: var(--primary-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list {
+  display: flex;
+  list-style: none;
+  align-items: center;
+  gap: var(--spacing-size);
+
+  .link,
+  .link:hover {
+    color: var(--secondary-color);
+    text-decoration: none;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,3 @@
+.container > *:last-child {
+  margin-left: calc(var(--sidebar-width) + var(--spacing-size-xl));
+}
