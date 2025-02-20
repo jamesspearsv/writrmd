@@ -20,8 +20,6 @@ Tasks related to the current working feature
 
 ### High Priority
 
-- [ ] Uniquely identify post files with unique slug generation
-- [ ] Update server actions documentation
 - [ ] Improve sidebar navigation UI
 
 ### Next Steps
@@ -42,9 +40,12 @@ A general list of future ideas or tasks. These may or may not be implemented.
 - Navigation groups and subpages
 - RSS feed generation
 - Commenting system
+- Update breadcrumb generation to use post titles instead of post slugs
 
 ## Completed Tasks
 
+- [x] Update server actions documentation
+- [x] Uniquely identify post files with unique slug generation
 - [x] Add visual error feedback to post and page editors
 - [x] Refactor new page workflow using a'formless' approach with server actions and useActionState
 - [x] Refactor new post workflow using 'formless' approach with server actions and useActionState

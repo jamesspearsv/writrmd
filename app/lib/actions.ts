@@ -6,20 +6,20 @@ import {
   Post,
   Page,
   PostEditorData,
-  PageEditorData,
   PostEditorActionState,
-  PageEditorActionState,
 } from '@/app/lib/definitions';
-import { PageSchema, PostSchema } from '@/app/lib/schemas';
-import slugify from 'slugify';
+import { PostSchema } from '@/app/lib/schemas';
+import { uniqueSlugify } from '@/app/lib/slugify';
+import { redirect } from 'next/navigation';
 
 // Absolute path to project dir from filesystem root
 const rootDir = process.env.ROOT_PATH;
+// filename regex pattern
 const pattern = /^[\w-]+\.md$/;
 
 /**
  * Asynchronously fetches all available posts
- * @param {string} tag - Tag includes in query params for /blog route
+ * @param {string} tag - Tag included in query params for /blog route
  * @returns {Post[] | null} - Returns an array of posts or null unsuccessful
  */
 export async function fetchPosts(tag?: string) {
@@ -79,7 +79,7 @@ export async function fetchPostBySlug(slug: string) {
 
 /**
  * Asynchronously build an index of stand alone pages
- * @returns {string[]} - An array of strings representing page urls
+ * @returns {string[]} - An array page urls as strings
  */
 export async function buildPagesIndex() {
   const pages: Page[] = [];
@@ -105,8 +105,8 @@ export async function buildPagesIndex() {
 }
 
 /**
- *
- * @param {string} page - Requested page url as a string
+ * Asynchronously fetch a standalone page from a given url slug
+ * @param {string} page - Requested page url slug as a string
  * @returns {Page | null} - Returns a single page or null if errors
  */
 export async function fetchPage(page: string) {
@@ -120,7 +120,12 @@ export async function fetchPage(page: string) {
   }
 }
 
-// todo: write addNewPost documentation
+/**
+ * Asynchronously write a new post file to server filesystem
+ * @param {PostEditorActionState} state - Current editor state including ok status, field errors, messages, and previous values
+ * @param {PostEditorData} data - Submitted editor data
+ * @returns - Returns a new editor state or redirects if successfully writes new file
+ */
 export async function writeNewPost(
   state: PostEditorActionState,
   data: PostEditorData
@@ -146,12 +151,8 @@ export async function writeNewPost(
 
   console.error(`Validation passed! ${new Date().toISOString()}`);
 
-  // todo: uniqueify post filenames
-  const slug = slugify(data.title, {
-    lower: true,
-    remove: /[<>:"/\\|?*\.,;!@#%^&(){}\[\]~`'$=+]/g,
-  });
-
+  // Uniquely slugify post name
+  const slug = uniqueSlugify(data.title);
   const fileContents =
     '---\n' +
     `title: '${data.title}'\n` +
@@ -162,6 +163,7 @@ export async function writeNewPost(
     '---\n\n' +
     `${data.content}\n`;
 
+  // Attempt to write new file to filesystem. Catch if unsuccessful
   try {
     await fs.writeFile(
       `${rootDir}/content/posts/${slug.toLowerCase()}.md`,
@@ -177,74 +179,6 @@ export async function writeNewPost(
     } as PostEditorActionState;
   }
 
-  return {
-    ok: true,
-    message: null,
-    errors: {},
-    values: {
-      title: '',
-      author: '',
-      excerpt: '',
-      tags: [],
-      content: '',
-    },
-  } as PostEditorActionState;
-
-  // redirect('/writr/posts');
-}
-
-// todo: write addNewPage documentation
-export async function writeNewPage(
-  state: PageEditorActionState,
-  data: PageEditorData
-) {
-  const results = PageSchema.safeParse({
-    title: data.title,
-    content: data.content,
-  } as PageEditorData);
-
-  if (!results.success) {
-    console.error(`Validation failed ${new Date().toISOString()}`);
-    return {
-      ok: false,
-      message: 'Validation failed',
-      errors: results.error.flatten().fieldErrors,
-      values: data,
-    } as PageEditorActionState;
-  }
-
-  // todo: uniqueify post filenames
-  const slug = slugify(data.title, {
-    lower: true,
-    remove: /[<>:"/\\|?*\.,;!@#%^&(){}\[\]~`'$=+]/g,
-  });
-  const fileContents =
-    '---\n' + `title: ${data.title}\n` + '---\n\n' + `${data.content}`;
-  console.log('slug', slug);
-  console.log('fileContents');
-  console.log(fileContents);
-
-  try {
-    await fs.writeFile(`${rootDir}/content/pages/${slug}.md`, fileContents);
-  } catch (error) {
-    console.error(error);
-    return {
-      ok: false,
-      message: 'Server error! Please try again later.',
-      errors: {},
-      values: data,
-    } as PageEditorActionState;
-  }
-
-  return {
-    ok: true,
-    message: null,
-    errors: {},
-    values: {
-      title: '',
-      content: '',
-    },
-  } as PageEditorActionState;
-
-  // redirect('/writr/pages');
+  // redirect if successful
+  redirect('/writr/posts');
 }

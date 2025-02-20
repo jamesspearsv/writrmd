@@ -41,21 +41,9 @@ export type PostEditorData = {
   content: string;
 };
 
-export type PageEditorData = {
-  title: string;
-  content: string;
-};
-
 export type PostEditorActionState = {
   ok: boolean;
   message: string | null;
   errors: Partial<Record<keyof PostEditorData, string>>;
   values: PostEditorData;
-};
-
-export type PageEditorActionState = {
-  ok: boolean;
-  message: string | null;
-  errors: Partial<Record<keyof PageEditorData, string>>;
-  values: PageEditorData;
 };
