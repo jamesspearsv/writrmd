@@ -23,11 +23,11 @@ Tasks related to the current working feature
 - [ ] Uniquely identify post files with unique slug generation
 - [ ] Update server actions documentation
 - [ ] Improve sidebar navigation UI
-- [ ] Add ability to save posts as drafts
 
 ### Next Steps
 
 - [ ] Improve post adding UI
+- [ ] Add ability to save posts as drafts
 - [ ] Improve date formatting (localized and relative dates)
 - [ ] Add admin authentication
 
