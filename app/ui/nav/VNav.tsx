@@ -20,6 +20,7 @@ export default function VNav({ children }: { children?: React.ReactNode }) {
           </NavItem>
         </ul>
       </div>
+
       <div className={styles.actions}>{children}</div>
     </nav>
   );

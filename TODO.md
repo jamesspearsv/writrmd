@@ -11,9 +11,9 @@ Planned upcoming features. These will be implemented.
 - ~~Dark mode and theme toggle~~
 - ~~Basic admin dashboard~~
 - Admin authorization
+- Customizable site landing page elements
 - Site search bar
 - Post pagination
-- MDX support
 
 ## Tasks
 
@@ -21,8 +21,8 @@ Tasks related to the current working feature
 
 ### High Priority
 
+- [ ] Configure auth library (Auth.js)
 - [ ] Configure authorization credentials storage
-- [ ] Configure next/auth
 - [ ] Add login UI
 - [ ] Write login logic
 - [ ] Add authorization provider and unauthorized user logic
@@ -43,7 +43,7 @@ Tasks related to the current working feature
 
 A general list of future ideas or tasks. These may or may not be implemented.
 
-- Add customizable elements to site landing page
+- MDX support
 - Implement mobile layout
 - Improve post editor (Ghost and Wordpress like)
 - Custom theme options
