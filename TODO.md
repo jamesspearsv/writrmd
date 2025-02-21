@@ -9,7 +9,8 @@ Planned upcoming features. These will be implemented.
 - ~~Post tagging and filtering~~
 - ~~Custom landing and standalone pages~~
 - ~~Dark mode and theme toggle~~
-- Basic admin dashboard
+- ~~Basic admin dashboard~~
+- Admin authorization
 - Site search bar
 - Post pagination
 - MDX support
@@ -20,14 +21,23 @@ Tasks related to the current working feature
 
 ### High Priority
 
-- [ ] Improve sidebar navigation UI
+- [ ] Configure authorization credentials storage
+- [ ] Configure next/auth
+- [ ] Add login UI
+- [ ] Write login logic
+- [ ] Add authorization provider and unauthorized user logic
+
+### Bugs
+
+- [ ] Localstorage reference error thrown from ThemeProvider.tsx
+- [ ] Post publication date formatting error -- dates are rendered as one day previously
+- [ ] Unable to enter tab in post editor. Default behavior moves focus to next focusable element
 
 ### Next Steps
 
 - [ ] Improve post adding UI
 - [ ] Add ability to save posts as drafts
 - [ ] Improve date formatting (localized and relative dates)
-- [ ] Add admin authentication
 
 ## Future Ideas
 
@@ -44,6 +54,9 @@ A general list of future ideas or tasks. These may or may not be implemented.
 
 ## Completed Tasks
 
+A list of completed tasks for historical reference
+
+- [x] Improve sidebar navigation UI
 - [x] Update server actions documentation
 - [x] Uniquely identify post files with unique slug generation
 - [x] Add visual error feedback to post and page editors

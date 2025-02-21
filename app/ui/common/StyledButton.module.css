@@ -1,8 +1,5 @@
 .base {
   border: none;
-  background-color: var(--secondary-color-alt);
-  color: var(--primary-color);
-  padding: var(--spacing-size-xs);
   cursor: pointer;
 }
 

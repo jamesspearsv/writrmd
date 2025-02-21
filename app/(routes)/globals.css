@@ -2,13 +2,16 @@
 
 :root {
   /* open-props design tokens */
-  --dark: var(--gray-9);
-  --lighter-dark: var(--gray-7);
+  --dark: var(--gray-10);
+  --lighter-dark: var(--gray-9);
+  --lightest-dark: var(--gray-8);
   --light: var(--stone-1);
-  --darker-light: var(--stone-4);
+  --darker-light: var(--stone-2);
+  --darkest-light: var(--stone-3);
 
   /* app properties */
   --accent-color: var(--green-9);
+  --accent-color-alt: var(--green-8);
   --danger-color: var(--red-6);
   --normal-weight: var(--font-weight-4);
   --bold-weight: var(--font-weight-7);
@@ -33,6 +36,7 @@
 html[data-theme='light'] {
   --primary-color: var(--light);
   --primary-color-alt: var(--darker-light);
+  --primary-color-alt-2: var(--darkest-light);
   --secondary-color: var(--dark);
   --secondary-color-alt: var(--lighter-dark);
 }
@@ -40,6 +44,7 @@ html[data-theme='light'] {
 html[data-theme='dark'] {
   --primary-color: var(--dark);
   --primary-color-alt: var(--lighter-dark);
+  --primary-color-alt-2: var(--lightest-dark);
   --secondary-color: var(--light);
   --secondary-color-alt: var(--darker-light);
 }
@@ -53,7 +58,7 @@ body {
 }
 
 main {
-  margin: var(--spacing-size-l);
+  margin: var(--spacing-size-xl);
 }
 
 h1 {

@@ -124,11 +124,7 @@ export default function PostForm() {
           updateValue={updateLocalState}
           error={actionState.errors.content}
         />
-        <StyledButton
-          ref={submitButtonRef}
-          variation={'rounded'}
-          onClick={submitEditorData}
-        >
+        <StyledButton variation={'rounded'} onClick={submitEditorData}>
           Publish
         </StyledButton>
       </div>
