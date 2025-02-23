@@ -9,7 +9,6 @@ export default function PostPreview({
   post: Post;
   admin?: boolean;
 }) {
-  // bug: post data is rendered as one day before date string
   const area = admin ? 'writr/posts' : 'blog';
   return (
     <article className={styles.article}>

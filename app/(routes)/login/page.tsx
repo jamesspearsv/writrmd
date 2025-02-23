@@ -4,15 +4,10 @@ import { login } from '@/app/lib/auth';
 import { useActionState } from 'react';
 
 export interface LoginState {
-  errors: {
-    username?: string;
-    password?: string;
-  };
+  error?: string;
 }
 
-const initialState: LoginState = {
-  errors: {},
-};
+const initialState: LoginState = {};
 
 export default function Page() {
   const [actionState, formAction] = useActionState(login, initialState);
@@ -34,6 +29,7 @@ export default function Page() {
         <input type="password" name="password" id="password" />
         <input type="submit" value="login" />
       </form>
+      <p>{actionState.error}</p>
     </main>
   );
 }

@@ -10,7 +10,6 @@ interface TextAreaInputProps extends GenericInputProps {
   value: string;
 }
 
-// bug: default tab behavior prevents users from entering indents in the textarea
 export default function TextAreaInput(props: TextAreaInputProps) {
   const [preview, setPreview] = useState(false);
 

@@ -21,17 +21,18 @@ Tasks related to the current working feature
 
 ### High Priority
 
-- [ ] Configure auth library (Auth.js)
 - [ ] Configure authorization credentials storage
-- [ ] Add login UI
 - [ ] Write login logic
-- [ ] Add authorization provider and unauthorized user logic
+- [ ] Write unauthorized user logic
+- [ ] Add callback url logic
+- [ ] Add login UI
 
 ### Bugs
 
-- [ ] Localstorage reference error thrown from ThemeProvider.tsx
-- [ ] Post publication date formatting error -- dates are rendered as one day previously
-- [ ] Unable to enter tab in post editor. Default behavior moves focus to next focusable element
+- bug: Fix admin area page spacing (margin and padding)
+- bug: Post publication date formatting error -- dates are rendered as one day previously
+- bug: Unable to enter tab in post editor due to default tab behavior
+- bug: Localstorage reference error thrown from ThemeProvider.tsx
 
 ### Next Steps
 
@@ -56,6 +57,8 @@ A general list of future ideas or tasks. These may or may not be implemented.
 
 A list of completed tasks for historical reference
 
+- [x] Add authorization provider
+- [x] Configure auth library (Auth.js)
 - [x] Improve sidebar navigation UI
 - [x] Update server actions documentation
 - [x] Uniquely identify post files with unique slug generation

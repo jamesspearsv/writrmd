@@ -1,9 +1,8 @@
-import NextAuth, { User } from 'next-auth';
+import NextAuth, { CredentialsSignin, User } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 
 interface AdminUser extends User {
   username: string;
-  token?: string;
 }
 
 // todo: write logic to handle password hashing
@@ -11,14 +10,20 @@ interface AdminUser extends User {
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
-      credentials: {
-        username: {},
-        password: {},
-      },
       authorize: async (credentials) => {
-        if (!(credentials.username && credentials.password)) return null;
+        console.log(credentials);
+        if (!(credentials.username && credentials.password)) {
+          throw new CredentialsSignin('No credentials provided');
+        }
 
         // todo: Add username & password verification logic
+        if (
+          !(
+            credentials.username === 'james' && credentials.password === 'james'
+          )
+        ) {
+          throw new CredentialsSignin('Invalid credentials');
+        }
 
         return {
           username: credentials.username,
@@ -26,24 +31,30 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
+  pages: {
+    signIn: '/login',
+  },
   callbacks: {
     authorized: async ({ auth, request }) => {
-      console.log('CALLBACK');
       const pathname = request.nextUrl.pathname;
       const baseURL = request.nextUrl.origin;
       const authenticated = !!auth;
 
-      // redirect request if an unauthenticated user
-      // attempts to visit /writr/[path]
-      if (!authenticated && pathname.startsWith('/writr')) {
-        return Response.redirect(new URL('/login', baseURL));
-      }
+      // return authenticated;
 
-      // return true is auth is valid
-      return true;
+      if (authenticated) {
+        if (pathname.startsWith('/login')) {
+          return Response.redirect(new URL('/writr', baseURL));
+        }
+        return true;
+      } else {
+        // redirect request if an unauthenticated user
+        // attempts to visit /writr/[path]
+        if (pathname.startsWith('/writr')) {
+          return Response.redirect(new URL('/login', baseURL));
+        }
+        return false;
+      }
     },
-  },
-  pages: {
-    signIn: '/login',
   },
 });
