@@ -47,3 +47,6 @@ docker-dev
 !/content/pages/index.md
 !content/posts/intro-to-markdown.md
 !/content/posts/benefits-of-writing-markdown.md
+
+# exclude all database files
+*.db

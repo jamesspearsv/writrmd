@@ -1,5 +1,7 @@
 import * as matter from 'gray-matter';
 
+// todo: add admin user interface
+
 export interface Post extends matter.GrayMatterFile<string> {
   data: {
     title: string;

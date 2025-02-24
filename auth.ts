@@ -1,11 +1,12 @@
+import { getUser } from '@/app/lib/libsql';
 import NextAuth, { CredentialsSignin, User } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 
-interface AdminUser extends User {
+interface Admin extends User {
+  userid: string;
   username: string;
+  password: string;
 }
-
-// todo: write logic to handle password hashing
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -14,20 +15,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         console.log(credentials);
         if (!(credentials.username && credentials.password)) {
           throw new CredentialsSignin('No credentials provided');
+        } else {
+          // todo: Add username & password verification
+          console.log('work in progress');
         }
-
-        // todo: Add username & password verification logic
-        if (
-          !(
-            credentials.username === 'james' && credentials.password === 'james'
-          )
-        ) {
-          throw new CredentialsSignin('Invalid credentials');
-        }
-
-        return {
-          username: credentials.username,
-        } as AdminUser;
+        return null;
       },
     }),
   ],
