@@ -1,6 +1,6 @@
 'use client';
 
-import { login } from '@/app/lib/auth';
+import { login } from '@/app/lib/authActions';
 import { useActionState } from 'react';
 
 export interface LoginState {

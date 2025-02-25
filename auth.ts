@@ -1,24 +1,39 @@
-import { getUser } from '@/app/lib/libsql';
-import NextAuth, { CredentialsSignin, User } from 'next-auth';
+import NextAuth, { User } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
+import bcrypt from 'bcryptjs';
+const HOST = process.env.APP_HOST;
 
 interface Admin extends User {
-  userid: string;
   username: string;
-  password: string;
 }
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
       authorize: async (credentials) => {
-        console.log(credentials);
-        if (!(credentials.username && credentials.password)) {
-          throw new CredentialsSignin('No credentials provided');
-        } else {
-          // todo: Add username & password verification
-          console.log('work in progress');
+        // check that username and password credentials are provided
+        if (!(credentials.username && credentials.password)) return null;
+
+        const req = await fetch(
+          `${HOST}/api/user?username=${credentials.username}`,
+          {
+            method: 'GET',
+            headers: {
+              'x-api-key': process.env.API_KEY as string,
+            },
+          }
+        );
+        const user = await req.json();
+        if (!user) return null;
+        // if ((credentials.password as string) !== user.password) return null;
+        if (
+          await bcrypt.compare(credentials.password as string, user.password)
+        ) {
+          return {
+            username: user.username,
+          } as Admin;
         }
+
         return null;
       },
     }),
@@ -31,8 +46,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       const pathname = request.nextUrl.pathname;
       const baseURL = request.nextUrl.origin;
       const authenticated = !!auth;
-
-      // return authenticated;
 
       if (authenticated) {
         if (pathname.startsWith('/login')) {
