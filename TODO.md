@@ -21,14 +21,14 @@ Tasks related to the current working feature
 
 ### High Priority
 
-- [ ] Configure authorization credentials storage
-- [ ] Write login logic
-- [ ] Write unauthorized user logic
+- [ ] Improve login UI
+- [ ] Improve logout button UI
 - [ ] Add callback url logic
-- [ ] Add login UI
+- [ ] Add initial set up workflow
 
 ### Bugs
 
+- bug: Fix Auth.js redirect issues
 - bug: Fix admin area page spacing (margin and padding)
 - bug: Post publication date formatting error -- dates are rendered as one day previously
 - bug: Unable to enter tab in post editor due to default tab behavior
@@ -57,6 +57,9 @@ A general list of future ideas or tasks. These may or may not be implemented.
 
 A list of completed tasks for historical reference
 
+- [x] Write login logic
+- [x] Configure authorization credentials storage
+- [x] Write unauthorized user logic
 - [x] Add authorization provider
 - [x] Configure auth library (Auth.js)
 - [x] Improve sidebar navigation UI
