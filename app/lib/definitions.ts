@@ -1,6 +1,5 @@
 import * as matter from 'gray-matter';
-
-// todo: add admin user interface
+import { User } from 'next-auth';
 
 export interface Post extends matter.GrayMatterFile<string> {
   data: {
@@ -49,3 +48,7 @@ export type PostEditorActionState = {
   errors: Partial<Record<keyof PostEditorData, string>>;
   values: PostEditorData;
 };
+
+export interface Admin extends User {
+  username: string;
+}

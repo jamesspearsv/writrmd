@@ -1,11 +1,12 @@
-import NextAuth, { User } from 'next-auth';
+import NextAuth, { CredentialsSignin } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import bcrypt from 'bcryptjs';
 import { NextResponse } from 'next/server';
+import { Admin } from '@/app/lib/definitions';
 const HOST = process.env.APP_HOST;
 
-interface Admin extends User {
-  username: string;
+class DatabaseError extends CredentialsSignin {
+  code = 'database_error';
 }
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -13,17 +14,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Credentials({
       authorize: async (credentials) => {
         // check that username and password credentials are provided
-        console.log(credentials);
         const { username, password } = credentials;
         if (!(username && password)) return null;
-
-        const req = await fetch(`${HOST}/api/user?username=${username}`, {
+        // query database for matching username & parse response
+        const res = await fetch(`${HOST}/api/user?username=${username}`, {
           method: 'GET',
           headers: {
             'x-api-key': process.env.API_KEY as string,
           },
         });
-        const user = await req.json();
+        const user = await res.json();
+
+        // if no users table exists
+        if (res.status === 500 && user.message === 'database_error') {
+          throw new DatabaseError();
+        }
+
         if (!user) return null;
         if (await bcrypt.compare(password as string, user.password)) {
           return {

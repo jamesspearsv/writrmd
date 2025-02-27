@@ -21,12 +21,11 @@ Tasks related to the current working feature
 
 ### High Priority
 
-- [ ] Add initial set up workflow
-- [ ] Add callback url logic
+- [ ] Improve auth credentials validation
+- [ ] Test docker deployment
 
 ### Bugs
 
-- bug: Fix Auth.js redirect issues
 - bug: Fix admin area page spacing (margin and padding)
 - bug: Post publication date formatting error -- dates are rendered as one day previously
 - bug: Unable to enter tab in post editor due to default tab behavior
@@ -43,19 +42,22 @@ Tasks related to the current working feature
 
 A general list of future ideas or tasks. These may or may not be implemented.
 
-- MDX support
 - Implement mobile layout
 - Improve post editor (Ghost and Wordpress like)
+- Add authorization callback feature
+- MDX support
+- Update breadcrumb generation to use post titles instead of post slugs
 - Custom theme options
 - Navigation groups and subpages
 - RSS feed generation
 - Commenting system
-- Update breadcrumb generation to use post titles instead of post slugs
 
 ## Completed Tasks
 
 A list of completed tasks for historical reference
 
+- [x] Finish admin actions history table
+- [x] Add initial set up workflow
 - [x] Improve login UI
 - [x] Improve logout button UI
 - [x] Write login logic

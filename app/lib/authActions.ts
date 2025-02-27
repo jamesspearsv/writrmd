@@ -2,15 +2,22 @@
 
 import { LoginState } from '@/app/ui/forms/LoginForm';
 import { signIn, signOut } from '@/auth';
-import { AuthError } from 'next-auth';
+import { CredentialsSignin } from 'next-auth';
+import { redirect } from 'next/navigation';
 
-// todo: explore best way to handle sign in errors
-// redirect: false config or using try catch error with CredentialsSignIn errors
 export async function login(state: LoginState, data: FormData) {
   try {
-    await signIn('credentials', data);
+    await signIn('credentials', {
+      username: data.get('username'),
+      password: data.get('password'),
+      redirectTo: '/writr',
+    });
   } catch (error) {
-    if (error instanceof AuthError) {
+    if (error instanceof CredentialsSignin) {
+      if (error.code === 'database_error') {
+        redirect('/setup');
+      }
+
       return {
         error: 'Invalid username or password',
       };

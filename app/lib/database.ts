@@ -1,5 +1,8 @@
+'use server';
+
 import bcrypt from 'bcryptjs';
 import { createClient } from '@libsql/client';
+import { z } from 'zod';
 
 const rootDir = process.env.ROOT_PATH;
 const client = createClient({
@@ -10,26 +13,100 @@ export async function hashPassword(password: string) {
   return await bcrypt.hash(password, 10);
 }
 
+export async function checkForUsersTable() {
+  const checkForUsersTable = `SELECT * FROM Users;`;
+  try {
+    await client.execute(checkForUsersTable);
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
+export async function checkForAdminUser() {
+  const selectAdminUser = `SELECT * FROM Users;`;
+  try {
+    const { rows } = await client.execute(selectAdminUser);
+    if (rows.length > 0) return true;
+    return false;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
 export async function initDatabase() {
-  console.log('Creating Users table if not exists already...');
-  const createStatement = `CREATE TABLE IF NOT EXISTS Users (
-      userid integer primary key,
+  const createUsersTable = `CREATE TABLE IF NOT EXISTS Users (
+      user_id integer primary key,
       username varchar(255) NOT NULL,
       password varchar(255) NOT NULL)`;
-  await client.execute(createStatement);
+  const createAdminHistoryTable = `CREATE TABLE IF NOT EXISTS Action_History (
+    action_id integer primary key,
+    action_type varchar(255) NOT NULL,
+    description varchar(255) NOT NULL,
+    date varchar(255) NOT NULL);`;
+  const insertNewAction = `INSERT INTO Action_History (action_type, description, date) VALUES ('create_table' , 'Create Users table', ?);`;
+  await client.batch([
+    createUsersTable,
+    createAdminHistoryTable,
+    {
+      sql: insertNewAction,
+      args: [new Date().toISOString()],
+    },
+  ]);
+}
 
-  // check that admin user has been created
-  const selectStatement = `SELECT * FROM Users WHERE username='admin'`;
-  const { rows } = await client.execute(selectStatement);
+// todo: consider adding an action layer between this function and data collection step
+export async function addAdmin(state: { error: string }, data: FormData) {
+  const username = data.get('username');
+  const password = data.get('password');
 
-  if (rows.length === 0) {
-    const insertUser = `INSERT INTO Users (
-          username, password) VALUES (?, ?)`;
+  if (!(username && password)) {
+    return { error: 'Username and password required' };
+  }
 
-    await client.execute({
-      sql: insertUser,
-      args: ['admin', await hashPassword('12345')],
+  const parsedData = z
+    .object({
+      username: z.string().min(5),
+      password: z.string().min(5),
+    })
+    .safeParse({
+      username,
+      password,
     });
+
+  if (!parsedData.success) {
+    console.log(parsedData.error);
+    return { error: 'Username and password must be at least 5 characters' };
+  }
+
+  try {
+    const insertUser = `INSERT INTO Users (
+      username, password) VALUES (?, ?)`;
+    const insertAction = `INSERT INTO Action_History (
+      action_type, description, date) VALUES('add_user', ?, ?)`;
+    await client.batch([
+      {
+        sql: insertUser,
+        args: [
+          parsedData.data.username,
+          await hashPassword(parsedData.data.password),
+        ],
+      },
+      {
+        sql: insertAction,
+        args: [
+          `Insert new user: ${parsedData.data.username}`,
+          new Date().toISOString(),
+        ],
+      },
+    ]);
+
+    return { error: '' };
+  } catch (error) {
+    console.log(error);
+    return { error: 'Server error' };
   }
 }
 
