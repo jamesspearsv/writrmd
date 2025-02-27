@@ -16,3 +16,4 @@ Dockerfile
 **/.DS_Store
 .DS_Store
 docker-compose.*
+*.db

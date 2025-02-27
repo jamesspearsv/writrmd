@@ -11,18 +11,19 @@ export async function hashPassword(password: string) {
 }
 
 export async function initDatabase() {
-  const createStatement = `CREATE TABLE IF NOT EXISTS users (
+  console.log('Creating Users table if not exists already...');
+  const createStatement = `CREATE TABLE IF NOT EXISTS Users (
       userid integer primary key,
       username varchar(255) NOT NULL,
-      password varchar(255) NOT NULL);`;
+      password varchar(255) NOT NULL)`;
   await client.execute(createStatement);
 
   // check that admin user has been created
-  const selectStatement = `SELECT * FROM users WHERE username='admin'`;
+  const selectStatement = `SELECT * FROM Users WHERE username='admin'`;
   const { rows } = await client.execute(selectStatement);
 
   if (rows.length === 0) {
-    const insertUser = `INSERT INTO users (
+    const insertUser = `INSERT INTO Users (
           username, password) VALUES (?, ?)`;
 
     await client.execute({
@@ -34,7 +35,7 @@ export async function initDatabase() {
 
 export async function getUser(username: string) {
   const { rows } = await client.execute({
-    sql: `SELECT * FROM users WHERE username=?`,
+    sql: `SELECT * FROM Users WHERE username=?`,
     args: [username],
   });
   return rows[0] ?? null;
