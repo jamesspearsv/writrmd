@@ -21,10 +21,8 @@ Tasks related to the current working feature
 
 ### High Priority
 
-- [ ] Improve login UI
-- [ ] Improve logout button UI
-- [ ] Add callback url logic
 - [ ] Add initial set up workflow
+- [ ] Add callback url logic
 
 ### Bugs
 
@@ -39,6 +37,7 @@ Tasks related to the current working feature
 - [ ] Improve post adding UI
 - [ ] Add ability to save posts as drafts
 - [ ] Improve date formatting (localized and relative dates)
+- [ ] Add general tooltip elements
 
 ## Future Ideas
 
@@ -57,6 +56,8 @@ A general list of future ideas or tasks. These may or may not be implemented.
 
 A list of completed tasks for historical reference
 
+- [x] Improve login UI
+- [x] Improve logout button UI
 - [x] Write login logic
 - [x] Configure authorization credentials storage
 - [x] Write unauthorized user logic

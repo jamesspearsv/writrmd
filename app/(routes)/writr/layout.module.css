@@ -1,3 +1,15 @@
 .container > *:last-child {
   margin-left: var(--sidebar-width);
 }
+
+.buttonContainer {
+  display: flex;
+  gap: var(--spacing-size-s);
+  justify-content: center;
+}
+
+.logoutButton {
+  background-color: var(--secondary-color);
+  color: var(--primary-color-alt);
+  padding: var(--spacing-size-s);
+}

@@ -1,6 +1,6 @@
 'use server';
 
-import { LoginState } from '@/app/(routes)/login/page';
+import { LoginState } from '@/app/ui/forms/LoginForm';
 import { signIn, signOut } from '@/auth';
 import { AuthError } from 'next-auth';
 
@@ -12,7 +12,7 @@ export async function login(state: LoginState, data: FormData) {
   } catch (error) {
     if (error instanceof AuthError) {
       return {
-        error: 'Invalid credentials',
+        error: 'Invalid username or password',
       };
     }
     throw error;
