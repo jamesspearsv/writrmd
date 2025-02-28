@@ -2,7 +2,8 @@
 
 import bcrypt from 'bcryptjs';
 import { createClient } from '@libsql/client';
-import { z } from 'zod';
+import { CredentialsSchema } from '@/app/lib/schemas';
+import { SetUpActionState } from '@/app/lib/definitions';
 
 const rootDir = process.env.ROOT_PATH;
 const client = createClient({
@@ -57,8 +58,8 @@ export async function initDatabase() {
   ]);
 }
 
-// todo: consider adding an action layer between this function and data collection step
-export async function addAdmin(state: { error: string }, data: FormData) {
+// todo:  Add an authAction layer between this function and data collection step
+export async function addAdmin(state: SetUpActionState, data: FormData) {
   const username = data.get('username');
   const password = data.get('password');
 
@@ -66,15 +67,10 @@ export async function addAdmin(state: { error: string }, data: FormData) {
     return { error: 'Username and password required' };
   }
 
-  const parsedData = z
-    .object({
-      username: z.string().min(5),
-      password: z.string().min(5),
-    })
-    .safeParse({
-      username,
-      password,
-    });
+  const parsedData = CredentialsSchema.safeParse({
+    username,
+    password,
+  });
 
   if (!parsedData.success) {
     console.log(parsedData.error);
@@ -110,6 +106,11 @@ export async function addAdmin(state: { error: string }, data: FormData) {
   }
 }
 
+/**
+ *
+ * @param {string} username - Username to query database
+ * @returns {Row | null} If a user was found returns user row else returns null
+ */
 export async function getUser(username: string) {
   const { rows } = await client.execute({
     sql: `SELECT * FROM Users WHERE username=?`,

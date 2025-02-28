@@ -9,11 +9,14 @@ import {
 import Link from 'next/link';
 import { useActionState, useEffect, useState } from 'react';
 import styles from './page.module.css';
+import { SetUpActionState } from '@/app/lib/definitions';
+
+const initialState: SetUpActionState = { error: '' };
 
 export default function Page() {
   const [userTable, setUserTable] = useState(false);
   const [adminUser, setAdminUser] = useState(false);
-  const [state, addAdminAction] = useActionState(addAdmin, { error: '' });
+  const [state, addAdminAction] = useActionState(addAdmin, initialState);
 
   // todo: move setup ui to a component and add a protective check to prevent unintended user creation
 

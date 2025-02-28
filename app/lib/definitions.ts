@@ -49,6 +49,8 @@ export type PostEditorActionState = {
   values: PostEditorData;
 };
 
+export type SetUpActionState = { error: string };
+
 export interface Admin extends User {
   username: string;
 }

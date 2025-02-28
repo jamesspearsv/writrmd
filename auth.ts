@@ -3,6 +3,7 @@ import Credentials from 'next-auth/providers/credentials';
 import bcrypt from 'bcryptjs';
 import { NextResponse } from 'next/server';
 import { Admin } from '@/app/lib/definitions';
+import { CredentialsSchema } from '@/app/lib/schemas';
 const HOST = process.env.APP_HOST;
 
 class DatabaseError extends CredentialsSignin {
@@ -15,14 +16,21 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       authorize: async (credentials) => {
         // check that username and password credentials are provided
         const { username, password } = credentials;
-        if (!(username && password)) return null;
-        // query database for matching username & parse response
-        const res = await fetch(`${HOST}/api/user?username=${username}`, {
-          method: 'GET',
-          headers: {
-            'x-api-key': process.env.API_KEY as string,
-          },
+        const parsedCredentials = CredentialsSchema.safeParse({
+          username,
+          password,
         });
+        if (!parsedCredentials.success) return null;
+        // query database for matching username & parse response
+        const res = await fetch(
+          `${HOST}/api/user?username=${parsedCredentials.data.username}`,
+          {
+            method: 'GET',
+            headers: {
+              'x-api-key': process.env.API_KEY as string,
+            },
+          }
+        );
         const user = await res.json();
 
         // if no users table exists
@@ -30,11 +38,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           throw new DatabaseError();
         }
 
-        if (!user) return null;
-        if (await bcrypt.compare(password as string, user.password)) {
-          return {
-            username: user.username,
-          } as Admin;
+        if (user) {
+          if (
+            await bcrypt.compare(
+              parsedCredentials.data.password as string,
+              user.password
+            )
+          ) {
+            return {
+              username: user.username,
+            } as Admin;
+          }
         }
 
         return null;
@@ -57,9 +71,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         return true;
       } else {
         // redirect if an unauthenticated user attempts to visit /writr/[path]
-        // if (pathname.startsWith('/writr')) {
-        //   return Response.redirect(new URL('/login', baseURL));
-        // }
+        if (pathname.startsWith('/writr')) {
+          return Response.redirect(new URL('/login', baseURL));
+        }
         return false;
       }
     },

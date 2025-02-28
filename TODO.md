@@ -21,7 +21,6 @@ Tasks related to the current working feature
 
 ### High Priority
 
-- [ ] Improve auth credentials validation
 - [ ] Test docker deployment
 
 ### Bugs
@@ -37,6 +36,10 @@ Tasks related to the current working feature
 - [ ] Add ability to save posts as drafts
 - [ ] Improve date formatting (localized and relative dates)
 - [ ] Add general tooltip elements
+- [ ] Update function documentation
+  - [ ] database.ts
+  - [ ] authActions.ts
+  - [ ] actions.ts
 
 ## Future Ideas
 
@@ -56,6 +59,7 @@ A general list of future ideas or tasks. These may or may not be implemented.
 
 A list of completed tasks for historical reference
 
+- [x] Improve auth credentials validation
 - [x] Finish admin actions history table
 - [x] Add initial set up workflow
 - [x] Improve login UI
