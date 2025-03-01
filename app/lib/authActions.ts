@@ -6,12 +6,18 @@ import { CredentialsSignin } from 'next-auth';
 import { redirect } from 'next/navigation';
 
 export async function login(state: LoginState, data: FormData) {
+  const username = data.get('username');
+  const password = data.get('password');
+  if (!(username && password))
+    return { error: 'Username and password required' };
+
   try {
     await signIn('credentials', {
-      username: data.get('username'),
-      password: data.get('password'),
+      username,
+      password,
       redirectTo: '/writr',
     });
+    return {};
   } catch (error) {
     if (error instanceof CredentialsSignin) {
       if (error.code === 'database_error') {
@@ -24,8 +30,6 @@ export async function login(state: LoginState, data: FormData) {
     }
     throw error;
   }
-
-  return state;
 }
 
 export async function logout() {

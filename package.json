@@ -1,6 +1,6 @@
 {
   "name": "writrmd",
-  "version": "0.1.0",
+  "version": "0.0.0-alpha1",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
@@ -12,9 +12,10 @@
     "docker:publish": "./push-image.sh"
   },
   "dependencies": {
-    "@libsql/client": "^0.14.0",
     "@types/better-sqlite3": "^7.6.12",
+    "bcrypt-edge": "^0.1.0",
     "bcryptjs": "^3.0.2",
+    "better-sqlite3": "^11.8.1",
     "clsx": "^2.1.1",
     "gray-matter": "^4.0.3",
     "marked-react": "^3.0.0",

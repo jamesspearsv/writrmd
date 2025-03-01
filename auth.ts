@@ -1,6 +1,6 @@
 import NextAuth, { CredentialsSignin } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt-edge';
 import { NextResponse } from 'next/server';
 import { Admin } from '@/app/lib/definitions';
 import { CredentialsSchema } from '@/app/lib/schemas';
@@ -40,7 +40,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         if (user) {
           if (
-            await bcrypt.compare(
+            bcrypt.compareSync(
               parsedCredentials.data.password as string,
               user.password
             )

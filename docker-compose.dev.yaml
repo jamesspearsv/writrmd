@@ -10,6 +10,10 @@ services:
       - '3000' # Expose to Caddy but not to the host machine
     environment:
       - NODE_ENV=production
+      - AUTH_SECRET=GJ6TOTGlA3jGj3pKGFVIUa9gJ8tUlN+w0WoF9803PSo=
+      - AUTH_TRUST_HOST=true
+      - APP_HOST=http://192.168.0.139
+      - API_KEY=secret_key
     # Uncomment these lines to mount post and pages to the filesystem
     volumes:
       - ./docker-dev/pages:/writrmd/content/pages
