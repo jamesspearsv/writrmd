@@ -16,7 +16,7 @@ export default async function Post(props: { slug: string }) {
     <article className={styles.container}>
       <aside className={styles.frontMatter}>
         <div>{file.data.author}</div>
-        <div className={styles.date}>{date.toDateString()}</div>
+        <div className={styles.date}>{date.toLocaleDateString()}</div>
         <div className={styles.tags}>
           {file.data.tags &&
             file.data.tags.map((tag) => (

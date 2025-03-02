@@ -29,7 +29,6 @@ Tasks related to the current working feature
 
 ### Bugs
 
-- bug: Post publication date formatting error -- dates are rendered as one day previously
 - bug: Unable to enter tab in post editor due to default tab behavior
 - bug: Localstorage reference error thrown from ThemeProvider.tsx
 

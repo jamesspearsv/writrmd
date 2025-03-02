@@ -124,7 +124,7 @@ export async function fetchPage(page: string) {
  * Asynchronously write a new post file to server filesystem
  * @param {PostEditorActionState} state - Current editor state including ok status, field errors, messages, and previous values
  * @param {PostEditorData} data - Submitted editor data
- * @returns - Returns a new editor state or redirects if successfully writes new file
+ * @returns Returns a new editor state or redirects if successfully writes new file
  */
 export async function writeNewPost(
   state: PostEditorActionState,

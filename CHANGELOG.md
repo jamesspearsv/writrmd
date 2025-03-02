@@ -27,7 +27,7 @@ Introduced an admin dashboard, basic authentication, and improved blog content m
 
 ## v0.1.1 -- _WIP_
 
-Improved documentation in `README.md` and `/docker/README.md`.
+Improved documentation in `README.md` and `/docker/README.md`. Minor bug fixes and improvements.
 
 ### Changed
 
@@ -43,3 +43,4 @@ Improved documentation in `README.md` and `/docker/README.md`.
 ### Fixed
 
 - **Admin dashboard** spacing page spacing issue
+- **Post date** formatting issue that resulted in an incorrect publication date being rendered
