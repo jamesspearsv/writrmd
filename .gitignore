@@ -44,10 +44,8 @@ docker-dev
 
 # exclude all files in /content but default posts
 /content/**/*.md
-/content/settings.json
 !/content/pages/index.md
 !content/posts/intro-to-markdown.md
 !/content/posts/benefits-of-writing-markdown.md
-
-# exclude all database files
-*.db
+*.env
+.env.local

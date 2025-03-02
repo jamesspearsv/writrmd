@@ -12,10 +12,6 @@
     "docker:publish": "./push-image.sh"
   },
   "dependencies": {
-    "@types/better-sqlite3": "^7.6.12",
-    "bcrypt-edge": "^0.1.0",
-    "bcryptjs": "^3.0.2",
-    "better-sqlite3": "^11.8.1",
     "clsx": "^2.1.1",
     "gray-matter": "^4.0.3",
     "marked-react": "^3.0.0",
