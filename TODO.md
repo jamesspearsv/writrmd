@@ -21,6 +21,13 @@ Tasks related to the current working feature
 
 ### High Priority
 
+- [ ] Update README.md
+- [ ] Update function and action documentation
+  - [ ] database.ts
+  - [ ] authActions.ts
+  - [ ] actions.ts
+- [ ] Refactor standalone page rendering feature to specifically target the site landing page
+
 ### Bugs
 
 - bug: Fix admin area page spacing (margin and padding)
@@ -34,10 +41,6 @@ Tasks related to the current working feature
 - [ ] Add ability to save posts as drafts
 - [ ] Improve date formatting (localized and relative dates)
 - [ ] Add general tooltip elements
-- [ ] Update function documentation
-  - [ ] database.ts
-  - [ ] authActions.ts
-  - [ ] actions.ts
 
 ## Future Ideas
 
