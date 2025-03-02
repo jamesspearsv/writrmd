@@ -24,3 +24,18 @@ Introduced an admin dashboard, basic authentication, and improved blog content m
 ### Removed
 
 - **Standalone pages feature** (temporarily removed to simplify project scope)
+
+## v0.1.1
+
+Improved documentation in `README.md` and `/docker/README.md`.
+
+### Changed
+
+- **Updated project README**
+  - Removed outdated information covering adding new post and page content
+  - Updated documentation for running locally using the Next.js dev server
+  - Updated list of project technologies
+  - Added new features to feature list
+- **Updated Docker example README.md**
+  - Centralized all relevant information on Docker deployments in `/docker/README.md`
+  - Improved descriptive documentation for deploying using Docker

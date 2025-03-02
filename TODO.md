@@ -21,12 +21,11 @@ Tasks related to the current working feature
 
 ### High Priority
 
-- [ ] Update README.md
+- [ ] Refactor standalone page rendering feature to specifically target the site landing page
 - [ ] Update function and action documentation
   - [ ] database.ts
   - [ ] authActions.ts
   - [ ] actions.ts
-- [ ] Refactor standalone page rendering feature to specifically target the site landing page
 
 ### Bugs
 
@@ -60,6 +59,7 @@ A general list of future ideas or tasks. These may or may not be implemented.
 
 A list of completed tasks for historical reference
 
+- [x] Update README.md
 - [x] Test docker deployment
 - [x] Improve auth credentials validation
 - [x] Finish admin actions history table
