@@ -15,6 +15,7 @@ COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 
 
+
 # Rebuild source only when needed
 FROM base as builder
 RUN npm install -g pnpm

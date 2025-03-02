@@ -4,7 +4,7 @@
   align-items: center;
   border: none;
   border-radius: var(--radius-round);
-  padding: calc(var(--spacing-size-xs) * 1.25);
+  padding: var(--spacing-size-s);
   background-color: inherit;
   color: inherit;
 }
@@ -14,9 +14,7 @@
 }
 
 .button.alt {
-  background-color: var(--secondary-color-alt);
+  background-color: var(--secondary-color);
   color: var(--primary-color);
   border-radius: var(--radius-2);
-  width: 85%;
-  margin: auto;
 }

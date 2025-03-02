@@ -15,6 +15,7 @@ export default function StyledButton({
   children: React.ReactNode;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   ref?: React.RefObject<HTMLButtonElement | null>;
+  alt?: string;
 }) {
   return (
     <button

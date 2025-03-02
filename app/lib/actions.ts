@@ -182,3 +182,15 @@ export async function writeNewPost(
   // redirect if successful
   redirect('/writr/posts');
 }
+
+export async function readSettings() {
+  try {
+    const contents = fs.readFile(`${rootDir}/content/setting.json`, {
+      encoding: 'utf-8',
+    });
+    console.log(contents);
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+}
