@@ -1,0 +1,20 @@
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: var(--radius-round);
+  padding: var(--spacing-size-s);
+  background-color: inherit;
+  color: inherit;
+}
+
+.button:hover {
+  background-color: var(--primary-color-alt);
+}
+
+.button.alt {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  border-radius: var(--radius-2);
+}

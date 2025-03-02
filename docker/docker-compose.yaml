@@ -1,0 +1,39 @@
+version: '3.3'
+
+services:
+  writrmd:
+    image: ghcr.io/jamesspearsv/writrmd:latest
+    restart: unless-stopped
+    networks:
+      - writrmd_network
+    expose:
+      - '3000'
+    environment:
+      - NODE_ENV=production
+    env_file: ./.env # MAKE SURE THIS FILE IS PRESENT AND ACCURATE
+    volumes: # MAKE SURE TO CREATE THESE DIRECTORIES ON YOUR MACHINE
+      - ./pages:/writrmd/content/pages
+      - ./posts:/writrmd/content/posts
+
+  caddy:
+    image: caddy:latest
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - writrmd_network
+    depends_on:
+      - writrmd
+
+volumes:
+  caddy_data:
+  caddy_config:
+
+networks:
+  writrmd_network:
+    driver: bridge

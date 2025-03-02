@@ -10,6 +10,10 @@ services:
       - '3000' # Expose to Caddy but not to the host machine
     environment:
       - NODE_ENV=production
+      - AUTH_SECRET=GJ6TOTGlA3jGj3pKGFVIUa9gJ8tUlN+w0WoF9803PSo=
+      - AUTH_TRUST_HOST=true
+      - ADMIN_USERNAME=admin
+      - ADMIN_PASSWORD=12345
     volumes:
       - ./docker-dev/pages:/writrmd/content/pages
       - ./docker-dev/posts:/writrmd/content/posts

@@ -1,0 +1,12 @@
+.base {
+  border: none;
+  cursor: pointer;
+}
+
+.circle {
+  border-radius: var(--radius-round);
+}
+
+.rounded {
+  border-radius: var(--radius-2);
+}

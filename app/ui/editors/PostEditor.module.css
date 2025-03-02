@@ -1,0 +1,50 @@
+.container {
+  width: 100%;
+  height: 75dvh;
+}
+
+.form {
+  display: flex;
+  gap: var(--spacing-size-l);
+  padding: 0;
+  height: 100%;
+}
+
+.form *:focus {
+  outline: solid var(--border-size) var(--secondary-color);
+}
+
+.fontMatter,
+.markdownEditor {
+  border: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.fontMatter {
+  gap: var(--spacing-size-xs);
+}
+
+.markdownEditor {
+  display: flex;
+}
+
+.markdownEditor button {
+  flex: 1;
+}
+
+.markdownEditor > div {
+  height: 100%;
+}
+
+.markdownEditor {
+  flex: 2;
+  display: flex;
+  height: 100%;
+}
+
+.markdownEditor textarea {
+  height: 100%;
+  resize: none;
+}

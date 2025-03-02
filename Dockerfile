@@ -15,6 +15,7 @@ COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 
 
+
 # Rebuild source only when needed
 FROM base as builder
 RUN npm install -g pnpm
@@ -48,6 +49,7 @@ COPY --from=builder /writrmd/public ./public
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=builder --chown=nextjs:nodejs /writrmd/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /writrmd/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /writrmd/content /writrmd/content
 
 USER nextjs
 

@@ -1,0 +1,8 @@
+.button {
+  position: fixed;
+  bottom: var(--spacing-size-l);
+  right: var(--spacing-size-l);
+  background-color: var(--secondary-color-alt);
+  color: var(--primary-color);
+  padding: var(--spacing-size-xs);
+}

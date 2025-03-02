@@ -1,0 +1,68 @@
+.group {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-size-xs);
+}
+
+.itemInput {
+  display: flex;
+  gap: var(--spacing-size-xs);
+}
+
+.itemInput input {
+  background-color: var(--primary-color-alt);
+  color: var(--secondary-color);
+  border: none;
+  border-radius: var(--border-radius);
+  padding: var(--spacing-size-xs);
+  flex: 1;
+}
+
+.itemInput input:focus {
+  outline: solid var(--border-size) var(--secondary-color-alt);
+}
+
+.addButton {
+  background-color: var(--primary-color-alt);
+  color: var(--secondary-color);
+  border-radius: var(--border-radius);
+}
+
+.items {
+  display: flex;
+  gap: var(--spacing-size-xs);
+}
+
+.listPlaceholder {
+  color: var(--secondary-color-alt);
+  font-size: var(--font-sizing-small);
+  font-style: italic;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-size-xs);
+  background-color: var(--primary-color-alt);
+  border: none;
+  border-radius: var(--border-radius);
+  padding: var(--spacing-size-xs);
+  font-size: var(--font-sizing-small);
+}
+
+.removeButton {
+  background-color: inherit;
+  padding: 0;
+  color: inherit;
+}
+
+input.error {
+  outline: solid var(--border-size) var(--danger-color);
+}
+
+div.error {
+  color: var(--danger-color);
+  font-size: var(--font-sizing-small);
+  font-style: italic;
+}
