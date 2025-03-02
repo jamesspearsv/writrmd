@@ -10,7 +10,7 @@ Planned upcoming features. These will be implemented.
 - ~~Custom landing and standalone pages~~
 - ~~Dark mode and theme toggle~~
 - ~~Basic admin dashboard~~
-- Admin authorization
+- ~~Admin authorization~~
 - Customizable site landing page elements
 - Site search bar
 - Post pagination
@@ -20,8 +20,6 @@ Planned upcoming features. These will be implemented.
 Tasks related to the current working feature
 
 ### High Priority
-
-- [ ] Test docker deployment
 
 ### Bugs
 
@@ -59,6 +57,7 @@ A general list of future ideas or tasks. These may or may not be implemented.
 
 A list of completed tasks for historical reference
 
+- [x] Test docker deployment
 - [x] Improve auth credentials validation
 - [x] Finish admin actions history table
 - [x] Add initial set up workflow
