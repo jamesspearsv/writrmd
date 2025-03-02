@@ -1,13 +1,12 @@
 # Official example: https://github.com/vercel/next.js/blob/canary/examples/with-docker/Dockerfile
 
 # Use the official Node.js image from Docker Hub
-FROM node:18-slim AS base
+FROM node:22-alpine AS base
 
 # Install dependencies as needed
 FROM base AS deps
 
-# RUN apk add --no-cache libc6-compat
-RUN apt update && apt install -y build-essential python3 make g++
+RUN apk add --no-cache libc6-compat
 RUN npm install -g pnpm
 WORKDIR /writrmd
 
@@ -51,7 +50,6 @@ COPY --from=builder /writrmd/public ./public
 COPY --from=builder --chown=nextjs:nodejs /writrmd/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /writrmd/.next/static ./.next/static
 COPY --from=builder --chown=nextjs:nodejs /writrmd/content /writrmd/content
-# RUN touch /writrmd/content/libsql.db --chown=nextjs:nodejs 
 
 USER nextjs
 

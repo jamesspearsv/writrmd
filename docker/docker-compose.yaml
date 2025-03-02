@@ -7,28 +7,28 @@ services:
     networks:
       - writrmd_network
     expose:
-      - '3000' # Expose to Caddy but not to the host machine
+      - '3000'
     environment:
       - NODE_ENV=production
-    # Uncomment these lines to mount post and pages to the filesystem
-    # volumes:
-    # - ./pages:/writrmd/content/pages
-    # - ./posts:/writrmd/content/posts
+    env_file: ./.env # MAKE SURE THIS FILE IS PRESENT AND ACCURATE
+    volumes: # MAKE SURE TO CREATE THESE DIRECTORIES ON YOUR MACHINE
+      - ./pages:/writrmd/content/pages
+      - ./posts:/writrmd/content/posts
 
   caddy:
     image: caddy:latest
     restart: unless-stopped
     ports:
-      - '80:80' # Expose port 80 to the host machine
-      - '443:443' # Expose port 443 (optional, for HTTPS)
+      - '80:80'
+      - '443:443'
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile # Mount the Caddyfile
-      - caddy_data:/data # Persist Caddy data
-      - caddy_config:/config # Persist Caddy config
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
     networks:
       - writrmd_network
     depends_on:
-      - writrmd # Ensure the app is up before Caddy starts
+      - writrmd
 
 volumes:
   caddy_data:
