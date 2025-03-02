@@ -6,7 +6,7 @@ Initial prototype of Writr.md. Features included reading and rendering of post a
 
 Included basic post tagging and filtering, landing page, markdown based standalone pages, dynamic metadata, and dark mode
 
-## v0.1.0
+## v0.1.0 -- March 1, 2025
 
 Introduced an admin dashboard, basic authentication, and improved blog content management. Removed incomplete features to simplify the project.
 
@@ -25,7 +25,7 @@ Introduced an admin dashboard, basic authentication, and improved blog content m
 
 - **Standalone pages feature** (temporarily removed to simplify project scope)
 
-## v0.1.1
+## v0.1.1 -- _WIP_
 
 Improved documentation in `README.md` and `/docker/README.md`.
 
@@ -39,3 +39,7 @@ Improved documentation in `README.md` and `/docker/README.md`.
 - **Updated Docker example README.md**
   - Centralized all relevant information on Docker deployments in `/docker/README.md`
   - Improved descriptive documentation for deploying using Docker
+
+### Fixed
+
+- **Admin dashboard** spacing page spacing issue
