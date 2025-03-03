@@ -21,20 +21,18 @@ Tasks related to the current working feature
 
 ### High Priority
 
-- [ ] Refactor standalone page rendering feature to specifically target the site landing page
+- [ ] Refactor standalone page rendering feature to specifically target only the site landing page
 - [ ] Update function and action documentation
   - [ ] database.ts
   - [ ] authActions.ts
   - [ ] actions.ts
+- [ ] Improve post editor UI
+- [ ] Extend post editor behavior (Add tab ability, bracket matching, etc)
 
 ### Bugs
 
-- bug: Unable to enter tab in post editor due to default tab behavior
-- bug: Localstorage reference error thrown from ThemeProvider.tsx
-
 ### Next Steps
 
-- [ ] Improve post adding UI
 - [ ] Add ability to save posts as drafts
 - [ ] Improve date formatting (localized and relative dates)
 - [ ] Add general tooltip elements

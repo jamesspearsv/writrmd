@@ -22,7 +22,8 @@ export function useScroll() {
   return scroll;
 }
 
-export function useFormData(formRef: HTMLFormElement) {
-  const formData = new FormData(formRef);
-  return formData;
+export function useMountCheck() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  return mounted;
 }

@@ -25,9 +25,9 @@ Introduced an admin dashboard, basic authentication, and improved blog content m
 
 - **Standalone pages feature** (temporarily removed to simplify project scope)
 
-## v0.1.1 -- _WIP_
+## v0.1.1 -- March 3, 2025
 
-Improved documentation in `README.md` and `/docker/README.md`. Minor bug fixes and improvements.
+Improved documentation in `README.md` and `/docker/README.md`. Bug fixes and improvements.
 
 ### Changed
 
@@ -44,3 +44,4 @@ Improved documentation in `README.md` and `/docker/README.md`. Minor bug fixes a
 
 - **Admin dashboard** spacing page spacing issue
 - **Post date** formatting issue that resulted in an incorrect publication date being rendered
+- **LocalStorage reference error** thrown from the ThemeProvider component
