@@ -3,6 +3,9 @@
   flex-direction: column;
 }
 
+/* 
+EDITOR/PREVIEW TOGGLE BUTTONS 
+*/
 .actionButtons {
   display: flex;
 }
@@ -39,11 +42,34 @@
   text-decoration: underline;
   flex: 3;
 }
+
+/*
+TEXTAREA INPUT
+*/
+.textareaContainer {
+  display: grid;
+  white-space: pre-wrap;
+}
+
+.textareaContainer::after {
+  content: attr(data-content) ' ';
+  white-space: pre-wrap;
+  visibility: hidden;
+}
+
+.textarea {
+  min-height: var(--content-width-s);
+  resize: none;
+  overflow: hidden;
+}
+
+.textareaContainer::after,
 .textarea {
   border: none;
   background-color: var(--primary-color-alt);
   color: var(--secondary-color);
   padding: var(--spacing-size);
+  grid-area: 1 / 1 / 2 / 2;
 }
 
 .textarea:focus {
@@ -55,6 +81,9 @@
   color: var(--secondary-color-alt);
 }
 
+/*
+CONTENT PREVIEWER
+*/
 .previewArea {
   background-color: var(--primary-color-alt);
   height: 100%;
@@ -66,7 +95,7 @@
   color: var(--secondary-color-alt);
 }
 
-textarea.error {
+.textarea.error {
   outline: solid var(--border-size) var(--danger-color);
 }
 

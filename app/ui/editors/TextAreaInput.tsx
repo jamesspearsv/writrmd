@@ -37,15 +37,17 @@ export default function TextAreaInput(props: TextAreaInputProps) {
         </button>
       </div>
       {!preview ? (
-        <textarea
-          className={clsx(
-            `${styles.textarea}`,
-            props.error && `${styles.error}`
-          )}
-          value={props.value}
-          onChange={handleChange}
-          placeholder="Start writing here..."
-        />
+        <div className={styles.textareaContainer} data-content={props.value}>
+          <textarea
+            className={clsx(
+              `${styles.textarea}`,
+              props.error && `${styles.error}`
+            )}
+            value={props.value}
+            onChange={handleChange}
+            placeholder="Start writing here..."
+          />
+        </div>
       ) : (
         <div
           className={clsx(

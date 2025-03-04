@@ -1,6 +1,5 @@
 'use client';
 
-import TextInput from '@/app/ui/editors/TextInput';
 import React, {
   startTransition,
   useActionState,
@@ -15,6 +14,7 @@ import {
 } from '@/app/lib/definitions';
 import { writeNewPost } from '@/app/lib/actions';
 import styles from './PostEditor.module.css';
+import TextInput from '@/app/ui/editors/TextInput';
 import ListInput from '@/app/ui/editors/ListInput';
 import TextAreaInput from '@/app/ui/editors/TextAreaInput';
 import StyledButton from '@/app/ui/common/StyledButton';
@@ -84,9 +84,6 @@ export default function PostForm() {
 
   return (
     <div className={styles.container}>
-      {Object.keys(editorData).map((item) => (
-        <p key={item}>{editorData[item as keyof PostEditorData]}</p>
-      ))}
       <div>
         <TextInput
           name="title"

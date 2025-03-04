@@ -31,6 +31,8 @@ Tasks, fixes, and changes that need completed, fixed, or added
 
 ### Bugs
 
+- bug: layout height issue (wrapper height not growing to fit content)
+
 ### Next Steps
 
 - [ ] Extend post editor behavior (Add tab ability, bracket matching, etc)
