@@ -1,18 +1,10 @@
 'use client';
 
 import { GenericInputProps } from '@/app/lib/definitions';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Markdown from 'marked-react';
 import styles from './TextAreaInput.module.css';
 import clsx from 'clsx';
-
-// const specialChars: { [key: number]: number } = {
-//   34: 34, // Double quotation mark
-//   39: 39, // Apostrophe
-//   40: 41, // Left parenthesis
-//   91: 93, // Left square bracket
-//   123: 125, // Left curly bracket
-// };
 
 interface TextAreaInputProps extends GenericInputProps {
   value: string;
@@ -20,7 +12,15 @@ interface TextAreaInputProps extends GenericInputProps {
 
 export default function TextAreaInput(props: TextAreaInputProps) {
   const [preview, setPreview] = useState(false);
+  const [cursorPosition, setCursorPosition] = useState(0);
   const editorRef = useRef<HTMLTextAreaElement | null>(null);
+
+  useEffect(() => {
+    if (editorRef.current) {
+      editorRef.current.focus();
+      editorRef.current.setSelectionRange(cursorPosition, cursorPosition);
+    }
+  }, [cursorPosition]);
 
   function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     const value = e.currentTarget.value;
@@ -29,16 +29,43 @@ export default function TextAreaInput(props: TextAreaInputProps) {
 
   function handleRichText(e: React.MouseEvent<HTMLButtonElement>) {
     if (!editorRef.current) return;
+    const editor = editorRef.current;
+    // store a copy of the current editor content
     let value = props.value;
-    if (e.currentTarget.dataset.action === 'heading') {
-      value = `${value}# `;
-      // todo: insert content at current selection location
-      // https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement
-      console.log(editorRef.current.selectionStart);
-      editorRef.current.setSelectionRange(value.length - 1, value.length - 1);
-      editorRef.current.focus();
+    // get the current cursor position
+    const selectionPosition = editor.selectionStart;
+    let newPosition = selectionPosition;
+    // split current value at current selection index
+    const valuePart1 = value.slice(0, selectionPosition);
+    const valuePart2 = value.slice(selectionPosition);
+    // get the selected action
+    const action = e.currentTarget.dataset.action;
+
+    /*
+    todo: add support for additional formatting options
+    - code blocks
+    - lists
+    - quotes
+    */
+    switch (action) {
+      case 'heading':
+        // todo: add conditional for heading not at the start of the current value
+        value = valuePart1 + '# ' + valuePart2;
+        newPosition = selectionPosition + 2;
+        break;
+      case 'bold':
+        value = valuePart1 + '****' + valuePart2;
+        newPosition = selectionPosition + 2;
+        break;
+      case 'italic':
+        value = valuePart1 + '__' + valuePart2;
+        newPosition = selectionPosition + 1;
+      default:
+        break;
     }
+
     props.updateValue(props.name, value);
+    setCursorPosition(newPosition);
   }
 
   return (
@@ -64,8 +91,12 @@ export default function TextAreaInput(props: TextAreaInputProps) {
           <button onClick={handleRichText} data-action="heading">
             heading
           </button>
-          <button>bold</button>
-          <button>italic</button>
+          <button onClick={handleRichText} data-action="bold">
+            bold
+          </button>
+          <button onClick={handleRichText} data-action="italic">
+            italic
+          </button>
         </div>
       </div>
       {!preview ? (
@@ -89,6 +120,7 @@ export default function TextAreaInput(props: TextAreaInputProps) {
           )}
         >
           <Markdown
+            gfm={true}
             value={
               props.value
                 ? props.value
