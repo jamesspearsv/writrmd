@@ -11,7 +11,8 @@ Planned upcoming features. These will be implemented. Implemented features are i
 - ~~Dark mode and theme toggle~~
 - ~~Basic admin dashboard~~
 - ~~Admin authorization~~
-- Improved post editor (more like Ghost and Wordpress)
+- Useful post editor (improved keyboard controls and UI)
+- User configurable site settings
 - Customizable site landing page elements
 - Site search bar
 - Post pagination
@@ -22,7 +23,7 @@ Tasks, fixes, and changes that need completed, fixed, or added
 
 ### High Priority
 
-- [ ] Refactor standalone page rendering feature to specifically target only the site landing page
+- [ ] Refactor page rendering feature to specifically target only the site landing page
 - [ ] Update function and action documentation
   - [ ] database.ts
   - [ ] authActions.ts
