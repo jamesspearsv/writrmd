@@ -44,6 +44,13 @@ EDITOR/PREVIEW TOGGLE BUTTONS
 }
 
 /*
+RICH TEXT CONTROLS
+*/
+.rteControls {
+  width: 100%;
+}
+
+/*
 TEXTAREA INPUT
 */
 .textareaContainer {

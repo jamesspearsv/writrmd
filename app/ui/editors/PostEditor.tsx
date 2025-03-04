@@ -72,8 +72,8 @@ export default function PostForm() {
 
   // update editorData based on the PostEditorDate type
   const updateLocalState: ValueUpdater<PostEditorData> = (name, value) => {
-    const newDate = { ...editorData, [name]: value };
-    setEditorData(newDate);
+    const newData = { ...editorData, [name]: value };
+    setEditorData(newData);
   };
 
   function submitEditorData() {
@@ -82,9 +82,21 @@ export default function PostForm() {
     });
   }
 
+  const [hidden, setHidden] = useState(true);
+
   return (
     <div className={styles.container}>
-      <div>
+      <StyledButton variation={'rounded'} onClick={submitEditorData}>
+        Publish
+      </StyledButton>
+      <button
+        onClick={() => {
+          setHidden((hidden) => !hidden);
+        }}
+      >
+        toggle inputs
+      </button>
+      <div style={hidden ? { display: 'none' } : {}}>
         <TextInput
           name="title"
           label="Title"
@@ -114,17 +126,14 @@ export default function PostForm() {
           limit={3}
           error={actionState.errors.tags}
         />
-        <TextAreaInput
-          name="content"
-          label="Post Body"
-          value={editorData.content}
-          updateValue={updateLocalState}
-          error={actionState.errors.content}
-        />
-        <StyledButton variation={'rounded'} onClick={submitEditorData}>
-          Publish
-        </StyledButton>
       </div>
+      <TextAreaInput
+        name="content"
+        label="Post Body"
+        value={editorData.content}
+        updateValue={updateLocalState}
+        error={actionState.errors.content}
+      />
     </div>
   );
 }
