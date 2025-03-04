@@ -4,20 +4,21 @@ Running list of upcoming features and related tasks
 
 ## Upcoming Features
 
-Planned upcoming features. These will be implemented.
+Planned upcoming features. These will be implemented. Implemented features are indicated using a strike through. Implemented features are still subject to updates and additions
 
 - ~~Post tagging and filtering~~
 - ~~Custom landing and standalone pages~~
 - ~~Dark mode and theme toggle~~
 - ~~Basic admin dashboard~~
 - ~~Admin authorization~~
+- Improved post editor (more like Ghost and Wordpress)
 - Customizable site landing page elements
 - Site search bar
 - Post pagination
 
 ## Tasks
 
-Tasks related to the current working feature
+Tasks, fixes, and changes that need completed, fixed, or added
 
 ### High Priority
 
@@ -26,23 +27,22 @@ Tasks related to the current working feature
   - [ ] database.ts
   - [ ] authActions.ts
   - [ ] actions.ts
-- [ ] Improve post editor UI
-- [ ] Extend post editor behavior (Add tab ability, bracket matching, etc)
 
 ### Bugs
 
 ### Next Steps
 
-- [ ] Add ability to save posts as drafts
-- [ ] Improve date formatting (localized and relative dates)
-- [ ] Add general tooltip elements
+- [ ] Extend post editor behavior (Add tab ability, bracket matching, etc)
+- [ ] Improve post editor UI
 
 ## Future Ideas
 
 A general list of future ideas or tasks. These may or may not be implemented.
 
+- Improve date formatting (localized and relative dates)
+- Add general tooltip elements
+- Add ability to save posts as drafts
 - Implement mobile layout
-- Improve post editor (Ghost and Wordpress like)
 - Add authorization callback feature
 - MDX support
 - Update breadcrumb generation to use post titles instead of post slugs
