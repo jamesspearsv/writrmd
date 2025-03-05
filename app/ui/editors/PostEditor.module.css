@@ -1,9 +1,14 @@
+.container {
+  width: 100%;
+}
+
 .editorControls {
   position: fixed;
   top: 0;
   right: 0;
+  height: var(--editor-controls-height);
   left: var(--sidebar-width);
-  padding: var(--spacing-size) var(--spacing-size-xl);
+  padding-inline: var(--spacing-size-xl);
   background-color: var(--primary-color);
   display: flex;
   justify-content: flex-end;
@@ -21,10 +26,6 @@
   color: var(--secondary-color-alt);
   background-color: inherit;
   padding: var(--spacing-size-xs);
-}
-
-.container {
-  width: 100%;
 }
 
 .frontmatter {

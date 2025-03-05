@@ -24,7 +24,6 @@ Tasks, fixes, and changes that need completed, fixed, or added
 ### High Priority
 
 - [ ] Complete updated post editor UI
-- [ ] Make editor controls panel sticky
 - [ ] Disable publish button when post content is incomplete
 - [ ] Consider reducing admin dashboard page padding and margins
 
@@ -63,6 +62,7 @@ A general list of future ideas or tasks. These may or may not be implemented.
 
 A list of completed tasks for historical reference
 
+- [x] Make editor controls bar sticky
 - [x] Add collapsing sidebar for front-matter inputs
 - [x] Improve post editor UI
 - [x] Extend post editor behavior (hybrid RTE and Markdown actions)

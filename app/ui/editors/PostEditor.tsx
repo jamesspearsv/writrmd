@@ -87,7 +87,7 @@ export default function PostEditor() {
   const [hidden, setHidden] = useState(true);
 
   return (
-    <>
+    <div className={styles.container}>
       <div className={styles.editorControls}>
         <StyledButton
           variation={'rounded'}
@@ -105,60 +105,55 @@ export default function PostEditor() {
           <Sidebar size={20} />
         </StyledButton>
       </div>
-      <div className={styles.container}>
-        <div
-          className={clsx(
-            `${styles.frontmatter}`,
-            hidden && `${styles.hidden}`
-          )}
+      <div
+        className={clsx(`${styles.frontmatter}`, hidden && `${styles.hidden}`)}
+      >
+        <button
+          onClick={() => setHidden(true)}
+          className={styles.frontmatterCloseButton}
         >
-          <button
-            onClick={() => setHidden(true)}
-            className={styles.frontmatterCloseButton}
-          >
-            <XCircle />
-          </button>
-          <TextInput
-            name="author"
-            label="Author"
-            value={editorData.author}
-            updateValue={updateLocalState}
-            error={actionState.errors.author}
-          />
-          <TextInput
-            name="excerpt"
-            label="Excerpt"
-            value={editorData.excerpt}
-            updateValue={updateLocalState}
-            error={actionState.errors.excerpt}
-          />
-          <ListInput
-            name="tags"
-            label="Tags"
-            value={editorData.tags}
-            updateValue={updateLocalState}
-            limit={3}
-            error={actionState.errors.tags}
-          />
-        </div>
-        <TextAreaInput
-          name="content"
-          label="Post Body"
-          value={editorData.content}
+          <XCircle />
+        </button>
+        <TextInput
+          name="author"
+          label="Author"
+          value={editorData.author}
           updateValue={updateLocalState}
-          error={actionState.errors.content}
-        >
-          <TextInput
-            name="title"
-            value={editorData.title}
-            updateValue={updateLocalState}
-            error={actionState.errors.title}
-            placeholder="Post Title"
-            title
-            autofocus
-          />
-        </TextAreaInput>
+          error={actionState.errors.author}
+        />
+        <TextInput
+          name="excerpt"
+          label="Excerpt"
+          value={editorData.excerpt}
+          updateValue={updateLocalState}
+          error={actionState.errors.excerpt}
+        />
+        <ListInput
+          name="tags"
+          label="Tags"
+          value={editorData.tags}
+          updateValue={updateLocalState}
+          limit={3}
+          error={actionState.errors.tags}
+        />
       </div>
-    </>
+      <TextAreaInput
+        name="content"
+        label="Post Body"
+        value={editorData.content}
+        updateValue={updateLocalState}
+        error={actionState.errors.content}
+      >
+        <TextInput
+          name="title"
+          value={editorData.title}
+          updateValue={updateLocalState}
+          error={actionState.errors.title}
+          placeholder="Post Title"
+          title
+          autofocus
+        />
+      </TextAreaInput>
+    </div>
   );
 }

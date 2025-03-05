@@ -30,6 +30,7 @@
   --sidebar-width: var(--size-13);
   --border-radius: var(--radius-2);
   --border-size: var(--border-size-1);
+  --editor-controls-height: var(--spacing-size-xl);
 }
 
 html[data-theme='light'] {

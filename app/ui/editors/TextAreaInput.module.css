@@ -6,15 +6,19 @@
   border-radius: var(--border-radius);
 }
 
+/*
+EDITOR ACTION PANEL
+*/
 .actions {
   display: flex;
   flex-direction: row;
+  background-color: var(--primary-color);
   border: solid 1px var(--primary-color-alt-2);
+  position: sticky;
+  top: var(--editor-controls-height);
 }
 
-/* 
-EDITOR/PREVIEW TOGGLE BUTTONS 
-*/
+/* EDITOR/PREVIEW TOGGLE BUTTONS */
 .toggleControls {
   display: flex;
   flex: 0.5;
@@ -45,9 +49,7 @@ EDITOR/PREVIEW TOGGLE BUTTONS
   text-decoration: underline;
 }
 
-/*
-RICH TEXT CONTROLS
-*/
+/* RICH TEXT CONTROLS */
 .rteControls {
   display: flex;
   flex: 1;
