@@ -18,6 +18,8 @@ import TextInput from '@/app/ui/editors/TextInput';
 import ListInput from '@/app/ui/editors/ListInput';
 import TextAreaInput from '@/app/ui/editors/TextAreaInput';
 import StyledButton from '@/app/ui/common/StyledButton';
+import clsx from 'clsx';
+import { Sidebar, XCircle } from 'react-feather';
 
 const initialLocalState: PostEditorData = {
   title: '',
@@ -85,57 +87,78 @@ export default function PostEditor() {
   const [hidden, setHidden] = useState(true);
 
   return (
-    <div className={styles.container}>
-      <StyledButton variation={'rounded'} onClick={submitEditorData}>
-        Publish
-      </StyledButton>
-      <button
-        onClick={() => {
-          setHidden((hidden) => !hidden);
-        }}
-      >
-        toggle inputs
-      </button>
-      <div style={hidden ? { display: 'none' } : {}}>
-        <TextInput
-          name="author"
-          label="Author"
-          value={editorData.author}
-          updateValue={updateLocalState}
-          error={actionState.errors.author}
-        />
-        <TextInput
-          name="excerpt"
-          label="Excerpt"
-          value={editorData.excerpt}
-          updateValue={updateLocalState}
-          error={actionState.errors.excerpt}
-        />
-        <ListInput
-          name="tags"
-          label="Tags"
-          value={editorData.tags}
-          updateValue={updateLocalState}
-          limit={3}
-          error={actionState.errors.tags}
-        />
+    <>
+      <div className={styles.editorControls}>
+        <StyledButton
+          variation={'rounded'}
+          onClick={submitEditorData}
+          className={styles.publishButton}
+        >
+          Publish
+        </StyledButton>
+        <StyledButton
+          className={clsx(`${styles.sidebarButton}`)}
+          onClick={() => {
+            setHidden((hidden) => !hidden);
+          }}
+        >
+          <Sidebar size={20} />
+        </StyledButton>
       </div>
-      <TextAreaInput
-        name="content"
-        label="Post Body"
-        value={editorData.content}
-        updateValue={updateLocalState}
-        error={actionState.errors.content}
-      >
-        <TextInput
-          name="title"
-          value={editorData.title}
+      <div className={styles.container}>
+        <div
+          className={clsx(
+            `${styles.frontmatter}`,
+            hidden && `${styles.hidden}`
+          )}
+        >
+          <button
+            onClick={() => setHidden(true)}
+            className={styles.frontmatterCloseButton}
+          >
+            <XCircle />
+          </button>
+          <TextInput
+            name="author"
+            label="Author"
+            value={editorData.author}
+            updateValue={updateLocalState}
+            error={actionState.errors.author}
+          />
+          <TextInput
+            name="excerpt"
+            label="Excerpt"
+            value={editorData.excerpt}
+            updateValue={updateLocalState}
+            error={actionState.errors.excerpt}
+          />
+          <ListInput
+            name="tags"
+            label="Tags"
+            value={editorData.tags}
+            updateValue={updateLocalState}
+            limit={3}
+            error={actionState.errors.tags}
+          />
+        </div>
+        <TextAreaInput
+          name="content"
+          label="Post Body"
+          value={editorData.content}
           updateValue={updateLocalState}
-          error={actionState.errors.title}
-          placeholder="Post Title"
-          title
-        />
-      </TextAreaInput>
-    </div>
+          error={actionState.errors.content}
+        >
+          <TextInput
+            name="title"
+            value={editorData.title}
+            updateValue={updateLocalState}
+            error={actionState.errors.title}
+            placeholder="Post Title"
+            title
+            autofocus
+          />
+        </TextAreaInput>
+      </div>
+    </>
   );
 }

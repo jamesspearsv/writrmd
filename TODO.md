@@ -23,23 +23,25 @@ Tasks, fixes, and changes that need completed, fixed, or added
 
 ### High Priority
 
-- [ ] Refactor page rendering feature to specifically target only the site landing page
-- [ ] Update function and action documentation
-  - [ ] database.ts
-  - [ ] authActions.ts
-  - [ ] actions.ts
+- [ ] Complete updated post editor UI
+- [ ] Make editor controls panel sticky
+- [ ] Disable publish button when post content is incomplete
+- [ ] Consider reducing admin dashboard page padding and margins
 
 ### Bugs and Fixes
 
-- bug: layout height issue (wrapper height not growing to fit content)
+- ~~bug: layout height issue (wrapper height not growing to fit content)~~
+- bug: TextAreaInput useEffect focus conflict
 - bug: clean up shared input, textarea, and button styles
 - bug: post editor actions do not reset cursor position after preview panel has been rendered
 
 ### Next Steps
 
-- [ ] Complete updated post editor UI
-- [ ] Add collapsing sidebar for front-matter inputs
-- [ ] Consider reducing admin dashboard page padding and margins
+- [ ] Refactor page rendering feature to specifically target only the site landing page
+- [ ] Update function and action documentation
+  - [ ] database.ts
+  - [ ] authActions.ts
+  - [ ] actions.ts
 
 ## Future Ideas
 
@@ -61,8 +63,10 @@ A general list of future ideas or tasks. These may or may not be implemented.
 
 A list of completed tasks for historical reference
 
+- [x] Add collapsing sidebar for front-matter inputs
 - [x] Improve post editor UI
 - [x] Extend post editor behavior (hybrid RTE and Markdown actions)
+
 - [x] Update README.md
 - [x] Test docker deployment
 - [x] Improve auth credentials validation

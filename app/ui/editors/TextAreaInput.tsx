@@ -19,7 +19,8 @@ export default function TextAreaInput(props: TextAreaInputProps) {
 
   useEffect(() => {
     if (editorRef.current) {
-      editorRef.current.focus();
+      // bug: cursor useEffect makes it impossible to autofocus any other inputs/elements on the page. The focus call overrides the current focus.
+      // editorRef.current.focus();
       editorRef.current.setSelectionRange(cursorPosition, cursorPosition);
     } else {
       console.log('no ref');
@@ -48,7 +49,7 @@ export default function TextAreaInput(props: TextAreaInputProps) {
   }
 
   return (
-    <div className={styles.group}>
+    <div className={styles.textareaGroup}>
       <div className={styles.actions}>
         <div className={styles.toggleControls}>
           <button

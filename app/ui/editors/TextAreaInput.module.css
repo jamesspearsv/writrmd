@@ -1,4 +1,4 @@
-.group {
+.textareaGroup {
   display: flex;
   flex-direction: column;
   /* background-color: var(--primary-color-alt); */
@@ -96,7 +96,7 @@ TEXTAREA INPUT
 }
 
 .textarea {
-  min-height: var(--content-width-s);
+  min-height: var(--content-width-xs);
   resize: none;
   overflow: hidden;
 }

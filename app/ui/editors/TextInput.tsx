@@ -6,6 +6,7 @@ interface TextInputProps extends GenericInputProps {
   value: string;
   placeholder?: string;
   title?: boolean;
+  autofocus?: boolean;
 }
 
 export default function TextInput(props: TextInputProps) {
@@ -28,7 +29,11 @@ export default function TextInput(props: TextInputProps) {
         id={props.name}
         value={props.value}
         onChange={handleChange}
+        autoFocus={props.autofocus}
       />
+      {props.error && !props.title && (
+        <div className={styles.error}>{props.error}</div>
+      )}
     </div>
   );
 }

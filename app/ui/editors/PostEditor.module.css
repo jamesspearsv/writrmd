@@ -1,50 +1,53 @@
+.editorControls {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: var(--sidebar-width);
+  padding: var(--spacing-size) var(--spacing-size-xl);
+  background-color: var(--primary-color);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--spacing-size-s);
+}
+
+.publishButton {
+  color: var(--accent-color);
+  background-color: inherit;
+}
+
+.sidebarButton {
+  transform: rotate(180deg);
+  color: var(--secondary-color-alt);
+  background-color: inherit;
+  padding: var(--spacing-size-xs);
+}
+
 .container {
   width: 100%;
-  height: 75dvh;
 }
 
-.form {
-  display: flex;
-  gap: var(--spacing-size-l);
-  padding: 0;
-  height: 100%;
+.frontmatter {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: var(--spacing-size);
+  width: 325px;
+  background-color: var(--primary-color);
+  border-left: solid var(--border-size) var(--primary-color-alt-2);
+  transition: margin-right 300ms ease-in-out;
+  margin-right: 0;
 }
 
-.form *:focus {
-  outline: solid var(--border-size) var(--secondary-color);
+.frontmatterCloseButton {
+  position: absolute;
+  top: var(--spacing-size);
+  right: var(--spacing-size);
+  background-color: inherit;
+  color: var(--secondary-color-alt);
 }
 
-.fontMatter,
-.markdownEditor {
-  border: none;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.fontMatter {
-  gap: var(--spacing-size-xs);
-}
-
-.markdownEditor {
-  display: flex;
-}
-
-.markdownEditor button {
-  flex: 1;
-}
-
-.markdownEditor > div {
-  height: 100%;
-}
-
-.markdownEditor {
-  flex: 2;
-  display: flex;
-  height: 100%;
-}
-
-.markdownEditor textarea {
-  height: 100%;
-  resize: none;
+.frontmatter.hidden {
+  margin-right: -500rem;
 }
