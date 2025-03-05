@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Markdown from 'marked-react';
 import styles from './TextAreaInput.module.css';
 import clsx from 'clsx';
+import { Bold, Hash, Italic } from 'react-feather';
 
 interface TextAreaInputProps extends GenericInputProps {
   value: string;
@@ -27,44 +28,19 @@ export default function TextAreaInput(props: TextAreaInputProps) {
     props.updateValue(props.name, value);
   }
 
-  function handleRichText(e: React.MouseEvent<HTMLButtonElement>) {
+  function insertSyntax(syntax: string, cursorOffset: number) {
     if (!editorRef.current) return;
     const editor = editorRef.current;
-    // store a copy of the current editor content
-    let value = props.value;
     // get the current cursor position
     const selectionPosition = editor.selectionStart;
-    let newPosition = selectionPosition;
     // split current value at current selection index
-    const valuePart1 = value.slice(0, selectionPosition);
-    const valuePart2 = value.slice(selectionPosition);
-    // get the selected action
-    const action = e.currentTarget.dataset.action;
+    const v1 = props.value.slice(0, selectionPosition);
+    const v2 = props.value.slice(selectionPosition);
+    // Insert syntax and update value
+    const newValue = v1 + syntax + v2;
+    const newPosition = selectionPosition + cursorOffset;
 
-    /*
-    todo: add support for additional formatting options
-    - code blocks
-    - lists
-    - quotes
-    */
-    switch (action) {
-      case 'heading':
-        // todo: add conditional for heading not at the start of the current value
-        value = valuePart1 + '# ' + valuePart2;
-        newPosition = selectionPosition + 2;
-        break;
-      case 'bold':
-        value = valuePart1 + '****' + valuePart2;
-        newPosition = selectionPosition + 2;
-        break;
-      case 'italic':
-        value = valuePart1 + '__' + valuePart2;
-        newPosition = selectionPosition + 1;
-      default:
-        break;
-    }
-
-    props.updateValue(props.name, value);
+    props.updateValue(props.name, newValue);
     setCursorPosition(newPosition);
   }
 
@@ -88,15 +64,27 @@ export default function TextAreaInput(props: TextAreaInputProps) {
           </button>
         </div>
         <div className={styles.rteControls}>
-          <button onClick={handleRichText} data-action="heading">
-            heading
-          </button>
-          <button onClick={handleRichText} data-action="bold">
-            bold
-          </button>
-          <button onClick={handleRichText} data-action="italic">
-            italic
-          </button>
+          <RichTextButton
+            syntax="# "
+            cursorOffset={2}
+            insertSyntax={insertSyntax}
+          >
+            <Hash />
+          </RichTextButton>
+          <RichTextButton
+            syntax="****"
+            cursorOffset={2}
+            insertSyntax={insertSyntax}
+          >
+            <Bold />
+          </RichTextButton>
+          <RichTextButton
+            syntax="__"
+            cursorOffset={1}
+            insertSyntax={insertSyntax}
+          >
+            <Italic />
+          </RichTextButton>
         </div>
       </div>
       {!preview ? (
@@ -131,5 +119,20 @@ export default function TextAreaInput(props: TextAreaInputProps) {
       )}
       {props.error && <div className={styles.error}>{props.error}</div>}
     </div>
+  );
+}
+
+function RichTextButton(props: {
+  syntax: string; // Markdown syntax to insert
+  cursorOffset: number; // Number of indices to move cursor after insert
+  insertSyntax: (syntax: string, cursorOffset: number) => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      onClick={() => props.insertSyntax(props.syntax, props.cursorOffset)}
+    >
+      {props.children}
+    </button>
   );
 }
