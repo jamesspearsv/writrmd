@@ -25,7 +25,6 @@ Tasks, fixes, and changes that need completed, fixed, or added
 
 - [ ] Complete updated post editor UI
 - [ ] Disable publish button when post content is incomplete
-- [ ] Consider reducing admin dashboard page padding and margins
 
 ### Bugs and Fixes
 
@@ -33,6 +32,7 @@ Tasks, fixes, and changes that need completed, fixed, or added
 - bug: TextAreaInput useEffect focus conflict
 - bug: clean up shared input, textarea, and button styles
 - bug: post editor actions do not reset cursor position after preview panel has been rendered
+- bug: editor control bar and sidebar z-index conflicts
 
 ### Next Steps
 
