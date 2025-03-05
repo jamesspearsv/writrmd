@@ -29,14 +29,17 @@ Tasks, fixes, and changes that need completed, fixed, or added
   - [ ] authActions.ts
   - [ ] actions.ts
 
-### Bugs
+### Bugs and Fixes
 
 - bug: layout height issue (wrapper height not growing to fit content)
+- bug: clean up shared input, textarea, and button styles
+- bug: post editor actions do not reset cursor position after preview panel has been rendered
 
 ### Next Steps
 
-- [ ] Extend post editor behavior (Add tab ability, bracket matching, etc)
-- [ ] Improve post editor UI
+- [ ] Complete updated post editor UI
+- [ ] Add collapsing sidebar for front-matter inputs
+- [ ] Consider reducing admin dashboard page padding and margins
 
 ## Future Ideas
 
@@ -58,6 +61,8 @@ A general list of future ideas or tasks. These may or may not be implemented.
 
 A list of completed tasks for historical reference
 
+- [x] Improve post editor UI
+- [x] Extend post editor behavior (hybrid RTE and Markdown actions)
 - [x] Update README.md
 - [x] Test docker deployment
 - [x] Improve auth credentials validation

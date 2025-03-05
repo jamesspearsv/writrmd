@@ -9,6 +9,7 @@ import { Bold, Hash, Italic } from 'react-feather';
 
 interface TextAreaInputProps extends GenericInputProps {
   value: string;
+  children?: React.ReactNode;
 }
 
 export default function TextAreaInput(props: TextAreaInputProps) {
@@ -20,6 +21,8 @@ export default function TextAreaInput(props: TextAreaInputProps) {
     if (editorRef.current) {
       editorRef.current.focus();
       editorRef.current.setSelectionRange(cursorPosition, cursorPosition);
+    } else {
+      console.log('no ref');
     }
   }, [cursorPosition]);
 
@@ -46,8 +49,8 @@ export default function TextAreaInput(props: TextAreaInputProps) {
 
   return (
     <div className={styles.group}>
-      <div>
-        <div className={styles.actionButtons}>
+      <div className={styles.actions}>
+        <div className={styles.toggleControls}>
           <button
             className={clsx(!preview && `${styles.active}`)}
             type="button"
@@ -65,14 +68,16 @@ export default function TextAreaInput(props: TextAreaInputProps) {
         </div>
         <div className={styles.rteControls}>
           <RichTextButton
-            syntax="# "
-            cursorOffset={2}
+            syntax="## "
+            label="Heading"
+            cursorOffset={3}
             insertSyntax={insertSyntax}
           >
             <Hash />
           </RichTextButton>
           <RichTextButton
             syntax="****"
+            label="Bold"
             cursorOffset={2}
             insertSyntax={insertSyntax}
           >
@@ -80,6 +85,7 @@ export default function TextAreaInput(props: TextAreaInputProps) {
           </RichTextButton>
           <RichTextButton
             syntax="__"
+            label="Italic"
             cursorOffset={1}
             insertSyntax={insertSyntax}
           >
@@ -87,6 +93,8 @@ export default function TextAreaInput(props: TextAreaInputProps) {
           </RichTextButton>
         </div>
       </div>
+      {/* Insert post title input from editor component */}
+      {props.children}
       {!preview ? (
         <div className={styles.textareaContainer} data-content={props.value}>
           <textarea
@@ -97,7 +105,7 @@ export default function TextAreaInput(props: TextAreaInputProps) {
             )}
             value={props.value}
             onChange={handleChange}
-            placeholder="Start writing here..."
+            placeholder="Begin writing your post..."
           />
         </div>
       ) : (
@@ -125,14 +133,17 @@ export default function TextAreaInput(props: TextAreaInputProps) {
 function RichTextButton(props: {
   syntax: string; // Markdown syntax to insert
   cursorOffset: number; // Number of indices to move cursor after insert
+  label: string;
   insertSyntax: (syntax: string, cursorOffset: number) => void;
-  children: React.ReactNode;
+  children: React.ReactElement;
 }) {
   return (
     <button
+      className={styles.rteButton}
       onClick={() => props.insertSyntax(props.syntax, props.cursorOffset)}
     >
       {props.children}
+      <div>{props.label}</div>
     </button>
   );
 }

@@ -34,7 +34,7 @@ const initialActionState: PostEditorActionState = {
   values: initialLocalState,
 };
 
-export default function PostForm() {
+export default function PostEditor() {
   // action state management for editor submission
   const [actionState, editorAction] = useActionState(
     writeNewPost,
@@ -98,13 +98,6 @@ export default function PostForm() {
       </button>
       <div style={hidden ? { display: 'none' } : {}}>
         <TextInput
-          name="title"
-          label="Title"
-          value={editorData.title}
-          updateValue={updateLocalState}
-          error={actionState.errors.title}
-        />
-        <TextInput
           name="author"
           label="Author"
           value={editorData.author}
@@ -133,7 +126,16 @@ export default function PostForm() {
         value={editorData.content}
         updateValue={updateLocalState}
         error={actionState.errors.content}
-      />
+      >
+        <TextInput
+          name="title"
+          value={editorData.title}
+          updateValue={updateLocalState}
+          error={actionState.errors.title}
+          placeholder="Post Title"
+          title
+        />
+      </TextAreaInput>
     </div>
   );
 }

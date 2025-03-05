@@ -99,6 +99,13 @@ section {
   }
 }
 
+input:focus,
+textarea:focus,
+button:focus {
+  outline: solid 1px var(--secondary-color);
+  outline-offset: -1px;
+}
+
 /* CSS reset */
 /* 1. Use a more-intuitive box-sizing model */
 *,
