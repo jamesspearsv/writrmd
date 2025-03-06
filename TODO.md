@@ -25,6 +25,7 @@ Tasks, fixes, and changes that need completed, fixed, or added
 ### Bugs and Fixes
 
 - bug: clean up shared input, textarea, and button styles
+- bug: fix breadcrumb spacing and transition (current approach is distracting and unpleasant to watch)
 
 ### Next Steps
 

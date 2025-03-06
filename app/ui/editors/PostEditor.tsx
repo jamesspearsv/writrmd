@@ -19,7 +19,7 @@ import ListInput from '@/app/ui/editors/ListInput';
 import TextAreaInput from '@/app/ui/editors/TextAreaInput';
 import StyledButton from '@/app/ui/common/StyledButton';
 import clsx from 'clsx';
-import { Divide, Sidebar, XCircle } from 'react-feather';
+import { Sidebar, XCircle } from 'react-feather';
 
 const initialLocalState: PostEditorData = {
   title: '',
