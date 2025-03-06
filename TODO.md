@@ -1,4 +1,4 @@
-# To-do
+# To-do [DEPRECATED]
 
 Running list of upcoming features and related tasks
 
