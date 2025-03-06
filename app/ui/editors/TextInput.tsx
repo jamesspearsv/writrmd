@@ -1,8 +1,12 @@
 import { GenericInputProps } from '@/app/lib/definitions';
 import styles from './TextInput.module.css';
+import clsx from 'clsx';
 
 interface TextInputProps extends GenericInputProps {
   value: string;
+  placeholder?: string;
+  title?: boolean;
+  autofocus?: boolean;
 }
 
 export default function TextInput(props: TextInputProps) {
@@ -12,16 +16,24 @@ export default function TextInput(props: TextInputProps) {
 
   return (
     <div className={styles.group}>
-      <label htmlFor={props.name}>{props.label}</label>
+      {props.label && <label htmlFor={props.name}>{props.label}</label>}
       <input
+        className={clsx(
+          props.error && `${styles.error}`,
+          props.title && `${styles.title}`
+        )}
+        aria-label={props.name}
         type="text"
+        placeholder={props.placeholder}
         name={props.name}
         id={props.name}
         value={props.value}
         onChange={handleChange}
-        className={props.error && styles.error}
+        autoFocus={props.autofocus}
       />
-      {props.error && <div className={styles.error}>{props.error}</div>}
+      {/* {props.error && !props.title && (
+        <div className={styles.error}>{props.error}</div>
+      )} */}
     </div>
   );
 }

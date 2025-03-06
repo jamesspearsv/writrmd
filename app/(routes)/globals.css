@@ -30,6 +30,7 @@
   --sidebar-width: var(--size-13);
   --border-radius: var(--radius-2);
   --border-size: var(--border-size-1);
+  --editor-controls-height: var(--spacing-size-xl);
 }
 
 html[data-theme='light'] {
@@ -97,6 +98,13 @@ section {
   h3 {
     margin: var(--spacing-size-s) 0;
   }
+}
+
+input:focus,
+textarea:focus,
+button:focus {
+  outline: solid 1px var(--secondary-color);
+  outline-offset: -1px;
 }
 
 /* CSS reset */

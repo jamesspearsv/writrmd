@@ -11,11 +11,10 @@ Planned upcoming features. These will be implemented. Implemented features are i
 - ~~Dark mode and theme toggle~~
 - ~~Basic admin dashboard~~
 - ~~Admin authorization~~
-- Useful post editor (improved keyboard controls and UI)
+- ~~Useful post editor (improved controls, styles, and UI)~~
 - User configurable site settings
 - Customizable site landing page elements
 - Site search bar
-- Post pagination
 
 ## Tasks
 
@@ -23,39 +22,46 @@ Tasks, fixes, and changes that need completed, fixed, or added
 
 ### High Priority
 
+### Bugs and Fixes
+
+- bug: clean up shared input, textarea, and button styles
+- bug: fix breadcrumb spacing and transition (current approach is distracting and unpleasant to watch)
+
+### Next Steps
+
 - [ ] Refactor page rendering feature to specifically target only the site landing page
 - [ ] Update function and action documentation
   - [ ] database.ts
   - [ ] authActions.ts
   - [ ] actions.ts
 
-### Bugs
-
-### Next Steps
-
-- [ ] Extend post editor behavior (Add tab ability, bracket matching, etc)
-- [ ] Improve post editor UI
-
 ## Future Ideas
 
 A general list of future ideas or tasks. These may or may not be implemented.
 
-- Improve date formatting (localized and relative dates)
-- Add general tooltip elements
-- Add ability to save posts as drafts
-- Implement mobile layout
+- Ability to save posts as drafts
+- Post editing capabilities
+- Mobile layout
 - Add authorization callback feature
+- Update breadcrumb to use post titles instead of post slugs
 - MDX support
-- Update breadcrumb generation to use post titles instead of post slugs
+- Improve date formatting (localized and relative dates)
 - Custom theme options
 - Navigation groups and subpages
 - RSS feed generation
+- Post pagination
 - Commenting system
 
 ## Completed Tasks
 
 A list of completed tasks for historical reference
 
+- [x] Update post editor error feedback
+- [x] Complete updated post editor UI
+- [x] Make editor controls bar sticky
+- [x] Add collapsing sidebar for front-matter inputs
+- [x] Improve post editor UI
+- [x] Extend post editor behavior (hybrid RTE and Markdown actions)
 - [x] Update README.md
 - [x] Test docker deployment
 - [x] Improve auth credentials validation

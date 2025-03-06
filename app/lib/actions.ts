@@ -145,7 +145,6 @@ export async function writeNewPost(
       ok: false,
       message: 'Validation failed',
       errors: results.error.flatten().fieldErrors,
-      values: data,
     } as PostEditorActionState;
   }
 
@@ -175,7 +174,6 @@ export async function writeNewPost(
       ok: false,
       message: 'Server error! Please try again later.',
       errors: {},
-      values: data,
     } as PostEditorActionState;
   }
 
