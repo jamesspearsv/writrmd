@@ -4,37 +4,33 @@ Running list of upcoming features and related tasks
 
 ## Upcoming Features
 
-Planned upcoming features. These will be implemented.
+Planned upcoming features. These will be implemented. Implemented features are indicated using a strike through. Implemented features are still subject to updates and additions
 
 - ~~Post tagging and filtering~~
 - ~~Custom landing and standalone pages~~
 - ~~Dark mode and theme toggle~~
 - ~~Basic admin dashboard~~
 - ~~Admin authorization~~
+- ~~Useful post editor (improved controls, styles, and UI)~~
+- User configurable site settings
 - Customizable site landing page elements
 - Site search bar
-- Post pagination
 
 ## Tasks
 
-Tasks related to the current working feature
+Tasks, fixes, and changes that need completed, fixed, or added
 
 ### High Priority
 
-### Bugs
+### Bugs and Fixes
 
-- bug: Fix admin area page spacing (margin and padding)
-- bug: Post publication date formatting error -- dates are rendered as one day previously
-- bug: Unable to enter tab in post editor due to default tab behavior
-- bug: Localstorage reference error thrown from ThemeProvider.tsx
+- bug: clean up shared input, textarea, and button styles
+- bug: fix breadcrumb spacing and transition (current approach is distracting and unpleasant to watch)
 
 ### Next Steps
 
-- [ ] Improve post adding UI
-- [ ] Add ability to save posts as drafts
-- [ ] Improve date formatting (localized and relative dates)
-- [ ] Add general tooltip elements
-- [ ] Update function documentation
+- [ ] Refactor page rendering feature to specifically target only the site landing page
+- [ ] Update function and action documentation
   - [ ] database.ts
   - [ ] authActions.ts
   - [ ] actions.ts
@@ -43,20 +39,30 @@ Tasks related to the current working feature
 
 A general list of future ideas or tasks. These may or may not be implemented.
 
-- Implement mobile layout
-- Improve post editor (Ghost and Wordpress like)
+- Ability to save posts as drafts
+- Post editing capabilities
+- Mobile layout
 - Add authorization callback feature
+- Update breadcrumb to use post titles instead of post slugs
 - MDX support
-- Update breadcrumb generation to use post titles instead of post slugs
+- Improve date formatting (localized and relative dates)
 - Custom theme options
 - Navigation groups and subpages
 - RSS feed generation
+- Post pagination
 - Commenting system
 
 ## Completed Tasks
 
 A list of completed tasks for historical reference
 
+- [x] Update post editor error feedback
+- [x] Complete updated post editor UI
+- [x] Make editor controls bar sticky
+- [x] Add collapsing sidebar for front-matter inputs
+- [x] Improve post editor UI
+- [x] Extend post editor behavior (hybrid RTE and Markdown actions)
+- [x] Update README.md
 - [x] Test docker deployment
 - [x] Improve auth credentials validation
 - [x] Finish admin actions history table

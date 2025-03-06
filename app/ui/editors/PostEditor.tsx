@@ -1,6 +1,5 @@
 'use client';
 
-import TextInput from '@/app/ui/editors/TextInput';
 import React, {
   startTransition,
   useActionState,
@@ -15,9 +14,12 @@ import {
 } from '@/app/lib/definitions';
 import { writeNewPost } from '@/app/lib/actions';
 import styles from './PostEditor.module.css';
+import TextInput from '@/app/ui/editors/TextInput';
 import ListInput from '@/app/ui/editors/ListInput';
 import TextAreaInput from '@/app/ui/editors/TextAreaInput';
 import StyledButton from '@/app/ui/common/StyledButton';
+import clsx from 'clsx';
+import { Sidebar, XCircle } from 'react-feather';
 
 const initialLocalState: PostEditorData = {
   title: '',
@@ -31,10 +33,9 @@ const initialActionState: PostEditorActionState = {
   ok: true,
   message: null,
   errors: {},
-  values: initialLocalState,
 };
 
-export default function PostForm() {
+export default function PostEditor() {
   // action state management for editor submission
   const [actionState, editorAction] = useActionState(
     writeNewPost,
@@ -43,6 +44,7 @@ export default function PostForm() {
   // local state management for current editor data
   const [editorData, setEditorData] =
     useState<PostEditorData>(initialLocalState);
+  const [sidebarHidden, setSidebarHidden] = useState(true);
   const submitButtonRef = useRef<HTMLButtonElement | null>(null);
 
   // reset local state is action is successful
@@ -72,8 +74,8 @@ export default function PostForm() {
 
   // update editorData based on the PostEditorDate type
   const updateLocalState: ValueUpdater<PostEditorData> = (name, value) => {
-    const newDate = { ...editorData, [name]: value };
-    setEditorData(newDate);
+    const newData = { ...editorData, [name]: value };
+    setEditorData(newData);
   };
 
   function submitEditorData() {
@@ -84,17 +86,40 @@ export default function PostForm() {
 
   return (
     <div className={styles.container}>
-      {Object.keys(editorData).map((item) => (
-        <p key={item}>{editorData[item as keyof PostEditorData]}</p>
-      ))}
-      <div>
-        <TextInput
-          name="title"
-          label="Title"
-          value={editorData.title}
-          updateValue={updateLocalState}
-          error={actionState.errors.title}
-        />
+      <div className={styles.editorControls}>
+        {actionState.errors.author && (
+          <div className={styles.error}>
+            Posts must have an author, title, and body
+          </div>
+        )}
+        <StyledButton
+          variation={'rounded'}
+          onClick={submitEditorData}
+          className={styles.publishButton}
+        >
+          Publish
+        </StyledButton>
+        <StyledButton
+          className={clsx(`${styles.sidebarButton}`)}
+          onClick={() => {
+            setSidebarHidden((hidden) => !hidden);
+          }}
+        >
+          <Sidebar size={20} />
+        </StyledButton>
+      </div>
+      <div
+        className={clsx(
+          `${styles.frontmatter}`,
+          sidebarHidden && `${styles.hidden}`
+        )}
+      >
+        <button
+          onClick={() => setSidebarHidden(true)}
+          className={styles.frontmatterCloseButton}
+        >
+          <XCircle />
+        </button>
         <TextInput
           name="author"
           label="Author"
@@ -117,17 +142,24 @@ export default function PostForm() {
           limit={3}
           error={actionState.errors.tags}
         />
-        <TextAreaInput
-          name="content"
-          label="Post Body"
-          value={editorData.content}
-          updateValue={updateLocalState}
-          error={actionState.errors.content}
-        />
-        <StyledButton variation={'rounded'} onClick={submitEditorData}>
-          Publish
-        </StyledButton>
       </div>
+      <TextAreaInput
+        name="content"
+        label="Post Body"
+        value={editorData.content}
+        updateValue={updateLocalState}
+        error={actionState.errors.content}
+      >
+        <TextInput
+          name="title"
+          value={editorData.title}
+          updateValue={updateLocalState}
+          error={actionState.errors.title}
+          placeholder="Post Title"
+          title
+          autofocus
+        />
+      </TextAreaInput>
     </div>
   );
 }

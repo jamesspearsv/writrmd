@@ -1,5 +1,6 @@
 'use client';
 
+import { useMountCheck } from '@/app/lib/hooks';
 import Script from 'next/script';
 import {
   ReactNode,
@@ -9,52 +10,54 @@ import {
   useEffect,
 } from 'react';
 
-export interface ThemeContextInterface {
-  theme: 'light' | 'dark';
-  updateTheme: (theme: 'light' | 'dark') => void;
+export interface UseThemeProps {
+  theme: 'light' | 'dark' | undefined;
+  updateTheme: () => void;
 }
 
-// init theme context
-export const ThemeContext = createContext<ThemeContextInterface>({
+export const ThemeContext = createContext<UseThemeProps>({
   theme: 'light',
   updateTheme: () => {},
 });
 
-// useTheme custom hook
+// useTheme hook
 export function useTheme() {
   const { theme, updateTheme } = useContext(ThemeContext);
-
   return { theme, updateTheme };
 }
 
 export default function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
-    const theme = localStorage.getItem('writrmd-theme');
-    if (!theme || (theme !== 'light' && theme !== 'dark')) return 'light';
-    return theme;
+  const mounted = useMountCheck();
+  const [theme, setTheme] = useState<UseThemeProps['theme']>(() => {
+    if (typeof window !== 'undefined') {
+      const theme = localStorage.getItem('writrmd-theme');
+      if (!theme || (theme !== 'light' && theme !== 'dark')) return 'light';
+      return theme;
+    }
+    return undefined;
   });
-  // const pathname = usePathname();
-  // const router = useRouter();
 
   useEffect(() => {
+    if (theme === undefined) return;
     // update html element data-theme attribute
     document.documentElement.setAttribute('data-theme', theme);
     // store new theme in local storage
     localStorage.setItem('writrmd-theme', theme);
   }, [theme]);
 
-  function updateTheme(newTheme: 'light' | 'dark') {
-    setTheme(newTheme);
-    // router.replace(pathname ? pathname : '/');
+  function updateTheme() {
+    if (theme === 'dark') setTheme('light');
+    if (theme === 'light') setTheme('dark');
   }
+
+  if (!mounted) return null;
 
   return (
     <>
       {/* Ensure theme is read when content is rendered from server */}
-      <Script id="load-theme" strategy={'beforeInteractive'}>
+      <Script id="load-theme">
         {`(() => {
-          const theme = localStorage.getItem('writrmd-theme')
-          if (!theme) {
+          if (!localStorage.getItem('writrmd-theme')) {
             localStorage.setItem('writrmd-theme', 'light')
           }
           const theme = localStorage.getItem('writrmd-theme')

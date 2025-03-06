@@ -1,5 +1,5 @@
-.container > *:last-child {
-  margin-left: var(--sidebar-width);
+.container main {
+  margin-left: calc(var(--sidebar-width) + var(--spacing-size-xl));
 }
 
 .buttonContainer {

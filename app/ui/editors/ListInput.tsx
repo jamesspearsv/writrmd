@@ -16,6 +16,7 @@ export default function ListInput(props: ListInputProps) {
   const [tagState, setTagState] = useState('');
 
   function handleListAddition() {
+    // bug: not handling list length limit
     const newData = [...props.value];
     newData.push(tagState);
     props.updateValue(props.name, newData);

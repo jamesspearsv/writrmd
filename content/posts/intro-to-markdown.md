@@ -1,6 +1,6 @@
 ---
 title: 'Introduction to Markdown'
-date: '2025-02-04'
+date: '2025-02-03T18:41:49.445Z'
 author: 'John Doe'
 tags: ['Markdown', 'Beginner', 'Writing']
 excerpt: 'What is markdown and why should you use it?'
