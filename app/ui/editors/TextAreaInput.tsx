@@ -19,11 +19,10 @@ export default function TextAreaInput(props: TextAreaInputProps) {
 
   useEffect(() => {
     if (editorRef.current) {
-      // bug: cursor useEffect makes it impossible to autofocus any other inputs/elements on the page. The focus call overrides the current focus.
-      // editorRef.current.focus();
+      // only focus the editor when the cursor position is greater
+      // than zero to avoid autofocus when the page renders
+      if (cursorPosition > 0) editorRef.current.focus();
       editorRef.current.setSelectionRange(cursorPosition, cursorPosition);
-    } else {
-      console.log('no ref');
     }
   }, [cursorPosition]);
 
@@ -37,6 +36,12 @@ export default function TextAreaInput(props: TextAreaInputProps) {
     const editor = editorRef.current;
     // get the current cursor position
     const selectionPosition = editor.selectionStart;
+
+    // todo: handle cursor position when editor isn't focused
+    // if (editor !== document.activeElement) {
+    //   selectionPosition = props.value.length - 1;
+    // }
+
     // split current value at current selection index
     const v1 = props.value.slice(0, selectionPosition);
     const v2 = props.value.slice(selectionPosition);
@@ -119,14 +124,12 @@ export default function TextAreaInput(props: TextAreaInputProps) {
           <Markdown
             gfm={true}
             value={
-              props.value
-                ? props.value
-                : 'Write something to see a preview here'
+              props.value ? props.value : 'Start writing to see a preview here'
             }
           />
         </div>
       )}
-      {props.error && <div className={styles.error}>{props.error}</div>}
+      {/* {props.error && <div className={styles.error}>{props.error}</div>} */}
     </div>
   );
 }

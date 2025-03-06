@@ -46,7 +46,6 @@ export type PostEditorActionState = {
   ok: boolean;
   message: string | null;
   errors: Partial<Record<keyof PostEditorData, string>>;
-  values: PostEditorData;
 };
 
 export type SetUpActionState = { error: string };

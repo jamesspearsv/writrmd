@@ -39,6 +39,7 @@
   border-left: solid var(--border-size) var(--primary-color-alt-2);
   transition: margin-right 300ms ease-in-out;
   margin-right: 0;
+  z-index: 1000;
 }
 
 .frontmatterCloseButton {
@@ -49,6 +50,17 @@
   color: var(--secondary-color-alt);
 }
 
+.sidebarButton:hover,
+.frontmatterCloseButton:hover {
+  color: var(--accent-color);
+}
+
 .frontmatter.hidden {
-  margin-right: -500rem;
+  margin-right: -350px;
+}
+
+div.error {
+  color: var(--danger-color);
+  font-size: var(--font-sizing-small);
+  font-style: italic;
 }

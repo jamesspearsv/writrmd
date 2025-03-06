@@ -27,9 +27,7 @@ EDITOR ACTION PANEL
 
 .toggleControls button {
   background-color: inherit;
-  /* background-color: var(--primary-color-alt); */
   color: var(--secondary-color-alt);
-  padding: var(--spacing-size-xs);
   flex: 1;
 }
 
@@ -58,7 +56,7 @@ EDITOR ACTION PANEL
 .rteButton {
   background-color: inherit;
   color: inherit;
-  padding: var(--spacing-size-s);
+  padding: var(--spacing-size-xs);
   display: inline-flex;
   flex-direction: column;
   justify-content: center;

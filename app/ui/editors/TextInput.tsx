@@ -31,9 +31,9 @@ export default function TextInput(props: TextInputProps) {
         onChange={handleChange}
         autoFocus={props.autofocus}
       />
-      {props.error && !props.title && (
+      {/* {props.error && !props.title && (
         <div className={styles.error}>{props.error}</div>
-      )}
+      )} */}
     </div>
   );
 }

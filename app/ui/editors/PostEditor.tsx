@@ -19,7 +19,7 @@ import ListInput from '@/app/ui/editors/ListInput';
 import TextAreaInput from '@/app/ui/editors/TextAreaInput';
 import StyledButton from '@/app/ui/common/StyledButton';
 import clsx from 'clsx';
-import { Sidebar, XCircle } from 'react-feather';
+import { Divide, Sidebar, XCircle } from 'react-feather';
 
 const initialLocalState: PostEditorData = {
   title: '',
@@ -33,7 +33,6 @@ const initialActionState: PostEditorActionState = {
   ok: true,
   message: null,
   errors: {},
-  values: initialLocalState,
 };
 
 export default function PostEditor() {
@@ -45,6 +44,7 @@ export default function PostEditor() {
   // local state management for current editor data
   const [editorData, setEditorData] =
     useState<PostEditorData>(initialLocalState);
+  const [sidebarHidden, setSidebarHidden] = useState(true);
   const submitButtonRef = useRef<HTMLButtonElement | null>(null);
 
   // reset local state is action is successful
@@ -84,11 +84,14 @@ export default function PostEditor() {
     });
   }
 
-  const [hidden, setHidden] = useState(true);
-
   return (
     <div className={styles.container}>
       <div className={styles.editorControls}>
+        {actionState.errors.author && (
+          <div className={styles.error}>
+            Posts must have an author, title, and body
+          </div>
+        )}
         <StyledButton
           variation={'rounded'}
           onClick={submitEditorData}
@@ -99,17 +102,20 @@ export default function PostEditor() {
         <StyledButton
           className={clsx(`${styles.sidebarButton}`)}
           onClick={() => {
-            setHidden((hidden) => !hidden);
+            setSidebarHidden((hidden) => !hidden);
           }}
         >
           <Sidebar size={20} />
         </StyledButton>
       </div>
       <div
-        className={clsx(`${styles.frontmatter}`, hidden && `${styles.hidden}`)}
+        className={clsx(
+          `${styles.frontmatter}`,
+          sidebarHidden && `${styles.hidden}`
+        )}
       >
         <button
-          onClick={() => setHidden(true)}
+          onClick={() => setSidebarHidden(true)}
           className={styles.frontmatterCloseButton}
         >
           <XCircle />
