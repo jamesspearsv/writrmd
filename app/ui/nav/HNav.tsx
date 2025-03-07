@@ -1,22 +1,24 @@
 import Link from 'next/link';
 import styles from './HNav.module.css';
-import Image from 'next/image';
+import { readSettings } from '@/app/lib/actions';
+import { roboto_slab } from '@/app/ui/fonts';
+import clsx from 'clsx';
 
-export default function HNav({ children }: { children?: React.ReactNode }) {
-  const logoSize = 50;
+export default async function HNav({
+  children,
+}: {
+  children?: React.ReactNode;
+}) {
+  const settings = await readSettings();
 
   return (
     <nav className={styles.nav}>
       <ul className={styles.list}>
-        <li>
-          <Link href={'/'}>
-            <Image
-              src="/icon.png"
-              alt="Writr.md logo"
-              width={logoSize}
-              height={logoSize}
-            />
-          </Link>
+        {/* todo: extract blog heading into a reusable component */}
+        <li
+          className={clsx(`${styles.navHeading}`, `${roboto_slab.className}`)}
+        >
+          <Link href={'/'}>{settings ? settings.blogName : 'Placeholder'}</Link>
         </li>
         <li>
           <Link className={styles.link} href={'/blog'}>
