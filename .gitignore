@@ -44,7 +44,7 @@ docker-dev
 
 # exclude all files in /content but default posts
 /content/**/*.md
-!/content/pages/index.md
+/content/**/*.json
 !content/posts/intro-to-markdown.md
 !/content/posts/benefits-of-writing-markdown.md
 *.env
