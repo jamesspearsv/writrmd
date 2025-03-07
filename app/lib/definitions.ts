@@ -59,6 +59,6 @@ export interface Admin extends User {
 // todo: add social links to settings
 export interface BlogSettings {
   blogName: string;
-  blogSummary?: string;
+  blogSummary: string;
   icon?: string; // todo: url string to an svg icon
 }

@@ -7,8 +7,9 @@ import {
   Page,
   PostEditorData,
   PostEditorActionState,
+  BlogSettings,
 } from '@/app/lib/definitions';
-import { PostSchema } from '@/app/lib/schemas';
+import { BlogSettingsSchema, PostSchema } from '@/app/lib/schemas';
 import { uniqueSlugify } from '@/app/lib/slugify';
 import { redirect } from 'next/navigation';
 
@@ -183,12 +184,17 @@ export async function writeNewPost(
 
 export async function readSettings() {
   try {
-    const contents = fs.readFile(`${rootDir}/content/setting.json`, {
+    const settings = await fs.readFile(`${rootDir}/content/settings.json`, {
       encoding: 'utf-8',
     });
-    console.log(contents);
+    // Validate settings.json
+    const parsedSettings = BlogSettingsSchema.safeParse(JSON.parse(settings));
+    if (!parsedSettings.success) {
+      throw new Error('Validation failed');
+    }
+    return parsedSettings.data as BlogSettings;
   } catch (error) {
     console.error(error);
-    return error;
+    return null;
   }
 }
