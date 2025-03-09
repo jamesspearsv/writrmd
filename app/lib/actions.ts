@@ -183,8 +183,13 @@ export async function writeNewPost(
 }
 
 export async function readSettings() {
+  const settingsFile =
+    process.env.NODE_ENV === 'production'
+      ? 'settings.json'
+      : 'settings.dev.json';
+
   try {
-    const settings = await fs.readFile(`${rootDir}/content/settings.json`, {
+    const settings = await fs.readFile(`${rootDir}/content/${settingsFile}`, {
       encoding: 'utf-8',
     });
     // Validate settings.json
