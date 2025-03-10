@@ -19,7 +19,8 @@ export const CredentialsSchema = z.object({
 });
 
 export const BlogSettingsSchema = z.object({
-  blogName: z.string(),
+  initialized: z.boolean(),
+  blogName: z.string().optional(),
   blogSummary: z.string(),
   icon: z.string().optional(),
 });

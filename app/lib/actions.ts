@@ -8,8 +8,9 @@ import {
   PostEditorData,
   PostEditorActionState,
   BlogSettings,
+  ActionResult,
 } from '@/app/lib/definitions';
-import { BlogSettingsSchema, PostSchema } from '@/app/lib/schemas';
+import { PostSchema } from '@/app/lib/schemas';
 import { uniqueSlugify } from '@/app/lib/slugify';
 import { redirect } from 'next/navigation';
 
@@ -182,24 +183,21 @@ export async function writeNewPost(
   redirect('/writr/posts');
 }
 
-export async function readSettings() {
+export async function readSettings(): Promise<ActionResult<BlogSettings>> {
   const settingsFile =
     process.env.NODE_ENV === 'production'
       ? 'settings.json'
       : 'settings.dev.json';
 
   try {
-    const settings = await fs.readFile(`${rootDir}/content/${settingsFile}`, {
+    const data = await fs.readFile(`${rootDir}/content/${settingsFile}`, {
       encoding: 'utf-8',
     });
-    // Validate settings.json
-    const parsedSettings = BlogSettingsSchema.safeParse(JSON.parse(settings));
-    if (!parsedSettings.success) {
-      throw new Error('Validation failed');
-    }
-    return parsedSettings.data as BlogSettings;
+    const settings = JSON.parse(data) as BlogSettings;
+
+    return { success: true, data: settings };
   } catch (error) {
     console.error(error);
-    return null;
+    return { success: false, error: 'Server error' };
   }
 }

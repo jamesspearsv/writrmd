@@ -6,12 +6,12 @@ import PlaceholderPage from '@/app/ui/common/PlaceholderPage';
 export default async function Home() {
   const settings = await readSettings();
 
-  if (!settings) return <PlaceholderPage />;
+  if (!settings.success) return <PlaceholderPage />;
 
   return (
     <main className={styles.main}>
       <Markdown gfm={true} openLinksInNewTab={false}>
-        {`# ${settings.blogName}\n\n${settings.blogSummary}`}
+        {`# ${settings.data.blogName}\n\n${settings.data.blogSummary}`}
       </Markdown>
     </main>
   );

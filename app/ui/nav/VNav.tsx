@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import styles from './VNav.module.css';
 import { roboto_slab } from '@/app/ui/fonts';
-import { BookOpen, Home, Layout } from 'react-feather';
+import { BookOpen, Home, Layout, Settings } from 'react-feather';
 
 export default function VNav({ children }: { children?: React.ReactNode }) {
   return (
@@ -18,9 +18,11 @@ export default function VNav({ children }: { children?: React.ReactNode }) {
           <NavItem href="/writr/posts" label="Posts">
             <BookOpen size={16} />
           </NavItem>
+          <NavItem href="/writr/settings" label="Settings">
+            <Settings size={16} />
+          </NavItem>
         </ul>
       </div>
-
       <div className={styles.actions}>{children}</div>
     </nav>
   );

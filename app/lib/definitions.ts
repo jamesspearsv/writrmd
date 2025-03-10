@@ -55,11 +55,13 @@ export interface Admin extends User {
   username: string;
 }
 
-// todo: include credentials (username and hashed password) in blog settings
-// todo: add social links to settings
 export interface BlogSettings {
-  initialized?: boolean;
+  // todo: add social links to settings
   blogName: string;
-  blogSummary?: string;
+  blogSummary: string;
   icon?: string; // todo: url string to an svg icon
 }
+
+export type ActionResult<T> =
+  | { success: true; data: T }
+  | { success: false; error: string };
