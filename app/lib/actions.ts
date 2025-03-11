@@ -13,11 +13,14 @@ import {
 import { PostSchema } from '@/app/lib/schemas';
 import { uniqueSlugify } from '@/app/lib/slugify';
 import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
 
 // Absolute path to project dir from filesystem root
 const rootDir = process.env.ROOT_PATH;
 // filename regex pattern
 const pattern = /^[\w-]+\.md$/;
+const settingsFile =
+  process.env.NODE_ENV === 'production' ? 'settings.json' : 'settings.dev.json';
 
 /**
  * Asynchronously fetches all available posts
@@ -184,11 +187,6 @@ export async function writeNewPost(
 }
 
 export async function readSettings(): Promise<ActionResult<BlogSettings>> {
-  const settingsFile =
-    process.env.NODE_ENV === 'production'
-      ? 'settings.json'
-      : 'settings.dev.json';
-
   try {
     const data = await fs.readFile(`${rootDir}/content/${settingsFile}`, {
       encoding: 'utf-8',
@@ -200,4 +198,35 @@ export async function readSettings(): Promise<ActionResult<BlogSettings>> {
     console.error(error);
     return { success: false, error: 'Server error' };
   }
+}
+
+export async function updateSettingValue<K extends keyof BlogSettings>(
+  key: K,
+  value: BlogSettings[K]
+) {
+  console.log('key -- ', key);
+  console.log('value -- ', value);
+
+  const settings = await readSettings();
+
+  if (settings.success) {
+    const newSettings = { ...settings.data };
+    newSettings[key] = value;
+
+    console.log(JSON.stringify(newSettings));
+
+    try {
+      await fs.writeFile(
+        `${rootDir}/content/${settingsFile}`,
+        JSON.stringify(newSettings)
+      );
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error);
+      }
+    }
+    revalidatePath('/writr/settings');
+  }
+
+  // todo : handle invalid reading of settings
 }

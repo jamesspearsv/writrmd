@@ -14,11 +14,12 @@ export default async function HNav({
   return (
     <nav className={styles.nav}>
       <ul className={styles.list}>
-        {/* todo: extract blog heading into a reusable component */}
         <li
           className={clsx(`${styles.navHeading}`, `${roboto_slab.className}`)}
         >
-          <Link href={'/'}>{settings ? settings.blogName : 'Placeholder'}</Link>
+          <Link href={'/'}>
+            {settings.success ? settings.data.blogName : 'Placeholder'}
+          </Link>
         </li>
         <li>
           <Link className={styles.link} href={'/blog'}>

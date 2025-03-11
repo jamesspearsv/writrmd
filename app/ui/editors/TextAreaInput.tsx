@@ -37,7 +37,7 @@ export default function TextAreaInput(props: TextAreaInputProps) {
     // get the current cursor position
     const selectionPosition = editor.selectionStart;
 
-    // todo: handle cursor position when editor isn't focused
+    // bug: Unexpected effects cursor positioning when editor isn't focused
     // if (editor !== document.activeElement) {
     //   selectionPosition = props.value.length - 1;
     // }
