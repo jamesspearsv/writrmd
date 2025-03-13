@@ -14,6 +14,7 @@ import { PostSchema } from '@/app/lib/schemas';
 import { uniqueSlugify } from '@/app/lib/slugify';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
+import TaskWorker from '@/app/lib/worker';
 
 // Absolute path to project dir from filesystem root
 const rootDir = process.env.ROOT_PATH;
@@ -200,33 +201,77 @@ export async function readSettings(): Promise<ActionResult<BlogSettings>> {
   }
 }
 
+const worker = new TaskWorker();
+
 export async function updateSettingValue<K extends keyof BlogSettings>(
   key: K,
   value: BlogSettings[K]
 ) {
-  console.log('key -- ', key);
-  console.log('value -- ', value);
+  // define process to update settings
+  const process = async () => {
+    const settings = await readSettings();
 
-  const settings = await readSettings();
+    // todo: handle errors when reading settings.json
+    if (settings.success) {
+      const newSettings = { ...settings.data };
+      newSettings[key] = value;
 
-  if (settings.success) {
-    const newSettings = { ...settings.data };
-    newSettings[key] = value;
+      console.log(JSON.stringify(newSettings));
 
-    console.log(JSON.stringify(newSettings));
-
-    try {
-      await fs.writeFile(
-        `${rootDir}/content/${settingsFile}`,
-        JSON.stringify(newSettings)
-      );
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error(error);
+      try {
+        await fs.writeFile(
+          `${rootDir}/content/${settingsFile}`,
+          JSON.stringify(newSettings)
+        );
+        return {
+          success: true,
+          data: 'Successfully updated settings',
+        } as ActionResult<string>;
+      } catch (error) {
+        if (error instanceof Error) {
+          console.error(error);
+          return {
+            success: false,
+            error: 'Unable to update settings',
+          } as ActionResult;
+        }
       }
     }
-    revalidatePath('/writr/settings');
-  }
+  };
 
-  // todo : handle invalid reading of settings
+  // add process to worker queue and await result
+  const result = await worker.add(process);
+  console.log(result);
+  revalidatePath('/writr/settings');
+}
+
+export async function WorkerTest() {
+  console.log('<! -- Starting worker test -->');
+
+  const filename = `${rootDir}/content/worker.txt`;
+
+  const task1 = () => {
+    return new Promise(async (resolve) => {
+      const content = await fs.readFile(filename, 'utf-8');
+      setTimeout(async () => {
+        const newContent = content + '\nAdding content from a long running job';
+        await fs.writeFile(filename, newContent);
+        resolve({ success: true, data: 'Completed long job' });
+      }, 5000);
+    });
+  };
+
+  const task2 = () => {
+    return new Promise(async (resolve) => {
+      const content = await fs.readFile(filename, 'utf-8');
+      setTimeout(async () => {
+        const newContent = content + '\nAdding content from a fast running job';
+        await fs.writeFile(filename, newContent);
+        resolve({ success: true, data: 'Completed fast job' });
+      }, 2000);
+    });
+  };
+
+  worker.add(task1).then((value) => console.log(value));
+  worker.add(task2).then((value) => console.log(value));
 }

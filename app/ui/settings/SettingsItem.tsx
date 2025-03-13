@@ -10,8 +10,9 @@ import { Edit, Save, XCircle } from 'react-feather';
  Consider if using useState and a server action is the best approach? 
  Things to consider:
 
- - Potential benefits of using useActionState
- - Does it make sense for each input to manage it's own state?
+ - [ ] Potential benefits of using useActionState
+ - [ ] Does it make sense for each input to manage it's own state?
+ - [x] How to manage race conditions
  */
 
 export default function SettingsItem<K extends keyof BlogSettings>(props: {

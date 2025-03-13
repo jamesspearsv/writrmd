@@ -62,6 +62,6 @@ export interface BlogSettings {
   icon?: string; // todo: url string to an svg icon
 }
 
-export type ActionResult<T> =
+export type ActionResult<T = undefined> =
   | { success: true; data: T }
   | { success: false; error: string };
