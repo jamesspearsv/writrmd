@@ -14,8 +14,9 @@
   --accent-color-alt: var(--green-8);
   --normal-weight: var(--font-weight-4);
   --bold-weight: var(--font-weight-7);
-  --font-sizing: -1rem;
+  --font-sizing: 1rem;
   --font-sizing-small: var(--font-size-0);
+  --font-sizing-medium: var(--font-size-4);
   --font-sizing-large: var(--font-size-3);
   --font-sizing-xl: var(--font-size-5);
   --spacing-size-xs: var(--size-2);

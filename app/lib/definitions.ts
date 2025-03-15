@@ -23,7 +23,7 @@ export interface Page extends matter.GrayMatterFile<string> {
   isEmpty: boolean;
 }
 
-// Generic function type for updating the value of a controlled input based on a given type
+// Generic function to update a controlled input value based on a given type
 export type ValueUpdater<T> = (name: keyof T, value: T[keyof T]) => void;
 
 export interface GenericInputProps {
@@ -48,8 +48,20 @@ export type PostEditorActionState = {
   errors: Partial<Record<keyof PostEditorData, string>>;
 };
 
+// fixme: remove unneeded definition
 export type SetUpActionState = { error: string };
 
 export interface Admin extends User {
   username: string;
 }
+
+export interface BlogSettings {
+  // todo: add social links to settings
+  name: string;
+  summary: string;
+  icon?: string; // todo: url string to an svg icon
+}
+
+export type ActionResult<T> =
+  | { success: true; data: T }
+  | { success: false; error: string };

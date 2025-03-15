@@ -32,7 +32,6 @@ export default async function BlogPage({ searchParams }: Props) {
 
   return (
     <main>
-      {/* todo: add filtering options to blog page */}
       <PostList posts={posts} />
     </main>
   );

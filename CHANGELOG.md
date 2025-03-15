@@ -61,3 +61,20 @@ Added new post editor functionality. Updated post editor UI, layout, and styles.
 - **Simplified styles** to match minimal design approach and reduce visual clutter
 - **Simplified error feedback** by centralizing error messaging and removing technical error jargon
 - **Simplified title and body** inputs to reduce visual clutter and improve writing experience
+
+## v0.3.0 -- March 14, 2025
+
+This version focuses on adding user configurable settings and implementing associated functionality
+
+### Added
+
+- **Default site settings** including site name, summary, and optional icon url
+- **Settings portal** to provide user access to current site settings
+- **Updating functionality** to view and change settings values
+- **Promise-based worker** to manage setting operations and prevent race conditions during filesystem operations
+- **Definition and schema** to define and validate blog setting values
+
+### Changes
+
+- **Updated landing page** to render with blog setting values
+- **Updated navigation components** to render with blog setting values

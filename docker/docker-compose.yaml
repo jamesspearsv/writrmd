@@ -11,9 +11,8 @@ services:
     environment:
       - NODE_ENV=production
     env_file: ./.env # MAKE SURE THIS FILE IS PRESENT AND ACCURATE
-    volumes: # MAKE SURE TO CREATE THESE DIRECTORIES ON YOUR MACHINE
-      - ./pages:/writrmd/content/pages
-      - ./posts:/writrmd/content/posts
+    volumes:
+      - writrmd-data:/writrmd/content
 
   caddy:
     image: caddy:latest
@@ -33,6 +32,7 @@ services:
 volumes:
   caddy_data:
   caddy_config:
+  writrmd-data:
 
 networks:
   writrmd_network:

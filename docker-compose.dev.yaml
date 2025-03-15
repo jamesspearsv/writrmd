@@ -15,8 +15,7 @@ services:
       - ADMIN_USERNAME=admin
       - ADMIN_PASSWORD=12345
     volumes:
-      - ./docker-dev/pages:/writrmd/content/pages
-      - ./docker-dev/posts:/writrmd/content/posts
+      - writrmd-data:/writrmd/content
 
   caddy:
     image: caddy:latest
@@ -25,7 +24,7 @@ services:
       - '80:80' # Expose port 80 to the host machine
       - '443:443' # Expose port 443 (optional, for HTTPS)
     volumes:
-      - ./docker-dev/Caddyfile:/etc/caddy/Caddyfile # Mount the Caddyfile
+      - ./docker/Caddyfile:/etc/caddy/Caddyfile # Mount the Caddyfile
       - caddy_data:/data # Persist Caddy data
       - caddy_config:/config # Persist Caddy config
     networks:
@@ -36,6 +35,7 @@ services:
 volumes:
   caddy_data:
   caddy_config:
+  writrmd-data:
 
 networks:
   writrmd_network:

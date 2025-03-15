@@ -1,17 +1,17 @@
-import { fetchPage } from '@/app/lib/actions';
+import { readSettings } from '@/app/lib/actions';
 import Markdown from 'marked-react';
 import styles from './index.module.css';
 import PlaceholderPage from '@/app/ui/common/PlaceholderPage';
 
 export default async function Home() {
-  const page = await fetchPage('index');
+  const settings = await readSettings();
 
-  if (!page) return <PlaceholderPage />;
+  if (!settings.success) return <PlaceholderPage />;
 
   return (
     <main className={styles.main}>
       <Markdown gfm={true} openLinksInNewTab={false}>
-        {page.content}
+        {`# ${settings.data.name}\n\n${settings.data.summary}`}
       </Markdown>
     </main>
   );

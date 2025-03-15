@@ -7,6 +7,19 @@
   align-items: center;
 }
 
+.navHeading {
+  font-weight: var(--bold-weight);
+  font-size: var(--font-sizing-medium);
+
+  & a {
+    text-decoration: none;
+  }
+
+  & a:hover {
+    color: var(--accent-color);
+  }
+}
+
 .list {
   display: flex;
   list-style: none;
