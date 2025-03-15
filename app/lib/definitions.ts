@@ -57,11 +57,11 @@ export interface Admin extends User {
 
 export interface BlogSettings {
   // todo: add social links to settings
-  blogName: string;
-  blogSummary: string;
+  name: string;
+  summary: string;
   icon?: string; // todo: url string to an svg icon
 }
 
-export type ActionResult<T = undefined> =
+export type ActionResult<T> =
   | { success: true; data: T }
   | { success: false; error: string };

@@ -18,7 +18,7 @@ export default async function HNav({
           className={clsx(`${styles.navHeading}`, `${roboto_slab.className}`)}
         >
           <Link href={'/'}>
-            {settings.success ? settings.data.blogName : 'Placeholder'}
+            {settings.success ? settings.data.name : 'Placeholder'}
           </Link>
         </li>
         <li>

@@ -216,8 +216,6 @@ export async function updateSettingValue<K extends keyof BlogSettings>(
       const newSettings = { ...settings.data };
       newSettings[key] = value;
 
-      console.log(JSON.stringify(newSettings));
-
       try {
         await fs.writeFile(
           `${rootDir}/content/${settingsFile}`,
@@ -233,15 +231,19 @@ export async function updateSettingValue<K extends keyof BlogSettings>(
           return {
             success: false,
             error: 'Unable to update settings',
-          } as ActionResult;
+          } as ActionResult<string>;
         }
       }
     }
+
+    return {
+      success: false,
+      error: 'Unable to read settings',
+    } as ActionResult<string>;
   };
 
   // add process to worker queue and await result
-  const result = await worker.add(process);
-  console.log(result);
+  await worker.add<ActionResult<string>>(process);
   revalidatePath('/writr/settings');
 }
 

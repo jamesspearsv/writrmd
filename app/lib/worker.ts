@@ -1,6 +1,6 @@
-interface Task {
-  promise: () => Promise<unknown>;
-  resolve: (value: unknown) => void;
+interface Task<T = unknown> {
+  promise: () => Promise<T>;
+  resolve: (value: T) => void;
   reject: (reason?: unknown) => void;
 }
 
@@ -8,7 +8,7 @@ export default class TaskWorker {
   private queue: Task[] = [];
   private working = false;
 
-  add(promise: () => Promise<unknown>) {
+  add<T>(promise: Task<T>['promise']) {
     // return a promise to calling function to pass back data and error info
     return new Promise((resolve, reject) => {
       this.queue.push({
@@ -29,16 +29,15 @@ export default class TaskWorker {
     if (!task) return;
 
     this.working = true;
-    console.log('### Starting worker');
     // start the worker process
     try {
+      // todo: figure out how to return type of resolved promise that is given to queue
       const result = await task.promise();
       task.resolve(result);
     } catch {
       task.reject('Task failed');
     } finally {
       // finish the current task and begin next
-      console.log('### Finished working');
       this.working = false;
       this.processQueue();
     }

@@ -5,20 +5,15 @@ import { BlogSettings } from '@/app/lib/definitions';
 import StyledButton from '@/app/ui/common/StyledButton';
 import React, { startTransition, useEffect, useState } from 'react';
 import { Edit, Save, XCircle } from 'react-feather';
-
-/* TODO
- Consider if using useState and a server action is the best approach? 
- Things to consider:
-
- - [ ] Potential benefits of using useActionState
- - [ ] Does it make sense for each input to manage it's own state?
- - [x] How to manage race conditions
- */
+import styles from './SettingsItem.module.css';
 
 export default function SettingsItem<K extends keyof BlogSettings>(props: {
   property: K;
   value: BlogSettings[K];
+  label: string;
+  editor?: boolean;
 }) {
+  const iconSize = 16;
   const [editing, setEditing] = useState(false);
   const [value, setValue] = useState(props.value);
 
@@ -38,33 +33,59 @@ export default function SettingsItem<K extends keyof BlogSettings>(props: {
     });
   }
 
+  function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === 'Enter') {
+      submitChange();
+    }
+
+    if (e.key === 'Escape') {
+      cancelEdit();
+    }
+  }
+
   return (
     <div>
-      <p>{props.property}</p>
-      {!editing ? (
-        <div>
-          <div>{props.value}</div>
-          <StyledButton onClick={() => setEditing(true)}>
-            <Edit size={14} />
-          </StyledButton>
+      <div className={styles.item_heading}>
+        <h3 className={styles.property}>{props.label}</h3>
+        <div className={styles.item_actions}>
+          {!editing ? (
+            <StyledButton
+              onClick={() => setEditing(true)}
+              className={styles.action_button}
+            >
+              <Edit size={iconSize} />
+            </StyledButton>
+          ) : (
+            <>
+              <StyledButton
+                onClick={submitChange}
+                className={styles.action_button}
+              >
+                <Save size={iconSize} />
+              </StyledButton>
+              <StyledButton
+                onClick={cancelEdit}
+                className={styles.action_button}
+              >
+                <XCircle size={iconSize} />
+              </StyledButton>
+            </>
+          )}
         </div>
-      ) : (
-        <div>
+      </div>
+      <div className={styles.item_value}>
+        {!editing ? (
+          <div>{props.value}</div>
+        ) : (
           <input
+            className={styles.item_input}
             type="text"
             value={value}
+            onKeyDown={handleKeyPress}
             onChange={(e) => setValue(e.currentTarget.value)}
           />
-          <div>
-            <StyledButton onClick={submitChange}>
-              <Save size={14} />
-            </StyledButton>
-            <StyledButton onClick={cancelEdit}>
-              <XCircle size={14} />
-            </StyledButton>
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

@@ -10,9 +10,14 @@ export default async function Page() {
   return (
     <main>
       <h1>Settings</h1>
-      <SettingsItem property="blogName" value={data.blogName} />
-      <SettingsItem property="blogSummary" value={data.blogSummary} />
-      <SettingsItem property="icon" value={data.icon} />
+      <SettingsItem property="name" value={data.name} label="Name" />
+      <SettingsItem
+        property="summary"
+        value={data.summary}
+        label="Summary"
+        editor
+      />
+      <SettingsItem property="icon" value={data.icon} label="Icon" />
     </main>
   );
 }

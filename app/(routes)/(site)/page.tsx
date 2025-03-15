@@ -11,7 +11,7 @@ export default async function Home() {
   return (
     <main className={styles.main}>
       <Markdown gfm={true} openLinksInNewTab={false}>
-        {`# ${settings.data.blogName}\n\n${settings.data.blogSummary}`}
+        {`# ${settings.data.name}\n\n${settings.data.summary}`}
       </Markdown>
     </main>
   );
