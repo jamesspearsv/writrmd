@@ -35,8 +35,8 @@
 
   code {
     background-color: var(--primary-color-alt-2);
-    color: var(--secondary-color-alt);
-    padding: 5px 2px;
+    color: var(--secondary-color-alt-2);
+    padding: 5px;
     font-size: calc(var(--font-sizing) * 0.9);
     border-radius: var(--border-radius);
   }
@@ -46,10 +46,19 @@
     padding: var(--spacing-size-s);
     font-size: calc(var(--font-sizing) * 0.9);
     border-radius: var(--border-radius);
-    width: fit-content;
+    width: 100%;
   }
 
   blockquote {
-    /* todo: add blockquote styling */
+    border-left: 5px var(--secondary-color-alt-2) solid;
+    margin-block: var(--spacing-size-s);
+    padding: var(--spacing-size-s);
+    border-radius: var(--border-radius);
+    background-color: var(--primary-color-alt-2);
+    width: 100%;
+  }
+
+  del {
+    color: var(--secondary-color-alt);
   }
 }
