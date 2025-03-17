@@ -1,0 +1,55 @@
+.markdown-wrapper {
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin-block: var(--spacing-size-s);
+  }
+
+  p {
+    margin-bottom: var(--spacing-size-s);
+  }
+
+  ul {
+    list-style-type: disc;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  ul,
+  ol {
+    margin-block: var(--spacing-size-s);
+    padding-left: var(--spacing-size-xs);
+    list-style-position: inside;
+
+    &.contains-task-list {
+      list-style: none;
+    }
+  }
+
+  li {
+    margin-block: var(--spacing-size-xs);
+  }
+
+  code {
+    background-color: var(--primary-color-alt-2);
+    color: var(--secondary-color-alt);
+    padding: 5px 2px;
+    font-size: calc(var(--font-sizing) * 0.9);
+    border-radius: var(--border-radius);
+  }
+
+  pre:has(code) {
+    background-color: var(--primary-color-alt-2);
+    padding: var(--spacing-size-s);
+    font-size: calc(var(--font-sizing) * 0.9);
+    border-radius: var(--border-radius);
+    width: fit-content;
+  }
+
+  blockquote {
+    /* todo: add blockquote styling */
+  }
+}
