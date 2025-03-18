@@ -78,3 +78,17 @@ This version focuses on adding user configurable settings and implementing assoc
 
 - **Updated landing page** to render with blog setting values
 - **Updated navigation components** to render with blog setting values
+
+## v0.3.1 -- March 17, 2025
+
+Optimized markdown rendering and implemented markdown styling rules
+
+### Added
+
+- **Markdown wrapper component** around the Markdown component provided by `markdown-react`
+- **Markdown styles** to apply consistent CSS to HTML rendered by `markdown-react`
+
+### Changes
+
+- **Migrated** to `markdown-react` from `marked-react`
+- **Refactored** relevant components and pages to avoid using `markdown-react` directly
