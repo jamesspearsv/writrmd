@@ -1,7 +1,7 @@
 import { readSettings } from '@/app/lib/actions';
-import Markdown from 'marked-react';
 import styles from './index.module.css';
 import PlaceholderPage from '@/app/ui/common/PlaceholderPage';
+import MarkdownWrapper from '@/app/ui/common/MarkdownWrapper';
 
 export default async function Home() {
   const settings = await readSettings();
@@ -10,9 +10,9 @@ export default async function Home() {
 
   return (
     <main className={styles.main}>
-      <Markdown gfm={true} openLinksInNewTab={false}>
-        {`# ${settings.data.name}\n\n${settings.data.summary}`}
-      </Markdown>
+      <MarkdownWrapper
+        value={`# ${settings.data.name}\n\n${settings.data.summary}`}
+      />
     </main>
   );
 }

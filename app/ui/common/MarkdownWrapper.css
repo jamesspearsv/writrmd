@@ -1,0 +1,132 @@
+.markdown-wrapper {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-block: var(--spacing-size-s);
+  }
+
+  p {
+    margin-bottom: var(--spacing-size-s);
+  }
+
+  ul {
+    list-style-type: disc;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  ul.contains-task-list {
+    list-style: none;
+  }
+
+  ul,
+  ol {
+    margin-block: var(--spacing-size-s);
+    padding-left: var(--spacing-size);
+    list-style-position: inside;
+  }
+
+  li {
+    margin-block: var(--spacing-size-xs);
+  }
+
+  li.task-list-item {
+    display: flex;
+    align-items: center;
+  }
+
+  li:has(input[type='checkbox']:checked) {
+    text-decoration: line-through;
+    color: var(--secondary-color);
+  }
+
+  li > input[type='checkbox'] {
+    appearance: none;
+    background-color: inherit;
+    margin: 0;
+    margin-right: var(--spacing-size-xs);
+    font: inherit;
+    height: 0.75rem;
+    width: 0.75rem;
+    border: solid var(--border-size) var(--secondary-color-alt-2);
+    border-radius: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  li > input[type='checkbox']:checked::before {
+    content: '';
+    height: 0.4rem;
+    width: 0.4rem;
+    margin: auto;
+    background-color: var(--accent-color);
+  }
+
+  code {
+    background-color: var(--primary-color-alt);
+    color: var(--secondary-color-alt-2);
+    padding: 5px;
+    font-size: calc(var(--font-sizing) * 0.9);
+    border-radius: var(--border-radius);
+  }
+
+  pre > code {
+    padding: 0;
+    width: 100%;
+    background-color: inherit;
+  }
+
+  blockquote {
+    border-left: 5px var(--secondary-color-alt-2) solid;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  pre:has(code),
+  blockquote {
+    width: 100%;
+    background-color: var(--primary-color-alt);
+    margin-block: var(--spacing-size-s);
+    padding: var(--spacing-size-s);
+    border-radius: var(--border-radius);
+  }
+
+  del {
+    color: var(--secondary-color-alt-2);
+  }
+
+  hr {
+    margin-block: var(--spacing-size-s);
+  }
+
+  table {
+    width: 100%;
+    margin-block: var(--spacing-size-s);
+    text-align: center;
+    border-collapse: collapse;
+  }
+
+  thead {
+    font-size: var(--bold-weight);
+    background-color: var(--primary-color-alt-2);
+    border-radius: var(--border-radius) 0;
+  }
+
+  th:first-child {
+    border-top-left-radius: var(--border-radius);
+  }
+
+  th,
+  td {
+    padding: var(--spacing-size-xs);
+    border: solid var(--border-size) var(--secondary-color-alt-2);
+  }
+}

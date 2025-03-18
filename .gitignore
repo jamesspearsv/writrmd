@@ -47,5 +47,6 @@ docker-dev
 /content/**/*.json
 !content/posts/intro-to-markdown.md
 !/content/posts/benefits-of-writing-markdown.md
+!/content/posts/syntax-examples.md
 *.env
 .env.local

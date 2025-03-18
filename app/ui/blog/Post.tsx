@@ -1,8 +1,8 @@
 import { fetchPostBySlug } from '@/app/lib/actions';
-import Markdown from 'marked-react';
 import { notFound } from 'next/navigation';
 import styles from './Post.module.css';
 import Link from 'next/link';
+import MarkdownWrapper from '@/app/ui/common/MarkdownWrapper';
 
 export default async function Post(props: { slug: string }) {
   const file = await fetchPostBySlug(props.slug);
@@ -26,8 +26,8 @@ export default async function Post(props: { slug: string }) {
             ))}
         </div>
       </aside>
-      <section className={styles.post}>
-        <Markdown value={file.content} />
+      <section>
+        <MarkdownWrapper value={file.content} />
       </section>
     </article>
   );

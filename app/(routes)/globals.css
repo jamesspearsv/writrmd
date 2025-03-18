@@ -40,6 +40,7 @@ html[data-theme='light'] {
   --primary-color-alt-2: var(--darkest-light);
   --secondary-color: var(--dark);
   --secondary-color-alt: var(--lighter-dark);
+  --secondary-color-alt-2: var(--lightest-dark);
   --danger-color: var(--red-9);
 }
 
@@ -49,6 +50,7 @@ html[data-theme='dark'] {
   --primary-color-alt-2: var(--lightest-dark);
   --secondary-color: var(--light);
   --secondary-color-alt: var(--darker-light);
+  --secondary-color-alt-2: var(--darkest-light);
   --danger-color: var(--red-6);
 }
 
@@ -88,17 +90,6 @@ a {
 button {
   border: none;
   cursor: pointer;
-}
-
-section {
-  h1 {
-    margin-bottom: var(--spacing-size);
-  }
-
-  h2,
-  h3 {
-    margin: var(--spacing-size-s) 0;
-  }
 }
 
 input:focus,
