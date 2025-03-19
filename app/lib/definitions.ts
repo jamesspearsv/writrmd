@@ -34,7 +34,7 @@ export interface GenericInputProps {
   updateValue: ValueUpdater<any>;
 }
 
-export type PostEditorData = {
+export type PostContent = {
   title: string;
   author: string;
   excerpt: string;
@@ -42,10 +42,10 @@ export type PostEditorData = {
   content: string;
 };
 
-export type PostEditorActionState = {
+export type PostEditorAction = {
   ok: boolean;
   message: string | null;
-  errors: Partial<Record<keyof PostEditorData, string>>;
+  errors: Partial<Record<keyof PostContent, string>>;
 };
 
 // fixme: remove unneeded definition

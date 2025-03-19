@@ -2,10 +2,10 @@
 
 import { GenericInputProps } from '@/app/lib/definitions';
 import React, { useEffect, useRef, useState } from 'react';
-import Markdown from 'marked-react';
 import styles from './TextAreaInput.module.css';
 import clsx from 'clsx';
 import { Bold, Hash, Italic } from 'react-feather';
+import MarkdownWrapper from '@/app/ui/common/MarkdownWrapper';
 
 interface TextAreaInputProps extends GenericInputProps {
   value: string;
@@ -121,8 +121,7 @@ export default function TextAreaInput(props: TextAreaInputProps) {
             !props.value && `${styles.previewPlaceholder}`
           )}
         >
-          <Markdown
-            gfm={true}
+          <MarkdownWrapper
             value={
               props.value ? props.value : 'Start writing to see a preview here'
             }

@@ -8,8 +8,8 @@ import React, {
   useState,
 } from 'react';
 import {
-  PostEditorData,
-  PostEditorActionState,
+  PostContent,
+  PostEditorAction,
   ValueUpdater,
 } from '@/app/lib/definitions';
 import { writeNewPost } from '@/app/lib/actions';
@@ -20,8 +20,9 @@ import TextAreaInput from '@/app/ui/editors/TextAreaInput';
 import StyledButton from '@/app/ui/common/StyledButton';
 import clsx from 'clsx';
 import { Sidebar, XCircle } from 'react-feather';
+import Input from '@/app/ui/inputs/Input';
 
-const initialLocalState: PostEditorData = {
+const initialLocalState: PostContent = {
   title: '',
   author: '',
   content: '',
@@ -29,7 +30,7 @@ const initialLocalState: PostEditorData = {
   excerpt: '',
 };
 
-const initialActionState: PostEditorActionState = {
+const initialActionState: PostEditorAction = {
   ok: true,
   message: null,
   errors: {},
@@ -42,8 +43,7 @@ export default function PostEditor() {
     initialActionState
   );
   // local state management for current editor data
-  const [editorData, setEditorData] =
-    useState<PostEditorData>(initialLocalState);
+  const [editorData, setEditorData] = useState<PostContent>(initialLocalState);
   const [sidebarHidden, setSidebarHidden] = useState(true);
   const submitButtonRef = useRef<HTMLButtonElement | null>(null);
 
@@ -72,8 +72,8 @@ export default function PostEditor() {
     return () => controller.abort();
   });
 
-  // update editorData based on the PostEditorDate type
-  const updateLocalState: ValueUpdater<PostEditorData> = (name, value) => {
+  // update editorData based on the PostEditorData type
+  const updateLocalState: ValueUpdater<PostContent> = (name, value) => {
     const newData = { ...editorData, [name]: value };
     setEditorData(newData);
   };
@@ -82,6 +82,14 @@ export default function PostEditor() {
     startTransition(() => {
       editorAction(editorData);
     });
+  }
+
+  function updateValue(
+    key: keyof PostContent,
+    value: PostContent[keyof PostContent]
+  ) {
+    const newData = { ...editorData, [key]: value };
+    setEditorData(newData);
   }
 
   return (
@@ -143,6 +151,16 @@ export default function PostEditor() {
           error={actionState.errors.tags}
         />
       </div>
+      {/* DEMO INPUT */}
+      <Input<PostContent>
+        name="title"
+        label="Demo Input"
+        controller={{
+          key: 'title',
+          value: editorData.title,
+          updateValue,
+        }}
+      />
       <TextAreaInput
         name="content"
         label="Post Body"

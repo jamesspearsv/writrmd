@@ -5,8 +5,8 @@ import * as matter from 'gray-matter';
 import {
   Post,
   Page,
-  PostEditorData,
-  PostEditorActionState,
+  PostContent,
+  PostEditorAction,
   BlogSettings,
   ActionResult,
 } from '@/app/lib/definitions';
@@ -128,21 +128,18 @@ export async function fetchPage(page: string) {
 
 /**
  * Asynchronously write a new post file to server filesystem
- * @param {PostEditorActionState} state - Current editor state including ok status, field errors, messages, and previous values
- * @param {PostEditorData} data - Submitted editor data
+ * @param {PostEditorAction} state - Current editor state including ok status, field errors, messages, and previous values
+ * @param {PostContent} data - Submitted editor data
  * @returns Returns a new editor state or redirects if successfully writes new file
  */
-export async function writeNewPost(
-  state: PostEditorActionState,
-  data: PostEditorData
-) {
+export async function writeNewPost(state: PostEditorAction, data: PostContent) {
   const results = PostSchema.safeParse({
     title: data.title,
     author: data.author,
     excerpt: data.excerpt,
     tags: data.tags,
     content: data.content,
-  } as PostEditorData);
+  } as PostContent);
 
   if (!results.success) {
     console.error(`Validation failed! ${new Date().toISOString()}`);
@@ -151,7 +148,7 @@ export async function writeNewPost(
       ok: false,
       message: 'Validation failed',
       errors: results.error.flatten().fieldErrors,
-    } as PostEditorActionState;
+    } as PostEditorAction;
   }
 
   console.error(`Validation passed! ${new Date().toISOString()}`);
@@ -180,7 +177,7 @@ export async function writeNewPost(
       ok: false,
       message: 'Server error! Please try again later.',
       errors: {},
-    } as PostEditorActionState;
+    } as PostEditorAction;
   }
 
   // redirect if successful
