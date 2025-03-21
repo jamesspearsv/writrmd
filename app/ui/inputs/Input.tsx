@@ -1,40 +1,46 @@
-type InputProps<T> = {
-  controller?: {
-    key: keyof T;
-    value: T[keyof T];
-    updateValue: (k: keyof T, v: T[keyof T]) => void;
-  };
-  name: string;
-  label: string;
-};
+import clsx from 'clsx';
+import styles from './Input.module.css';
 
-export default function Input<T>(props: InputProps<T>) {
-  if (props.controller) {
-    return (
-      <>
-        <label htmlFor={props.name}>{props.label}</label>
-        <input
-          type="text"
-          name={props.name}
-          id={props.name}
-          value={props.controller.value as string}
-          onChange={(e) => {
-            if (props.controller) {
-              props.controller.updateValue(
-                props.controller.key,
-                e.currentTarget.value as T[keyof T]
-              );
-            }
-          }}
-        />
-      </>
-    );
-  } else {
-    return (
-      <>
-        <label htmlFor={props.name}>{props.label}</label>
-        <input type="text" name={props.name} id={props.name} />
-      </>
-    );
-  }
+interface InputProps<T> {
+  name: keyof T;
+  label: string;
+  error: boolean;
+  variant?: 'normal' | 'borderless';
+  placeholder?: string;
+  controller: {
+    key: keyof T;
+    value: string;
+    updateValue: (k: keyof T, v: string) => void;
+  };
+}
+
+export default function Input<T>({
+  variant = 'normal',
+  ...props
+}: InputProps<T>) {
+  if (typeof props.name !== 'string') return;
+
+  return (
+    <div className={styles.group}>
+      <label htmlFor={props.name}>{props.label}</label>
+      <input
+        className={clsx(
+          `${styles.input}`,
+          `${styles[variant]}`,
+          props.error && `${styles.error}`
+        )}
+        placeholder={props.placeholder}
+        type="text"
+        name={props.name}
+        id={props.name}
+        value={props.controller.value}
+        onChange={(e) => {
+          props.controller.updateValue(
+            props.controller.key,
+            e.currentTarget.value
+          );
+        }}
+      />
+    </div>
+  );
 }

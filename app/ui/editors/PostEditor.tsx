@@ -84,14 +84,6 @@ export default function PostEditor() {
     });
   }
 
-  function updateValue(
-    key: keyof PostContent,
-    value: PostContent[keyof PostContent]
-  ) {
-    const newData = { ...editorData, [key]: value };
-    setEditorData(newData);
-  }
-
   return (
     <div className={styles.container}>
       <div className={styles.editorControls}>
@@ -155,10 +147,17 @@ export default function PostEditor() {
       <Input<PostContent>
         name="title"
         label="Demo Input"
+        placeholder="Post Title"
+        variant="borderless"
+        error={actionState.errors.title ? true : false}
         controller={{
           key: 'title',
           value: editorData.title,
-          updateValue,
+          updateValue: (key, value) => {
+            if (typeof key === 'string') {
+              setEditorData({ ...editorData, [key]: value });
+            }
+          },
         }}
       />
       <TextAreaInput
