@@ -21,6 +21,7 @@ import StyledButton from '@/app/ui/common/StyledButton';
 import clsx from 'clsx';
 import { Sidebar, XCircle } from 'react-feather';
 import Input from '@/app/ui/inputs/Input';
+import TextArea from '@/app/ui/inputs/TextArea';
 
 const initialLocalState: PostContent = {
   title: '',
@@ -84,6 +85,12 @@ export default function PostEditor() {
     });
   }
 
+  function updateValue(key: keyof PostContent, value: string) {
+    if (typeof key === 'string') {
+      setEditorData({ ...editorData, [key]: value });
+    }
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.editorControls}>
@@ -143,23 +150,34 @@ export default function PostEditor() {
           error={actionState.errors.tags}
         />
       </div>
+      <h3>Refactored Inputs</h3>
       {/* DEMO INPUT */}
-      <Input<PostContent>
-        name="title"
-        label="Demo Input"
-        placeholder="Post Title"
-        variant="borderless"
-        error={actionState.errors.title ? true : false}
+      <TextArea<PostContent>
+        name="content"
+        error={actionState.errors.content ? true : false}
+        placeholder="Begin writing your post..."
         controller={{
-          key: 'title',
-          value: editorData.title,
-          updateValue: (key, value) => {
-            if (typeof key === 'string') {
-              setEditorData({ ...editorData, [key]: value });
-            }
-          },
+          key: 'content',
+          value: editorData.content,
+          updateValue,
         }}
-      />
+      >
+        <Input<PostContent>
+          name="title"
+          label="Demo Input"
+          placeholder="Post Title"
+          variant="borderless"
+          error={actionState.errors.title ? true : false}
+          controller={{
+            key: 'title',
+            value: editorData.title,
+            updateValue,
+          }}
+        />
+      </TextArea>
+      <br />
+      <hr />
+      <br />
       <TextAreaInput
         name="content"
         label="Post Body"

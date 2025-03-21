@@ -34,6 +34,17 @@ export interface GenericInputProps {
   updateValue: ValueUpdater<any>;
 }
 
+export interface NewGenericInputProps<T> {
+  name: keyof T;
+  error: boolean;
+  controller: {
+    key: keyof T;
+    value: string;
+    updateValue: (k: keyof T, v: string) => void;
+  };
+  placeholder?: string;
+}
+
 export type PostContent = {
   title: string;
   author: string;

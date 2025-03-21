@@ -1,17 +1,12 @@
+'use client';
+
 import clsx from 'clsx';
 import styles from './Input.module.css';
+import { NewGenericInputProps } from '@/app/lib/definitions';
 
-interface InputProps<T> {
-  name: keyof T;
+interface InputProps<T> extends NewGenericInputProps<T> {
   label: string;
-  error: boolean;
   variant?: 'normal' | 'borderless';
-  placeholder?: string;
-  controller: {
-    key: keyof T;
-    value: string;
-    updateValue: (k: keyof T, v: string) => void;
-  };
 }
 
 export default function Input<T>({
