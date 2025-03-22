@@ -1,5 +1,3 @@
-// todo: remove marked-react
-// import Markdown from 'marked-react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import './MarkdownWrapper.css';

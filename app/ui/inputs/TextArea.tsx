@@ -132,14 +132,13 @@ export default function TextArea<T>({ ...props }: TextAreaProps<T>) {
           />
         </div>
       )}
-      {/* {props.error && <div className={styles.error}>{props.error}</div>} */}
     </div>
   );
 }
 
 function RichTextButton(props: {
   syntax: string; // Markdown syntax to insert
-  cursorOffset: number; // Number of indices to move cursor after insert
+  cursorOffset: number; // Number spaces to move cursor after insert
   label: string;
   insertSyntax: (syntax: string, cursorOffset: number) => void;
   children: React.ReactElement;
