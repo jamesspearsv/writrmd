@@ -92,3 +92,25 @@ Optimized markdown rendering and implemented markdown styling rules
 
 - **Migrated** to `markdown-react` from `marked-react`
 - **Refactored** relevant components and pages to avoid using `markdown-react` directly
+
+## v0.3.2 -- March 23, 2025
+
+Internal changes to refactored input components that increase component type safety and improve reusability
+
+### Added
+
+- **Rebuilt input components** including `Input`, `List`, and `TextArea`
+- **New props types** for all rebuilt input components that improve ease-of-use, type safety, and reusability
+
+### Removed
+
+- **Deprecated input components** including `TextInput`, `ListInput`, and `TextAreaInput`
+- **Deprecated prop types** related to all deprecated input components including `GenericInputProps` and `ValueUpdater`
+
+### Changed
+
+- **Minor styling updates** including new Input size and variant styles
+
+### Fixed
+
+- **List limit bug** that resulted in the limit prop being ignored
