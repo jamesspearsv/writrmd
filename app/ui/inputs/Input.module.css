@@ -8,6 +8,7 @@
 .input {
   border: none;
   margin-block: var(--spacing-size-xs);
+  color: var(--secondary-color);
 }
 
 .input:focus {
@@ -23,7 +24,6 @@
   background-color: var(--primary-color-alt);
   border-radius: var(--border-radius);
   padding: var(--spacing-size-xs);
-  color: var(--secondary-color);
 }
 
 .input.borderless {

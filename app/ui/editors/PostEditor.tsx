@@ -22,6 +22,7 @@ import clsx from 'clsx';
 import { Sidebar, XCircle } from 'react-feather';
 import Input from '@/app/ui/inputs/Input';
 import TextArea from '@/app/ui/inputs/TextArea';
+import List from '@/app/ui/inputs/List';
 
 const initialLocalState: PostContent = {
   title: '',
@@ -85,7 +86,7 @@ export default function PostEditor() {
     });
   }
 
-  function updateValue(key: keyof PostContent, value: string) {
+  function updateValue(value: string, key: string | string[]) {
     if (typeof key === 'string') {
       setEditorData({ ...editorData, [key]: value });
     }
@@ -152,7 +153,7 @@ export default function PostEditor() {
       </div>
       <h3>Refactored Inputs</h3>
       {/* DEMO INPUT */}
-      <TextArea<PostContent>
+      <TextArea
         name="content"
         error={actionState.errors.content ? true : false}
         placeholder="Begin writing your post..."
@@ -162,15 +163,36 @@ export default function PostEditor() {
           updateValue,
         }}
       >
-        <Input<PostContent>
+        <Input
           name="title"
-          label="Demo Input"
           placeholder="Post Title"
           variant="borderless"
           error={actionState.errors.title ? true : false}
           controller={{
             key: 'title',
             value: editorData.title,
+            updateValue,
+          }}
+        />
+        <Input
+          name="author"
+          placeholder="Post Author"
+          variant="borderless"
+          error={actionState.errors.author ? true : false}
+          controller={{
+            key: 'author',
+            value: editorData.author,
+            updateValue,
+          }}
+        />
+        <List
+          name="tags"
+          label="Tags"
+          error={actionState.errors.tags ? true : false}
+          limit={3}
+          controller={{
+            key: 'tags',
+            value: editorData.tags,
             updateValue,
           }}
         />

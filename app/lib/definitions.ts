@@ -34,15 +34,15 @@ export interface GenericInputProps {
   updateValue: ValueUpdater<any>;
 }
 
-export interface NewGenericInputProps<T> {
-  name: keyof T;
+export interface CommonInputProps<V = string> {
+  name: string;
   error: boolean;
-  controller: {
-    key: keyof T;
-    value: string;
-    updateValue: (k: keyof T, v: string) => void;
-  };
   placeholder?: string;
+  controller: {
+    key: string;
+    value: V;
+    updateValue: (key: string, value: V) => void;
+  };
 }
 
 export type PostContent = {

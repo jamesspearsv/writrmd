@@ -5,13 +5,13 @@ import styles from './TextArea.module.css';
 import clsx from 'clsx';
 import { Bold, Hash, Italic } from 'react-feather';
 import MarkdownWrapper from '@/app/ui/common/MarkdownWrapper';
-import { NewGenericInputProps } from '@/app/lib/definitions';
+import { CommonInputProps } from '@/app/lib/definitions';
 
-interface TextAreaProps<T> extends NewGenericInputProps<T> {
+interface TextAreaProps extends CommonInputProps {
   children?: React.ReactNode;
 }
 
-export default function TextArea<T>({ ...props }: TextAreaProps<T>) {
+export default function TextArea({ ...props }: TextAreaProps) {
   const [preview, setPreview] = useState(false);
   const [cursorPosition, setCursorPosition] = useState(0);
   const editorRef = useRef<HTMLTextAreaElement | null>(null);
@@ -27,7 +27,7 @@ export default function TextArea<T>({ ...props }: TextAreaProps<T>) {
 
   function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     const value = e.currentTarget.value;
-    props.controller.updateValue(props.name, value);
+    props.controller.updateValue(props.controller.key, value);
   }
 
   function insertSyntax(syntax: string, cursorOffset: number) {
@@ -53,7 +53,7 @@ export default function TextArea<T>({ ...props }: TextAreaProps<T>) {
   }
 
   return (
-    <div className={styles.textareaGroup}>
+    <div>
       <div className={styles.actions}>
         <div className={styles.toggleControls}>
           <button
@@ -98,7 +98,7 @@ export default function TextArea<T>({ ...props }: TextAreaProps<T>) {
           </RichTextButton>
         </div>
       </div>
-      {/* Insert post title input from editor component */}
+      {/* Insert children between textarea controls and input */}
       {props.children}
       {!preview ? (
         <div
@@ -106,6 +106,8 @@ export default function TextArea<T>({ ...props }: TextAreaProps<T>) {
           data-content={props.controller.value}
         >
           <textarea
+            id={props.name}
+            name={props.name}
             ref={editorRef}
             className={clsx(
               `${styles.textarea}`,
