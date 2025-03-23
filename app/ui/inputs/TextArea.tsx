@@ -7,7 +7,7 @@ import { Bold, Hash, Italic } from 'react-feather';
 import MarkdownWrapper from '@/app/ui/common/MarkdownWrapper';
 import { CommonInputProps } from '@/app/lib/definitions';
 
-interface TextAreaProps extends CommonInputProps {
+interface TextAreaProps extends CommonInputProps<string> {
   children?: React.ReactNode;
 }
 
@@ -24,11 +24,6 @@ export default function TextArea({ ...props }: TextAreaProps) {
       editorRef.current.setSelectionRange(cursorPosition, cursorPosition);
     }
   }, [cursorPosition]);
-
-  function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
-    const value = e.currentTarget.value;
-    props.controller.updateValue(props.controller.key, value);
-  }
 
   function insertSyntax(syntax: string, cursorOffset: number) {
     if (!editorRef.current) return;
@@ -114,7 +109,12 @@ export default function TextArea({ ...props }: TextAreaProps) {
               props.error && `${styles.error}`
             )}
             value={props.controller.value}
-            onChange={handleChange}
+            onChange={(e) => {
+              props.controller.updateValue(
+                props.controller.key,
+                e.currentTarget.value
+              );
+            }}
             placeholder="Begin writing your post..."
           />
         </div>

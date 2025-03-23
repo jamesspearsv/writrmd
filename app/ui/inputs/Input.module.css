@@ -3,11 +3,12 @@
   flex-direction: column;
   gap: var(--spacing-size-xs);
   justify-content: space-between;
+  margin-bottom: var(--spacing-size-xs);
 }
 
 .input {
   border: none;
-  margin-block: var(--spacing-size-xs);
+  /* margin-block: var(--spacing-size-xs); */
   color: var(--secondary-color);
 }
 
@@ -20,6 +21,7 @@
   outline: solid var(--border-size) var(--danger-color);
 }
 
+/* Variants */
 .input.normal {
   background-color: var(--primary-color-alt);
   border-radius: var(--border-radius);
@@ -29,7 +31,20 @@
 .input.borderless {
   background-color: inherit;
   border-radius: 0;
-  padding: var(--spacing-size-s);
-  font-size: var(--font-sizing-xl);
   font-weight: var(--bold-weight);
+}
+
+/* Sizes */
+.small {
+  padding: var(--spacing-size-s);
+}
+
+.medium {
+  padding: var(--spacing-size-s) var(--spacing-size);
+  font-size: var(--font-sizing-medium);
+}
+
+.large {
+  padding: var(--spacing-size);
+  font-size: var(--font-sizing-xl);
 }

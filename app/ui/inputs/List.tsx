@@ -12,12 +12,25 @@ interface ListProps extends CommonInputProps<string[]> {
   limit: number;
 }
 
-// todo: add list functions
-function handleListAddition() {}
-function handleListDeletion(index: number) {}
-
 export default function List(props: ListProps) {
-  const [tagState, setTagState] = useState('');
+  const [tag, setTag] = useState('');
+
+  function handleListAddition() {
+    const { key, value, updateValue } = props.controller;
+
+    if (value.length >= props.limit) return;
+
+    const list = [...value];
+    list.push(tag);
+    updateValue(key, list);
+    setTag('');
+  }
+
+  function handleListDeletion(index: number) {
+    const { key, value, updateValue } = props.controller;
+    const list = [...value].toSpliced(index, 1);
+    updateValue(key, list);
+  }
 
   return (
     <div className={styles.group}>
@@ -27,12 +40,17 @@ export default function List(props: ListProps) {
           type="text"
           name={'tag'}
           id={'tag'}
-          value={tagState}
-          onChange={(e) => setTagState(e.currentTarget.value)}
+          value={tag}
+          onChange={(e) => setTag(e.currentTarget.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleListAddition()}
           className={clsx(props.error && `styles.error`)}
+          disabled={props.controller.value.length >= props.limit}
         />
-        <StyledButton className={styles.addButton} onClick={handleListAddition}>
+        <StyledButton
+          className={styles.addButton}
+          onClick={handleListAddition}
+          disabled={props.controller.value.length >= props.limit}
+        >
           <Plus />
         </StyledButton>
       </div>

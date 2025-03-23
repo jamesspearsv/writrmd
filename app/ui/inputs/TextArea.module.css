@@ -4,6 +4,7 @@
 .actions {
   display: flex;
   flex-direction: row;
+  margin-bottom: var(--spacing-size-xs);
   background-color: var(--primary-color);
   border: solid 1px var(--primary-color-alt-2);
   position: sticky;

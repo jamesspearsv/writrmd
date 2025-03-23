@@ -19,6 +19,10 @@
   flex: 1;
 }
 
+.itemInput input:disabled {
+  cursor: not-allowed;
+}
+
 .itemInput input:focus {
   outline: solid var(--border-size) var(--secondary-color-alt);
 }

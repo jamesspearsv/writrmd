@@ -3,6 +3,10 @@
   cursor: pointer;
 }
 
+.base:disabled {
+  cursor: not-allowed;
+}
+
 .circle {
   border-radius: var(--radius-round);
 }

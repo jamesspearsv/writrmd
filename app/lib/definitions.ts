@@ -23,18 +23,8 @@ export interface Page extends matter.GrayMatterFile<string> {
   isEmpty: boolean;
 }
 
-// Generic function to update a controlled input value based on a given type
-export type ValueUpdater<T> = (name: keyof T, value: T[keyof T]) => void;
-
-export interface GenericInputProps {
-  name: string;
-  label?: string;
-  error?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  updateValue: ValueUpdater<any>;
-}
-
-export interface CommonInputProps<V = string> {
+// todo: add documentation
+export interface CommonInputProps<V> {
   name: string;
   error: boolean;
   placeholder?: string;
@@ -59,18 +49,16 @@ export type PostEditorAction = {
   errors: Partial<Record<keyof PostContent, string>>;
 };
 
-// fixme: remove unneeded definition
-export type SetUpActionState = { error: string };
-
 export interface Admin extends User {
   username: string;
 }
 
 export interface BlogSettings {
   // todo: add social links to settings
+  // todo: url string to an svg icon
   name: string;
   summary: string;
-  icon?: string; // todo: url string to an svg icon
+  icon?: string;
 }
 
 export type ActionResult<T> =

@@ -1,6 +1,6 @@
 'use client';
 
-import React, {
+import {
   startTransition,
   useActionState,
   useEffect,
@@ -8,15 +8,12 @@ import React, {
   useState,
 } from 'react';
 import {
+  CommonInputProps,
   PostContent,
   PostEditorAction,
-  ValueUpdater,
 } from '@/app/lib/definitions';
 import { writeNewPost } from '@/app/lib/actions';
 import styles from './PostEditor.module.css';
-import TextInput from '@/app/ui/editors/TextInput';
-import ListInput from '@/app/ui/editors/ListInput';
-import TextAreaInput from '@/app/ui/editors/TextAreaInput';
 import StyledButton from '@/app/ui/common/StyledButton';
 import clsx from 'clsx';
 import { Sidebar, XCircle } from 'react-feather';
@@ -74,23 +71,24 @@ export default function PostEditor() {
     return () => controller.abort();
   });
 
-  // update editorData based on the PostEditorData type
-  const updateLocalState: ValueUpdater<PostContent> = (name, value) => {
-    const newData = { ...editorData, [name]: value };
-    setEditorData(newData);
-  };
-
   function submitEditorData() {
     startTransition(() => {
       editorAction(editorData);
     });
   }
 
-  function updateValue(value: string, key: string | string[]) {
-    if (typeof key === 'string') {
+  // update editorData based on the PostContent type
+  const updateValue: CommonInputProps<
+    string | string[]
+  >['controller']['updateValue'] = (key, value) => {
+    // check that key exists in current data object
+    if (!Object.keys(editorData).includes(key)) return;
+
+    // check that typeof value === typeof Data[key]
+    if (typeof value === typeof editorData[key as keyof PostContent]) {
       setEditorData({ ...editorData, [key]: value });
     }
-  }
+  };
 
   return (
     <div className={styles.container}>
@@ -116,6 +114,7 @@ export default function PostEditor() {
           <Sidebar size={20} />
         </StyledButton>
       </div>
+      {/* OPTIONAL EDITOR FIELDS */}
       <div
         className={clsx(
           `${styles.frontmatter}`,
@@ -128,60 +127,13 @@ export default function PostEditor() {
         >
           <XCircle />
         </button>
-        <TextInput
-          name="author"
-          label="Author"
-          value={editorData.author}
-          updateValue={updateLocalState}
-          error={actionState.errors.author}
-        />
-        <TextInput
+        <Input
           name="excerpt"
           label="Excerpt"
-          value={editorData.excerpt}
-          updateValue={updateLocalState}
-          error={actionState.errors.excerpt}
-        />
-        <ListInput
-          name="tags"
-          label="Tags"
-          value={editorData.tags}
-          updateValue={updateLocalState}
-          limit={3}
-          error={actionState.errors.tags}
-        />
-      </div>
-      <h3>Refactored Inputs</h3>
-      {/* DEMO INPUT */}
-      <TextArea
-        name="content"
-        error={actionState.errors.content ? true : false}
-        placeholder="Begin writing your post..."
-        controller={{
-          key: 'content',
-          value: editorData.content,
-          updateValue,
-        }}
-      >
-        <Input
-          name="title"
-          placeholder="Post Title"
-          variant="borderless"
-          error={actionState.errors.title ? true : false}
+          error={actionState.errors.excerpt ? true : false}
           controller={{
-            key: 'title',
-            value: editorData.title,
-            updateValue,
-          }}
-        />
-        <Input
-          name="author"
-          placeholder="Post Author"
-          variant="borderless"
-          error={actionState.errors.author ? true : false}
-          controller={{
-            key: 'author',
-            value: editorData.author,
+            key: 'excerpt',
+            value: editorData.excerpt,
             updateValue,
           }}
         />
@@ -196,27 +148,43 @@ export default function PostEditor() {
             updateValue,
           }}
         />
-      </TextArea>
-      <br />
-      <hr />
-      <br />
-      <TextAreaInput
+      </div>
+      {/* REQUIRED EDITOR FIELDS */}
+      <TextArea
         name="content"
-        label="Post Body"
-        value={editorData.content}
-        updateValue={updateLocalState}
-        error={actionState.errors.content}
+        error={actionState.errors.content ? true : false}
+        placeholder="Begin writing your post..."
+        controller={{
+          key: 'content',
+          value: editorData.content,
+          updateValue,
+        }}
       >
-        <TextInput
+        <Input
           name="title"
-          value={editorData.title}
-          updateValue={updateLocalState}
-          error={actionState.errors.title}
           placeholder="Post Title"
-          title
-          autofocus
+          variant="borderless"
+          size="large"
+          error={actionState.errors.title ? true : false}
+          controller={{
+            key: 'title',
+            value: editorData.title,
+            updateValue,
+          }}
         />
-      </TextAreaInput>
+        <Input
+          name="author"
+          placeholder="Author"
+          variant="borderless"
+          size="medium"
+          error={actionState.errors.author ? true : false}
+          controller={{
+            key: 'author',
+            value: editorData.author,
+            updateValue,
+          }}
+        />
+      </TextArea>
     </div>
   );
 }

@@ -1,16 +1,10 @@
 import styles from './StyledButton.module.css';
 import clsx from 'clsx';
 
-export default function StyledButton({
-  variation,
-  className,
-  style,
-  children,
-  onClick,
-  ref,
-}: {
+export default function StyledButton(props: {
   variation?: 'circle' | 'rounded';
   className?: string;
+  disabled?: boolean;
   style?: React.CSSProperties;
   children: React.ReactNode;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
@@ -19,17 +13,18 @@ export default function StyledButton({
 }) {
   return (
     <button
-      ref={ref}
+      ref={props.ref}
       type="button"
       className={clsx(
         `${styles.base}`,
-        variation && `${styles[variation]}`,
-        className && className
+        props.variation && `${styles[props.variation]}`,
+        props.className && props.className
       )}
-      style={style}
-      onClick={onClick}
+      style={props.style}
+      onClick={props.onClick}
+      disabled={props.disabled}
     >
-      {children}
+      {props.children}
     </button>
   );
 }
