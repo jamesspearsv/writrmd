@@ -5,16 +5,23 @@ export default function AdminPostPreview(props: { post: Post }) {
   const { post } = props;
 
   return (
-    <article>
-      <p>{post.data.title}</p>
-      <p>{post.data.author}</p>
-      <p>{new Date(post.data.date).toDateString()}</p>
-      <div>
-        {post.data.tags?.map((tag) => (
-          <p key={tag}>{tag}</p>
-        ))}
+    <article className={styles.article}>
+      <div className={styles.heading}>
+        <h3>{post.data.title}</h3>
       </div>
-      <p>{post.data.excerpt}</p>
+      <div className={styles.details}>
+        <p>By {post.data.author}</p>
+        <p>-</p>
+        <p>{new Date(post.data.date).toDateString()}</p>
+        {post.data.tags && (
+          <div className={styles.tags}>
+            <p>Tags:</p>
+            {post.data.tags?.map((tag) => (
+              <p key={tag}>{tag}</p>
+            ))}
+          </div>
+        )}
+      </div>
     </article>
   );
 }

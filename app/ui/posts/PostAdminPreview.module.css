@@ -1,0 +1,21 @@
+.article {
+  width: 100%;
+  margin-bottom: var(--spacing-size-s);
+}
+
+.heading {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacing-size-xs);
+}
+
+.details {
+  display: flex;
+  gap: var(--spacing-size-xs);
+  color: var(--secondary-color-alt-2);
+}
+
+.tags {
+  display: flex;
+  gap: var(--spacing-size-xs);
+}

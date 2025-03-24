@@ -68,9 +68,14 @@
     background-color: var(--accent-color);
   }
 
+  pre:has(code),
+  code,
+  blockquote {
+    color: var(--secondary-color-alt);
+    background-color: var(--primary-color-alt-2);
+  }
+
   code {
-    background-color: var(--primary-color-alt);
-    color: var(--secondary-color-alt-2);
     padding: 5px;
     font-size: calc(var(--font-sizing) * 0.9);
     border-radius: var(--border-radius);
@@ -93,7 +98,6 @@
   pre:has(code),
   blockquote {
     width: 100%;
-    background-color: var(--primary-color-alt);
     margin-block: var(--spacing-size-s);
     padding: var(--spacing-size-s);
     border-radius: var(--border-radius);
