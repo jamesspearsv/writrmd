@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { fetchPosts } from '@/app/lib/actions';
-import PostList from '@/app/ui/blog/PostList';
+import PostList from '@/app/ui/posts/PostList';
 import PlaceholderPage from '@/app/ui/common/PlaceholderPage';
 
 type Props = {
