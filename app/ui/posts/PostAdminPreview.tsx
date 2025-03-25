@@ -1,5 +1,6 @@
 import { Post } from '@/app/lib/definitions';
 import styles from './PostAdminPreview.module.css';
+import Link from 'next/link';
 
 export default function AdminPostPreview(props: { post: Post }) {
   const { post } = props;
@@ -7,7 +8,9 @@ export default function AdminPostPreview(props: { post: Post }) {
   return (
     <article className={styles.article}>
       <div className={styles.heading}>
-        <h3>{post.data.title}</h3>
+        <Link href={`/writr/editor/post?slug=${post.data.slug}`}>
+          <h3>{post.data.title}</h3>
+        </Link>
       </div>
       <div className={styles.details}>
         <p>By {post.data.author}</p>
@@ -17,11 +20,15 @@ export default function AdminPostPreview(props: { post: Post }) {
           <div className={styles.tags}>
             <p>Tags:</p>
             {post.data.tags?.map((tag) => (
-              <p key={tag}>{tag}</p>
+              <div key={tag} className={styles.tag}>
+                {tag}
+              </div>
             ))}
           </div>
         )}
       </div>
+      {/* todo: add conditional styles */}
+      <p>{post.data.published ? 'Published' : 'Draft'}</p>
     </article>
   );
 }

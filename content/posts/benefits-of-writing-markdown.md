@@ -4,6 +4,7 @@ date: '2025-02-06T18:41:49.445Z'
 author: 'Jane Smith'
 tags: ['Markdown', 'Productivity', 'Writing']
 excerpt: 'Writing in markdown provides several benefits over other methods.'
+published: true
 ---
 
 # The Benefits of Writing in Markdown

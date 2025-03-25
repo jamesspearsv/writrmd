@@ -12,7 +12,7 @@ import {
   PostContent,
   PostEditorAction,
 } from '@/app/lib/definitions';
-import { writeNewPost } from '@/app/lib/actions';
+import { updatePost, writeNewPost } from '@/app/lib/actions';
 import styles from './PostEditor.module.css';
 import StyledButton from '@/app/ui/common/StyledButton';
 import clsx from 'clsx';
@@ -27,6 +27,7 @@ const initialLocalState: PostContent = {
   content: '',
   tags: [],
   excerpt: '',
+  published: false,
 };
 
 const initialActionState: PostEditorAction = {
@@ -35,23 +36,26 @@ const initialActionState: PostEditorAction = {
   errors: {},
 };
 
-export default function PostEditor() {
+export default function PostEditor(props: { post?: PostContent }) {
   // action state management for editor submission
   const [actionState, editorAction] = useActionState(
-    writeNewPost,
+    props.post ? updatePost : writeNewPost,
     initialActionState
   );
   // local state management for current editor data
-  const [editorData, setEditorData] = useState<PostContent>(initialLocalState);
+  const [editorData, setEditorData] = useState<PostContent>(
+    props.post ? props.post : initialLocalState
+  );
   const [sidebarHidden, setSidebarHidden] = useState(true);
   const submitButtonRef = useRef<HTMLButtonElement | null>(null);
 
+  // todo: remove unnecessary useEffect
   // reset local state is action is successful
-  useEffect(() => {
-    if (actionState.ok) {
-      setEditorData(initialLocalState);
-    }
-  }, [actionState]);
+  // useEffect(() => {
+  //   if (actionState.ok) {
+  //     setEditorData(initialLocalState);
+  //   }
+  // }, [actionState]);
 
   // todo: extract to hook
   // Add keyboard listener to body for cmd | ctrl + enter submission

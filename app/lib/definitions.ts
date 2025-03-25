@@ -9,6 +9,7 @@ export interface Post extends matter.GrayMatterFile<string> {
     tags?: string[];
     excerpt?: string;
     slug: string; // custom slug property to id and link posts
+    published: boolean;
   };
   empty: string; // Optional, because it might be an empty string or undefined
   isEmpty: boolean; // Boolean indicating if the front-matter is empty
@@ -41,6 +42,7 @@ export type PostContent = {
   excerpt: string;
   tags: string[];
   content: string;
+  published: boolean;
 };
 
 export type PostEditorAction = {

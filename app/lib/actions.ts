@@ -133,6 +133,8 @@ export async function fetchPage(page: string) {
  * @returns Returns a new editor state or redirects if successfully writes new file
  */
 export async function writeNewPost(state: PostEditorAction, data: PostContent) {
+  // todo: add logic to handle post drafts
+
   const results = PostSchema.safeParse({
     title: data.title,
     author: data.author,
@@ -182,6 +184,12 @@ export async function writeNewPost(state: PostEditorAction, data: PostContent) {
 
   // redirect if successful
   redirect('/writr/posts');
+}
+
+// todo: write logic to update an existing post
+export async function updatePost(state: PostEditorAction, data: PostContent) {
+  console.log(data);
+  return state;
 }
 
 export async function readSettings(): Promise<ActionResult<BlogSettings>> {
