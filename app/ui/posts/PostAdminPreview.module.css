@@ -38,7 +38,7 @@
 }
 
 .tag {
-  color: var(--primary-color);
+  color: var(--light);
   background-color: var(--accent-color);
   padding: 0.25rem;
   font-size: var(--font-sizing-small);

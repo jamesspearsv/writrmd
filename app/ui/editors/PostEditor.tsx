@@ -84,7 +84,7 @@ export default function PostEditor(props: { post?: PostContent }) {
 
   // update editorData based on the PostContent type
   const updateValue: CommonInputProps<
-    string | string[]
+    string | string[] | boolean
   >['controller']['updateValue'] = (key, value) => {
     // check that key exists in current data object
     if (!Object.keys(editorData).includes(key)) return;
@@ -190,7 +190,17 @@ export default function PostEditor(props: { post?: PostContent }) {
               updateValue,
             }}
           />
-          <Toggle />
+          <Toggle
+            name="published"
+            toggleOnLabel="Published"
+            toggleOffLabel="Unpublished"
+            error={actionState.errors.published ? true : false}
+            controller={{
+              key: 'published',
+              value: editorData.published,
+              updateValue,
+            }}
+          />
         </div>
       </div>
     </div>

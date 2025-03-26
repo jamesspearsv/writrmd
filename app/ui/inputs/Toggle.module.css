@@ -1,27 +1,43 @@
+.container {
+  display: flex;
+  gap: var(--spacing-size-s);
+  align-items: center;
+  margin-block: var(--spacing-size-s);
+}
+
 .toggleContainer {
-  padding: var(--spacing-size-xs);
   margin: 0;
+  padding: 3px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  width: 100px;
-  height: 50px;
-  background-color: cadetblue;
+  width: 50px;
+  height: 25px;
+  background-color: var(--primary-color-alt);
+  border: none;
+  border-radius: 35px;
+  transition: background-color 250ms ease-in-out;
+}
+
+.toggleContainer.toggled {
+  background-color: var(--accent-color);
 }
 
 .toggleIndicator {
-  background-color: rebeccapurple;
-  height: 100%;
-  min-width: 50%;
-  transition-property: margin-left;
-  transition-duration: 500ms;
+  background-color: var(--light);
+  flex: 1;
+  aspect-ratio: 1/1;
+  transition-property: margin;
+  transition-duration: 250ms;
   transition-timing-function: ease-in-out;
+  border: none;
+  border-radius: 25px;
 }
 
 .toggleIndicator.toggled {
-  margin-left: 50%;
+  margin: 0 0 0 25px;
 }
 
 .toggleIndicator:not(.toggled) {
-  margin-left: 0;
+  margin: 0 25px 0 0;
 }
