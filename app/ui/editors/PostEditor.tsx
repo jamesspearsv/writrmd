@@ -20,6 +20,7 @@ import { Sidebar } from 'react-feather';
 import Input from '@/app/ui/inputs/Input';
 import TextArea from '@/app/ui/inputs/TextArea';
 import List from '@/app/ui/inputs/List';
+import Toggle from '@/app/ui/inputs/Toggle';
 
 const initialLocalState: PostContent = {
   title: '',
@@ -189,6 +190,7 @@ export default function PostEditor(props: { post?: PostContent }) {
               updateValue,
             }}
           />
+          <Toggle />
         </div>
       </div>
     </div>
