@@ -27,7 +27,7 @@
 .details {
   display: flex;
   gap: var(--spacing-size-xs);
-  color: var(--secondary-color-alt-2);
+  color: var(--secondary-color-alt);
 }
 
 .tags {
@@ -38,6 +38,7 @@
 }
 
 .tag {
+  color: var(--primary-color);
   background-color: var(--accent-color);
   padding: 0.25rem;
   font-size: var(--font-sizing-small);

@@ -16,7 +16,7 @@ import { updatePost, writeNewPost } from '@/app/lib/actions';
 import styles from './PostEditor.module.css';
 import StyledButton from '@/app/ui/common/StyledButton';
 import clsx from 'clsx';
-import { Sidebar, XCircle } from 'react-feather';
+import { Sidebar } from 'react-feather';
 import Input from '@/app/ui/inputs/Input';
 import TextArea from '@/app/ui/inputs/TextArea';
 import List from '@/app/ui/inputs/List';
@@ -46,7 +46,7 @@ export default function PostEditor(props: { post?: PostContent }) {
   const [editorData, setEditorData] = useState<PostContent>(
     props.post ? props.post : initialLocalState
   );
-  const [sidebarHidden, setSidebarHidden] = useState(true);
+  const [sidebarHidden, setSidebarHidden] = useState(false);
   const submitButtonRef = useRef<HTMLButtonElement | null>(null);
 
   // todo: remove unnecessary useEffect
@@ -95,7 +95,7 @@ export default function PostEditor(props: { post?: PostContent }) {
   };
 
   return (
-    <div className={styles.container}>
+    <div>
       <div className={styles.editorControls}>
         {actionState.errors.author && (
           <div className={styles.error}>
@@ -107,10 +107,14 @@ export default function PostEditor(props: { post?: PostContent }) {
           onClick={submitEditorData}
           className={styles.publishButton}
         >
-          Publish
+          {editorData.published ? 'Publish Post' : 'Save Draft'}
         </StyledButton>
+
         <StyledButton
-          className={clsx(`${styles.sidebarButton}`)}
+          className={clsx(
+            `${styles.sidebarButton}`,
+            !sidebarHidden && `${styles.open}`
+          )}
           onClick={() => {
             setSidebarHidden((hidden) => !hidden);
           }}
@@ -118,77 +122,75 @@ export default function PostEditor(props: { post?: PostContent }) {
           <Sidebar size={20} />
         </StyledButton>
       </div>
-      {/* OPTIONAL EDITOR FIELDS */}
-      <div
-        className={clsx(
-          `${styles.frontmatter}`,
-          sidebarHidden && `${styles.hidden}`
-        )}
-      >
-        <button
-          onClick={() => setSidebarHidden(true)}
-          className={styles.frontmatterCloseButton}
+      <div className={styles.container}>
+        {/* REQUIRED EDITOR FIELDS */}
+        <div className={styles.editor}>
+          <TextArea
+            name="content"
+            error={actionState.errors.content ? true : false}
+            placeholder="Begin writing your post..."
+            controller={{
+              key: 'content',
+              value: editorData.content,
+              updateValue,
+            }}
+          >
+            <Input
+              name="title"
+              placeholder="Post Title"
+              variant="borderless"
+              size="large"
+              error={actionState.errors.title ? true : false}
+              controller={{
+                key: 'title',
+                value: editorData.title,
+                updateValue,
+              }}
+            />
+            <Input
+              name="author"
+              placeholder="Author"
+              variant="borderless"
+              size="medium"
+              error={actionState.errors.author ? true : false}
+              controller={{
+                key: 'author',
+                value: editorData.author,
+                updateValue,
+              }}
+            />
+          </TextArea>
+        </div>
+        {/* OPTIONAL EDITOR FIELDS */}
+        <div
+          className={clsx(
+            `${styles.frontmatter}`,
+            sidebarHidden && `${styles.hidden}`
+          )}
         >
-          <XCircle />
-        </button>
-        <Input
-          name="excerpt"
-          label="Excerpt"
-          error={actionState.errors.excerpt ? true : false}
-          controller={{
-            key: 'excerpt',
-            value: editorData.excerpt,
-            updateValue,
-          }}
-        />
-        <List
-          name="tags"
-          label="Tags"
-          error={actionState.errors.tags ? true : false}
-          limit={3}
-          controller={{
-            key: 'tags',
-            value: editorData.tags,
-            updateValue,
-          }}
-        />
+          <Input
+            name="excerpt"
+            label="Excerpt"
+            error={actionState.errors.excerpt ? true : false}
+            controller={{
+              key: 'excerpt',
+              value: editorData.excerpt,
+              updateValue,
+            }}
+          />
+          <List
+            name="tags"
+            label="Tags"
+            error={actionState.errors.tags ? true : false}
+            limit={3}
+            controller={{
+              key: 'tags',
+              value: editorData.tags,
+              updateValue,
+            }}
+          />
+        </div>
       </div>
-      {/* REQUIRED EDITOR FIELDS */}
-      <TextArea
-        name="content"
-        error={actionState.errors.content ? true : false}
-        placeholder="Begin writing your post..."
-        controller={{
-          key: 'content',
-          value: editorData.content,
-          updateValue,
-        }}
-      >
-        <Input
-          name="title"
-          placeholder="Post Title"
-          variant="borderless"
-          size="large"
-          error={actionState.errors.title ? true : false}
-          controller={{
-            key: 'title',
-            value: editorData.title,
-            updateValue,
-          }}
-        />
-        <Input
-          name="author"
-          placeholder="Author"
-          variant="borderless"
-          size="medium"
-          error={actionState.errors.author ? true : false}
-          controller={{
-            key: 'author',
-            value: editorData.author,
-            updateValue,
-          }}
-        />
-      </TextArea>
     </div>
   );
 }
