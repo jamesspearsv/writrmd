@@ -8,7 +8,7 @@
 }
 
 .article:first-child {
-  border-top: var(--preview-border);
+  border-top: none;
   border-bottom: none;
 }
 
@@ -43,4 +43,21 @@
   padding: 0.25rem;
   font-size: var(--font-sizing-small);
   border-radius: var(--border-radius);
+}
+
+.status {
+  margin-top: var(--spacing-size-xs);
+  color: var(--light);
+  padding: 0.25rem;
+  border-radius: var(--border-radius);
+  width: fit-content;
+  font-size: var(--font-sizing-small);
+}
+
+.published {
+  background-color: var(--accent-color);
+}
+
+.draft {
+  background-color: var(--danger-color);
 }

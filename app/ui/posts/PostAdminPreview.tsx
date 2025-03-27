@@ -1,6 +1,7 @@
 import { Post } from '@/app/lib/definitions';
 import styles from './PostAdminPreview.module.css';
 import Link from 'next/link';
+import clsx from 'clsx';
 
 export default function AdminPostPreview(props: { post: Post }) {
   const { post } = props;
@@ -27,7 +28,13 @@ export default function AdminPostPreview(props: { post: Post }) {
           </div>
         )}
       </div>
-      <p>{post.data.published ? 'Published' : 'Draft'}</p>
+      {post.data.published ? (
+        <p className={clsx(`${styles.status}`, `${styles.published}`)}>
+          Published
+        </p>
+      ) : (
+        <p className={clsx(`${styles.status}`, `${styles.draft}`)}>Draft</p>
+      )}
     </article>
   );
 }
