@@ -2,7 +2,7 @@
   display: flex;
   gap: var(--spacing-size-s);
   align-items: center;
-  margin-block: var(--spacing-size-s);
+  margin-bottom: var(--spacing-size-s);
 }
 
 .toggleContainer {
@@ -13,7 +13,7 @@
   justify-content: flex-start;
   width: 50px;
   height: 25px;
-  background-color: var(--primary-color-alt);
+  background-color: var(--lightest-dark);
   border: none;
   border-radius: 35px;
   transition: background-color 250ms ease-in-out;
@@ -28,7 +28,7 @@
   flex: 1;
   aspect-ratio: 1/1;
   transition-property: margin;
-  transition-duration: 250ms;
+  transition-duration: 200ms;
   transition-timing-function: ease-in-out;
   border: none;
   border-radius: 25px;

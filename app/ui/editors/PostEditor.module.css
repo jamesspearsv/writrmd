@@ -1,11 +1,12 @@
 .container {
-  width: 100%;
+  max-width: 100%;
   display: flex;
+  flex-direction: row;
   gap: var(--spacing-size-xs);
 }
 
 .editor {
-  flex: 1;
+  flex: 2.5;
 }
 
 .editorControls {
@@ -45,10 +46,10 @@
 
 .frontmatter {
   padding: var(--spacing-size);
-  width: 325px;
   background-color: var(--primary-color);
   border: solid var(--border-size) var(--primary-color-alt-2);
   height: fit-content;
+  flex: 1;
 }
 
 .frontmatter.hidden {

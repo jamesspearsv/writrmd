@@ -27,7 +27,6 @@ export default function AdminPostPreview(props: { post: Post }) {
           </div>
         )}
       </div>
-      {/* todo: add conditional styles */}
       <p>{post.data.published ? 'Published' : 'Draft'}</p>
     </article>
   );

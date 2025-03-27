@@ -12,7 +12,7 @@ import {
   PostContent,
   PostEditorAction,
 } from '@/app/lib/definitions';
-import { updatePost, writeNewPost } from '@/app/lib/actions';
+import { savePost } from '@/app/lib/actions';
 import styles from './PostEditor.module.css';
 import StyledButton from '@/app/ui/common/StyledButton';
 import clsx from 'clsx';
@@ -37,10 +37,13 @@ const initialActionState: PostEditorAction = {
   errors: {},
 };
 
-export default function PostEditor(props: { post?: PostContent }) {
+export default function PostEditor(props: {
+  post?: PostContent;
+  slug?: string;
+}) {
   // action state management for editor submission
   const [actionState, editorAction] = useActionState(
-    props.post ? updatePost : writeNewPost,
+    savePost,
     initialActionState
   );
   // local state management for current editor data
@@ -49,14 +52,6 @@ export default function PostEditor(props: { post?: PostContent }) {
   );
   const [sidebarHidden, setSidebarHidden] = useState(false);
   const submitButtonRef = useRef<HTMLButtonElement | null>(null);
-
-  // todo: remove unnecessary useEffect
-  // reset local state is action is successful
-  // useEffect(() => {
-  //   if (actionState.ok) {
-  //     setEditorData(initialLocalState);
-  //   }
-  // }, [actionState]);
 
   // todo: extract to hook
   // Add keyboard listener to body for cmd | ctrl + enter submission
@@ -78,7 +73,7 @@ export default function PostEditor(props: { post?: PostContent }) {
 
   function submitEditorData() {
     startTransition(() => {
-      editorAction(editorData);
+      editorAction({ post: editorData, slug: props.slug });
     });
   }
 
@@ -108,7 +103,7 @@ export default function PostEditor(props: { post?: PostContent }) {
           onClick={submitEditorData}
           className={styles.publishButton}
         >
-          {editorData.published ? 'Publish Post' : 'Save Draft'}
+          Save
         </StyledButton>
 
         <StyledButton
@@ -169,6 +164,16 @@ export default function PostEditor(props: { post?: PostContent }) {
             sidebarHidden && `${styles.hidden}`
           )}
         >
+          <Toggle
+            name="published"
+            label="Published"
+            error={actionState.errors.published ? true : false}
+            controller={{
+              key: 'published',
+              value: editorData.published,
+              updateValue,
+            }}
+          />
           <Input
             name="excerpt"
             label="Excerpt"
@@ -187,17 +192,6 @@ export default function PostEditor(props: { post?: PostContent }) {
             controller={{
               key: 'tags',
               value: editorData.tags,
-              updateValue,
-            }}
-          />
-          <Toggle
-            name="published"
-            toggleOnLabel="Published"
-            toggleOffLabel="Unpublished"
-            error={actionState.errors.published ? true : false}
-            controller={{
-              key: 'published',
-              value: editorData.published,
               updateValue,
             }}
           />

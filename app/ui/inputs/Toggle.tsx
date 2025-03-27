@@ -5,8 +5,7 @@ import clsx from 'clsx';
 import { CommonInputProps } from '@/app/lib/definitions';
 
 interface ToggleProps extends CommonInputProps<boolean> {
-  toggleOffLabel: string;
-  toggleOnLabel: string;
+  label: string;
 }
 
 // todo: add input props and controller
@@ -21,6 +20,8 @@ export default function Toggle(props: ToggleProps) {
           toggled && `${styles.toggled}`
         )}
         onClick={() => {
+          console.log('toggled? ', toggled);
+          console.log('clicked toggle');
           const { key, updateValue } = props.controller;
           updateValue(key, !toggled);
         }}
@@ -32,7 +33,7 @@ export default function Toggle(props: ToggleProps) {
           )}
         ></div>
       </button>
-      <p>{toggled ? props.toggleOnLabel : props.toggleOffLabel}</p>
+      <p>{props.label}</p>
     </div>
   );
 }

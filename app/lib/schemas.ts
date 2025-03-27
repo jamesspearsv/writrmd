@@ -6,6 +6,7 @@ export const PostSchema = z.object({
   content: z.string().min(1),
   tags: z.array(z.string()), // optional: can be an empty array
   excerpt: z.string(), // optional can be an empty string
+  published: z.boolean(),
 });
 
 export const PageSchema = z.object({

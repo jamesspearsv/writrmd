@@ -19,10 +19,11 @@ export default async function Page(props: {
                 excerpt: post.data.excerpt,
                 tags: post.data.tags,
                 content: post.content,
-                published: false,
+                published: post.data.published,
               } as PostContent)
             : undefined
         }
+        slug={slug}
       />
     </main>
   );

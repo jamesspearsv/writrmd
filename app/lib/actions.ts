@@ -132,15 +132,17 @@ export async function fetchPage(page: string) {
  * @param {PostContent} data - Submitted editor data
  * @returns Returns a new editor state or redirects if successfully writes new file
  */
-export async function writeNewPost(state: PostEditorAction, data: PostContent) {
-  // todo: add logic to handle post drafts
-
+export async function savePost(
+  _: PostEditorAction,
+  data: { post: PostContent; slug: string | undefined }
+) {
   const results = PostSchema.safeParse({
-    title: data.title,
-    author: data.author,
-    excerpt: data.excerpt,
-    tags: data.tags,
-    content: data.content,
+    title: data.post.title,
+    author: data.post.author,
+    excerpt: data.post.excerpt,
+    tags: data.post.tags,
+    content: data.post.content,
+    published: data.post.published,
   } as PostContent);
 
   if (!results.success) {
@@ -156,16 +158,17 @@ export async function writeNewPost(state: PostEditorAction, data: PostContent) {
   console.error(`Validation passed! ${new Date().toISOString()}`);
 
   // Uniquely slugify post name
-  const slug = uniqueSlugify(data.title);
+  const slug = data.slug ?? uniqueSlugify(data.post.title);
   const fileContents =
     '---\n' +
-    `title: '${data.title}'\n` +
-    `author: '${data.author}'\n` +
+    `title: '${data.post.title}'\n` +
+    `author: '${data.post.author}'\n` +
     `date: ${new Date().toISOString()}\n` +
-    `tags: [${data.tags.map((tag) => `'${tag}'`)}]\n` +
-    `excerpt: '${data.excerpt}'\n` +
+    `tags: [${data.post.tags.map((tag) => `'${tag}'`)}]\n` +
+    `excerpt: '${data.post.excerpt}'\n` +
+    `published: ${data.post.published}\n` +
     '---\n\n' +
-    `${data.content}\n`;
+    `${data.post.content}\n`;
 
   // Attempt to write new file to filesystem. Catch if unsuccessful
   try {
@@ -184,12 +187,6 @@ export async function writeNewPost(state: PostEditorAction, data: PostContent) {
 
   // redirect if successful
   redirect('/writr/posts');
-}
-
-// todo: write logic to update an existing post
-export async function updatePost(state: PostEditorAction, data: PostContent) {
-  console.log(data);
-  return state;
 }
 
 export async function readSettings(): Promise<ActionResult<BlogSettings>> {
