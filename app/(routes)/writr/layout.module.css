@@ -1,4 +1,6 @@
 .container main {
+  margin: var(--spacing-size-xl);
+  margin-top: var(--spacing-size-l);
   margin-left: calc(var(--sidebar-width) + var(--spacing-size-xl));
 }
 

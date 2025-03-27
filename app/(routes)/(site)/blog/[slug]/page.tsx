@@ -1,5 +1,5 @@
 import { fetchPostBySlug } from '@/app/lib/actions';
-import Post from '@/app/ui/blog/Post';
+import Post from '@/app/ui/posts/Post';
 import Breadcrumbs from '@/app/ui/common/Breadcrumbs';
 import ScrollBack from '@/app/ui/common/ScrollBack';
 import { Metadata } from 'next';

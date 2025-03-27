@@ -2,17 +2,12 @@ import { Post } from '@/app/lib/definitions';
 import styles from './PostPreview.module.css';
 import Link from 'next/link';
 
-export default function PostPreview({
-  post,
-  admin,
-}: {
-  post: Post;
-  admin?: boolean;
-}) {
-  const area = admin ? 'writr/posts' : 'blog';
+export default function PostPreview(props: { post: Post }) {
+  const { post } = props;
+
   return (
     <article className={styles.article}>
-      <Link href={`/${area}/${post.data.slug}`} className={styles.title}>
+      <Link href={`/blog/${post.data.slug}`} className={styles.title}>
         <h3>{post.data.title}</h3>
       </Link>
       {post.data.excerpt && <p>{post.data.excerpt}</p>}

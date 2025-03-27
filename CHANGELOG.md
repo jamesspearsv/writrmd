@@ -114,3 +114,25 @@ Internal changes to refactored input components that increase component type saf
 ### Fixed
 
 - **List limit bug** that resulted in the limit prop being ignored
+
+## v0.4.0 -- March 27, 2025
+
+Implemented a post status system and the ability to save post drafts, unpublish posts, and edit existing posts
+
+### Added
+
+- **Custom toggle component** to read and update boolean values and display toggle UI status
+- **Published status** to post definition that can track and update the published status of each post file
+- **Admin Post Preview Component** to display post information in the admin dashboard
+- **URL slug param to /editor/posts** route to start post updating workflow
+
+### Removed
+
+- **Deprecated type definitions** related to unused set up logic
+
+### Changed
+
+- **Post editor UI** to make optional post data more visible and accessible
+- **Author field location** in the post editor to centrally locate all required editor fields
+- **Post editor sidebar** to function more like a collapsible element rather than a pop-over element
+- **Example posts** to include new front-matter properties

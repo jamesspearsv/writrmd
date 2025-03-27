@@ -1,24 +1,33 @@
 .container {
-  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-size-xs);
+}
+
+.editor {
+  flex: 2.5;
 }
 
 .editorControls {
-  position: fixed;
-  top: 0;
-  right: 0;
-  height: var(--editor-controls-height);
-  left: var(--sidebar-width);
-  padding-inline: var(--spacing-size-xl);
+  height: var(--spacing-size-l);
   background-color: var(--primary-color);
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: var(--spacing-size-s);
+  margin-bottom: var(--spacing-size);
 }
 
 .publishButton {
-  color: var(--accent-color);
+  color: var(--secondary-color-alt);
   background-color: inherit;
+  padding: 5px;
+}
+
+.publishButton:hover {
+  color: var(--light);
+  background-color: var(--accent-color);
 }
 
 .sidebarButton {
@@ -28,35 +37,23 @@
   padding: var(--spacing-size-xs);
 }
 
+.sidebarButton.open {
+  background-color: var(--accent-color);
+  color: var(--light);
+  border: none;
+  border-radius: var(--border-radius);
+}
+
 .frontmatter {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
   padding: var(--spacing-size);
-  width: 325px;
   background-color: var(--primary-color);
-  border-left: solid var(--border-size) var(--primary-color-alt-2);
-  transition: margin-right 300ms ease-in-out;
-  margin-right: 0;
-  z-index: 1000;
-}
-
-.frontmatterCloseButton {
-  position: absolute;
-  top: var(--spacing-size);
-  right: var(--spacing-size);
-  background-color: inherit;
-  color: var(--secondary-color-alt);
-}
-
-.sidebarButton:hover,
-.frontmatterCloseButton:hover {
-  color: var(--accent-color);
+  border: solid var(--border-size) var(--primary-color-alt-2);
+  height: fit-content;
+  flex: 1;
 }
 
 .frontmatter.hidden {
-  margin-right: -350px;
+  display: none;
 }
 
 div.error {

@@ -12,14 +12,15 @@ import {
   PostContent,
   PostEditorAction,
 } from '@/app/lib/definitions';
-import { writeNewPost } from '@/app/lib/actions';
+import { savePost } from '@/app/lib/actions';
 import styles from './PostEditor.module.css';
 import StyledButton from '@/app/ui/common/StyledButton';
 import clsx from 'clsx';
-import { Sidebar, XCircle } from 'react-feather';
+import { Sidebar } from 'react-feather';
 import Input from '@/app/ui/inputs/Input';
 import TextArea from '@/app/ui/inputs/TextArea';
 import List from '@/app/ui/inputs/List';
+import Toggle from '@/app/ui/inputs/Toggle';
 
 const initialLocalState: PostContent = {
   title: '',
@@ -27,6 +28,7 @@ const initialLocalState: PostContent = {
   content: '',
   tags: [],
   excerpt: '',
+  published: false,
 };
 
 const initialActionState: PostEditorAction = {
@@ -35,23 +37,21 @@ const initialActionState: PostEditorAction = {
   errors: {},
 };
 
-export default function PostEditor() {
+export default function PostEditor(props: {
+  post?: PostContent;
+  slug?: string;
+}) {
   // action state management for editor submission
   const [actionState, editorAction] = useActionState(
-    writeNewPost,
+    savePost,
     initialActionState
   );
   // local state management for current editor data
-  const [editorData, setEditorData] = useState<PostContent>(initialLocalState);
-  const [sidebarHidden, setSidebarHidden] = useState(true);
+  const [editorData, setEditorData] = useState<PostContent>(
+    props.post ? props.post : initialLocalState
+  );
+  const [sidebarHidden, setSidebarHidden] = useState(false);
   const submitButtonRef = useRef<HTMLButtonElement | null>(null);
-
-  // reset local state is action is successful
-  useEffect(() => {
-    if (actionState.ok) {
-      setEditorData(initialLocalState);
-    }
-  }, [actionState]);
 
   // todo: extract to hook
   // Add keyboard listener to body for cmd | ctrl + enter submission
@@ -73,13 +73,13 @@ export default function PostEditor() {
 
   function submitEditorData() {
     startTransition(() => {
-      editorAction(editorData);
+      editorAction({ post: editorData, slug: props.slug });
     });
   }
 
   // update editorData based on the PostContent type
   const updateValue: CommonInputProps<
-    string | string[]
+    string | string[] | boolean
   >['controller']['updateValue'] = (key, value) => {
     // check that key exists in current data object
     if (!Object.keys(editorData).includes(key)) return;
@@ -91,7 +91,7 @@ export default function PostEditor() {
   };
 
   return (
-    <div className={styles.container}>
+    <div>
       <div className={styles.editorControls}>
         {actionState.errors.author && (
           <div className={styles.error}>
@@ -103,10 +103,14 @@ export default function PostEditor() {
           onClick={submitEditorData}
           className={styles.publishButton}
         >
-          Publish
+          Save
         </StyledButton>
+
         <StyledButton
-          className={clsx(`${styles.sidebarButton}`)}
+          className={clsx(
+            `${styles.sidebarButton}`,
+            !sidebarHidden && `${styles.open}`
+          )}
           onClick={() => {
             setSidebarHidden((hidden) => !hidden);
           }}
@@ -114,77 +118,85 @@ export default function PostEditor() {
           <Sidebar size={20} />
         </StyledButton>
       </div>
-      {/* OPTIONAL EDITOR FIELDS */}
-      <div
-        className={clsx(
-          `${styles.frontmatter}`,
-          sidebarHidden && `${styles.hidden}`
-        )}
-      >
-        <button
-          onClick={() => setSidebarHidden(true)}
-          className={styles.frontmatterCloseButton}
+      <div className={styles.container}>
+        {/* REQUIRED EDITOR FIELDS */}
+        <div className={styles.editor}>
+          <TextArea
+            name="content"
+            error={actionState.errors.content ? true : false}
+            placeholder="Begin writing your post..."
+            controller={{
+              key: 'content',
+              value: editorData.content,
+              updateValue,
+            }}
+          >
+            <Input
+              name="title"
+              placeholder="Post Title"
+              variant="borderless"
+              size="large"
+              error={actionState.errors.title ? true : false}
+              controller={{
+                key: 'title',
+                value: editorData.title,
+                updateValue,
+              }}
+            />
+            <Input
+              name="author"
+              placeholder="Author"
+              variant="borderless"
+              size="medium"
+              error={actionState.errors.author ? true : false}
+              controller={{
+                key: 'author',
+                value: editorData.author,
+                updateValue,
+              }}
+            />
+          </TextArea>
+        </div>
+        {/* OPTIONAL EDITOR FIELDS */}
+        <div
+          className={clsx(
+            `${styles.frontmatter}`,
+            sidebarHidden && `${styles.hidden}`
+          )}
         >
-          <XCircle />
-        </button>
-        <Input
-          name="excerpt"
-          label="Excerpt"
-          error={actionState.errors.excerpt ? true : false}
-          controller={{
-            key: 'excerpt',
-            value: editorData.excerpt,
-            updateValue,
-          }}
-        />
-        <List
-          name="tags"
-          label="Tags"
-          error={actionState.errors.tags ? true : false}
-          limit={3}
-          controller={{
-            key: 'tags',
-            value: editorData.tags,
-            updateValue,
-          }}
-        />
+          <Toggle
+            name="published"
+            label="Published"
+            error={actionState.errors.published ? true : false}
+            controller={{
+              key: 'published',
+              value: editorData.published,
+              updateValue,
+            }}
+          />
+          <Input
+            name="excerpt"
+            label="Excerpt"
+            error={actionState.errors.excerpt ? true : false}
+            controller={{
+              key: 'excerpt',
+              value: editorData.excerpt,
+              updateValue,
+            }}
+          />
+          <List
+            name="tags"
+            label="Tags"
+            error={actionState.errors.tags ? true : false}
+            limit={3}
+            controller={{
+              key: 'tags',
+              value: editorData.tags,
+              updateValue,
+            }}
+          />
+        </div>
       </div>
-      {/* REQUIRED EDITOR FIELDS */}
-      <TextArea
-        name="content"
-        error={actionState.errors.content ? true : false}
-        placeholder="Begin writing your post..."
-        controller={{
-          key: 'content',
-          value: editorData.content,
-          updateValue,
-        }}
-      >
-        <Input
-          name="title"
-          placeholder="Post Title"
-          variant="borderless"
-          size="large"
-          error={actionState.errors.title ? true : false}
-          controller={{
-            key: 'title',
-            value: editorData.title,
-            updateValue,
-          }}
-        />
-        <Input
-          name="author"
-          placeholder="Author"
-          variant="borderless"
-          size="medium"
-          error={actionState.errors.author ? true : false}
-          controller={{
-            key: 'author',
-            value: editorData.author,
-            updateValue,
-          }}
-        />
-      </TextArea>
     </div>
   );
 }

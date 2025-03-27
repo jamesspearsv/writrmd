@@ -4,7 +4,7 @@
   /* open-props design tokens */
   --dark: var(--gray-10);
   --lighter-dark: var(--gray-9);
-  --lightest-dark: var(--gray-8);
+  --lightest-dark: var(--gray-7);
   --light: var(--stone-1);
   --darker-light: var(--stone-3);
   --darkest-light: var(--stone-4);

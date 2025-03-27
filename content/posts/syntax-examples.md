@@ -1,12 +1,14 @@
 ---
 title: 'Syntax Examples'
 author: 'James Spears, V'
-date: 2025-03-17T00:45:13.054Z
+date: 2025-03-27T17:36:25.461Z
 tags: ['Markdown']
 excerpt: 'An reference of all markdown syntax and styling supported by Writr.md'
+published: true
 ---
 
-# Heading 1
+
+# This is a new heading
 
 ## Heading 2
 
@@ -65,3 +67,10 @@ Here's a simple footnote[^1] and here's a longer one.[^2]
 
 [^1]: This is the first footnote.
 [^2]: Here's one with multiple paragraphs and code.
+
+
+
+
+
+
+
