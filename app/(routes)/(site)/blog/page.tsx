@@ -4,18 +4,20 @@ import PostList from '@/app/ui/posts/PostList';
 import PlaceholderPage from '@/app/ui/common/PlaceholderPage';
 
 type Props = {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  searchParams: Promise<{ tag: string }>;
 };
 
 export async function generateMetadata({
   searchParams,
 }: Props): Promise<Metadata> {
-  let tag = (await searchParams).tag;
-  if (typeof tag === 'object') tag = tag[0];
-  if (tag) {
-    return {
-      title: `${tag} posts`,
-    };
+  const tag = (await searchParams).tag;
+  console.log(typeof tag);
+  if (typeof tag === 'string') {
+    if (tag) {
+      return {
+        title: `${tag} posts`,
+      };
+    }
   }
 
   return {
@@ -24,15 +26,18 @@ export async function generateMetadata({
 }
 
 export default async function BlogPage({ searchParams }: Props) {
-  let tag = (await searchParams).tag;
-  if (typeof tag === 'object') tag = tag[0]; // select first tag if an array
+  const tag = (await searchParams).tag;
   const posts = await fetchPosts(tag);
 
   if (!posts) return <PlaceholderPage />;
 
+  const publishedPosts = posts.filter((post) => {
+    return post.data.published;
+  });
+
   return (
     <main>
-      <PostList posts={posts} />
+      <PostList posts={publishedPosts} />
     </main>
   );
 }
