@@ -8,7 +8,7 @@
 
 # build and tag images
 echo "Starting build process..."
-docker build -t ghcr.io/jamesspearsv/writrmd:latest .
+docker build --platform linux/amd64,linux/arm64 -t ghcr.io/jamesspearsv/writrmd:latest .
 #docker tag writrmd ghcr.io/jamesspearsv/writrmd:latest
 
 # login to github container registry

@@ -17,7 +17,7 @@ RUN pnpm install --frozen-lockfile
 
 
 # Rebuild source only when needed
-FROM base as builder
+FROM base AS builder
 RUN npm install -g pnpm
 WORKDIR /writrmd
 COPY --from=deps /writrmd/node_modules ./node_modules

@@ -136,3 +136,12 @@ Implemented a post status system and the ability to save post drafts, unpublish 
 - **Author field location** in the post editor to centrally locate all required editor fields
 - **Post editor sidebar** to function more like a collapsible element rather than a pop-over element
 - **Example posts** to include new front-matter properties
+
+## v0.4.1 -- March 28, 2025
+
+Patched Docker build to target multi-platform builds
+
+### Changes
+
+- **Updated `Dockerfile`** to fix casing issue
+- **Updated `push-image.sh`** to use a multi-platform build command
