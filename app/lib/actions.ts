@@ -2,6 +2,11 @@
 
 import * as fs from 'node:fs/promises';
 import * as matter from 'gray-matter';
+import { PostSchema } from '@/app/lib/schemas';
+import { uniqueSlugify } from '@/app/lib/slugify';
+import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
+import TaskWorker from '@/app/lib/worker';
 import {
   Post,
   Page,
@@ -10,11 +15,6 @@ import {
   BlogSettings,
   ActionResult,
 } from '@/app/lib/definitions';
-import { PostSchema } from '@/app/lib/schemas';
-import { uniqueSlugify } from '@/app/lib/slugify';
-import { redirect } from 'next/navigation';
-import { revalidatePath } from 'next/cache';
-import TaskWorker from '@/app/lib/worker';
 
 // Absolute path to project dir from filesystem root
 const rootDir = process.env.ROOT_PATH;
@@ -24,16 +24,19 @@ const settingsFile =
   process.env.NODE_ENV === 'production' ? 'settings.json' : 'settings.dev.json';
 
 /**
- * Asynchronously fetches all available posts
- * @param {string} tag - Tag included in query params for /blog route
- * @returns {Post[] | null} - Returns an array of posts or null unsuccessful
+ * Asynchronously fetches all existing posts
+ * @param tag Optional tag string used to filter posts
+ * @returns Returns a promise that resolved to an array of posts or null unsuccessful
  */
 export async function fetchPosts(tag?: string) {
   const posts: Post[] = [];
 
+  // Attempt to read all posts files from /content/posts
   try {
+    // Get an array of all existing file names
     const files = await fs.readdir(`${rootDir}/content/posts`);
 
+    // Read file for each existing filename
     for (const file of files) {
       if (file.match(pattern)) {
         const post = matter.read(`${rootDir}/content/posts/${file}`) as Post;
@@ -42,14 +45,17 @@ export async function fetchPosts(tag?: string) {
       }
     }
   } catch (error) {
+    // Return null if reading files is unsuccessful
     console.error(error);
     return null;
   }
+
+  // Sort all posts by publication data
   posts.sort(
     (a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime()
   );
 
-  // filter by tag if given
+  // Filter by a tag if provided
   if (tag) {
     const filteredPosts = posts.filter((post) => {
       let match = false;
@@ -64,13 +70,14 @@ export async function fetchPosts(tag?: string) {
     return filteredPosts;
   }
 
+  // Return an array of posts to the client
   return posts;
 }
 
 /**
  * Asynchronously fetches a single post from a given slug
- * @param {string} slug - Post slug derived from a route url
- * @returns {Post | null} - Returns a single post or null if unsuccessful
+ * @param slug Post slug derived from a route url
+ * @returns Returns a promise that resolves to a single post or null if unsuccessful
  */
 export async function fetchPostBySlug(slug: string) {
   const filename = slug + '.md';
@@ -85,35 +92,35 @@ export async function fetchPostBySlug(slug: string) {
 
 /**
  * Asynchronously build an index of stand alone pages
- * @returns {string[]} - An array page urls as strings
+ * @returns An array page urls as strings
  */
-export async function buildPagesIndex() {
-  const pages: Page[] = [];
-  let files: string[];
+// export async function buildPagesIndex() {
+//   const pages: Page[] = [];
+//   let files: string[];
 
-  try {
-    files = await fs.readdir(`${rootDir}/content/pages`);
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
+//   try {
+//     files = await fs.readdir(`${rootDir}/content/pages`);
+//   } catch (error) {
+//     console.error(error);
+//     return null;
+//   }
 
-  files.forEach((file) => {
-    // skip index page
-    if (file !== 'index.md' && file.match(pattern)) {
-      const page = matter.read(`${rootDir}/content/pages/${file}`) as Page;
-      page.data.slug = file.split('.')[0];
-      pages.push(page);
-    }
-  });
+//   files.forEach((file) => {
+//     // skip index page
+//     if (file !== 'index.md' && file.match(pattern)) {
+//       const page = matter.read(`${rootDir}/content/pages/${file}`) as Page;
+//       page.data.slug = file.split('.')[0];
+//       pages.push(page);
+//     }
+//   });
 
-  return pages;
-}
+//   return pages;
+// }
 
 /**
  * Asynchronously fetch a standalone page from a given url slug
- * @param {string} page - Requested page url slug as a string
- * @returns {Page | null} - Returns a single page or null if errors
+ * @param page Requested page url slug as a string
+ * @returns Returns a promise that resolves to the requested page or null is unsuccessful
  */
 export async function fetchPage(page: string) {
   try {
@@ -128,14 +135,15 @@ export async function fetchPage(page: string) {
 
 /**
  * Asynchronously write a new post file to server filesystem
- * @param {PostEditorAction} state - Current editor state including ok status, field errors, messages, and previous values
- * @param {PostContent} data - Submitted editor data
+ * @param _ The current editor state object including ok status, error message, field errors
+ * @param data An object containing post content and a post slug when editing an existing post
  * @returns Returns a new editor state or redirects if successfully writes new file
  */
 export async function savePost(
   _: PostEditorAction,
   data: { post: PostContent; slug: string | undefined }
 ) {
+  // Validate submitted content against the PostSchema
   const results = PostSchema.safeParse({
     title: data.post.title,
     author: data.post.author,
@@ -145,9 +153,11 @@ export async function savePost(
     published: data.post.published,
   } as PostContent);
 
+  // Handle unsuccessful validation
   if (!results.success) {
     console.error(`Validation failed! ${new Date().toISOString()}`);
     console.error(results.error.flatten().fieldErrors);
+    // Return an unsuccessful action state
     return {
       ok: false,
       message: 'Validation failed',
@@ -157,8 +167,9 @@ export async function savePost(
 
   console.error(`Validation passed! ${new Date().toISOString()}`);
 
-  // Uniquely slugify post name
+  // Uniquely slugify post name or use existing slug if provided
   const slug = data.slug ?? uniqueSlugify(data.post.title);
+  // Format post content to write
   const fileContents =
     '---\n' +
     `title: '${data.post.title}'\n` +
@@ -185,10 +196,14 @@ export async function savePost(
     } as PostEditorAction;
   }
 
-  // redirect if successful
+  // Redirect client if successful
   redirect('/writr/posts');
 }
 
+/**
+ * Asynchronously read app settings using an internal worker queue
+ * @returns Returns a promise that resolves to an action result
+ */
 export async function readSettings(): Promise<ActionResult<BlogSettings>> {
   try {
     const data = await fs.readFile(`${rootDir}/content/${settingsFile}`, {
@@ -205,15 +220,20 @@ export async function readSettings(): Promise<ActionResult<BlogSettings>> {
 
 const worker = new TaskWorker();
 
+/**
+ * Asynchronously update a given settings property with a given value
+ * @param key A valid property defined in the app settings
+ * @param value A valid value that the provided setting should be updated to.
+ */
 export async function updateSettingValue<K extends keyof BlogSettings>(
   key: K,
   value: BlogSettings[K]
 ) {
-  // define process to update settings
+  // Define the process to update the provided settings property
   const process = async () => {
     const settings = await readSettings();
 
-    // todo: handle errors when reading settings.json
+    // Update the given property if successful
     if (settings.success) {
       const newSettings = { ...settings.data };
       newSettings[key] = value;
@@ -226,29 +246,33 @@ export async function updateSettingValue<K extends keyof BlogSettings>(
         return {
           success: true,
           data: 'Successfully updated settings',
-        } as ActionResult<string>;
+        } as ActionResult;
       } catch (error) {
         if (error instanceof Error) {
           console.error(error);
           return {
             success: false,
             error: 'Unable to update settings',
-          } as ActionResult<string>;
+          } as ActionResult;
         }
       }
     }
 
+    // Handle an unsuccessful attempt to read the app settings
     return {
       success: false,
       error: 'Unable to read settings',
-    } as ActionResult<string>;
+    } as ActionResult;
   };
 
-  // add process to worker queue and await result
+  // Add the update process to worker queue and await the result
   await worker.add<ActionResult<string>>(process);
   revalidatePath('/writr/settings');
 }
 
+/**
+ * Internal TaskWorker testing function
+ */
 export async function WorkerTest() {
   console.log('<! -- Starting worker test -->');
 

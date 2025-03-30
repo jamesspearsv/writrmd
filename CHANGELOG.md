@@ -145,3 +145,19 @@ Patched Docker build to target multi-platform builds
 
 - **Updated `Dockerfile`** to fix casing issue
 - **Updated `push-image.sh`** to use a multi-platform build command
+
+## v0.4.2 -- March 30, 2025
+
+General documentation updates and other minor changes.
+
+### Added
+
+- **Updated docs** for server actions in `actions.ts`
+- **Updated docs** for the internal `TaskWorker` class
+- **Updated docs** for `useScroll` hook
+- **Updates docs** for `authActions.ts`
+- **Updated docs** for `slugify.ts`
+
+### Changes
+
+- **ActionResult interface** to use string values by default

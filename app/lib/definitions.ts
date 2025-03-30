@@ -63,6 +63,6 @@ export interface BlogSettings {
   icon?: string;
 }
 
-export type ActionResult<T> =
+export type ActionResult<T = string> =
   | { success: true; data: T }
   | { success: false; error: string };

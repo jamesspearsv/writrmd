@@ -49,6 +49,7 @@ export default function TextArea({ ...props }: TextAreaProps) {
 
   return (
     <div>
+      {/* issue: #34 Extract markdown editor controls into a new component */}
       <div className={styles.actions}>
         <div className={styles.toggleControls}>
           <button

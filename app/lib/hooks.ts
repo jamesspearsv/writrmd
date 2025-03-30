@@ -1,8 +1,10 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 
 /**
- * Get the current window.scrollY value
- * @returns {number} Value of current window.scrollY value
+ * A hook to get the current window.scrollY value
+ * @returns The current window.scrollY value
  */
 export function useScroll() {
   const [scroll, setScroll] = useState(window.scrollY);

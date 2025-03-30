@@ -4,6 +4,9 @@ import { LoginState } from '@/app/ui/forms/LoginForm';
 import { signIn, signOut } from '@/auth';
 import { CredentialsSignin } from 'next-auth';
 
+/**
+ * Asynchronously call signIn function and provide basic credentials validation
+ */
 export async function login(state: LoginState, data: FormData) {
   const username = data.get('username');
   const password = data.get('password');
@@ -27,6 +30,9 @@ export async function login(state: LoginState, data: FormData) {
   }
 }
 
+/**
+ * Asynchronously call signOut function
+ */
 export async function logout() {
   await signOut({ redirectTo: '/login' });
 }

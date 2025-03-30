@@ -8,7 +8,6 @@ interface ToggleProps extends CommonInputProps<boolean> {
   label: string;
 }
 
-// todo: add input props and controller
 export default function Toggle(props: ToggleProps) {
   const toggled = props.controller.value;
 
