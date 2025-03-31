@@ -165,3 +165,9 @@ General documentation updates and other minor changes.
 ### Removed
 
 - **Breadcrumb padding transition** to simplify component and remove visual distractions
+
+## v0.4.3 -- March 31, 2025
+
+### Fixed
+
+- **Unescaped characters** in YAML post front-matter crashing the app
