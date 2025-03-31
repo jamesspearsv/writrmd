@@ -161,3 +161,7 @@ General documentation updates and other minor changes.
 ### Changes
 
 - **ActionResult interface** to use string values by default
+
+### Removed
+
+- **Breadcrumb padding transition** to simplify component and remove visual distractions
