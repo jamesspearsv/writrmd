@@ -36,8 +36,8 @@ export default async function BlogPage({ searchParams }: Props) {
   });
 
   return (
-    <main>
+    <div>
       <PostList posts={publishedPosts} />
-    </main>
+    </div>
   );
 }

@@ -1,19 +1,14 @@
 import LoginForm from '@/app/ui/forms/LoginForm';
 import ThemePicker from '@/app/ui/themes/ThemePicker';
+import styles from './login-page.module.css';
 
 export default function Page() {
   return (
-    <main>
+    <div className={styles.container}>
       <LoginForm />
-      <div
-        style={{
-          position: 'fixed',
-          top: '1.5rem',
-          right: '1.5rem',
-        }}
-      >
+      <div className={styles.theme_picker_container}>
         <ThemePicker />
       </div>
-    </main>
+    </div>
   );
 }

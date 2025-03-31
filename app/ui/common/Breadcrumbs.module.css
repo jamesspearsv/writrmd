@@ -4,13 +4,8 @@
   top: 0;
   width: 100%;
   padding: var(--spacing-size-l);
-  padding-top: 0;
   transition: padding-top 250ms ease-in-out;
   background-color: var(--primary-color);
-}
-
-.breadcrumbs.atTop {
-  padding-top: var(--spacing-size-l);
 }
 
 .breadcrumb:not(:last-child) {

@@ -7,7 +7,7 @@ export default function Layout({ children }: { children?: React.ReactNode }) {
       <HNav>
         <ThemePicker />
       </HNav>
-      {children}
+      <main>{children}</main>
     </div>
   );
 }

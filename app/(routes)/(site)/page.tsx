@@ -9,10 +9,10 @@ export default async function Home() {
   if (!settings.success) return <PlaceholderPage />;
 
   return (
-    <main className={styles.main}>
+    <div className={styles.main}>
       <MarkdownWrapper
         value={`# ${settings.data.name}\n\n${settings.data.summary}`}
       />
-    </main>
+    </div>
   );
 }

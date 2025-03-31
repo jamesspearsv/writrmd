@@ -63,7 +63,7 @@ body {
 }
 
 main {
-  margin: var(--spacing-size-xl);
+  margin-inline: var(--spacing-size-xl);
 }
 
 h1 {

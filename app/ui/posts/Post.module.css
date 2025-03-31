@@ -1,6 +1,5 @@
 .container {
   max-width: calc(var(--content-width) * 1.5);
-  padding: var(--spacing-size-l) 0;
   margin: auto;
   display: flex;
   gap: var(--spacing-size);
