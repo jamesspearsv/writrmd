@@ -40,6 +40,7 @@ const initialActionState: PostEditorAction = {
 export default function PostEditor(props: {
   post?: PostContent;
   slug?: string;
+  date?: string;
 }) {
   // action state management for editor submission
   const [actionState, editorAction] = useActionState(
@@ -73,7 +74,11 @@ export default function PostEditor(props: {
 
   function submitEditorData() {
     startTransition(() => {
-      editorAction({ post: editorData, slug: props.slug });
+      editorAction({
+        post: editorData,
+        slug: props.slug,
+        date: props.date,
+      });
     });
   }
 

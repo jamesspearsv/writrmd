@@ -8,12 +8,12 @@ import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import TaskWorker from '@/app/lib/worker';
 import {
-    Post,
-    Page,
-    PostContent,
-    PostEditorAction,
-    BlogSettings,
-    ActionResult,
+  Post,
+  Page,
+  PostContent,
+  PostEditorAction,
+  BlogSettings,
+  ActionResult,
 } from '@/app/lib/definitions';
 
 // Absolute path to project dir from filesystem root
@@ -21,9 +21,7 @@ const rootDir = process.env.ROOT_PATH;
 // filename regex pattern
 const pattern = /^[\w-]+\.md$/;
 const settingsFile =
-    process.env.NODE_ENV === 'production'
-        ? 'settings.json'
-        : 'settings.dev.json';
+  process.env.NODE_ENV === 'production' ? 'settings.json' : 'settings.dev.json';
 
 /**
  * Asynchronously fetches all existing posts
@@ -31,53 +29,49 @@ const settingsFile =
  * @returns Returns a promise that resolved to an array of posts or null unsuccessful
  */
 export async function fetchPosts(tag?: string) {
-    const posts: Post[] = [];
+  const posts: Post[] = [];
 
-    // Attempt to read all posts files from /content/posts
-    try {
-        // Get an array of all existing file names
-        const files = await fs.readdir(`${rootDir}/content/posts`);
+  // Attempt to read all posts files from /content/posts
+  try {
+    // Get an array of all existing file names
+    const files = await fs.readdir(`${rootDir}/content/posts`);
 
-        // Read file for each existing filename
-        for (const file of files) {
-            if (file.match(pattern)) {
-                const post = matter.read(
-                    `${rootDir}/content/posts/${file}`
-                ) as Post;
-                post.data.slug = file.split('.')[0];
-                posts.push(post);
-            }
-        }
-    } catch (error) {
-        // Return null if reading files is unsuccessful
-        console.error(error);
-        return null;
+    // Read file for each existing filename
+    for (const file of files) {
+      if (file.match(pattern)) {
+        const post = matter.read(`${rootDir}/content/posts/${file}`) as Post;
+        post.data.slug = file.split('.')[0];
+        posts.push(post);
+      }
     }
+  } catch (error) {
+    // Return null if reading files is unsuccessful
+    console.error(error);
+    return null;
+  }
 
-    // Sort all posts by publication data
-    posts.sort(
-        (a, b) =>
-            new Date(a.data.date).getTime() - new Date(b.data.date).getTime()
-    );
+  // Sort all posts by publication data
+  posts.sort(
+    (a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime()
+  );
 
-    // Filter by a tag if provided
-    if (tag) {
-        const filteredPosts = posts.filter((post) => {
-            let match = false;
-            const tags = post.data.tags;
-            if (tags) {
-                tags.forEach((t) => {
-                    if (t.toLocaleLowerCase() === tag.toLocaleLowerCase())
-                        match = true;
-                });
-            }
-            return match;
+  // Filter by a tag if provided
+  if (tag) {
+    const filteredPosts = posts.filter((post) => {
+      let match = false;
+      const tags = post.data.tags;
+      if (tags) {
+        tags.forEach((t) => {
+          if (t.toLocaleLowerCase() === tag.toLocaleLowerCase()) match = true;
         });
-        return filteredPosts;
-    }
+      }
+      return match;
+    });
+    return filteredPosts;
+  }
 
-    // Return an array of posts to the client
-    return posts;
+  // Return an array of posts to the client
+  return posts;
 }
 
 /**
@@ -86,16 +80,14 @@ export async function fetchPosts(tag?: string) {
  * @returns Returns a promise that resolves to a single post or null if unsuccessful
  */
 export async function fetchPostBySlug(slug: string) {
-    const filename = slug + '.md';
-    try {
-        const file = matter.read(
-            `${rootDir}/content/posts/${filename}`
-        ) as Post;
-        return file;
-    } catch (error) {
-        console.error(error);
-        return null;
-    }
+  const filename = slug + '.md';
+  try {
+    const file = matter.read(`${rootDir}/content/posts/${filename}`) as Post;
+    return file;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 }
 
 /**
@@ -131,86 +123,102 @@ export async function fetchPostBySlug(slug: string) {
  * @returns Returns a promise that resolves to the requested page or null is unsuccessful
  */
 export async function fetchPage(page: string) {
-    try {
-        const filename = `${page}.md`;
-        const file = matter.read(
-            `${rootDir}/content/pages/${filename}`
-        ) as Page;
-        return file;
-    } catch (error) {
-        console.error(error);
-        return null;
-    }
+  try {
+    const filename = `${page}.md`;
+    const file = matter.read(`${rootDir}/content/pages/${filename}`) as Page;
+    return file;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 }
 
 /**
  * Asynchronously write a new post file to server filesystem
  * @param _ The current editor state object including ok status, error message, field errors
- * @param data An object containing post content and a post slug when editing an existing post
+ * @param data An object containing post content, slug, and existing publication date when editing an existing post
  * @returns Returns a new editor state or redirects if successfully writes new file
  */
 export async function savePost(
-    _: PostEditorAction,
-    data: { post: PostContent; slug: string | undefined }
+  _: PostEditorAction,
+  data: {
+    post: PostContent;
+    slug: string | undefined;
+    date: string | undefined;
+  }
 ) {
-    // Characters to escape:
-    // {, }, [, ], &, *, #, ?, |, -, <, >, =, !, %, @, :, \
+  // Characters to escape:
+  // {, }, [, ], &, *, #, ?, |, -, <, >, =, !, %, @, :, \
 
-    // Validate submitted content against the PostSchema
-    const results = PostSchema.safeParse({
-        title: data.post.title,
-        author: data.post.author,
-        excerpt: data.post.excerpt,
-        tags: data.post.tags,
-        content: data.post.content,
-        published: data.post.published,
-    } as PostContent);
+  // Validate submitted content against the PostSchema
+  // todo: use validated post content to write post
+  const results = PostSchema.safeParse({
+    title: data.post.title,
+    author: data.post.author,
+    excerpt: data.post.excerpt,
+    tags: data.post.tags,
+    content: data.post.content,
+    published: data.post.published,
+  } as PostContent);
 
-    // Handle unsuccessful validation
-    if (!results.success) {
-        console.error(`Validation failed! ${new Date().toISOString()}`);
-        console.error(results.error.flatten().fieldErrors);
-        // Return an unsuccessful action state
-        return {
-            ok: false,
-            message: 'Validation failed',
-            errors: results.error.flatten().fieldErrors,
-        } as PostEditorAction;
-    }
+  // Handle unsuccessful validation
+  if (!results.success) {
+    console.error(`Validation failed! ${new Date().toISOString()}`);
+    console.error(results.error.flatten().fieldErrors);
+    // Return an unsuccessful action state
+    return {
+      ok: false,
+      message: 'Validation failed',
+      errors: results.error.flatten().fieldErrors,
+    } as PostEditorAction;
+  }
 
-    console.error(`Validation passed! ${new Date().toISOString()}`);
+  console.error(`Validation passed! ${new Date().toISOString()}`);
 
-    // Uniquely slugify post name or use existing slug if provided
-    const slug = data.slug ?? uniqueSlugify(data.post.title);
-    // Format post content to write
-    const fileContents =
-        `---\n` +
-        `title: "${data.post.title}"\n` +
-        `author: "${data.post.author}"\n` +
-        `date: "${new Date().toISOString()}"\n` +
-        `tags: [${data.post.tags.map((tag) => `"${tag}"`)}]\n` +
-        `excerpt: "${data.post.excerpt}"\n` +
-        `published: ${data.post.published}\n` +
-        `---\n` +
-        `${data.post.content}`;
+  console.log('date:', !!data.date);
 
-    // Attempt to write new file to filesystem. Catch if unsuccessful
-    try {
-        await fs.writeFile(
-            `${rootDir}/content/posts/${slug.toLowerCase()}.md`,
-            fileContents
-        );
-    } catch (error) {
-        console.error(error);
-        return {
-            ok: false,
-            message: 'Server error! Please try again later.',
-            errors: {},
-        } as PostEditorAction;
-    }
+  // Uniquely slugify post name or use existing slug if provided
+  const slug = data.slug ?? uniqueSlugify(data.post.title);
 
-    // Redirect client if successful
-    redirect('/writr/posts');
+  // Derive publication date from published status and existing date
+  let publicationDate;
+  if (data.date) {
+    publicationDate = data.date;
+  } else if (results.data.published) {
+    publicationDate = new Date().toISOString();
+  } else {
+    publicationDate = '';
+  }
+
+  // Format post content to write
+  const fileContents =
+    `---\n` +
+    `title: "${data.post.title}"\n` +
+    `author: "${data.post.author}"\n` +
+    `date: "${publicationDate}"\n` +
+    `tags: [${data.post.tags.map((tag) => `"${tag}"`)}]\n` +
+    `excerpt: "${data.post.excerpt}"\n` +
+    `published: ${data.post.published}\n` +
+    `---\n` +
+    `${data.post.content}`;
+
+  // Attempt to write new file to filesystem. Catch if unsuccessful
+  try {
+    await fs.writeFile(
+      `${rootDir}/content/posts/${slug.toLowerCase()}.md`,
+      fileContents
+    );
+  } catch (error) {
+    console.error(error);
+    return {
+      ok: false,
+      message: 'Server error! Please try again later.',
+      errors: {},
+    } as PostEditorAction;
+  }
+
+  // Redirect client if successful
+  redirect('/writr/posts');
 }
 
 /**
@@ -218,17 +226,17 @@ export async function savePost(
  * @returns Returns a promise that resolves to an action result
  */
 export async function readSettings(): Promise<ActionResult<BlogSettings>> {
-    try {
-        const data = await fs.readFile(`${rootDir}/content/${settingsFile}`, {
-            encoding: 'utf-8',
-        });
-        const settings = JSON.parse(data) as BlogSettings;
+  try {
+    const data = await fs.readFile(`${rootDir}/content/${settingsFile}`, {
+      encoding: 'utf-8',
+    });
+    const settings = JSON.parse(data) as BlogSettings;
 
-        return { success: true, data: settings };
-    } catch (error) {
-        console.error(error);
-        return { success: false, error: 'Server error' };
-    }
+    return { success: true, data: settings };
+  } catch (error) {
+    console.error(error);
+    return { success: false, error: 'Server error' };
+  }
 }
 
 const worker = new TaskWorker();
@@ -239,82 +247,80 @@ const worker = new TaskWorker();
  * @param value A valid value that the provided setting should be updated to.
  */
 export async function updateSettingValue<K extends keyof BlogSettings>(
-    key: K,
-    value: BlogSettings[K]
+  key: K,
+  value: BlogSettings[K]
 ) {
-    // Define the process to update the provided settings property
-    const process = async () => {
-        const settings = await readSettings();
+  // Define the process to update the provided settings property
+  const process = async () => {
+    const settings = await readSettings();
 
-        // Update the given property if successful
-        if (settings.success) {
-            const newSettings = { ...settings.data };
-            newSettings[key] = value;
+    // Update the given property if successful
+    if (settings.success) {
+      const newSettings = { ...settings.data };
+      newSettings[key] = value;
 
-            try {
-                await fs.writeFile(
-                    `${rootDir}/content/${settingsFile}`,
-                    JSON.stringify(newSettings)
-                );
-                return {
-                    success: true,
-                    data: 'Successfully updated settings',
-                } as ActionResult;
-            } catch (error) {
-                if (error instanceof Error) {
-                    console.error(error);
-                    return {
-                        success: false,
-                        error: 'Unable to update settings',
-                    } as ActionResult;
-                }
-            }
-        }
-
-        // Handle an unsuccessful attempt to read the app settings
+      try {
+        await fs.writeFile(
+          `${rootDir}/content/${settingsFile}`,
+          JSON.stringify(newSettings)
+        );
         return {
-            success: false,
-            error: 'Unable to read settings',
+          success: true,
+          data: 'Successfully updated settings',
         } as ActionResult;
-    };
+      } catch (error) {
+        if (error instanceof Error) {
+          console.error(error);
+          return {
+            success: false,
+            error: 'Unable to update settings',
+          } as ActionResult;
+        }
+      }
+    }
 
-    // Add the update process to worker queue and await the result
-    await worker.add<ActionResult<string>>(process);
-    revalidatePath('/writr/settings');
+    // Handle an unsuccessful attempt to read the app settings
+    return {
+      success: false,
+      error: 'Unable to read settings',
+    } as ActionResult;
+  };
+
+  // Add the update process to worker queue and await the result
+  await worker.add<ActionResult<string>>(process);
+  revalidatePath('/writr/settings');
 }
 
 /**
  * Internal TaskWorker testing function
  */
 export async function WorkerTest() {
-    console.log('<! -- Starting worker test -->');
+  console.log('<! -- Starting worker test -->');
 
-    const filename = `${rootDir}/content/worker.txt`;
+  const filename = `${rootDir}/content/worker.txt`;
 
-    const task1 = () => {
-        return new Promise(async (resolve) => {
-            const content = await fs.readFile(filename, 'utf-8');
-            setTimeout(async () => {
-                const newContent =
-                    content + '\nAdding content from a long running job';
-                await fs.writeFile(filename, newContent);
-                resolve({ success: true, data: 'Completed long job' });
-            }, 5000);
-        });
-    };
+  const task1 = () => {
+    return new Promise(async (resolve) => {
+      const content = await fs.readFile(filename, 'utf-8');
+      setTimeout(async () => {
+        const newContent = content + '\nAdding content from a long running job';
+        await fs.writeFile(filename, newContent);
+        resolve({ success: true, data: 'Completed long job' });
+      }, 5000);
+    });
+  };
 
-    const task2 = () => {
-        return new Promise(async (resolve) => {
-            const content = await fs.readFile(filename, 'utf-8');
-            setTimeout(async () => {
-                const newContent =
-                    content + '\nAdding content from a fast running job';
-                await fs.writeFile(filename, newContent);
-                resolve({ success: true, data: 'Completed fast job' });
-            }, 2000);
-        });
-    };
+  const task2 = () => {
+    return new Promise(async (resolve) => {
+      const content = await fs.readFile(filename, 'utf-8');
+      setTimeout(async () => {
+        const newContent = content + '\nAdding content from a fast running job';
+        await fs.writeFile(filename, newContent);
+        resolve({ success: true, data: 'Completed fast job' });
+      }, 2000);
+    });
+  };
 
-    worker.add(task1).then((value) => console.log(value));
-    worker.add(task2).then((value) => console.log(value));
+  worker.add(task1).then((value) => console.log(value));
+  worker.add(task2).then((value) => console.log(value));
 }

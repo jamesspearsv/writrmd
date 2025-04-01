@@ -5,6 +5,7 @@ export interface Post extends matter.GrayMatterFile<string> {
   data: {
     title: string;
     date: string;
+    // todo: add updated date property
     author: string;
     tags?: string[];
     excerpt?: string;

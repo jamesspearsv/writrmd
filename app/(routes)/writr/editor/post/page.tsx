@@ -24,6 +24,7 @@ export default async function Page(props: {
             : undefined
         }
         slug={slug}
+        date={post?.data.date}
       />
     </main>
   );

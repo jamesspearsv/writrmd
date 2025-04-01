@@ -1,9 +1,9 @@
 ---
-title: 'Syntax Examples'
-author: 'James Spears, V'
-date: 2025-03-27T17:36:25.461Z
-tags: ['Markdown']
-excerpt: 'An reference of all markdown syntax and styling supported by Writr.md'
+title: "Syntax Examples"
+author: "James Spears, V"
+date: "Thu Mar 27 2025 13:36:25 GMT-0400 (Eastern Daylight Time)"
+tags: ["Markdown"]
+excerpt: "An reference of all markdown syntax and styling supported by Writr.md"
 published: true
 ---
 
