@@ -171,3 +171,17 @@ General documentation updates and other minor changes.
 ### Fixed
 
 - **Unescaped characters** in YAML post front-matter crashing the app
+
+## v0.4.4 -- April 1, 2025
+
+Fix bug that resulted in post publication dates being rewritten on each post update
+
+### Added
+
+- **Publication date logic** to `savePost` function that determines a correct date value based on publication status and previous publication date
+
+### Changes
+
+- **Updated post editor** to receive a date prop and send this prop to `savePost` server action
+- **Added fallback UI** when a post publication date is empty
+- **Updated post sorting** in `fetchPosts` server action to handle post without publication dates
