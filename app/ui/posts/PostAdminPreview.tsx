@@ -16,10 +16,14 @@ export default function AdminPostPreview(props: { post: Post }) {
       <div className={styles.details}>
         <p>By {post.data.author}</p>
         <p>-</p>
-        <p>{new Date(post.data.date).toDateString()}</p>
+        <p>
+          {post.data.date
+            ? new Date(post.data.date).toDateString()
+            : 'Unpublished'}
+        </p>
         {post.data.tags && (
           <div className={styles.tags}>
-            <p>Tags:</p>
+            {post.data.tags.length > 0 && <p>Tags:</p>}
             {post.data.tags?.map((tag) => (
               <div key={tag} className={styles.tag}>
                 {tag}

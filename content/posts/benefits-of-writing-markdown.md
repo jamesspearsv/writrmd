@@ -1,9 +1,9 @@
 ---
-title: 'The Benefits of Writing in Markdown'
-author: 'Jane Smith'
-date: 2025-03-27T01:54:42.044Z
-tags: ['Markdown','Productivity','Writing']
-excerpt: 'Writing in markdown provides several benefits over other methods.'
+title: "The Benefits of Writing in Markdown"
+author: "Jane Smith"
+date: "Wed Mar 26 2025 21:54:42 GMT-0400 (Eastern Daylight Time)"
+tags: ["Markdown","Productivity","Writing"]
+excerpt: "Writing in markdown provides several benefits over other methods."
 published: true
 ---
 

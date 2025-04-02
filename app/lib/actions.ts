@@ -184,8 +184,6 @@ export async function savePost(
 
   console.error(`Validation passed! ${new Date().toISOString()}`);
 
-  console.log('date:', !!data.date);
-
   // Uniquely slugify post name or use existing slug if provided
   const slug = data.slug ?? uniqueSlugify(data.post.title);
 
@@ -209,7 +207,8 @@ export async function savePost(
     `excerpt: "${data.post.excerpt}"\n` +
     `published: ${data.post.published}\n` +
     `---\n` +
-    `${data.post.content}`;
+    `${data.post.content}` +
+    `\n`;
 
   // Attempt to write new file to filesystem. Catch if unsuccessful
   try {

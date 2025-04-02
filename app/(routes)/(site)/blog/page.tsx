@@ -31,9 +31,7 @@ export default async function BlogPage({ searchParams }: Props) {
 
   if (!posts) return <PlaceholderPage />;
 
-  const publishedPosts = posts.filter((post) => {
-    return post.data.published;
-  });
+  const publishedPosts = posts.filter((post) => post.data.published);
 
   return (
     <div>
