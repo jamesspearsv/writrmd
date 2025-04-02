@@ -12,12 +12,14 @@ export default function Breadcrumbs() {
   path?.splice(0, 1);
 
   return (
-    <section className={clsx(`${styles.breadcrumbs}`)}>
-      {path &&
-        path.length > 0 &&
-        path.map((section, index) => (
-          <Breadcrumb key={index} title={section} index={index} path={path} />
-        ))}
+    <section className={clsx(`${styles.container}`)}>
+      <div className={styles.breadcrumbs}>
+        {path &&
+          path.length > 0 &&
+          path.map((section, index) => (
+            <Breadcrumb key={index} title={section} index={index} path={path} />
+          ))}
+      </div>
     </section>
   );
 }

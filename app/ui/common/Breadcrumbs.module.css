@@ -1,13 +1,15 @@
-.breadcrumbs {
-  display: flex;
+.container {
   position: sticky;
   top: 0;
   width: 100%;
   padding: var(--spacing-size-l);
-  transition: padding-top 250ms ease-in-out;
-  background-color: var(--primary-color);
+  background-color: transparent;
+  backdrop-filter: blur(10px);
 }
 
+.breadcrumbs {
+  display: flex;
+}
 .breadcrumb:not(:last-child) {
   margin-right: var(--spacing-size-xs);
 }

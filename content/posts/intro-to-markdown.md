@@ -7,8 +7,6 @@ excerpt: "What is markdown and why should you use it?"
 published: true
 ---
 
-# Introduction to Markdown
-
 Markdown is a lightweight markup language with plain-text formatting syntax. It was created by John Gruber in 2004 with the goal of making it as readable as possible while still allowing it to be converted to valid HTML.
 
 ## Why Use Markdown?

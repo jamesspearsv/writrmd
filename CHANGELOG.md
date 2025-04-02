@@ -185,3 +185,15 @@ Fix bug that resulted in post publication dates being rewritten on each post upd
 - **Updated post editor** to receive a date prop and send this prop to `savePost` server action
 - **Added fallback UI** when a post publication date is empty
 - **Updated post sorting** in `fetchPosts` server action to handle post without publication dates
+
+## v0.4.5 -- April 2, 2025
+
+Minor changes to the post layout and breadcrumb component
+
+### Added
+
+- **Transparency effect** to breadcrumb component
+
+#### Change
+
+- **Updated post layout** by placing front-matter above the post content

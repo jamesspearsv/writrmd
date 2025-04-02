@@ -3,12 +3,12 @@ title: "Syntax Examples"
 author: "James Spears, V"
 date: "Thu Mar 27 2025 13:36:25 GMT-0400 (Eastern Daylight Time)"
 tags: ["Markdown"]
-excerpt: "An reference of all markdown syntax and styling supported by Writr.md"
+excerpt: "A reference post of all markdown syntax and styling currently supported by Writr.md"
 published: true
 ---
 
 
-# This is a new heading
+# Heading 1
 
 ## Heading 2
 
