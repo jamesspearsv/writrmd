@@ -1,9 +1,9 @@
 ---
-title: 'Introduction to Markdown'
-author: 'James Spears, V'
-date: 2025-03-27T01:54:23.753Z
-tags: ['Markdown','Beginner','Writing']
-excerpt: 'What is markdown and why should you use it?'
+title: "Introduction to Markdown"
+author: "James Spears, V"
+date: "Wed Mar 26 2025 21:54:23 GMT-0400 (Eastern Daylight Time)"
+tags: ["Markdown","Beginner","Writing"]
+excerpt: "What is markdown and why should you use it?"
 published: true
 ---
 

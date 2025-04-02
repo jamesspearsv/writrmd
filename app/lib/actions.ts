@@ -51,9 +51,18 @@ export async function fetchPosts(tag?: string) {
   }
 
   // Sort all posts by publication data
-  posts.sort(
-    (a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime()
-  );
+  posts.sort((a, b) => {
+    if (!a.data.date && !b.data.date) return 0;
+    if (!a.data.date) return -1;
+    if (!b.data.date) return 1;
+
+    const TimeA = new Date(a.data.date).getTime();
+    const TimeB = new Date(a.data.date).getTime();
+
+    if (TimeA < TimeB) return -1;
+    if (TimeA > TimeB) return 1;
+    return 0;
+  });
 
   // Filter by a tag if provided
   if (tag) {
