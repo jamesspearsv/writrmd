@@ -1,19 +1,27 @@
 .container {
-  max-width: calc(var(--content-width) * 1.5);
+  max-width: var(--content-width);
   margin: auto;
-  display: flex;
-  gap: var(--spacing-size);
 }
 
 .frontMatter {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-size-xs);
-  padding: var(--spacing-size);
+  margin-bottom: var(--spacing-size-l);
 }
 
-.date {
-  font-size: var(--font-sizing-small);
+.title {
+  font-size: var(--font-sizing-xl);
+}
+
+.byline {
+  display: flex;
+  gap: var(--spacing-size-xs);
+  align-items: center;
+}
+
+.bylineItem {
+  color: var(--secondary-color-alt-2);
 }
 
 .tags {
@@ -25,4 +33,11 @@
 .tag {
   font-size: var(--font-sizing-small);
   padding: var(--size-1);
+  background-color: var(--accent-color);
+  border-radius: var(--border-radius);
+  color: var(--light);
+}
+
+.post {
+  padding-block: var(--spacing-size-l);
 }
