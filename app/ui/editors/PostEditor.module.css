@@ -10,13 +10,13 @@
 }
 
 .editorControls {
-  height: var(--spacing-size-l);
   background-color: var(--primary-color);
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: var(--spacing-size-s);
-  margin-bottom: var(--spacing-size);
+  padding: var(--spacing-size);
+  background-color: rebeccapurple;
 }
 
 .publishButton {
@@ -50,6 +50,7 @@
   border: solid var(--border-size) var(--primary-color-alt-2);
   height: fit-content;
   flex: 1;
+  background-color: red;
 }
 
 .frontmatter.hidden {

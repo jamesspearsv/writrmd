@@ -12,7 +12,7 @@ export default async function Page() {
   if (!posts) return notFound();
 
   return (
-    <main>
+    <div>
       <section>
         {posts.map((post, index) => (
           <AdminPostPreview key={index} post={post} />
@@ -23,6 +23,6 @@ export default async function Page() {
           <Plus />
         </StyledButton>
       </Link>
-    </main>
+    </div>
   );
 }

@@ -27,7 +27,7 @@ export default function Layout({
           <ThemePicker alt={true} />
         </div>
       </VNav>
-      {children}
+      <main>{children}</main>
     </div>
   );
 }
