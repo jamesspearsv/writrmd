@@ -1,15 +1,15 @@
-.main {
+.container {
   text-align: center;
   width: var(--content-width);
   margin: auto;
   margin-top: var(--spacing-size-xl);
 }
 
-.main > * {
+.container > * {
   margin: var(--size-5) 0;
 }
 
-.main img {
+.container img {
   margin: auto;
   width: var(--size-10);
 }
