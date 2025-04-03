@@ -10,6 +10,7 @@ import ScrollBack from '@/app/ui/common/ScrollBack';
 
 interface TextAreaProps extends CommonInputProps<string> {
   children?: React.ReactNode;
+  sticky?: boolean;
 }
 
 export default function TextArea({ ...props }: TextAreaProps) {
@@ -50,7 +51,12 @@ export default function TextArea({ ...props }: TextAreaProps) {
 
   return (
     <div>
-      <div className={styles.actions}>
+      <div
+        className={clsx(
+          `${styles.actions}`,
+          props.sticky && `${styles.sticky}`
+        )}
+      >
         <div className={styles.toggleControls}>
           <button
             className={clsx(!preview && `${styles.active}`)}
