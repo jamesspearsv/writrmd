@@ -200,3 +200,9 @@ Minor changes to the post layout, breadcrumb component, and text area component.
 - **Updated post layout** by placing front-matter above the post content
 - **Updated savePost** to use validated data instead of user submitted data
 - **Changed post body width** in the post editor to match the width of published posts
+
+## v0.4.6 -- DATE
+
+### Fixed
+
+- **Scrollback positioning** issue caused by using unit-less values
