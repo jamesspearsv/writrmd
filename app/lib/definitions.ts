@@ -5,7 +5,6 @@ export interface Post extends matter.GrayMatterFile<string> {
   data: {
     title: string;
     date: string;
-    // todo: add updated date property
     author: string;
     tags?: string[];
     excerpt?: string;
@@ -25,7 +24,6 @@ export interface Page extends matter.GrayMatterFile<string> {
   isEmpty: boolean;
 }
 
-// todo: add documentation
 export interface CommonInputProps<V> {
   name: string;
   error: boolean;
@@ -57,8 +55,6 @@ export interface Admin extends User {
 }
 
 export interface BlogSettings {
-  // todo: add social links to settings
-  // todo: url string to an svg icon
   name: string;
   summary: string;
   icon?: string;

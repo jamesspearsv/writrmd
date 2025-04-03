@@ -188,12 +188,15 @@ Fix bug that resulted in post publication dates being rewritten on each post upd
 
 ## v0.4.5 -- April 2, 2025
 
-Minor changes to the post layout and breadcrumb component
+Minor changes to the post layout, breadcrumb component, and text area component. Other minor changes to `savePost` server action
 
 ### Added
 
 - **Transparency effect** to breadcrumb component
+- **Scrollback component** to the post editor
 
-#### Change
+#### Changes
 
 - **Updated post layout** by placing front-matter above the post content
+- **Updated savePost** to use validated data instead of user submitted data
+- **Changed post body width** in the post editor to match the width of published posts

@@ -160,7 +160,6 @@ export async function savePost(
   // {, }, [, ], &, *, #, ?, |, -, <, >, =, !, %, @, :, \
 
   // Validate submitted content against the PostSchema
-  // todo: use validated post content to write post
   const results = PostSchema.safeParse({
     title: data.post.title,
     author: data.post.author,
@@ -185,7 +184,7 @@ export async function savePost(
   console.error(`Validation passed! ${new Date().toISOString()}`);
 
   // Uniquely slugify post name or use existing slug if provided
-  const slug = data.slug ?? uniqueSlugify(data.post.title);
+  const slug = data.slug ?? uniqueSlugify(results.data.title);
 
   // Derive publication date from published status and existing date
   let publicationDate;
@@ -200,14 +199,14 @@ export async function savePost(
   // Format post content to write
   const fileContents =
     `---\n` +
-    `title: "${data.post.title}"\n` +
-    `author: "${data.post.author}"\n` +
+    `title: "${results.data.title}"\n` +
+    `author: "${results.data.author}"\n` +
     `date: "${publicationDate}"\n` +
-    `tags: [${data.post.tags.map((tag) => `"${tag}"`)}]\n` +
-    `excerpt: "${data.post.excerpt}"\n` +
-    `published: ${data.post.published}\n` +
+    `tags: [${results.data.tags.map((tag) => `"${tag}"`)}]\n` +
+    `excerpt: "${results.data.excerpt}"\n` +
+    `published: ${results.data.published}\n` +
     `---\n` +
-    `${data.post.content}` +
+    `${results.data.content}` +
     `\n`;
 
   // Attempt to write new file to filesystem. Catch if unsuccessful

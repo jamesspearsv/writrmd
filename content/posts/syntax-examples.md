@@ -6,8 +6,6 @@ tags: ["Markdown"]
 excerpt: "A reference post of all markdown syntax and styling currently supported by Writr.md"
 published: true
 ---
-
-
 # Heading 1
 
 ## Heading 2
@@ -67,6 +65,8 @@ Here's a simple footnote[^1] and here's a longer one.[^2]
 
 [^1]: This is the first footnote.
 [^2]: Here's one with multiple paragraphs and code.
+
+
 
 
 

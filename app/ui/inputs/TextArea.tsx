@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import { Bold, Hash, Italic } from 'react-feather';
 import MarkdownWrapper from '@/app/ui/common/MarkdownWrapper';
 import { CommonInputProps } from '@/app/lib/definitions';
+import ScrollBack from '@/app/ui/common/ScrollBack';
 
 interface TextAreaProps extends CommonInputProps<string> {
   children?: React.ReactNode;
@@ -49,7 +50,6 @@ export default function TextArea({ ...props }: TextAreaProps) {
 
   return (
     <div>
-      {/* issue: #34 Extract markdown editor controls into a new component */}
       <div className={styles.actions}>
         <div className={styles.toggleControls}>
           <button
@@ -94,47 +94,50 @@ export default function TextArea({ ...props }: TextAreaProps) {
           </RichTextButton>
         </div>
       </div>
-      {/* Insert children between textarea controls and input */}
-      {props.children}
-      {!preview ? (
-        <div
-          className={styles.textareaContainer}
-          data-content={props.controller.value}
-        >
-          <textarea
-            id={props.name}
-            name={props.name}
-            ref={editorRef}
+      <div className={styles.container}>
+        {/* Insert children between textarea controls and input */}
+        {props.children}
+        {!preview ? (
+          <div
+            className={styles.textareaContainer}
+            data-content={props.controller.value}
+          >
+            <textarea
+              id={props.name}
+              name={props.name}
+              ref={editorRef}
+              className={clsx(
+                `${styles.textarea}`,
+                props.error && `${styles.error}`
+              )}
+              value={props.controller.value}
+              onChange={(e) => {
+                props.controller.updateValue(
+                  props.controller.key,
+                  e.currentTarget.value
+                );
+              }}
+              placeholder="Begin writing your post..."
+            />
+          </div>
+        ) : (
+          <div
             className={clsx(
-              `${styles.textarea}`,
-              props.error && `${styles.error}`
+              `${styles.previewArea}`,
+              !props.controller.value && `${styles.previewPlaceholder}`
             )}
-            value={props.controller.value}
-            onChange={(e) => {
-              props.controller.updateValue(
-                props.controller.key,
-                e.currentTarget.value
-              );
-            }}
-            placeholder="Begin writing your post..."
-          />
-        </div>
-      ) : (
-        <div
-          className={clsx(
-            `${styles.previewArea}`,
-            !props.controller.value && `${styles.previewPlaceholder}`
-          )}
-        >
-          <MarkdownWrapper
-            value={
-              props.controller.value
-                ? props.controller.value
-                : 'Start writing to see a preview here'
-            }
-          />
-        </div>
-      )}
+          >
+            <MarkdownWrapper
+              value={
+                props.controller.value
+                  ? props.controller.value
+                  : 'Start writing to see a preview here'
+              }
+            />
+          </div>
+        )}
+        <ScrollBack />
+      </div>
     </div>
   );
 }
