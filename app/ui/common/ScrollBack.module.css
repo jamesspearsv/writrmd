@@ -1,7 +1,7 @@
 .scrollBack {
   position: fixed;
-  bottom: 25;
-  right: 25;
+  bottom: var(--spacing-size);
+  right: var(--spacing-size);
   border: none;
   border-radius: var(--radius-round);
   padding: var(--spacing-size-xs);
