@@ -203,6 +203,16 @@ Minor changes to the post layout, breadcrumb component, and text area component.
 
 ## v0.4.6 -- DATE
 
+[WRITE DESCRIPTION...]
+
+### Added
+
+- **Header component** useful for building page headers with consistent margin and styling
+
 ### Fixed
 
 - **Scrollback positioning** issue caused by using unit-less values
+
+### Changes
+
+- **Simplified admin layout** to make page padding, margin more intuitive
