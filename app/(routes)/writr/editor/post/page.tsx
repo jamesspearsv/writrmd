@@ -1,7 +1,6 @@
 import { fetchPostBySlug } from '@/app/lib/actions';
 import { PostContent } from '@/app/lib/definitions';
 import PostEditor from '@/app/ui/editors/PostEditor';
-import styles from './page.module.css';
 
 export default async function Page(props: {
   searchParams: Promise<{ slug?: string }>;
@@ -10,7 +9,7 @@ export default async function Page(props: {
   const post = slug ? await fetchPostBySlug(slug) : undefined;
 
   return (
-    <div className={styles.container}>
+    <>
       <PostEditor
         post={
           post
@@ -27,6 +26,6 @@ export default async function Page(props: {
         slug={slug}
         date={post?.data.date}
       />
-    </div>
+    </>
   );
 }

@@ -3,11 +3,11 @@ import ThemePicker from '@/app/ui/themes/ThemePicker';
 
 export default function Layout({ children }: { children?: React.ReactNode }) {
   return (
-    <div>
+    <>
       <HNav>
         <ThemePicker />
       </HNav>
       <main>{children}</main>
-    </div>
+    </>
   );
 }
