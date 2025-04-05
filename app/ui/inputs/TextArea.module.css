@@ -9,6 +9,11 @@
   border: solid 1px var(--primary-color-alt-2);
 }
 
+.sticky {
+  position: sticky;
+  top: var(--spacing-size-xl);
+}
+
 /* EDITOR/PREVIEW TOGGLE BUTTONS */
 .toggleControls {
   display: flex;

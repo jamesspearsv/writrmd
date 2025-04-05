@@ -1,8 +1,7 @@
 .article {
   --preview-border: solid var(--border-size) var(--primary-color-alt-2);
   width: 100%;
-  padding-block: var(--spacing-size);
-  padding-inline: var(--spacing-size-s);
+  padding-block: var(--spacing-size-s);
   border-top: var(--preview-border);
   border-bottom: var(--preview-border);
 }
@@ -22,6 +21,10 @@
   align-items: flex-end;
   gap: var(--spacing-size-xs);
   margin-bottom: var(--spacing-size-xs);
+}
+
+.heading a:hover {
+  color: var(--accent-color);
 }
 
 .details {

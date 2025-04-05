@@ -32,10 +32,10 @@ export default async function PostPage({
   const slug = (await params).slug;
 
   return (
-    <div>
+    <>
       <Breadcrumbs />
       <Post slug={slug} />
       <ScrollBack />
-    </div>
+    </>
   );
 }

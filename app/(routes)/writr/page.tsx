@@ -1,8 +1,12 @@
+import Header from '@/app/ui/common/Header';
+
 export default async function AdminPage() {
   return (
-    <main>
-      <h1>Admin</h1>
+    <>
+      <Header>
+        <h1>Admin</h1>
+      </Header>
       <p>This is the admin placeholder page.</p>
-    </main>
+    </>
   );
 }

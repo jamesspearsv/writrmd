@@ -62,9 +62,10 @@ body {
   line-height: var(--font-lineheight-5);
 }
 
-main {
+/* todo: verify that this global style can be removed */
+/* main {
   margin-inline: var(--spacing-size-xl);
-}
+} */
 
 h1 {
   font-size: var(--font-size-5);

@@ -135,6 +135,7 @@ export default function PostEditor(props: {
               value: editorData.content,
               updateValue,
             }}
+            sticky
           >
             <Input
               name="title"

@@ -11,7 +11,7 @@ export default function Layout({
   children: Readonly<React.ReactNode>;
 }) {
   return (
-    <div className={styles.container}>
+    <>
       <VNav>
         <div className={styles.buttonContainer}>
           <StyledButton
@@ -27,7 +27,9 @@ export default function Layout({
           <ThemePicker alt={true} />
         </div>
       </VNav>
-      {children}
-    </div>
+      <main className={styles.main}>
+        <section className={styles.section}>{children}</section>
+      </main>
+    </>
   );
 }

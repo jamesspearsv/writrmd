@@ -9,7 +9,7 @@ export default async function Page(props: {
   const post = slug ? await fetchPostBySlug(slug) : undefined;
 
   return (
-    <main>
+    <>
       <PostEditor
         post={
           post
@@ -26,6 +26,6 @@ export default async function Page(props: {
         slug={slug}
         date={post?.data.date}
       />
-    </main>
+    </>
   );
 }

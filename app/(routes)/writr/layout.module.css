@@ -1,7 +1,9 @@
-.container main {
-  margin: var(--spacing-size-xl);
-  margin-top: var(--spacing-size-l);
-  margin-left: calc(var(--sidebar-width) + var(--spacing-size-xl));
+.main {
+  margin-left: var(--sidebar-width);
+}
+
+.section {
+  padding-inline: var(--spacing-size-xl);
 }
 
 .buttonContainer {
