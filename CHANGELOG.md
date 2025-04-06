@@ -201,9 +201,9 @@ Minor changes to the post layout, breadcrumb component, and text area component.
 - **Updated savePost** to use validated data instead of user submitted data
 - **Changed post body width** in the post editor to match the width of published posts
 
-## v0.4.6 -- DATE
+## v0.4.6 -- April 6, 2025
 
-[WRITE DESCRIPTION...]
+Minor changes and optimizations to page structures and bug fixes.
 
 ### Added
 
