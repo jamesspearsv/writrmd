@@ -34,8 +34,8 @@ export default async function BlogPage({ searchParams }: Props) {
   const publishedPosts = posts.filter((post) => post.data.published);
 
   return (
-    <div>
+    <>
       <PostList posts={publishedPosts} />
-    </div>
+    </>
   );
 }

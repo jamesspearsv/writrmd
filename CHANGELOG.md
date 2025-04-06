@@ -200,3 +200,19 @@ Minor changes to the post layout, breadcrumb component, and text area component.
 - **Updated post layout** by placing front-matter above the post content
 - **Updated savePost** to use validated data instead of user submitted data
 - **Changed post body width** in the post editor to match the width of published posts
+
+## v0.4.6 -- April 6, 2025
+
+Minor changes and optimizations to page structures and bug fixes.
+
+### Added
+
+- **Header component** useful for building page headers with consistent margin and styling
+
+### Fixed
+
+- **Scrollback positioning** issue caused by using unit-less values
+
+### Changes
+
+- **Simplified admin layout** to make page padding, margin more intuitive
