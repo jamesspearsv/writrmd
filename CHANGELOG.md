@@ -216,3 +216,21 @@ Minor changes and optimizations to page structures and bug fixes.
 ### Changes
 
 - **Simplified admin layout** to make page padding, margin more intuitive
+
+## v0.5.0 -- April 7, 2025
+
+Add a basic mobile responsive layout and minor styling changes
+
+### Added
+
+- **Basic mobile layout** for public facing pages
+- **Mobile specific scrollback** behavior to use mobile screens more efficiently
+
+### Changes
+
+- **Changed admin and public post previews** to improve visual consistency and CSS structure
+- **Increased Markdown line height** to improve readability
+
+### Fixed
+
+- **Blockquote styling issue** that resulted in text overflowing the container on mobile
