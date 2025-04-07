@@ -54,7 +54,6 @@ export default function PostEditor(props: {
   const [sidebarHidden, setSidebarHidden] = useState(false);
   const submitButtonRef = useRef<HTMLButtonElement | null>(null);
 
-  // todo: extract to hook
   // Add keyboard listener to body for cmd | ctrl + enter submission
   useEffect(() => {
     const controller = new AbortController();

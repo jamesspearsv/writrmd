@@ -13,13 +13,12 @@
   background-color: var(--secondary-color-alt);
 }
 
-.title {
+.title a {
   text-decoration: none;
 }
 
-.title:hover {
-  color: var(--secondary-color-alt);
-  text-decoration: none;
+.title a:hover {
+  color: var(--accent-color);
 }
 
 .byline {

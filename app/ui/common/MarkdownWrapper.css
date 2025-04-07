@@ -1,4 +1,8 @@
 .markdown-wrapper {
+  * {
+    line-height: 1.75;
+  }
+
   h1,
   h2,
   h3,
@@ -73,6 +77,7 @@
   blockquote {
     color: var(--secondary-color-alt);
     background-color: var(--primary-color-alt-2);
+    text-wrap: wrap;
   }
 
   code {

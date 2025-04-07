@@ -9,8 +9,28 @@
   transition: opacity 250ms ease-in-out;
   background-color: var(--secondary-color-alt);
   color: var(--primary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .scrollBack.hidden {
   opacity: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .scrollBack {
+    right: -1px;
+    bottom: -1px;
+    left: -1px;
+    border-radius: 0;
+    padding-block: var(--spacing-size-s);
+    margin-left: 0;
+    transition: margin-left 500ms ease-in-out;
+  }
+
+  .scrollBack.hidden {
+    margin-left: 101dvw;
+    opacity: 1;
+  }
 }

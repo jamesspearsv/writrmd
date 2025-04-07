@@ -2,3 +2,10 @@
   width: var(--content-width);
   margin: auto;
 }
+
+@media screen and (max-width: 768px) {
+  .section {
+    width: auto;
+    margin-inline: var(--spacing-size-l);
+  }
+}

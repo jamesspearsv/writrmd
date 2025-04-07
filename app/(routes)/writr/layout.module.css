@@ -1,5 +1,6 @@
 .main {
   margin-left: var(--sidebar-width);
+  margin-bottom: var(--spacing-size-l);
 }
 
 .section {

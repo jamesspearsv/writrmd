@@ -10,7 +10,7 @@ export default function AdminPostPreview(props: { post: Post }) {
     <article className={styles.article}>
       <div className={styles.heading}>
         <Link href={`/writr/editor/post?slug=${post.data.slug}`}>
-          <h3>{post.data.title}</h3>
+          <h2>{post.data.title}</h2>
         </Link>
       </div>
       <div className={styles.details}>

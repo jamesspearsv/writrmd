@@ -1,6 +1,8 @@
 .base {
   border: none;
   cursor: pointer;
+  color: inherit;
+  background-color: inherit;
 }
 
 .base:disabled {

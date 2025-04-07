@@ -17,8 +17,8 @@
   --font-sizing: 1rem;
   --font-sizing-small: var(--font-size-0);
   --font-sizing-medium: var(--font-size-4);
-  --font-sizing-large: var(--font-size-3);
-  --font-sizing-xl: var(--font-size-5);
+  --font-sizing-large: var(--font-size-5);
+  --font-sizing-xl: var(--font-size-6);
   --spacing-size-xs: var(--size-2);
   --spacing-size-s: var(--size-3);
   --spacing-size: var(--size-4);
@@ -61,11 +61,6 @@ body {
   font-weight: var(--normal-weight);
   line-height: var(--font-lineheight-5);
 }
-
-/* todo: verify that this global style can be removed */
-/* main {
-  margin-inline: var(--spacing-size-xl);
-} */
 
 h1 {
   font-size: var(--font-size-5);

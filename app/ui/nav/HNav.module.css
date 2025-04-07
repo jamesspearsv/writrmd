@@ -1,5 +1,6 @@
 .nav {
-  padding: var(--spacing-size) var(--spacing-size-l);
+  padding-inline: var(--spacing-size-l);
+  height: var(--spacing-size-xl);
   border-bottom: var(--border-size-1) solid var(--secondary-color-alt);
   background-color: var(--primary-color);
   display: flex;
@@ -9,7 +10,6 @@
 
 .navHeading {
   font-weight: var(--bold-weight);
-  font-size: var(--font-sizing-medium);
 
   & a {
     text-decoration: none;
@@ -31,5 +31,11 @@
     color: var(--secondary-color);
     text-decoration: none;
     cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .nav {
+    font-size: var(--spacing-size);
   }
 }
