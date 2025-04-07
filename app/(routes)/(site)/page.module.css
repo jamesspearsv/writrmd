@@ -2,14 +2,11 @@
   text-align: center;
   width: var(--content-width);
   margin: auto;
-  margin-top: var(--spacing-size-xl);
 }
 
-.container > * {
-  margin: var(--size-5) 0;
-}
-
-.container img {
-  margin: auto;
-  width: var(--size-10);
+@media screen and (max-width: 768px) {
+  .container {
+    width: auto;
+    margin-inline: var(--spacing-size-l);
+  }
 }

@@ -1,25 +1,23 @@
+'use client';
+
 import Link from 'next/link';
 import styles from './HNav.module.css';
-import { readSettings } from '@/app/lib/actions';
 import { roboto_slab } from '@/app/ui/fonts';
 import clsx from 'clsx';
 
-export default async function HNav({
-  children,
+export default function HNav({
+  ...props
 }: {
   children?: React.ReactNode;
+  blogName: string;
 }) {
-  const settings = await readSettings();
-
   return (
     <nav className={styles.nav}>
-      <ul className={styles.list}>
+      <ul className={clsx(`${styles.list}`)}>
         <li
           className={clsx(`${styles.navHeading}`, `${roboto_slab.className}`)}
         >
-          <Link href={'/'}>
-            {settings.success ? settings.data.name : 'Placeholder'}
-          </Link>
+          <Link href={'/'}>{props.blogName}</Link>
         </li>
         <li>
           <Link className={styles.link} href={'/blog'}>
@@ -27,7 +25,7 @@ export default async function HNav({
           </Link>
         </li>
       </ul>
-      <div>{children}</div>
+      <div>{props.children}</div>
     </nav>
   );
 }

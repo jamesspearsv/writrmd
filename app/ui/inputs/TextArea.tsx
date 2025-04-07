@@ -31,12 +31,11 @@ export default function TextArea({ ...props }: TextAreaProps) {
     if (!editorRef.current) return;
     const editor = editorRef.current;
     // get the current cursor position
-    const selectionPosition = editor.selectionStart;
+    let selectionPosition = editor.selectionStart;
 
-    // bug: Unexpected effects cursor positioning when editor isn't focused
-    // if (editor !== document.activeElement) {
-    //   selectionPosition = props.controller.value.length - 1;
-    // }
+    if (editor !== document.activeElement) {
+      selectionPosition = props.controller.value.length - 1;
+    }
 
     // split current value at current selection index
     const v1 = props.controller.value.slice(0, selectionPosition);

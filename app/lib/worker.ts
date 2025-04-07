@@ -40,7 +40,6 @@ export default class TaskWorker {
     this.working = true;
     // start the worker process
     try {
-      // todo: figure out how to return type of resolved promise that is given to queue
       const result = await task.promise();
       task.resolve(result);
     } catch {
