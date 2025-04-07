@@ -7,9 +7,11 @@ export default function PostPreview(props: { post: Post }) {
 
   return (
     <article className={styles.article}>
-      <Link href={`/blog/${post.data.slug}`} className={styles.title}>
-        <h3>{post.data.title}</h3>
-      </Link>
+      <div className={styles.title}>
+        <Link href={`/blog/${post.data.slug}`}>
+          <h2>{post.data.title}</h2>
+        </Link>
+      </div>
       {post.data.excerpt && <p>{post.data.excerpt}</p>}
       <p className={styles.byline}>
         By {post.data.author}

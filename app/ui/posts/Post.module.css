@@ -41,3 +41,10 @@
 .post {
   padding-block: var(--spacing-size-l);
 }
+
+@media screen and (max-width: 786px) {
+  .container {
+    width: auto;
+    padding-inline: var(--spacing-size-l);
+  }
+}
