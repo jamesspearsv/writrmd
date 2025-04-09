@@ -45,7 +45,7 @@
 }
 
 .tag {
-  color: var(--light);
+  color: var(--clr-light);
   background-color: var(--clr-accent);
   padding: 0.25rem;
   font-size: var(--font-small);
@@ -54,7 +54,7 @@
 
 .status {
   margin-top: var(--spacing-xs);
-  color: var(--light);
+  color: var(--clr-light);
   padding: 0.25rem;
   border-radius: var(--border-radius);
   width: fit-content;

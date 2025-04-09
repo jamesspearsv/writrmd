@@ -28,7 +28,7 @@
 
   & input[type='submit'] {
     background-color: var(--clr-accent);
-    color: var(--light);
+    color: var(--clr-light);
     cursor: pointer;
   }
 }
