@@ -1,64 +1,69 @@
 @import 'open-props/style';
 
 :root {
-  /* open-props design tokens */
-  --dark: var(--gray-10);
-  --lighter-dark: var(--gray-9);
-  --lightest-dark: var(--gray-7);
-  --light: var(--stone-1);
-  --darker-light: var(--stone-3);
-  --darkest-light: var(--stone-4);
+  /* STATIC COLOR */
+  --clr-accent: var(--green-9);
+  --clr-light: var(--stone-1);
 
-  /* app properties */
-  --accent-color: var(--green-9);
-  --accent-color-alt: var(--green-8);
-  --normal-weight: var(--font-weight-4);
-  --bold-weight: var(--font-weight-7);
+  /* FONT PROPERTIES */
   --font-sizing: 1rem;
-  --font-sizing-small: var(--font-size-0);
-  --font-sizing-medium: var(--font-size-4);
-  --font-sizing-large: var(--font-size-5);
-  --font-sizing-xl: var(--font-size-6);
-  --spacing-size-xs: var(--size-2);
-  --spacing-size-s: var(--size-3);
-  --spacing-size: var(--size-4);
-  --spacing-size-l: var(--size-7);
-  --spacing-size-xl: var(--size-10);
-  --border-radius: var(--radius-2);
+  --font-small: var(--font-size-0);
+  --font-medium: var(--font-size-4);
+  --font-large: var(--font-size-5);
+  --font-xl: var(--font-size-6);
+  --weight-normal: var(--font-weight-4);
+  --weight-bold: var(--font-weight-7);
+
+  /* SPACING PROPERTIES */
+  --spacing-xxs: var(--size-1);
+  --spacing-xs: var(--size-2);
+  --spacing-small: var(--size-3);
+  --spacing-medium: var(--size-4);
+  --spacing-large: var(--size-7);
+  --spacing-xl: var(--size-10);
+
+  /* CONTENT WIDTHS */
   --content-width: var(--size-content-3);
   --content-width-xs: var(--size-content-1);
   --content-width-s: var(--size-content-2);
   --sidebar-width: var(--size-13);
+
+  /* BORDER PROPERTIES */
   --border-radius: var(--radius-2);
   --border-size: var(--border-size-1);
-  --editor-controls-height: var(--spacing-size-xl);
+
+  /* MISC PROPERTIES */
+  --editor-controls-height: var(--spacing-xl);
 }
 
+/* LIGHT THEME */
 html[data-theme='light'] {
-  --primary-color: var(--light);
-  --primary-color-alt: var(--darker-light);
-  --primary-color-alt-2: var(--darkest-light);
-  --secondary-color: var(--dark);
-  --secondary-color-alt: var(--lighter-dark);
-  --secondary-color-alt-2: var(--lightest-dark);
-  --danger-color: var(--red-9);
+  --clr-fg-1: var(--gray-10);
+  --clr-fg-2: var(--gray-8);
+  --clr-fg-3: var(--gray-6);
+  --clr-bg-1: var(--stone-1);
+  --clr-bg-2: var(--stone-3);
+  --clr-bg-3: var(--stone-5);
+  --clr-danger: var(--red-9);
 }
 
+/* DARK THEME */
 html[data-theme='dark'] {
-  --primary-color: var(--dark);
-  --primary-color-alt: var(--lighter-dark);
-  --primary-color-alt-2: var(--lightest-dark);
-  --secondary-color: var(--light);
-  --secondary-color-alt: var(--darker-light);
-  --secondary-color-alt-2: var(--darkest-light);
-  --danger-color: var(--red-6);
+  --clr-fg-1: var(--stone-1);
+  --clr-fg-2: var(--stone-4);
+  --clr-fg-3: var(--stone-6);
+  --clr-bg-1: var(--gray-9);
+  --clr-bg-2: var(--gray-7);
+  --clr-bg-3: var(--gray-5);
+  --clr-danger: var(--red-6);
 }
 
+/* GLOBAL STYLES */
 body {
-  background-color: var(--primary-color);
-  color: var(--secondary-color);
+  background-color: var(--clr-bg-1);
+  color: var(--clr-fg-1);
   font-size: 18px;
-  font-weight: var(--normal-weight);
+  font-weight: var(--weight-normal);
   line-height: var(--font-lineheight-5);
 }
 
@@ -75,7 +80,7 @@ h3 {
 }
 
 a {
-  color: var(--secondary-color);
+  color: var(--clr-fg-1);
 
   &:hover {
     color: var(--blue-6);
@@ -91,11 +96,10 @@ button {
 input:focus,
 textarea:focus,
 button:focus {
-  outline: solid 1px var(--secondary-color);
-  outline-offset: -1px;
+  outline: solid 2px var(--clr-fg-1);
 }
 
-/* CSS reset */
+/* CSS RESET */
 /* 1. Use a more-intuitive box-sizing model */
 *,
 *::before,

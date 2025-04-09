@@ -9,11 +9,11 @@
   h4,
   h5,
   h6 {
-    margin-block: var(--spacing-size-s);
+    margin-block: var(--spacing-small);
   }
 
   p {
-    margin-bottom: var(--spacing-size-s);
+    margin-bottom: var(--spacing-small);
   }
 
   ul {
@@ -30,13 +30,13 @@
 
   ul,
   ol {
-    margin-block: var(--spacing-size-s);
-    padding-left: var(--spacing-size);
+    margin-block: var(--spacing-small);
+    padding-left: var(--spacing-medium);
     list-style-position: inside;
   }
 
   li {
-    margin-block: var(--spacing-size-xs);
+    margin-block: var(--spacing-xs);
   }
 
   li.task-list-item {
@@ -46,18 +46,18 @@
 
   li:has(input[type='checkbox']:checked) {
     text-decoration: line-through;
-    color: var(--secondary-color);
+    color: var(--clr-fg-3);
   }
 
   li > input[type='checkbox'] {
     appearance: none;
     background-color: inherit;
     margin: 0;
-    margin-right: var(--spacing-size-xs);
+    margin-right: var(--spacing-xs);
     font: inherit;
     height: 0.75rem;
     width: 0.75rem;
-    border: solid var(--border-size) var(--secondary-color-alt-2);
+    border: solid var(--border-size) var(--clr-fg-1);
     border-radius: 2px;
     display: flex;
     justify-content: center;
@@ -66,66 +66,60 @@
 
   li > input[type='checkbox']:checked::before {
     content: '';
-    height: 0.4rem;
-    width: 0.4rem;
-    margin: auto;
-    background-color: var(--accent-color);
+    height: var(--spacing-xs);
+    width: var(--spacing-xs);
+    background-color: var(--clr-accent);
   }
 
-  pre:has(code),
+  pre,
   code,
   blockquote {
-    color: var(--secondary-color-alt);
-    background-color: var(--primary-color-alt-2);
-    text-wrap: wrap;
-  }
-
-  code {
     padding: 5px;
-    font-size: calc(var(--font-sizing) * 0.9);
+    background-color: var(--clr-bg-2);
     border-radius: var(--border-radius);
-  }
+    font-size: calc(var(--font-sizing) * 0.9);
 
-  pre > code {
-    padding: 0;
-    width: 100%;
-    background-color: inherit;
-  }
-
-  blockquote {
-    border-left: 5px var(--secondary-color-alt-2) solid;
-
-    p {
+    p,
+    code {
+      text-wrap: wrap;
+      color: var(--clr-fg-2);
       margin: 0;
+      padding: 0;
+      width: 100%;
+      background-color: inherit;
     }
   }
 
+  blockquote {
+    border-left: 5px var(--clr-fg-3) solid;
+  }
+
   pre:has(code),
   blockquote {
     width: 100%;
-    margin-block: var(--spacing-size-s);
-    padding: var(--spacing-size-s);
+    margin-block: var(--spacing-small);
+    padding: var(--spacing-small);
     border-radius: var(--border-radius);
   }
 
   del {
-    color: var(--secondary-color-alt-2);
+    color: var(--clr-fg-3);
   }
 
   hr {
-    margin-block: var(--spacing-size-s);
+    margin-block: var(--spacing-small);
   }
 
   table {
     width: 100%;
-    margin-block: var(--spacing-size-s);
+    margin-block: var(--spacing-small);
     text-align: center;
     border-collapse: collapse;
   }
 
   thead {
-    font-size: var(--bold-weight);
-    background-color: var(--primary-color-alt-2);
+    font-size: var(--weight-bold);
+    background-color: var(--clr-bg-2);
     border-radius: var(--border-radius) 0;
   }
 
@@ -135,7 +129,7 @@
 
   th,
   td {
-    padding: var(--spacing-size-xs);
-    border: solid var(--border-size) var(--secondary-color-alt-2);
+    padding: var(--spacing-xs);
+    border: solid var(--border-size) var(--clr-bg-3);
   }
 }

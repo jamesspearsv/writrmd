@@ -2,8 +2,9 @@
 
 import Link from 'next/link';
 import styles from './HNav.module.css';
-import { roboto_slab } from '@/app/ui/fonts';
 import clsx from 'clsx';
+
+// todo: #55 Refactor HNav to centralize component elements
 
 export default function HNav({
   ...props
@@ -14,9 +15,7 @@ export default function HNav({
   return (
     <nav className={styles.nav}>
       <ul className={clsx(`${styles.list}`)}>
-        <li
-          className={clsx(`${styles.navHeading}`, `${roboto_slab.className}`)}
-        >
+        <li className={clsx(`${styles.navHeading}`)}>
           <Link href={'/'}>{props.blogName}</Link>
         </li>
         <li>

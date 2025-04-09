@@ -4,43 +4,38 @@
 .actions {
   display: flex;
   flex-direction: row;
-  margin-bottom: var(--spacing-size-xs);
-  background-color: var(--primary-color);
-  border: solid 1px var(--primary-color-alt-2);
+  margin-bottom: var(--spacing-xs);
+  background-color: var(--clr-bg-1);
+  border: solid 1px var(--clr-bg-3);
+}
+
+.actions button {
+  background-color: inherit;
+  color: var(--clr-fg-1);
+  flex: 1;
+}
+
+.actions button:hover {
+  font-weight: var(--weight-bold);
+  background-color: var(--clr-bg-2);
 }
 
 .sticky {
   position: sticky;
-  top: var(--spacing-size-xl);
+  top: var(--spacing-xl);
 }
 
 /* EDITOR/PREVIEW TOGGLE BUTTONS */
 .toggleControls {
   display: flex;
   flex: 0.5;
-  border-right: solid 1px var(--primary-color-alt-2);
-}
-
-.toggleControls button {
-  background-color: inherit;
-  color: var(--secondary-color-alt);
-  flex: 1;
-}
-
-.toggleControls button:hover {
-  text-decoration: underline;
-  font-weight: var(--bold-weight);
-}
-
-.toggleControls button:focus-visible {
-  outline: solid var(--border-size-2) var(--secondary-color);
+  border-right: solid 1px var(--clr-bg-3);
 }
 
 .toggleControls button.active {
-  background-color: var(--primary-color-alt-2);
-  font-weight: var(--bold-weight);
-  color: var(--secondary-color);
-  text-decoration: underline;
+  background-color: var(--clr-bg-2);
+  font-weight: var(--weight-bold);
+  color: var(--clr-fg-1);
 }
 
 /* RICH TEXT CONTROLS */
@@ -50,19 +45,13 @@
 }
 
 .rteButton {
-  background-color: inherit;
-  color: inherit;
-  padding: var(--spacing-size-xs);
+  padding: var(--spacing-xs);
   display: inline-flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 0.25rem;
   flex: 1;
-
-  &:hover {
-    background-color: var(--primary-color-alt-2);
-  }
 
   & > svg {
     --icon-size: 1rem;
@@ -73,7 +62,7 @@
   & > div {
     margin: 0;
     padding: 0;
-    font-size: var(--font-sizing-small);
+    font-size: var(--font-small);
   }
 }
 
@@ -107,33 +96,27 @@
 .textarea {
   border: none;
   background-color: inherit;
-  /* background-color: var(--primary-color-alt); */
-  color: var(--secondary-color);
-  padding: var(--spacing-size);
+  color: var(--clr-fg-1);
+  padding: var(--spacing-medium);
   grid-area: 1 / 1 / 2 / 2;
-}
-
-.textarea:focus {
-  outline: solid var(--border-size) var(--secondary-color);
-  outline-offset: -1px;
 }
 
 /*
   CONTENT PREVIEWER
   */
 .previewArea {
-  /* background-color: var(--primary-color-alt); */
+  /* background-color: var(--clr-bg-2); */
   /* height: 100%; */
-  padding: var(--spacing-size);
+  padding: var(--spacing-medium);
 }
 
 .previewPlaceholder {
-  color: var(--secondary-color-alt);
+  color: var(--clr-fg-2);
 }
 
 /*
   ERROR STYLES
   */
 .textarea.error {
-  outline: solid var(--border-size) var(--danger-color);
+  outline: solid var(--border-size) var(--clr-danger);
 }

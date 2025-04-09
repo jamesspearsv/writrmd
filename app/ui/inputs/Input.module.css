@@ -1,50 +1,44 @@
 .group {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-size-xs);
+  gap: var(--spacing-xs);
   justify-content: space-between;
-  margin-bottom: var(--spacing-size-xs);
+  margin-bottom: var(--spacing-xs);
 }
 
 .input {
   border: none;
-  /* margin-block: var(--spacing-size-xs); */
-  color: var(--secondary-color);
-}
-
-.input:focus {
-  outline: solid var(--border-size) var(--secondary-color);
-  outline-offset: -1px;
+  color: var(--clr-fg-1);
 }
 
 .input.error {
-  outline: solid var(--border-size) var(--danger-color);
+  outline: solid var(--border-size) var(--clr-danger);
 }
 
 /* Variants */
 .input.normal {
-  background-color: var(--primary-color-alt);
+  background-color: var(--clr-bg-2);
   border-radius: var(--border-radius);
-  padding: var(--spacing-size-xs);
+  padding: var(--spacing-xs);
 }
 
 .input.borderless {
   background-color: inherit;
   border-radius: 0;
-  font-weight: var(--bold-weight);
+  font-weight: var(--weight-bold);
 }
 
 /* Sizes */
 .small {
-  padding: var(--spacing-size-s);
+  padding: var(--spacing-small);
 }
 
 .medium {
-  padding: var(--spacing-size-s) var(--spacing-size);
-  font-size: var(--font-sizing-medium);
+  padding: var(--spacing-small) var(--spacing-medium);
+  font-size: var(--font-medium);
 }
 
 .large {
-  padding: var(--spacing-size);
-  font-size: var(--font-sizing-xl);
+  padding: var(--spacing-medium);
+  font-size: var(--font-xl);
 }

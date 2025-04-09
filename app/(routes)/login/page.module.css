@@ -1,5 +1,5 @@
 .container {
-  margin: calc(var(--spacing-size-xl) + 3rem);
+  margin: calc(var(--spacing-xl) + 3rem);
 }
 
 .theme_picker_container {

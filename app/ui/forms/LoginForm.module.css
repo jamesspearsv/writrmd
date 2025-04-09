@@ -1,6 +1,6 @@
 .heading {
   display: flex;
-  gap: var(--spacing-size-s);
+  gap: var(--spacing-small);
 }
 
 .formContainer {
@@ -11,32 +11,29 @@
   margin: auto;
 
   & input {
-    padding: var(--spacing-size-xs);
+    padding: var(--spacing-xs);
     border: none;
     border-radius: var(--border-radius);
-    background-color: var(--primary-color-alt);
-    color: var(--secondary-color);
+    background-color: var(--clr-bg-2);
+    color: var(--clr-fg-1);
 
     &::placeholder {
-      color: var(--secondary-color-alt);
+      color: var(--clr-fg-2);
     }
 
     &:focus {
-      outline-color: var(--secondary-color);
+      outline-color: var(--clr-fg-1);
     }
   }
 
   & input[type='submit'] {
-    background-color: var(--accent-color);
+    background-color: var(--clr-accent);
     color: var(--light);
-
-    &:hover {
-      background-color: var(--accent-color-alt);
-    }
+    cursor: pointer;
   }
 }
 
 .errorDetails {
   font-style: italic;
-  color: var(--danger-color);
+  color: var(--clr-danger);
 }

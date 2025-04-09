@@ -1,8 +1,8 @@
 .container {
   display: flex;
-  gap: var(--spacing-size-s);
+  gap: var(--spacing-small);
   align-items: center;
-  margin-bottom: var(--spacing-size-s);
+  margin-bottom: var(--spacing-small);
 }
 
 .toggleContainer {
@@ -13,18 +13,18 @@
   justify-content: flex-start;
   width: 50px;
   height: 25px;
-  background-color: var(--lightest-dark);
+  background-color: var(--clr-bg-2);
   border: none;
-  border-radius: 35px;
+  border-radius: 28px;
   transition: background-color 250ms ease-in-out;
 }
 
 .toggleContainer.toggled {
-  background-color: var(--accent-color);
+  background-color: var(--clr-accent);
 }
 
 .toggleIndicator {
-  background-color: var(--light);
+  background-color: var(--clr-light);
   flex: 1;
   aspect-ratio: 1/1;
   transition-property: margin;
