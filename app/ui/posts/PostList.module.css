@@ -6,6 +6,6 @@
 @media screen and (max-width: 768px) {
   .section {
     width: auto;
-    margin-inline: var(--spacing-size-l);
+    margin-inline: var(--spacing-large);
   }
 }

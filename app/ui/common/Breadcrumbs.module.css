@@ -2,7 +2,7 @@
   position: sticky;
   top: 0;
   width: 100%;
-  padding: var(--spacing-size-l);
+  padding: var(--spacing-large);
   background-color: transparent;
   backdrop-filter: blur(10px);
 }
@@ -11,10 +11,10 @@
   display: flex;
 }
 .breadcrumb:not(:last-child) {
-  margin-right: var(--spacing-size-xs);
+  margin-right: var(--spacing-xs);
 }
 
 .breadcrumb:not(:last-child)::after {
-  margin-left: var(--spacing-size-xs);
+  margin-left: var(--spacing-xs);
   content: '/';
 }

@@ -1,20 +1,26 @@
 .main {
   margin-left: var(--sidebar-width);
-  margin-bottom: var(--spacing-size-l);
+  margin-bottom: var(--spacing-large);
 }
 
 .section {
-  padding-inline: var(--spacing-size-xl);
+  padding-inline: var(--spacing-xl);
 }
 
 .buttonContainer {
   display: flex;
-  gap: var(--spacing-size-s);
+  gap: var(--spacing-small);
   justify-content: center;
+  align-items: center;
 }
 
-.logoutButton {
-  background-color: var(--secondary-color);
-  color: var(--primary-color-alt);
-  padding: var(--spacing-size-s);
+.button {
+  border-radius: 100%;
+  padding: var(--spacing-small);
+  color: var(--clr-fg-1);
+  border-radius: 100%;
+}
+
+.button:hover {
+  background-color: var(--clr-bg-2);
 }

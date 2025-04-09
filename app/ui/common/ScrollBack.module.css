@@ -1,14 +1,14 @@
 .scrollBack {
   position: fixed;
-  bottom: var(--spacing-size);
-  right: var(--spacing-size);
+  bottom: var(--spacing-medium);
+  right: var(--spacing-medium);
   border: none;
   border-radius: var(--radius-round);
-  padding: var(--spacing-size-xs);
+  padding: var(--spacing-xs);
   box-shadow: var(--shadow-2);
   transition: opacity 250ms ease-in-out;
-  background-color: var(--secondary-color-alt);
-  color: var(--primary-color);
+  background-color: var(--clr-fg-2);
+  color: var(--clr-bg-1);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,7 +24,7 @@
     bottom: -1px;
     left: -1px;
     border-radius: 0;
-    padding-block: var(--spacing-size-s);
+    padding-block: var(--spacing-small);
     margin-left: 0;
     transition: margin-left 500ms ease-in-out;
   }

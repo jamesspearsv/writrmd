@@ -6,45 +6,45 @@
 .frontMatter {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-size-xs);
-  margin-bottom: var(--spacing-size-l);
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-large);
 }
 
 .title {
-  font-size: var(--font-sizing-xl);
+  font-size: var(--font-xl);
 }
 
 .byline {
   display: flex;
-  gap: var(--spacing-size-xs);
+  gap: var(--spacing-xs);
   align-items: center;
 }
 
 .bylineItem {
-  color: var(--secondary-color-alt-2);
+  color: var(--clr-fg-2);
 }
 
 .tags {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-size-xs);
+  gap: var(--spacing-xs);
 }
 
 .tag {
-  font-size: var(--font-sizing-small);
+  font-size: var(--font-small);
   padding: var(--size-1);
-  background-color: var(--accent-color);
+  background-color: var(--clr-accent);
   border-radius: var(--border-radius);
-  color: var(--light);
+  color: var(--clr-light);
 }
 
 .post {
-  padding-block: var(--spacing-size-l);
+  padding-block: var(--spacing-large);
 }
 
 @media screen and (max-width: 786px) {
   .container {
     width: auto;
-    padding-inline: var(--spacing-size-l);
+    padding-inline: var(--spacing-large);
   }
 }

@@ -1,5 +1,5 @@
 .article {
-  margin: var(--spacing-size-l) 0;
+  margin: var(--spacing-large) 0;
   position: relative;
 }
 
@@ -7,10 +7,10 @@
   content: '';
   display: block;
   position: absolute;
-  top: calc(var(--spacing-size-s) * -1);
+  top: calc(var(--spacing-small) * -1);
   height: 1px;
   width: 100%;
-  background-color: var(--secondary-color-alt);
+  background-color: var(--clr-fg-2);
 }
 
 .title a {
@@ -18,13 +18,13 @@
 }
 
 .title a:hover {
-  color: var(--accent-color);
+  color: var(--clr-accent);
 }
 
 .byline {
-  color: var(--secondary-color-alt);
+  color: var(--clr-fg-2);
 
   .span {
-    margin: 0 var(--spacing-size-xs);
+    margin: 0 var(--spacing-xs);
   }
 }

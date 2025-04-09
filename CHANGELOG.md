@@ -234,3 +234,13 @@ Add a basic mobile responsive layout and minor styling changes
 ### Fixed
 
 - **Blockquote styling issue** that resulted in text overflowing the container on mobile
+
+## v0.5.1 -- April 9, 2025
+
+Patch custom css properties to improve usability
+
+### Changes
+
+- **Updated CSS property schema** to standardize property naming
+- **Minor styling changes** to fix inconsistencies in spacing, colors, etc.
+- **Updated vertical nav layout** to better divide nav items from actions & moved visit site link to buttons row

@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import styles from './VNav.module.css';
 import { roboto_slab } from '@/app/ui/fonts';
-import { BookOpen, Home, Layout, Settings } from 'react-feather';
+import { BookOpen, Home, Settings } from 'react-feather';
+
+// todo: #54 Refactor VNav to centralize component elements
 
 export default function VNav({ children }: { children?: React.ReactNode }) {
   return (
@@ -11,9 +13,6 @@ export default function VNav({ children }: { children?: React.ReactNode }) {
         <ul className={styles.list}>
           <NavItem href="/writr" label="Dashboard">
             <Home size={16} />
-          </NavItem>
-          <NavItem href="/" label="Visit site" target="_blank">
-            <Layout size={16} />
           </NavItem>
           <NavItem href="/writr/posts" label="Posts">
             <BookOpen size={16} />
@@ -28,6 +27,8 @@ export default function VNav({ children }: { children?: React.ReactNode }) {
   );
 }
 
+
+// todo: #56 Improve NavItem component versatility
 function NavItem({
   href,
   label,

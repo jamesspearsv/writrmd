@@ -2,57 +2,57 @@
   max-width: 100%;
   display: flex;
   flex-direction: row;
-  gap: var(--spacing-size-xs);
+  gap: var(--spacing-xs);
 }
 
 .editor {
-  flex: 2.5;
+  flex: 2;
 }
 
 .editorControls {
-  background-color: var(--primary-color);
+  background-color: var(--clr-bg-1);
   display: flex;
-  height: var(--spacing-size-xl);
+  height: var(--spacing-xl);
   justify-content: flex-end;
   align-items: center;
-  gap: var(--spacing-size-s);
+  gap: var(--spacing-small);
   position: sticky;
   top: 0;
 }
 
 .publishButton {
-  color: var(--secondary-color-alt);
+  color: var(--clr-fg-1);
   background-color: inherit;
   padding: 5px;
 }
 
 .publishButton:hover {
-  color: var(--light);
-  background-color: var(--accent-color);
+  color: var(--clr-light);
+  background-color: var(--clr-accent);
 }
 
 .sidebarButton {
   transform: rotate(180deg);
-  color: var(--secondary-color-alt);
+  color: var(--clr-fg-1);
   background-color: inherit;
-  padding: var(--spacing-size-xs);
+  padding: var(--spacing-xs);
 }
 
 .sidebarButton.open {
-  background-color: var(--accent-color);
-  color: var(--light);
+  background-color: var(--clr-accent);
+  color: var(--clr-light);
   border: none;
   border-radius: var(--border-radius);
 }
 
 .frontmatter {
-  padding: var(--spacing-size);
-  background-color: var(--primary-color);
-  border: solid var(--border-size) var(--primary-color-alt-2);
+  padding: var(--spacing-medium);
+  background-color: var(--clr-bg-1);
+  border: solid var(--border-size) var(--clr-bg-3);
   height: fit-content;
   flex: 1;
   position: sticky;
-  top: var(--spacing-size-xl);
+  top: var(--spacing-xl);
 }
 
 .frontmatter.hidden {
@@ -60,7 +60,7 @@
 }
 
 div.error {
-  color: var(--danger-color);
-  font-size: var(--font-sizing-small);
+  color: var(--clr-danger);
+  font-size: var(--font-small);
   font-style: italic;
 }

@@ -5,12 +5,11 @@
   left: 0;
 
   width: var(--sidebar-width);
-  padding: var(--spacing-size);
+  padding: var(--spacing-medium);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: var(--primary-color-alt);
-  box-shadow: var(--shadow-1);
+  border-right: solid var(--border-size) var(--clr-fg-3);
 }
 
 .list {
@@ -19,8 +18,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: var(--spacing-size-xs);
-  margin-top: var(--spacing-size-xs);
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-xs);
 }
 
 .list li {
@@ -29,7 +28,7 @@
 
 .itemLink,
 .itemLink:hover {
-  color: var(--secondary-color);
+  color: var(--clr-fg-1);
   text-decoration: none;
 }
 
@@ -37,15 +36,15 @@
   width: 100%;
   color: inherit;
   display: flex;
-  gap: var(--spacing-size-xs);
+  gap: var(--spacing-xs);
   background-color: inherit;
   align-items: center;
-  padding: var(--spacing-size-xs) var(--spacing-size-s);
+  padding: var(--spacing-xs) var(--spacing-small);
   border-radius: var(--border-radius);
 }
 
 .item:hover {
-  background-color: var(--primary-color-alt-2);
+  background-color: var(--clr-bg-2);
 }
 
 .actions {
