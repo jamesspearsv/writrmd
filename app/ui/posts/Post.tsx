@@ -4,7 +4,6 @@ import styles from './Post.module.css';
 import Link from 'next/link';
 import MarkdownWrapper from '@/app/ui/common/MarkdownWrapper';
 
-// todo: add basic mobile styles to post component
 export default async function Post(props: { slug: string }) {
   const post = await fetchPostBySlug(props.slug);
 

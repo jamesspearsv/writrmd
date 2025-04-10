@@ -5,8 +5,6 @@ import styles from './SiteNav.module.css';
 import clsx from 'clsx';
 import ThemePicker from '@/app/ui/themes/ThemePicker';
 
-// todo: #55 Refactor HNav to centralize component elements
-
 export default function SiteNav(props: { blogName: string }) {
   return (
     <nav className={styles.nav}>
