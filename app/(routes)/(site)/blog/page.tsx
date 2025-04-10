@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { fetchPosts } from '@/app/lib/actions';
+import { fetchAllPosts } from '@/app/lib/actions';
 import PostList from '@/app/ui/posts/PostList';
 import PlaceholderPage from '@/app/ui/common/PlaceholderPage';
 
@@ -11,7 +11,6 @@ export async function generateMetadata({
   searchParams,
 }: Props): Promise<Metadata> {
   const tag = (await searchParams).tag;
-  console.log(typeof tag);
   if (typeof tag === 'string') {
     if (tag) {
       return {
@@ -27,11 +26,11 @@ export async function generateMetadata({
 
 export default async function BlogPage({ searchParams }: Props) {
   const tag = (await searchParams).tag;
-  const posts = await fetchPosts(tag);
+  const posts = await fetchAllPosts(tag);
 
-  if (!posts) return <PlaceholderPage />;
+  if (!posts.success) return <PlaceholderPage />;
 
-  const publishedPosts = posts.filter((post) => post.data.published);
+  const publishedPosts = posts.data.filter((post) => post.data.published);
 
   return (
     <>

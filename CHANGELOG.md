@@ -245,3 +245,22 @@ Patch custom css properties to improve usability and refactor navigation compone
 - **Minor styling changes** to fix inconsistencies in spacing, colors, etc
 - **Updated vertical nav layout** to better divide nav items from actions & moved visit site link to buttons row
 - **Updated navigation components** to move `props.children` within component definition
+
+## v0.5.2 -- April 9, 2025
+
+Implemented a result pattern in relevant server action functions
+
+### Added
+
+- **Result return value** to relevant server actions and refactored relevant uses throughout the codebase
+
+### Changes
+
+- **Renamed various server actions** to use more understandable naming schemes
+  - `fetchPosts` was renamed to `fetchAllPosts`
+  - `fetchPostBySlug` was renamed to `fetchPost`
+- **Renamed ActionResult definition** to `Result` to use a more concise name
+
+### Removed
+
+- **Unused server actions** for deprecated features related to reading standalone page files

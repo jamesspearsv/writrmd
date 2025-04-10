@@ -1,15 +1,16 @@
-import { fetchPostBySlug } from '@/app/lib/actions';
+import { fetchPost } from '@/app/lib/actions';
 import { notFound } from 'next/navigation';
 import styles from './Post.module.css';
 import Link from 'next/link';
 import MarkdownWrapper from '@/app/ui/common/MarkdownWrapper';
 
 export default async function Post(props: { slug: string }) {
-  const post = await fetchPostBySlug(props.slug);
+  const result = await fetchPost(props.slug);
 
   //  404 if post is null
-  if (!post) notFound();
+  if (!result.success) notFound();
 
+  const post = result.data;
   const date = new Date(post.data.date);
 
   return (

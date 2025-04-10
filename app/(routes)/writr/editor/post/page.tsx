@@ -1,4 +1,4 @@
-import { fetchPostBySlug } from '@/app/lib/actions';
+import { fetchPost } from '@/app/lib/actions';
 import { PostContent } from '@/app/lib/definitions';
 import PostEditor from '@/app/ui/editors/PostEditor';
 
@@ -6,7 +6,8 @@ export default async function Page(props: {
   searchParams: Promise<{ slug?: string }>;
 }) {
   const slug = (await props.searchParams).slug;
-  const post = slug ? await fetchPostBySlug(slug) : undefined;
+  const result = slug ? await fetchPost(slug) : undefined;
+  const post = result && result.success ? result.data : undefined;
 
   return (
     <>

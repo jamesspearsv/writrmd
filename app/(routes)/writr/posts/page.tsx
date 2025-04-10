@@ -1,4 +1,4 @@
-import { fetchPosts } from '@/app/lib/actions';
+import { fetchAllPosts } from '@/app/lib/actions';
 import { Plus } from 'react-feather';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
@@ -8,9 +8,9 @@ import styles from './page.module.css';
 import Header from '@/app/ui/common/Header';
 
 export default async function Page() {
-  const posts = await fetchPosts();
+  const posts = await fetchAllPosts();
 
-  if (!posts) return notFound();
+  if (!posts.success) return notFound();
 
   return (
     <>
@@ -18,7 +18,7 @@ export default async function Page() {
         <h1>All Posts</h1>
       </Header>
       <section>
-        {posts.map((post, index) => (
+        {posts.data.map((post, index) => (
           <AdminPostPreview key={index} post={post} />
         ))}
       </section>
