@@ -1,4 +1,4 @@
-import { fetchPosts } from '@/app/lib/actions';
+import { fetchAllPosts } from '@/app/lib/actions';
 import { Plus } from 'react-feather';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
@@ -8,7 +8,7 @@ import styles from './page.module.css';
 import Header from '@/app/ui/common/Header';
 
 export default async function Page() {
-  const posts = await fetchPosts();
+  const posts = await fetchAllPosts();
 
   if (!posts.success) return notFound();
 

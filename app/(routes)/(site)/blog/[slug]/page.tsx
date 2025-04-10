@@ -1,4 +1,4 @@
-import { fetchPostBySlug } from '@/app/lib/actions';
+import { fetchPost } from '@/app/lib/actions';
 import Post from '@/app/ui/posts/Post';
 import Breadcrumbs from '@/app/ui/common/Breadcrumbs';
 import ScrollBack from '@/app/ui/common/ScrollBack';
@@ -12,12 +12,12 @@ export async function generateMetadata({
   params,
 }: PostProps): Promise<Metadata> {
   const slug = (await params).slug;
-  const post = await fetchPostBySlug(slug);
+  const result = await fetchPost(slug);
 
-  if (post) {
+  if (result.success) {
     return {
-      title: post.data.title,
-      description: post.data.excerpt,
+      title: result.data.data.title,
+      description: result.data.excerpt,
     };
   }
 

@@ -9,11 +9,10 @@ import { revalidatePath } from 'next/cache';
 import TaskWorker from '@/app/lib/worker';
 import {
   Post,
-  Page,
   PostContent,
   PostEditorAction,
   BlogSettings,
-  ActionResult,
+  Result,
 } from '@/app/lib/definitions';
 
 // Absolute path to project dir from filesystem root
@@ -22,13 +21,14 @@ const rootDir = process.env.ROOT_PATH;
 const pattern = /^[\w-]+\.md$/;
 const settingsFile =
   process.env.NODE_ENV === 'production' ? 'settings.json' : 'settings.dev.json';
+const worker = new TaskWorker();
 
 /**
  * Asynchronously fetches all existing posts
  * @param tag Optional tag string used to filter posts
- * @returns Returns a promise that resolves to successful result with an array of posts or rejects by returning an unsuccessful result
+ * @returns Returns a promise that resolves to a successful result object with an array of posts or rejects with an unsuccessful Result object
  */
-export async function fetchPosts(tag?: string): Promise<ActionResult<Post[]>> {
+export async function fetchAllPosts(tag?: string): Promise<Result<Post[]>> {
   const posts: Post[] = [];
 
   // Attempt to read all posts files from /content/posts
@@ -86,59 +86,16 @@ export async function fetchPosts(tag?: string): Promise<ActionResult<Post[]>> {
 /**
  * Asynchronously fetches a single post from a given slug
  * @param slug Post slug derived from a route url
- * @returns Returns a promise that resolves to a single post or null if unsuccessful
+ * @returns Returns a promise that resolves to a successful Result object with a single post or rejects with an unsuccessful Result object
  */
-export async function fetchPostBySlug(slug: string) {
+export async function fetchPost(slug: string): Promise<Result<Post>> {
   const filename = slug + '.md';
   try {
-    const file = matter.read(`${rootDir}/content/posts/${filename}`) as Post;
-    return file;
+    const post = matter.read(`${rootDir}/content/posts/${filename}`) as Post;
+    return { success: true, data: post };
   } catch (error) {
     console.error(error);
-    return null;
-  }
-}
-
-/**
- * Asynchronously build an index of stand alone pages
- * @returns An array page urls as strings
- */
-// export async function buildPagesIndex() {
-//   const pages: Page[] = [];
-//   let files: string[];
-
-//   try {
-//     files = await fs.readdir(`${rootDir}/content/pages`);
-//   } catch (error) {
-//     console.error(error);
-//     return null;
-//   }
-
-//   files.forEach((file) => {
-//     // skip index page
-//     if (file !== 'index.md' && file.match(pattern)) {
-//       const page = matter.read(`${rootDir}/content/pages/${file}`) as Page;
-//       page.data.slug = file.split('.')[0];
-//       pages.push(page);
-//     }
-//   });
-
-//   return pages;
-// }
-
-/**
- * Asynchronously fetch a standalone page from a given url slug
- * @param page Requested page url slug as a string
- * @returns Returns a promise that resolves to the requested page or null is unsuccessful
- */
-export async function fetchPage(page: string) {
-  try {
-    const filename = `${page}.md`;
-    const file = matter.read(`${rootDir}/content/pages/${filename}`) as Page;
-    return file;
-  } catch (error) {
-    console.error(error);
-    return null;
+    return { success: false, error: 'Unable to fetch post' };
   }
 }
 
@@ -146,7 +103,7 @@ export async function fetchPage(page: string) {
  * Asynchronously write a new post file to server filesystem
  * @param _ The current editor state object including ok status, error message, field errors
  * @param data An object containing post content, slug, and existing publication date when editing an existing post
- * @returns Returns a new editor state or redirects if successfully writes new file
+ * @returns Returns a new editor state or redirects if a new file was saved successfully
  */
 export async function savePost(
   _: PostEditorAction,
@@ -230,9 +187,9 @@ export async function savePost(
 
 /**
  * Asynchronously read app settings using an internal worker queue
- * @returns Returns a promise that resolves to an action result
+ * @returns Returns a promise resolves to a successful result object with the current settings or rejects with an unsuccessful result object
  */
-export async function readSettings(): Promise<ActionResult<BlogSettings>> {
+export async function readSettings(): Promise<Result<BlogSettings>> {
   try {
     const data = await fs.readFile(`${rootDir}/content/${settingsFile}`, {
       encoding: 'utf-8',
@@ -245,8 +202,6 @@ export async function readSettings(): Promise<ActionResult<BlogSettings>> {
     return { success: false, error: 'Server error' };
   }
 }
-
-const worker = new TaskWorker();
 
 /**
  * Asynchronously update a given settings property with a given value
@@ -274,14 +229,14 @@ export async function updateSettingValue<K extends keyof BlogSettings>(
         return {
           success: true,
           data: 'Successfully updated settings',
-        } as ActionResult;
+        } as Result;
       } catch (error) {
         if (error instanceof Error) {
           console.error(error);
           return {
             success: false,
             error: 'Unable to update settings',
-          } as ActionResult;
+          } as Result;
         }
       }
     }
@@ -290,11 +245,11 @@ export async function updateSettingValue<K extends keyof BlogSettings>(
     return {
       success: false,
       error: 'Unable to read settings',
-    } as ActionResult;
+    } as Result;
   };
 
   // Add the update process to worker queue and await the result
-  await worker.add<ActionResult<string>>(process);
+  await worker.add<Result<string>>(process);
   revalidatePath('/writr/settings');
 }
 
