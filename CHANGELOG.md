@@ -237,10 +237,11 @@ Add a basic mobile responsive layout and minor styling changes
 
 ## v0.5.1 -- April 9, 2025
 
-Patch custom css properties to improve usability
+Patch custom css properties to improve usability and refactor navigation components to centralize structure and styles
 
 ### Changes
 
 - **Updated CSS property schema** to standardize property naming
-- **Minor styling changes** to fix inconsistencies in spacing, colors, etc.
+- **Minor styling changes** to fix inconsistencies in spacing, colors, etc
 - **Updated vertical nav layout** to better divide nav items from actions & moved visit site link to buttons row
+- **Updated navigation components** to move `props.children` within component definition

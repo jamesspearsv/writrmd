@@ -1,6 +1,5 @@
 import { readSettings } from '@/app/lib/actions';
-import HNav from '@/app/ui/nav/HNav';
-import ThemePicker from '@/app/ui/themes/ThemePicker';
+import SiteNav from '@/app/ui/nav/SiteNav';
 import styles from './layout.module.css';
 
 export default async function Layout({
@@ -12,9 +11,7 @@ export default async function Layout({
 
   return (
     <>
-      <HNav blogName={settings.success ? settings.data.name : 'Writr.md'}>
-        <ThemePicker />
-      </HNav>
+      <SiteNav blogName={settings.success ? settings.data.name : 'Writr.md'} />
       <main className={styles.main}>{children}</main>
     </>
   );

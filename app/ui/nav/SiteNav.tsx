@@ -1,17 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import styles from './HNav.module.css';
+import styles from './SiteNav.module.css';
 import clsx from 'clsx';
+import ThemePicker from '@/app/ui/themes/ThemePicker';
 
 // todo: #55 Refactor HNav to centralize component elements
 
-export default function HNav({
-  ...props
-}: {
-  children?: React.ReactNode;
-  blogName: string;
-}) {
+export default function SiteNav(props: { blogName: string }) {
   return (
     <nav className={styles.nav}>
       <ul className={clsx(`${styles.list}`)}>
@@ -24,7 +20,9 @@ export default function HNav({
           </Link>
         </li>
       </ul>
-      <div>{props.children}</div>
+      <div>
+        <ThemePicker />
+      </div>
     </nav>
   );
 }

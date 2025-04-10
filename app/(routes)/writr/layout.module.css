@@ -6,21 +6,3 @@
 .section {
   padding-inline: var(--spacing-xl);
 }
-
-.buttonContainer {
-  display: flex;
-  gap: var(--spacing-small);
-  justify-content: center;
-  align-items: center;
-}
-
-.button {
-  border-radius: 100%;
-  padding: var(--spacing-small);
-  color: var(--clr-fg-1);
-  border-radius: 100%;
-}
-
-.button:hover {
-  background-color: var(--clr-bg-2);
-}
