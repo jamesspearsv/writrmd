@@ -6,8 +6,6 @@ import ThemePicker from '@/app/ui/themes/ThemePicker';
 import StyledButton from '@/app/ui/common/StyledButton';
 import { logout } from '@/app/lib/authActions';
 
-// todo: #54 Refactor VNav to centralize component elements
-
 export default function AdminNav() {
   return (
     <nav className={styles.nav}>
@@ -48,7 +46,6 @@ export default function AdminNav() {
   );
 }
 
-// todo: #56 Improve NavItem component versatility
 function NavItem(props: {
   href: string;
   label: string;
