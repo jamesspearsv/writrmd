@@ -29,9 +29,9 @@ export default async function BlogPage({ searchParams }: Props) {
   const tag = (await searchParams).tag;
   const posts = await fetchPosts(tag);
 
-  if (!posts) return <PlaceholderPage />;
+  if (!posts.success) return <PlaceholderPage />;
 
-  const publishedPosts = posts.filter((post) => post.data.published);
+  const publishedPosts = posts.data.filter((post) => post.data.published);
 
   return (
     <>

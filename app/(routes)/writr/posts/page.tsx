@@ -10,7 +10,7 @@ import Header from '@/app/ui/common/Header';
 export default async function Page() {
   const posts = await fetchPosts();
 
-  if (!posts) return notFound();
+  if (!posts.success) return notFound();
 
   return (
     <>
@@ -18,7 +18,7 @@ export default async function Page() {
         <h1>All Posts</h1>
       </Header>
       <section>
-        {posts.map((post, index) => (
+        {posts.data.map((post, index) => (
           <AdminPostPreview key={index} post={post} />
         ))}
       </section>

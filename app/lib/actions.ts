@@ -26,9 +26,9 @@ const settingsFile =
 /**
  * Asynchronously fetches all existing posts
  * @param tag Optional tag string used to filter posts
- * @returns Returns a promise that resolved to an array of posts or null unsuccessful
+ * @returns Returns a promise that resolves to successful result with an array of posts or rejects by returning an unsuccessful result
  */
-export async function fetchPosts(tag?: string) {
+export async function fetchPosts(tag?: string): Promise<ActionResult<Post[]>> {
   const posts: Post[] = [];
 
   // Attempt to read all posts files from /content/posts
@@ -47,7 +47,7 @@ export async function fetchPosts(tag?: string) {
   } catch (error) {
     // Return null if reading files is unsuccessful
     console.error(error);
-    return null;
+    return { success: false, error: 'Unable to fetch posts' };
   }
 
   // Sort all posts by publication data
@@ -76,11 +76,11 @@ export async function fetchPosts(tag?: string) {
       }
       return match;
     });
-    return filteredPosts;
+    return { success: true, data: filteredPosts };
   }
 
   // Return an array of posts to the client
-  return posts;
+  return { success: true, data: posts };
 }
 
 /**
