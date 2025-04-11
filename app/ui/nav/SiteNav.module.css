@@ -8,16 +8,14 @@
   align-items: center;
 }
 
-.navHeading {
+.heading {
   font-weight: var(--weight-bold);
+  text-decoration: none;
+}
 
-  & a {
-    text-decoration: none;
-  }
-
-  & a:hover {
-    color: var(--clr-accent);
-  }
+.heading:hover {
+  color: var(--clr-accent);
+  text-decoration: none;
 }
 
 .list {
@@ -25,13 +23,17 @@
   list-style: none;
   align-items: center;
   gap: var(--spacing-medium);
+}
 
-  .link,
-  .link:hover {
-    color: var(--clr-fg-1);
-    text-decoration: none;
-    cursor: pointer;
-  }
+.link {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.link.active,
+.link:hover {
+  color: var(--clr-accent);
+  text-decoration: none;
 }
 
 @media screen and (max-width: 768px) {
