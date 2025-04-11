@@ -28,7 +28,11 @@ const worker = new TaskWorker();
  * @param tag Optional tag string used to filter posts
  * @returns Returns a promise that resolves to a successful result object with an array of posts or rejects with an unsuccessful Result object
  */
-export async function fetchAllPosts(tag?: string): Promise<Result<Post[]>> {
+export async function fetchAllPosts(options?: {
+  tag?: string;
+  limit?: number;
+  publishedOnly?: boolean;
+}): Promise<Result<Post[]>> {
   const posts: Post[] = [];
 
   // Attempt to read all posts files from /content/posts
@@ -64,23 +68,31 @@ export async function fetchAllPosts(tag?: string): Promise<Result<Post[]>> {
     return 0;
   });
 
-  // Filter by a tag if provided
-  if (tag) {
-    const filteredPosts = posts.filter((post) => {
-      let match = false;
-      const tags = post.data.tags;
-      if (tags) {
-        tags.forEach((t) => {
-          if (t.toLocaleLowerCase() === tag.toLocaleLowerCase()) match = true;
-        });
-      }
-      return match;
-    });
-    return { success: true, data: filteredPosts };
+  if (options) {
+    const filterResults = posts;
+    // Filter by a tag if provided
+    if (options.tag) {
+      // todo: filter post by publishedOnly option
+      // todo: refactor tag filter to use slice method
+      const filteredPosts = posts.filter((post) => {
+        let match = false;
+        const tags = post.data.tags;
+        if (tags) {
+          tags.forEach((t) => {
+            if (t.toLocaleLowerCase() === options.tag?.toLocaleLowerCase())
+              match = true;
+          });
+        }
+        return match;
+      });
+      // todo: filter posts by limit option
+    }
+    // Return matching posts to the client
+    return { success: true, data: filterResults };
+  } else {
+    // Return all posts to the client
+    return { success: true, data: posts };
   }
-
-  // Return an array of posts to the client
-  return { success: true, data: posts };
 }
 
 /**

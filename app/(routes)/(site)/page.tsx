@@ -11,12 +11,12 @@ export default async function Home() {
   const settings = await readSettings();
   const posts = await fetchAllPosts();
 
-  /* todo: Add post preview limit
+  /* [ ]: Add post preview limit
    * Limit to 3 to 5 most recent posts.
    * Consider implementing this as a param in fetchAllPosts.
    */
 
-  // todo: Add social links
+  // [ ]: Add social links
 
   if (!settings.success) return <PlaceholderPage />;
 
@@ -33,9 +33,7 @@ export default async function Home() {
           <h2>Recent Posts</h2>
           <hr />
           {posts.data.map((post, index) => {
-            if (post.data.published) {
-              return <PostPreview key={index} post={post} variant="minimal" />;
-            } else return null;
+            return <PostPreview key={index} post={post} variant="minimal" />;
           })}
           <Link href={'/blog'} className={styles.all_posts}>
             <div>
