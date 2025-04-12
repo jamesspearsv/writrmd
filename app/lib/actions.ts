@@ -14,6 +14,7 @@ import {
   BlogSettings,
   Result,
 } from '@/app/lib/definitions';
+import { includes } from '@/app/lib/helpers';
 
 // Absolute path to project dir from filesystem root
 const rootDir = process.env.ROOT_PATH;
@@ -25,13 +26,13 @@ const worker = new TaskWorker();
 
 /**
  * Asynchronously fetches all existing posts
- * @param tag Optional tag string used to filter posts
+ * @param options Options object used to provide filtering choices including tags, publication status, and number of posts to fetch
  * @returns Returns a promise that resolves to a successful result object with an array of posts or rejects with an unsuccessful Result object
  */
 export async function fetchAllPosts(options?: {
   tag?: string;
   limit?: number;
-  publishedOnly?: boolean;
+  publishedOnly: boolean;
 }): Promise<Result<Post[]>> {
   const posts: Post[] = [];
 
@@ -70,23 +71,29 @@ export async function fetchAllPosts(options?: {
 
   if (options) {
     const filterResults = posts;
-    // Filter by a tag if provided
-    if (options.tag) {
-      // todo: filter post by publishedOnly option
-      // todo: refactor tag filter to use slice method
-      const filteredPosts = posts.filter((post) => {
-        let match = false;
-        const tags = post.data.tags;
-        if (tags) {
-          tags.forEach((t) => {
-            if (t.toLocaleLowerCase() === options.tag?.toLocaleLowerCase())
-              match = true;
-          });
-        }
-        return match;
+
+    // Filter posts by publishedOnly option
+    if (options.publishedOnly) {
+      filterResults.forEach((post, index) => {
+        if (!post.data.published) filterResults.splice(index, 1);
       });
-      // todo: filter posts by limit option
     }
+
+    // Filter by a tag option
+    if (options.tag) {
+      filterResults.forEach((post, index) => {
+        if (options.tag && !includes(post.data.tags, options.tag))
+          filterResults.splice(index, 1);
+      });
+    }
+
+    // Filter posts by limit option
+    if (options.limit && options.limit > 0) {
+      while (filterResults.length > options.limit) {
+        filterResults.pop();
+      }
+    }
+
     // Return matching posts to the client
     return { success: true, data: filterResults };
   } else {

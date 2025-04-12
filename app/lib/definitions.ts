@@ -6,8 +6,8 @@ export interface Post extends matter.GrayMatterFile<string> {
     title: string;
     date: string;
     author: string;
-    tags?: string[];
-    excerpt?: string;
+    tags: string[];
+    excerpt: string;
     slug: string; // custom slug property to id and link posts
     published: boolean;
   };

@@ -264,3 +264,15 @@ Implemented a result pattern in relevant server action functions
 ### Removed
 
 - **Unused server actions** for deprecated features related to reading standalone page files
+
+## v0.6.0 -- TODO
+
+Add an improved landing page design and elements
+
+### Added
+
+- **Minimal post preview** to display recent posts on the blog landing page
+
+### Changes
+
+-**Updated `fetchAllPosts`** to use an option object with tag, limit, and publishedOnly options

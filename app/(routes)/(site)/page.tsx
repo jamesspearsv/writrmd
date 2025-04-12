@@ -9,12 +9,7 @@ import Link from 'next/link';
 
 export default async function Home() {
   const settings = await readSettings();
-  const posts = await fetchAllPosts();
-
-  /* [ ]: Add post preview limit
-   * Limit to 3 to 5 most recent posts.
-   * Consider implementing this as a param in fetchAllPosts.
-   */
+  const posts = await fetchAllPosts({ publishedOnly: true, limit: 5 });
 
   // [ ]: Add social links
 
