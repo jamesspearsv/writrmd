@@ -7,6 +7,12 @@
   text-align: center;
 }
 
+.social_links {
+  display: flex;
+  gap: var(--spacing-small);
+  align-items: center;
+}
+
 .recent_posts {
   margin-top: var(--spacing-large);
   display: flex;

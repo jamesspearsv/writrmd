@@ -6,12 +6,11 @@ import PostPreview from '@/app/ui/posts/PostPreview';
 import Header from '@/app/ui/common/Header';
 import { ArrowRight } from 'react-feather';
 import Link from 'next/link';
+import Icon from '@/app/ui/common/Icon';
 
 export default async function Home() {
   const settings = await readSettings();
   const posts = await fetchAllPosts({ publishedOnly: true, limit: 5 });
-
-  // [ ]: Add social links
 
   if (!settings.success) return <PlaceholderPage />;
 
@@ -22,6 +21,22 @@ export default async function Home() {
           <h1>{settings.data.name}</h1>
         </Header>
         <MarkdownWrapper value={`${settings.data.summary}`} />
+      </div>
+      {/* todo: finish social links styles */}
+      <div className={styles.social_links}>
+        <h3>Find me elsewhere online</h3>
+        <div>
+          {settings.data.github && (
+            <Link href={settings.data.github}>
+              <Icon name="GitHub" /> Github
+            </Link>
+          )}
+          {settings.data.linkedin && (
+            <Link href={settings.data.linkedin}>
+              <Icon name="Linkedin" /> LinkedIn
+            </Link>
+          )}
+        </div>
       </div>
       {posts.success && (
         <div className={styles.recent_posts}>

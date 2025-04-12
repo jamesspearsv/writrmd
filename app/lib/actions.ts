@@ -13,6 +13,7 @@ import {
   PostEditorAction,
   BlogSettings,
   Result,
+  DefaultSettings,
 } from '@/app/lib/definitions';
 import { includes } from '@/app/lib/helpers';
 
@@ -213,7 +214,16 @@ export async function readSettings(): Promise<Result<BlogSettings>> {
     const data = await fs.readFile(`${rootDir}/content/${settingsFile}`, {
       encoding: 'utf-8',
     });
-    const settings = JSON.parse(data) as BlogSettings;
+    let settings = JSON.parse(data) as BlogSettings;
+
+    const keys = Object.keys(DefaultSettings);
+
+    keys.forEach((K) => {
+      const key = K as keyof BlogSettings;
+      if (!settings[key]) {
+        settings = { ...settings, [key]: DefaultSettings[key] };
+      }
+    });
 
     return { success: true, data: settings };
   } catch (error) {

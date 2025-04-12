@@ -57,8 +57,17 @@ export interface Admin extends User {
 export interface BlogSettings {
   name: string;
   summary: string;
-  icon?: string;
+  github?: string;
+  linkedin?: string;
 }
+
+export const DefaultSettings: BlogSettings = {
+  name: 'Writr.md',
+  summary:
+    'Self-hosted markdown blogging powered by Next.js. Head to [/writr](/writr) to get started',
+  github: 'https://github.com/jamesspearsv/writrmd',
+  linkedin: 'https://linkedin.com',
+};
 
 export type Result<T = string> =
   | { success: true; data: T }
