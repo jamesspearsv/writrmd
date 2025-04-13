@@ -13,7 +13,6 @@ import {
   PostEditorAction,
   BlogSettings,
   Result,
-  DefaultSettings,
 } from '@/app/lib/definitions';
 import { includes } from '@/app/lib/helpers';
 
@@ -214,16 +213,7 @@ export async function readSettings(): Promise<Result<BlogSettings>> {
     const data = await fs.readFile(`${rootDir}/content/${settingsFile}`, {
       encoding: 'utf-8',
     });
-    let settings = JSON.parse(data) as BlogSettings;
-
-    const keys = Object.keys(DefaultSettings);
-
-    keys.forEach((K) => {
-      const key = K as keyof BlogSettings;
-      if (!settings[key]) {
-        settings = { ...settings, [key]: DefaultSettings[key] };
-      }
-    });
+    const settings = JSON.parse(data) as BlogSettings;
 
     return { success: true, data: settings };
   } catch (error) {
@@ -280,6 +270,14 @@ export async function updateSettingValue<K extends keyof BlogSettings>(
   // Add the update process to worker queue and await the result
   await worker.add<Result<string>>(process);
   revalidatePath('/writr/settings');
+}
+
+export async function UpdateSettings(
+  state: Result<BlogSettings>,
+  newSettings: BlogSettings
+) {
+  console.log(newSettings);
+  return state;
 }
 
 /**

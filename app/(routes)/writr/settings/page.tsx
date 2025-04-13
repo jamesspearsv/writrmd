@@ -1,5 +1,6 @@
 import { readSettings } from '@/app/lib/actions';
 import Header from '@/app/ui/common/Header';
+import SettingsEditor from '@/app/ui/editors/SettingsEditor';
 import SettingsItem from '@/app/ui/settings/SettingsItem';
 
 export default async function Page() {
@@ -20,16 +21,11 @@ export default async function Page() {
         label="Summary"
         editor
       />
-      <SettingsItem
-        property="github"
-        label="Github Profile"
-        value={settings.github}
-      />
-      <SettingsItem
-        property="linkedin"
-        label="LinkedIn Profile"
-        value={settings.linkedin}
-      />
+      <br />
+      <hr />
+      <br />
+      <h3>Socials</h3>
+      <SettingsEditor settings={settings} />
     </>
   );
 }

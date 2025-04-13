@@ -21,6 +21,7 @@ import Input from '@/app/ui/inputs/Input';
 import TextArea from '@/app/ui/inputs/TextArea';
 import List from '@/app/ui/inputs/List';
 import Toggle from '@/app/ui/inputs/Toggle';
+import { startupSnapshot } from 'v8';
 
 const initialLocalState: PostContent = {
   title: '',
@@ -37,6 +38,9 @@ const initialActionState: PostEditorAction = {
   errors: {},
 };
 
+/*************************
+ * COMPONENT STARTS HERE *
+ ************************/
 export default function PostEditor(props: {
   post?: PostContent;
   slug?: string;
