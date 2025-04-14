@@ -1,6 +1,5 @@
 import { readSettings } from '@/app/lib/actions';
 import Header from '@/app/ui/common/Header';
-import SettingsEditor from '@/app/ui/editors/SettingsEditor';
 import SettingsItem from '@/app/ui/settings/SettingsItem';
 
 export default async function Page() {
@@ -14,6 +13,8 @@ export default async function Page() {
       <Header>
         <h1>Settings</h1>
       </Header>
+      <hr />
+      <h2>General Settings</h2>
       <SettingsItem property="name" value={settings.name} label="Name" />
       <SettingsItem
         property="summary"
@@ -21,11 +22,8 @@ export default async function Page() {
         label="Summary"
         editor
       />
-      <br />
       <hr />
-      <br />
-      <h3>Socials</h3>
-      <SettingsEditor settings={settings} />
+      <h2>Social Account</h2>
     </>
   );
 }

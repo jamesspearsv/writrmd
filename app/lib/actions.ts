@@ -132,9 +132,6 @@ export async function savePost(
     date: string | undefined;
   }
 ) {
-  // Characters to escape:
-  // {, }, [, ], &, *, #, ?, |, -, <, >, =, !, %, @, :, \
-
   // Validate submitted content against the PostSchema
   const results = PostSchema.safeParse({
     title: data.post.title,
@@ -270,14 +267,6 @@ export async function updateSettingValue<K extends keyof BlogSettings>(
   // Add the update process to worker queue and await the result
   await worker.add<Result<string>>(process);
   revalidatePath('/writr/settings');
-}
-
-export async function UpdateSettings(
-  state: Result<BlogSettings>,
-  newSettings: BlogSettings
-) {
-  console.log(newSettings);
-  return state;
 }
 
 /**
