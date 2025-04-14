@@ -22,8 +22,6 @@ export default async function Page() {
         label="Summary"
         editor
       />
-      <hr />
-      <h2>Social Account</h2>
     </>
   );
 }
