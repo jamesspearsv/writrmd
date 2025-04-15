@@ -79,6 +79,10 @@ h3 {
   font-size: var(--font-size-3);
 }
 
+hr {
+  margin-block: var(--spacing-medium);
+}
+
 a {
   color: var(--clr-fg-1);
 

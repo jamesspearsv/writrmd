@@ -37,6 +37,9 @@ const initialActionState: PostEditorAction = {
   errors: {},
 };
 
+/*************************
+ * COMPONENT STARTS HERE *
+ ************************/
 export default function PostEditor(props: {
   post?: PostContent;
   slug?: string;

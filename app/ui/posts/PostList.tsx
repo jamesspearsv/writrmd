@@ -7,7 +7,9 @@ export default async function PostList(props: { posts: Post[] }) {
   return (
     <section className={styles.section}>
       {posts.length > 0 &&
-        posts.map((post, index) => <PostPreview key={index} post={post} />)}
+        posts.map((post, index) => (
+          <PostPreview key={index} post={post} variant="full" />
+        ))}
     </section>
   );
 }

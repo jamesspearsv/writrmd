@@ -1,7 +1,32 @@
 .container {
-  text-align: center;
   width: var(--content-width);
   margin: auto;
+}
+
+.hero {
+  text-align: center;
+}
+
+.recent_posts {
+  margin-top: var(--spacing-large);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.recent_posts > h2 {
+  padding-left: var(--spacing-xs);
+  margin-block: var(--spacing-xs);
+}
+
+.all_posts {
+  margin-left: auto;
+}
+
+.all_posts > div {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xxs);
 }
 
 @media screen and (max-width: 768px) {

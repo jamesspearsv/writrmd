@@ -6,8 +6,8 @@ export interface Post extends matter.GrayMatterFile<string> {
     title: string;
     date: string;
     author: string;
-    tags?: string[];
-    excerpt?: string;
+    tags: string[];
+    excerpt: string;
     slug: string; // custom slug property to id and link posts
     published: boolean;
   };
@@ -57,8 +57,13 @@ export interface Admin extends User {
 export interface BlogSettings {
   name: string;
   summary: string;
-  icon?: string;
 }
+
+export const DefaultSettings: BlogSettings = {
+  name: 'Writr.md',
+  summary:
+    'Self-hosted markdown blogging powered by Next.js. Head to [/writr](/writr) to get started',
+};
 
 export type Result<T = string> =
   | { success: true; data: T }
