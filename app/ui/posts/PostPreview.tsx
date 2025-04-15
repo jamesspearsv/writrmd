@@ -2,16 +2,13 @@ import { Post } from '@/app/lib/definitions';
 import styles from './PostPreview.module.css';
 import Link from 'next/link';
 
-export default function PostPreview({
-  variant = 'full',
-  ...props
-}: {
+export default function PostPreview(props: {
   post: Post;
   variant: 'minimal' | 'full';
 }) {
   const { post } = props;
 
-  if (variant === 'full') {
+  if (props.variant === 'full') {
     return (
       <article className={styles.full}>
         <div className={styles.title}>
@@ -29,7 +26,7 @@ export default function PostPreview({
     );
   }
 
-  if (variant === 'minimal') {
+  if (props.variant === 'minimal') {
     return (
       <Link className={styles.post_link} href={`/blog/${post.data.slug}`}>
         <article className={styles.minimal}>
