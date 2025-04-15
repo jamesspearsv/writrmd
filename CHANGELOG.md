@@ -265,7 +265,7 @@ Implemented a result pattern in relevant server action functions
 
 - **Unused server actions** for deprecated features related to reading standalone page files
 
-## v0.6.0 -- TODO
+## v0.6.0 -- April 15, 2025
 
 Add an improved landing page design and elements
 
