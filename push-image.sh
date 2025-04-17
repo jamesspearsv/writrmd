@@ -1,23 +1,47 @@
 #!/bin/bash
+set -euo pipefail
 
 # DESCRIPTION:
-# Simple script to automate building and publishing the 
-# latest Writr.md container image to the Github container registry.
-# Currently this script will work in my local dev environment only! 
-# There are plans to add improved CI/CD using Github workflows and actions.
+# Automates building and publishing the Writr.md container image to GitHub Container Registry (ghcr.io).
+# Prompts for a version tag if not provided.
+# Enforces strict version format: X.Y.Z (e.g., 1.2.3)
+# Always builds and pushes both :latest and :<version> tags.
 
-# build and tag images
-echo "Starting build process..."
+echo "🚀 Starting Writr.md build process..."
 
-if [[ -n $1 ]]; then
-    docker build --platform linux/amd64,linux/arm64 -t ghcr.io/jamesspearsv/writrmd:latest -t ghcr.io/jamesspearsv/writrmd:$1 .
-else 
-    docker build --platform linux/amd64,linux/arm64 -t ghcr.io/jamesspearsv/writrmd:latest .
+# --- Get version tag from argument or prompt ---
+if [[ $# -ge 1 ]]; then
+    TAG="$1"
+else
+    read -rp "🔖 Enter a version tag (X.Y.Z): " TAG
 fi
-# login to github container registry
-echo "Logging into ghcr.io..."
+
+# --- Validate format: must match X.Y.Z where X/Y/Z are numbers ---
+if [[ ! "$TAG" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+    echo "❌ Invalid version format."
+    echo "    Version must follow this pattern: X.Y.Z (e.g., 1.0.0, 2.3.1)"
+    exit 1
+fi
+
+IMAGE="ghcr.io/jamesspearsv/writrmd"
+
+echo "📦 Using version tag: $TAG"
+echo "🛠 Building image for platforms: linux/amd64, linux/arm64"
+
+# --- Build Docker image ---
+docker build --platform linux/amd64,linux/arm64 \
+    -t "$IMAGE:$TAG" \
+    -t "$IMAGE:latest" .
+
+# --- Login to GHCR ---
+echo "🔐 Logging into ghcr.io..."
 echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
 
-# push updated image to ghcr.io
-docker push ghcr.io/jamesspearsv/writrmd:latest
-echo "Successfully published image!"
+# --- Push both tags ---
+echo "📤 Pushing tags to GHCR..."
+docker push "$IMAGE:$TAG"
+docker push "$IMAGE:latest"
+
+echo "✅ Successfully published Writr.md image:"
+echo "    - $IMAGE:$TAG"
+echo "    - $IMAGE:latest"
