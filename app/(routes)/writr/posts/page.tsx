@@ -6,11 +6,13 @@ import StyledButton from '@/app/ui/common/StyledButton';
 import AdminPostPreview from '@/app/ui/posts/PostAdminPreview';
 import styles from './page.module.css';
 import Header from '@/app/ui/common/Header';
+import PlaceholderPage from '@/app/ui/common/PlaceholderPage';
 
 export default async function Page() {
   const posts = await fetchAllPosts({ publishedOnly: false });
 
   if (!posts.success) return notFound();
+  if (posts.data.length === 0) return <PlaceholderPage />;
 
   return (
     <>

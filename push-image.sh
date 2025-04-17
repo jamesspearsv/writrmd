@@ -8,9 +8,12 @@
 
 # build and tag images
 echo "Starting build process..."
-docker build --platform linux/amd64,linux/arm64 -t ghcr.io/jamesspearsv/writrmd:latest .
-#docker tag writrmd ghcr.io/jamesspearsv/writrmd:latest
 
+if [[-n $1]]; then
+    docker build --platform linux/amd64,linux/arm64 -t ghcr.io/jamesspearsv/writrmd:latest -t ghcr.io/jamesspearsv/writrmd:$1 .
+else 
+    docker build --platform linux/amd64,linux/arm64 -t ghcr.io/jamesspearsv/writrmd:latest .
+fi
 # login to github container registry
 echo "Logging into ghcr.io..."
 echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
