@@ -276,3 +276,12 @@ Add an improved landing page design and elements
 ### Changes
 
 -**Updated `fetchAllPosts`** to use an option object with tag, limit, and publishedOnly options
+
+## v0.6.1 -- April 16, 2025
+
+Minor changes to caching and dynamic rendering
+
+### Changes
+
+- **Moved dynamic rendering config** from the root layout to route group layouts
+- **Minor Dockerfile updates** including adding an example post to the base image

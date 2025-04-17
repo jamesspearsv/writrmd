@@ -21,3 +21,4 @@ docker-compose.*
 
 # Include the default settings.json
 !/content/settings.json
+!/content/posts/syntax-examples.md

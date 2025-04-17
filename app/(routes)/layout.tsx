@@ -8,7 +8,7 @@ import ThemeProvider from '@/app/ui/themes/ThemeProvider';
 # This ensures new files from the posts and pages dirs
 # are read without needing to rebuild the app or image 
 */
-export const revalidate = 0;
+// export const revalidate = 0;
 
 export const metadata: Metadata = {
   title: {
