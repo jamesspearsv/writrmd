@@ -9,7 +9,7 @@
 # build and tag images
 echo "Starting build process..."
 
-if [[-n $1]]; then
+if [[ -n $1 ]]; then
     docker build --platform linux/amd64,linux/arm64 -t ghcr.io/jamesspearsv/writrmd:latest -t ghcr.io/jamesspearsv/writrmd:$1 .
 else 
     docker build --platform linux/amd64,linux/arm64 -t ghcr.io/jamesspearsv/writrmd:latest .
