@@ -19,6 +19,6 @@ Dockerfile
 docker-compose.*
 *.db
 
-# Include the default settings.json
+# Include the default settings and example post
 !/content/settings.json
 !/content/posts/syntax-examples.md

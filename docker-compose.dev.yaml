@@ -15,7 +15,7 @@ services:
       - ADMIN_USERNAME=admin
       - ADMIN_PASSWORD=12345
     volumes:
-      - writrmd-data:/writrmd/content
+      - writrmd_dev_data:/writrmd/content
 
   caddy:
     image: caddy:latest
@@ -35,7 +35,7 @@ services:
 volumes:
   caddy_data:
   caddy_config:
-  writrmd-data:
+  writrmd_dev_data:
 
 networks:
   writrmd_network:
