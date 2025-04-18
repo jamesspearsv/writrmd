@@ -2,7 +2,7 @@
 
 import * as fs from 'node:fs/promises';
 import * as matter from 'gray-matter';
-import { PostSchema } from '@/app/lib/schemas';
+import { BlogSettingsSchema, PostSchema } from '@/app/lib/schemas';
 import { uniqueSlugify } from '@/app/lib/slugify';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
@@ -205,6 +205,7 @@ export async function savePost(
  * Asynchronously read app settings using an internal worker queue
  * @returns Returns a promise resolves to a successful result object with the current settings or rejects with an unsuccessful result object
  */
+// todo: add fallback values for new settings properties
 export async function readSettings(): Promise<Result<BlogSettings>> {
   try {
     const data = await fs.readFile(`${rootDir}/content/${settingsFile}`, {
@@ -217,6 +218,47 @@ export async function readSettings(): Promise<Result<BlogSettings>> {
     console.error(error);
     return { success: false, error: 'Server error' };
   }
+}
+
+export async function UpdateSettings(
+  _: Result<BlogSettings>,
+  formData: FormData
+) {
+  // Validate new settings values
+  const results = BlogSettingsSchema.safeParse({
+    name: formData.get('name'),
+    summary: formData.get('summary'),
+  } as BlogSettings);
+
+  // Return an unsuccessful result if validation fails
+  if (!results.success) {
+    return {
+      success: false,
+      error: 'Invalid settings values',
+    } as Result<BlogSettings>;
+  }
+
+  // Store new settings and attempt to update settings file
+  const updatedSettings: BlogSettings = {
+    name: results.data.name,
+    summary: results.data.summary,
+  };
+
+  try {
+    await fs.writeFile(
+      `${rootDir}/content/${settingsFile}`,
+      JSON.stringify(updatedSettings)
+    );
+  } catch (error) {
+    console.error(error);
+    return {
+      success: false,
+      error: 'Unable to save new settings',
+    } as Result<BlogSettings>;
+  }
+
+  revalidatePath('/writr/settings');
+  return { success: true, data: updatedSettings } as Result<BlogSettings>;
 }
 
 /**

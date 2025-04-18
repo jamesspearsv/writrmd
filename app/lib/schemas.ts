@@ -20,8 +20,6 @@ export const CredentialsSchema = z.object({
 });
 
 export const BlogSettingsSchema = z.object({
-  initialized: z.boolean(),
-  blogName: z.string().optional(),
-  blogSummary: z.string(),
-  icon: z.string().optional(),
+  name: z.string().min(5),
+  summary: z.string().min(25),
 });

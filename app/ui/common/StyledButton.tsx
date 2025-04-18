@@ -10,11 +10,12 @@ export default function StyledButton(props: {
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   ref?: React.RefObject<HTMLButtonElement | null>;
   alt?: string;
+  type?: 'button' | 'submit' | 'reset';
 }) {
   return (
     <button
       ref={props.ref}
-      type="button"
+      type={props.type || 'button'}
       className={clsx(
         `${styles.base}`,
         props.variation && `${styles[props.variation]}`,
