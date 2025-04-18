@@ -13,6 +13,7 @@ import {
   PostEditorAction,
   BlogSettings,
   Result,
+  DefaultSettings,
 } from '@/app/lib/definitions';
 import { includes } from '@/app/lib/helpers';
 
@@ -202,21 +203,26 @@ export async function savePost(
 }
 
 /**
- * Asynchronously read app settings using an internal worker queue
+ * Asynchronously read app settings
  * @returns Returns a promise resolves to a successful result object with the current settings or rejects with an unsuccessful result object
  */
-// todo: add fallback values for new settings properties
 export async function readSettings(): Promise<Result<BlogSettings>> {
   try {
     const data = await fs.readFile(`${rootDir}/content/${settingsFile}`, {
       encoding: 'utf-8',
     });
-    const settings = JSON.parse(data) as BlogSettings;
+
+    // Parse and provide fallback values for settings
+    const json = JSON.parse(data) as BlogSettings;
+    const settings = { ...DefaultSettings, ...json };
 
     return { success: true, data: settings };
   } catch (error) {
     console.error(error);
-    return { success: false, error: 'Server error' };
+    return {
+      success: false,
+      error: 'Unable to read settings. Try again later.',
+    };
   }
 }
 
