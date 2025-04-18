@@ -212,10 +212,15 @@ export async function readSettings(): Promise<Result<BlogSettings>> {
       encoding: 'utf-8',
     });
 
+    // Handle empty settings files
+    if (!data) {
+      // Provide fallback settings if settings json is empty
+      return { success: true, data: DefaultSettings };
+    }
+
     // Parse and provide fallback values for settings
     const json = JSON.parse(data) as BlogSettings;
     const settings = { ...DefaultSettings, ...json };
-
     return { success: true, data: settings };
   } catch (error) {
     console.error(error);
