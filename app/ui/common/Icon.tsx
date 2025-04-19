@@ -1,7 +1,7 @@
 import * as icons from 'react-feather';
 
 export default function Icon({
-  size = 16,
+  size = 18,
   ...props
 }: {
   size?: number;

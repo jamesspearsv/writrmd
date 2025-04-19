@@ -231,6 +231,7 @@ export async function readSettings(): Promise<Result<BlogSettings>> {
   }
 }
 
+
 export async function UpdateSettings(
   _: Result<BlogSettings>,
   formData: FormData
@@ -245,7 +246,7 @@ export async function UpdateSettings(
   if (!results.success) {
     return {
       success: false,
-      error: 'Invalid settings values',
+      error: 'Invalid settings properties. Please try again.',
     } as Result<BlogSettings>;
   }
 

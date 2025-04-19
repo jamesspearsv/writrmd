@@ -7,6 +7,7 @@ import StyledButton from '@/app/ui/common/StyledButton';
 import { useActionState, useEffect, useState } from 'react';
 import styles from './SettingsEditor.module.css';
 import { UpdateSettings } from '@/app/lib/actions';
+import clsx from 'clsx';
 
 /*** COMPONENT STARTS HERE ***/
 export default function SettingsEditor(props: { settings: BlogSettings }) {
@@ -20,29 +21,50 @@ export default function SettingsEditor(props: { settings: BlogSettings }) {
     if (state.success) setViewing(true);
   }, [state]);
 
+  function handleClick() {
+    setViewing((viewing) => !viewing);
+  }
+
   return (
     <form action={action}>
       <Header>
         <div className={styles.heading_container}>
           <div>
-            <h1 style={{ color: state.success ? 'green' : 'red' }}>Settings</h1>
-            {!state.success && <p>{state.error}</p>}
+            <h1>Settings</h1>
           </div>
-          <div>
-            {viewing ? (
+          {!state.success && (
+            <p className={styles.error_message}>{state.error}</p>
+          )}
+          <div className={styles.actions}>
+            {/* {viewing ? (
               <StyledButton onClick={() => setViewing(false)}>
-                <Icon name={'Edit'} />
+                <Icon name="Edit" />
               </StyledButton>
             ) : (
               <>
-                <StyledButton onClick={() => setViewing(true)}>
+                <StyledButton type="submit">
+                  <Icon name="Save" />
+                </StyledButton>
+                <StyledButton
+                  onClick={() => {
+                    console.log('clicked cancel');
+                    setViewing(true);
+                  }}
+                >
                   <Icon name="XCircle" />
                 </StyledButton>
-                <StyledButton type="submit">
-                  <Icon name={'Save'} />
-                </StyledButton>
               </>
-            )}
+            )} */}
+            <StyledButton
+              type="submit"
+              onClick={handleClick}
+              className={clsx(viewing && `${styles.hidden}`)}
+            >
+              <Icon name="Save" />
+            </StyledButton>
+            <StyledButton onClick={handleClick} type="reset">
+              <Icon name={viewing ? 'Edit' : 'XCircle'} />
+            </StyledButton>
           </div>
         </div>
       </Header>

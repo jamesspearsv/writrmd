@@ -10,19 +10,6 @@ export default async function Page() {
   return (
     <>
       <SettingsEditor settings={settings} />
-
-      {/* <Header>
-        <h1>Settings</h1>
-      </Header>
-      <hr />
-      <h2>General Settings</h2>
-      <SettingsItem property="name" value={settings.name} label="Name" />
-      <SettingsItem
-        property="summary"
-        value={settings.summary}
-        label="Summary"
-        editor
-      /> */}
     </>
   );
 }
