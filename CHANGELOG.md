@@ -286,7 +286,7 @@ Minor changes to caching and dynamic rendering
 - **Moved dynamic rendering config** from the root layout to route group layouts
 - **Minor Dockerfile updates** including adding an example post to the base image
 
-## v0.6.2 -- todo
+## v0.6.2 -- April 19, 2025
 
 Add backwards compatibility support to blog settings
 
