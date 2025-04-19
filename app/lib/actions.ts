@@ -2,7 +2,7 @@
 
 import * as fs from 'node:fs/promises';
 import * as matter from 'gray-matter';
-import { PostSchema } from '@/app/lib/schemas';
+import { BlogSettingsSchema, PostSchema } from '@/app/lib/schemas';
 import { uniqueSlugify } from '@/app/lib/slugify';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
@@ -13,6 +13,7 @@ import {
   PostEditorAction,
   BlogSettings,
   Result,
+  DefaultSettings,
 } from '@/app/lib/definitions';
 import { includes } from '@/app/lib/helpers';
 
@@ -202,7 +203,7 @@ export async function savePost(
 }
 
 /**
- * Asynchronously read app settings using an internal worker queue
+ * Asynchronously read app settings
  * @returns Returns a promise resolves to a successful result object with the current settings or rejects with an unsuccessful result object
  */
 export async function readSettings(): Promise<Result<BlogSettings>> {
@@ -210,13 +211,66 @@ export async function readSettings(): Promise<Result<BlogSettings>> {
     const data = await fs.readFile(`${rootDir}/content/${settingsFile}`, {
       encoding: 'utf-8',
     });
-    const settings = JSON.parse(data) as BlogSettings;
 
+    // Handle empty settings files
+    if (!data) {
+      // Provide fallback settings if settings json is empty
+      return { success: true, data: DefaultSettings };
+    }
+
+    // Parse and provide fallback values for settings
+    const json = JSON.parse(data) as BlogSettings;
+    const settings = { ...DefaultSettings, ...json };
     return { success: true, data: settings };
   } catch (error) {
     console.error(error);
-    return { success: false, error: 'Server error' };
+    return {
+      success: false,
+      error: 'Unable to read settings. Try again later.',
+    };
   }
+}
+
+
+export async function UpdateSettings(
+  _: Result<BlogSettings>,
+  formData: FormData
+) {
+  // Validate new settings values
+  const results = BlogSettingsSchema.safeParse({
+    name: formData.get('name'),
+    summary: formData.get('summary'),
+  } as BlogSettings);
+
+  // Return an unsuccessful result if validation fails
+  if (!results.success) {
+    return {
+      success: false,
+      error: 'Invalid settings properties. Please try again.',
+    } as Result<BlogSettings>;
+  }
+
+  // Store new settings and attempt to update settings file
+  const updatedSettings: BlogSettings = {
+    name: results.data.name,
+    summary: results.data.summary,
+  };
+
+  try {
+    await fs.writeFile(
+      `${rootDir}/content/${settingsFile}`,
+      JSON.stringify(updatedSettings)
+    );
+  } catch (error) {
+    console.error(error);
+    return {
+      success: false,
+      error: 'Unable to save new settings',
+    } as Result<BlogSettings>;
+  }
+
+  revalidatePath('/writr/settings');
+  return { success: true, data: updatedSettings } as Result<BlogSettings>;
 }
 
 /**

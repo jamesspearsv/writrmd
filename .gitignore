@@ -48,5 +48,10 @@ docker-dev
 !content/posts/intro-to-markdown.md
 !/content/posts/benefits-of-writing-markdown.md
 !/content/posts/syntax-examples.md
+
+# env files
 *.env
 .env.local
+
+# todo list
+todo.md

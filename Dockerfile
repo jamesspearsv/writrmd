@@ -45,7 +45,8 @@ RUN adduser --system --uid 1001 nextjs
 
 COPY --from=builder /writrmd/public ./public
 
-# Copy default content folder (empty posts folder and default settings.json)
+# Copy default content folder (empty posts folder and settings.json)
+VOLUME /writrmd/content
 COPY --from=builder --chown=nextjs:nodejs /writrmd/content /writrmd/content
 
 # Automatically leverage output traces to reduce image size

@@ -1,6 +1,5 @@
 import { readSettings } from '@/app/lib/actions';
-import Header from '@/app/ui/common/Header';
-import SettingsItem from '@/app/ui/settings/SettingsItem';
+import SettingsEditor from '@/app/ui/editors/SettingsEditor';
 
 export default async function Page() {
   const result = await readSettings();
@@ -10,18 +9,7 @@ export default async function Page() {
 
   return (
     <>
-      <Header>
-        <h1>Settings</h1>
-      </Header>
-      <hr />
-      <h2>General Settings</h2>
-      <SettingsItem property="name" value={settings.name} label="Name" />
-      <SettingsItem
-        property="summary"
-        value={settings.summary}
-        label="Summary"
-        editor
-      />
+      <SettingsEditor settings={settings} />
     </>
   );
 }
