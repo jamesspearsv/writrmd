@@ -21,5 +21,5 @@ export const CredentialsSchema = z.object({
 
 export const BlogSettingsSchema = z.object({
   name: z.string().min(5),
-  summary: z.string().min(25),
+  summary: z.string().min(10),
 });

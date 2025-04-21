@@ -231,7 +231,12 @@ export async function readSettings(): Promise<Result<BlogSettings>> {
   }
 }
 
-
+/**
+ * Asynchronously update the app settings file
+ * @param _ Current action state
+ * @param formData Settings editor form data object
+ * @returns Returns a result representing a successful or unsuccessful attempt to update settings
+ */
 export async function UpdateSettings(
   _: Result<BlogSettings>,
   formData: FormData
@@ -244,6 +249,7 @@ export async function UpdateSettings(
 
   // Return an unsuccessful result if validation fails
   if (!results.success) {
+    console.error('##### Validation Failed #####\n', results.error.errors);
     return {
       success: false,
       error: 'Invalid settings properties. Please try again.',
@@ -262,7 +268,7 @@ export async function UpdateSettings(
       JSON.stringify(updatedSettings)
     );
   } catch (error) {
-    console.error(error);
+    console.error('##### Server Error #####\n', error);
     return {
       success: false,
       error: 'Unable to save new settings',

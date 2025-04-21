@@ -7,9 +7,5 @@ export default async function Page() {
   if (!result.success) return null;
   const settings = result.data;
 
-  return (
-    <>
-      <SettingsEditor settings={settings} />
-    </>
-  );
+  return <SettingsEditor settings={settings} />;
 }
