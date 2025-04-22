@@ -6,6 +6,8 @@ import styles from './LoginForm.module.css';
 import logo from '@/public/writrmd-logo.svg';
 import Image from 'next/image';
 import { roboto_slab } from '@/app/ui/fonts';
+import Link from 'next/link';
+import Icon from '@/app/ui/common/Icon';
 
 export interface LoginState {
   error?: string;
@@ -37,6 +39,12 @@ export default function LoginForm() {
       />
       <input type="submit" value="Login" />
       <p className={styles.errorDetails}>{actionState.error}</p>
+      <Link href={'/'}>
+        <div className={styles.back_to_app}>
+          <Icon name="ArrowLeft" />
+          <p>Back</p>
+        </div>
+      </Link>
     </form>
   );
 }

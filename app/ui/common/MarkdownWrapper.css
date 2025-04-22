@@ -77,10 +77,10 @@
     padding: 5px;
     background-color: var(--clr-bg-2);
     border-radius: var(--border-radius);
-    font-size: calc(var(--font-sizing) * 0.9);
 
     p,
     code {
+      font-size: 16px;
       text-wrap: wrap;
       color: var(--clr-fg-2);
       margin: 0;
@@ -118,7 +118,7 @@
   }
 
   thead {
-    font-size: var(--weight-bold);
+    font-weight: var(--weight-bold);
     background-color: var(--clr-bg-2);
     border-radius: var(--border-radius) 0;
   }
