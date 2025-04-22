@@ -37,3 +37,9 @@
   font-style: italic;
   color: var(--clr-danger);
 }
+
+.back_to_app {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xxs);
+}

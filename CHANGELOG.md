@@ -298,3 +298,16 @@ Add backwards compatibility support to blog settings
 
 - **Refactor settings page** using a settings editor to update all settings rather individual settings properties
 - **Updated BlogSettingsSchema** to include accurate settings properties
+
+## v0.6.3 -- April 22, 2025
+
+Blockquote bug fix and minor UI changes
+
+### Fixed
+
+- **Font sizing bug** in blockquote post elements
+
+### Changes
+
+- **Changed site nav styles** to use sticky positioning and added a transparent blur effect
+- **Updated breadcrumb element** to remove sticky positioning and blur effect

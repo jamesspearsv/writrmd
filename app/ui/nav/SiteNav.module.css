@@ -1,11 +1,23 @@
 .nav {
   padding-inline: var(--spacing-large);
   height: var(--spacing-xl);
-  border-bottom: var(--border-size-1) solid var(--clr-fg-2);
-  background-color: var(--clr-bg-1);
+  background-color: rgb(from inherit r g b / 0.75);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition-property: height border-bottom;
+  transition-duration: 250ms;
+  transition-timing-function: ease-in-out;
+  border-bottom: transparent solid 0px;
+}
+
+.nav.scrolled {
+  height: 4rem;
+  backdrop-filter: blur(10px);
+  border-bottom: var(--border-size-1) solid var(--clr-fg-2);
 }
 
 .heading {
