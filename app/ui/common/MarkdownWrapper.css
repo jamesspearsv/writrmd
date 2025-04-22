@@ -102,10 +102,6 @@
     border-radius: var(--border-radius);
   }
 
-  del {
-    color: var(--clr-fg-3);
-  }
-
   hr {
     margin-block: var(--spacing-small);
   }
