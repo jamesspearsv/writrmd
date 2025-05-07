@@ -311,3 +311,11 @@ Blockquote bug fix and minor UI changes
 
 - **Changed site nav styles** to use sticky positioning and added a transparent blur effect
 - **Updated breadcrumb element** to remove sticky positioning and blur effect
+
+## v0.6.4 -- May 6, 2025
+
+Minor fixes to UI inconsistencies and quirks. Minor UI behavior fixes
+
+### Fixed
+
+- **Textarea outlines** overflowing outside of the above editor controls

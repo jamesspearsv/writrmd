@@ -100,7 +100,7 @@ button {
 input:focus,
 textarea:focus,
 button:focus {
-  outline: solid 2px var(--clr-fg-1);
+  outline: solid 1px var(--clr-fg-1);
 }
 
 /* CSS RESET */
