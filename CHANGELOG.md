@@ -314,7 +314,11 @@ Blockquote bug fix and minor UI changes
 
 ## v0.6.4 -- May 6, 2025
 
-Minor fixes to UI inconsistencies and quirks. Minor UI behavior fixes
+Minor fixes to UI inconsistencies and quirks. UI behavior fixes and improvements
+
+### Added
+
+- **Textarea keyboard shortcuts** for common syntax including bold, italic, and links
 
 ### Fixed
 
