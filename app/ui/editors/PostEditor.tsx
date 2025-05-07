@@ -22,6 +22,7 @@ import TextArea from '@/app/ui/inputs/TextArea';
 import List from '@/app/ui/inputs/List';
 import Toggle from '@/app/ui/inputs/Toggle';
 
+// TODO: Simplify state management and input params
 const initialLocalState: PostContent = {
   title: '',
   author: '',
@@ -63,11 +64,15 @@ export default function PostEditor(props: {
     document.body.addEventListener(
       'keydown',
       (e) => {
-        if (!(e.key === 'Enter' && e.metaKey)) return;
-        console.log('cmd + enter');
-        if (submitButtonRef.current) {
-          submitButtonRef.current.click();
-        }
+        if (!e.metaKey) return;
+        console.log(e.key);
+        const shortcuts = {
+          '\\': () => setSidebarHidden((sidebarHidden) => !sidebarHidden),
+          Enter: () => submitEditorData(),
+        };
+
+        if (e.metaKey && Object.keys(shortcuts).includes(e.key))
+          shortcuts[e.key as keyof typeof shortcuts]();
       },
       { signal: controller.signal }
     );
