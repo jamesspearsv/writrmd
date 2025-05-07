@@ -323,3 +323,8 @@ Minor fixes to UI inconsistencies and quirks. UI behavior fixes and improvements
 ### Fixed
 
 - **Textarea outlines** overflowing outside of the above editor controls
+- **Disabled title field** in the post editor to help manage sync between titles and slugs
+
+### Changes
+
+- **Moved fields** for post author and title back to the front-matter sidebar

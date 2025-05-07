@@ -7,7 +7,6 @@ import { Bold, Hash, Italic } from 'react-feather';
 import MarkdownWrapper from '@/app/ui/common/MarkdownWrapper';
 import { CommonInputProps } from '@/app/lib/definitions';
 import ScrollBack from '@/app/ui/common/ScrollBack';
-import { todo } from 'node:test';
 
 interface TextAreaProps extends CommonInputProps<string> {
   children?: React.ReactNode;

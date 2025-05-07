@@ -15,6 +15,11 @@
   outline: solid var(--border-size) var(--clr-danger);
 }
 
+input:disabled {
+  color: var(--clr-fg-3);
+  cursor: not-allowed;
+}
+
 /* Variants */
 .input.normal {
   background-color: var(--clr-bg-2);

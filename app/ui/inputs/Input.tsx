@@ -8,6 +8,7 @@ interface InputProps extends CommonInputProps<string> {
   label?: string;
   variant?: 'normal' | 'borderless';
   size?: 'small' | 'medium' | 'large';
+  disabled?: boolean;
 }
 
 export default function Input({
@@ -31,6 +32,7 @@ export default function Input({
         id={props.name}
         aria-label={props.name}
         autoComplete="off"
+        disabled={props.disabled}
         value={props.controller.value}
         onChange={(e) => {
           props.controller.updateValue(

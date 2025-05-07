@@ -27,5 +27,3 @@ Because Markdown can easily be converted to HTML, it is widely used for writing 
 
 This is a simple Markdown example.
 ```
-
-

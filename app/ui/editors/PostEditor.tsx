@@ -126,7 +126,7 @@ export default function PostEditor(props: {
         </StyledButton>
       </div>
       <div className={styles.container}>
-        {/* REQUIRED EDITOR FIELDS */}
+        {/* POST CONTENT TEXTAREA */}
         <div className={styles.editor}>
           <TextArea
             name="content"
@@ -138,34 +138,9 @@ export default function PostEditor(props: {
               updateValue,
             }}
             sticky
-          >
-            <Input
-              name="title"
-              placeholder="Post Title"
-              variant="borderless"
-              size="large"
-              error={actionState.errors.title ? true : false}
-              controller={{
-                key: 'title',
-                value: editorData.title,
-                updateValue,
-              }}
-            />
-            <Input
-              name="author"
-              placeholder="Author"
-              variant="borderless"
-              size="medium"
-              error={actionState.errors.author ? true : false}
-              controller={{
-                key: 'author',
-                value: editorData.author,
-                updateValue,
-              }}
-            />
-          </TextArea>
+          ></TextArea>
         </div>
-        {/* OPTIONAL EDITOR FIELDS */}
+        {/* FRONTMATTER FIELDS */}
         <div
           className={clsx(
             `${styles.frontmatter}`,
@@ -179,6 +154,33 @@ export default function PostEditor(props: {
             controller={{
               key: 'published',
               value: editorData.published,
+              updateValue,
+            }}
+          />
+          <Input
+            name="title"
+            placeholder="Post Title"
+            label="Title"
+            disabled={props.slug ? true : false}
+            // variant="borderless"
+            // size="large"
+            error={actionState.errors.title ? true : false}
+            controller={{
+              key: 'title',
+              value: editorData.title,
+              updateValue,
+            }}
+          />
+          <Input
+            name="author"
+            placeholder="Author"
+            label="Author"
+            // variant="borderless"
+            // size="medium"
+            error={actionState.errors.author ? true : false}
+            controller={{
+              key: 'author',
+              value: editorData.author,
               updateValue,
             }}
           />
