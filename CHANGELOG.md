@@ -319,6 +319,7 @@ Minor fixes to UI inconsistencies and quirks. UI behavior fixes and improvements
 ### Added
 
 - **Textarea keyboard shortcuts** for common syntax including bold, italic, and links
+- **PostEditor shortcuts** for common actions including toggling the sidebar and saving posts
 
 ### Fixed
 

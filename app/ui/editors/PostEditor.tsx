@@ -1,12 +1,6 @@
 'use client';
 
-import {
-  startTransition,
-  useActionState,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { startTransition, useActionState, useEffect, useState } from 'react';
 import {
   CommonInputProps,
   PostContent,
@@ -56,7 +50,6 @@ export default function PostEditor(props: {
     props.post ? props.post : initialLocalState
   );
   const [sidebarHidden, setSidebarHidden] = useState(false);
-  const submitButtonRef = useRef<HTMLButtonElement | null>(null);
 
   // Add keyboard listener to body for cmd | ctrl + enter submission
   useEffect(() => {
