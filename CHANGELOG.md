@@ -311,3 +311,21 @@ Blockquote bug fix and minor UI changes
 
 - **Changed site nav styles** to use sticky positioning and added a transparent blur effect
 - **Updated breadcrumb element** to remove sticky positioning and blur effect
+
+## v0.6.4 -- May 6, 2025
+
+Minor fixes to UI inconsistencies and quirks. UI behavior fixes and improvements
+
+### Added
+
+- **Textarea keyboard shortcuts** for common syntax including bold, italic, and links
+- **PostEditor shortcuts** for common actions including toggling the sidebar and saving posts
+
+### Fixed
+
+- **Textarea outlines** overflowing outside of the above editor controls
+- **Disabled title field** in the post editor to help manage sync between titles and slugs
+
+### Changes
+
+- **Moved fields** for post author and title back to the front-matter sidebar

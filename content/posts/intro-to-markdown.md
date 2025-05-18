@@ -11,7 +11,7 @@ Markdown is a lightweight markup language with plain-text formatting syntax. It 
 
 ## Why Use Markdown?
 
-Markdown is great for writing blog posts, documentation, or any content that needs to be converted into HTML. Its syntax is simple and intuitive, which makes it a favorite among developers, writers, and content creators alike.
+Markdown is great for writing blog posts, documentation, or any content that needs to be converted into HTML. Its syntax is simple and intuitive, which makes it a favorite among developers, writers, and content creators alike. ****
 
 ## Basic Syntax
 
@@ -28,4 +28,5 @@ Use `#` symbols to create headings:
 
 ### H3
 ```
+
 

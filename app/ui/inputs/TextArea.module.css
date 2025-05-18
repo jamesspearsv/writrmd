@@ -75,6 +75,11 @@
   margin: auto;
 }
 
+.container *:focus {
+  outline-offset: -1px;
+  outline-width: 1px;
+}
+
 .textareaContainer {
   display: grid;
   white-space: pre-wrap;

@@ -1,12 +1,6 @@
 'use client';
 
-import {
-  startTransition,
-  useActionState,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { startTransition, useActionState, useEffect, useState } from 'react';
 import {
   CommonInputProps,
   PostContent,
@@ -22,6 +16,7 @@ import TextArea from '@/app/ui/inputs/TextArea';
 import List from '@/app/ui/inputs/List';
 import Toggle from '@/app/ui/inputs/Toggle';
 
+// TODO: Simplify state management and input params
 const initialLocalState: PostContent = {
   title: '',
   author: '',
@@ -55,7 +50,6 @@ export default function PostEditor(props: {
     props.post ? props.post : initialLocalState
   );
   const [sidebarHidden, setSidebarHidden] = useState(false);
-  const submitButtonRef = useRef<HTMLButtonElement | null>(null);
 
   // Add keyboard listener to body for cmd | ctrl + enter submission
   useEffect(() => {
@@ -63,11 +57,15 @@ export default function PostEditor(props: {
     document.body.addEventListener(
       'keydown',
       (e) => {
-        if (!(e.key === 'Enter' && e.metaKey)) return;
-        console.log('cmd + enter');
-        if (submitButtonRef.current) {
-          submitButtonRef.current.click();
-        }
+        if (!e.metaKey) return;
+        console.log(e.key);
+        const shortcuts = {
+          '\\': () => setSidebarHidden((sidebarHidden) => !sidebarHidden),
+          Enter: () => submitEditorData(),
+        };
+
+        if (e.metaKey && Object.keys(shortcuts).includes(e.key))
+          shortcuts[e.key as keyof typeof shortcuts]();
       },
       { signal: controller.signal }
     );
@@ -126,7 +124,7 @@ export default function PostEditor(props: {
         </StyledButton>
       </div>
       <div className={styles.container}>
-        {/* REQUIRED EDITOR FIELDS */}
+        {/* POST CONTENT TEXTAREA */}
         <div className={styles.editor}>
           <TextArea
             name="content"
@@ -138,34 +136,9 @@ export default function PostEditor(props: {
               updateValue,
             }}
             sticky
-          >
-            <Input
-              name="title"
-              placeholder="Post Title"
-              variant="borderless"
-              size="large"
-              error={actionState.errors.title ? true : false}
-              controller={{
-                key: 'title',
-                value: editorData.title,
-                updateValue,
-              }}
-            />
-            <Input
-              name="author"
-              placeholder="Author"
-              variant="borderless"
-              size="medium"
-              error={actionState.errors.author ? true : false}
-              controller={{
-                key: 'author',
-                value: editorData.author,
-                updateValue,
-              }}
-            />
-          </TextArea>
+          ></TextArea>
         </div>
-        {/* OPTIONAL EDITOR FIELDS */}
+        {/* FRONTMATTER FIELDS */}
         <div
           className={clsx(
             `${styles.frontmatter}`,
@@ -179,6 +152,33 @@ export default function PostEditor(props: {
             controller={{
               key: 'published',
               value: editorData.published,
+              updateValue,
+            }}
+          />
+          <Input
+            name="title"
+            placeholder="Post Title"
+            label="Title"
+            disabled={props.slug ? true : false}
+            // variant="borderless"
+            // size="large"
+            error={actionState.errors.title ? true : false}
+            controller={{
+              key: 'title',
+              value: editorData.title,
+              updateValue,
+            }}
+          />
+          <Input
+            name="author"
+            placeholder="Author"
+            label="Author"
+            // variant="borderless"
+            // size="medium"
+            error={actionState.errors.author ? true : false}
+            controller={{
+              key: 'author',
+              value: editorData.author,
               updateValue,
             }}
           />

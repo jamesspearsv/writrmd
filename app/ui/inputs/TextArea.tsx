@@ -20,36 +20,50 @@ export default function TextArea({ ...props }: TextAreaProps) {
 
   useEffect(() => {
     if (editorRef.current) {
-      // only focus the editor when the cursor position is greater
+      editorRef.current.setSelectionRange(cursorPosition, cursorPosition);
+      // only focus the textarea when the cursor position is greater
       // than zero to avoid autofocus when the page renders
       if (cursorPosition > 0) editorRef.current.focus();
-      editorRef.current.setSelectionRange(cursorPosition, cursorPosition);
     }
   }, [cursorPosition]);
 
   function insertSyntax(syntax: string, cursorOffset: number) {
     if (!editorRef.current) return;
-    const editor = editorRef.current;
     // get the current cursor position
-    let selectionPosition = editor.selectionStart;
-
-    if (editor !== document.activeElement) {
-      selectionPosition = props.controller.value.length - 1;
-    }
+    const selectionPosition = editorRef.current.selectionStart;
 
     // split current value at current selection index
     const v1 = props.controller.value.slice(0, selectionPosition);
     const v2 = props.controller.value.slice(selectionPosition);
+
     // Insert syntax and update value
     const newValue = v1 + syntax + v2;
     const newPosition = selectionPosition + cursorOffset;
+    console.log(newPosition);
 
     props.controller.updateValue(props.name, newValue);
     setCursorPosition(newPosition);
   }
 
+  function handleTextAreaKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
+    const shortcuts = {
+      b: () => insertSyntax('****', 2),
+      i: () => insertSyntax('__', 1),
+      k: () => insertSyntax('[]()', 1),
+      '.': () => insertSyntax('- ', 2),
+      '/': () => insertSyntax('- [ ] ', 6),
+    };
+
+    // TODO: Implement a list editing mode to auto insert list syntax
+
+    if (e.metaKey && Object.keys(shortcuts).includes(e.key)) {
+      shortcuts[e.key as keyof typeof shortcuts]();
+    }
+  }
+
   return (
-    <div>
+    // TODO: Add an info modal with keyboard shortcuts
+    <div onKeyDown={handleTextAreaKeyDown}>
       <div
         className={clsx(
           `${styles.actions}`,
@@ -74,9 +88,9 @@ export default function TextArea({ ...props }: TextAreaProps) {
         </div>
         <div className={styles.rteControls}>
           <RichTextButton
-            syntax="## "
+            syntax="# "
             label="Heading"
-            cursorOffset={3}
+            cursorOffset={2}
             insertSyntax={insertSyntax}
           >
             <Hash />
