@@ -1,6 +1,5 @@
 import { fetchPost } from '@/app/lib/actions';
 import Post from '@/app/ui/posts/Post';
-import Breadcrumbs from '@/app/ui/common/Breadcrumbs';
 import ScrollBack from '@/app/ui/common/ScrollBack';
 import { Metadata } from 'next';
 
@@ -33,7 +32,7 @@ export default async function PostPage({
 
   return (
     <>
-      <Breadcrumbs />
+      {/* <Breadcrumbs /> */}
       <Post slug={slug} />
       <ScrollBack />
     </>
