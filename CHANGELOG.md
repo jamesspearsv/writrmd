@@ -332,8 +332,14 @@ Minor fixes to UI inconsistencies and quirks. UI behavior fixes and improvements
 
 ## v0.6.5 - May 19, 2025
 
-Improve animation duration consistency
+Animation improvements and bug fixes
+
+### Fixed
+
+- **Post sorting** bug that resulted in an unexpected port order
 
 ### Changes
 
 - **Set all animation speeds** to 200ms for UI consistency
+- **Removed Breadcrumbs** component from post page
+- **Moved new post link** to admin navigation menu

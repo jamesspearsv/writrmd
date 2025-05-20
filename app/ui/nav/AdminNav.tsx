@@ -5,6 +5,7 @@ import { BookOpen, Home, Layout, LogOut, Settings } from 'react-feather';
 import ThemePicker from '@/app/ui/themes/ThemePicker';
 import StyledButton from '@/app/ui/common/StyledButton';
 import { logout } from '@/app/lib/authActions';
+import Icon from '@/app/ui/common/Icon';
 
 export default function AdminNav() {
   return (
@@ -15,7 +16,14 @@ export default function AdminNav() {
           <NavItem href="/writr" label="Dashboard">
             <Home size={16} />
           </NavItem>
-          <NavItem href="/writr/posts" label="Posts">
+          <NavItem
+            href="/writr/posts"
+            label="Posts"
+            secondaryLink={{
+              href: '/writr/editor',
+              icon: <Icon name="Plus" size={16} />,
+            }}
+          >
             <BookOpen size={16} />
           </NavItem>
           <NavItem href="/writr/settings" label="Settings">
@@ -51,15 +59,24 @@ function NavItem(props: {
   label: string;
   target?: '_blank';
   children: React.ReactNode;
+  secondaryLink?: {
+    href: string;
+    icon: React.ReactNode;
+  };
 }) {
   return (
-    <li key={props.href}>
-      <Link href={props.href} className={styles.itemLink} target={props.target}>
-        <div className={styles.item}>
+    <li key={props.href} className={styles.item}>
+      <Link href={props.href} target={props.target}>
+        <div className={styles.itemContent}>
           {props.children}
           {props.label}
         </div>
       </Link>
+      {props.secondaryLink && (
+        <Link className={styles.secondaryLink} href={props.secondaryLink.href}>
+          {props.secondaryLink.icon}
+        </Link>
+      )}
     </li>
   );
 }

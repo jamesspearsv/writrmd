@@ -6,8 +6,10 @@
 .frontMatter {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: var(--spacing-xs);
   margin-bottom: var(--spacing-large);
+  text-align: center;
 }
 
 .title {

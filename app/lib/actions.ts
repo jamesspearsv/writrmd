@@ -63,10 +63,13 @@ export async function fetchAllPosts(options?: {
     if (!b.data.date) return 1;
 
     const TimeA = new Date(a.data.date).getTime();
-    const TimeB = new Date(a.data.date).getTime();
+    const TimeB = new Date(b.data.date).getTime();
 
-    if (TimeA < TimeB) return -1;
-    if (TimeA > TimeB) return 1;
+    console.log('TimeA', TimeA);
+    console.log('TimeB', TimeB);
+
+    if (TimeA < TimeB) return 1;
+    if (TimeA > TimeB) return -1;
     return 0;
   });
 

@@ -22,29 +22,41 @@
   margin-top: var(--spacing-xs);
 }
 
-.list li {
-  width: 100%;
-}
-
-.itemLink,
-.itemLink:hover {
-  color: var(--clr-fg-1);
-  text-decoration: none;
-}
-
 .item {
   width: 100%;
   color: inherit;
   display: flex;
-  gap: var(--spacing-xs);
   background-color: inherit;
   align-items: center;
-  padding: var(--spacing-xs) var(--spacing-small);
+  justify-content: space-between;
+  padding-inline: var(--spacing-small);
+  padding-block: var(--spacing-xs);
   border-radius: var(--border-radius);
 }
 
 .item:hover {
   background-color: var(--clr-bg-2);
+}
+
+.itemContent {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.item a,
+.item a:hover {
+  color: var(--clr-fg-1);
+  text-decoration: none;
+}
+
+.secondaryLink {
+  border-radius: var(--border-radius);
+  padding: var(--spacing-xxs);
+}
+
+.secondaryLink:hover {
+  background-color: var(--clr-bg-1);
 }
 
 .actions {
