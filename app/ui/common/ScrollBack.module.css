@@ -6,7 +6,7 @@
   border-radius: var(--radius-round);
   padding: var(--spacing-xs);
   box-shadow: var(--shadow-2);
-  transition: opacity 250ms ease-in-out;
+  transition: opacity 200ms ease-in-out;
   background-color: var(--clr-fg-2);
   color: var(--clr-bg-1);
   display: flex;
@@ -26,7 +26,7 @@
     border-radius: 0;
     padding-block: var(--spacing-small);
     margin-left: 0;
-    transition: margin-left 500ms ease-in-out;
+    transition: margin-left 200ms ease-in-out;
   }
 
   .scrollBack.hidden {

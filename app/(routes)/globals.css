@@ -97,9 +97,9 @@ button {
   cursor: pointer;
 }
 
-input:focus,
-textarea:focus,
-button:focus {
+input:focus-visible,
+textarea:focus-visible,
+button:focus-visible {
   outline: solid 1px var(--clr-fg-1);
 }
 

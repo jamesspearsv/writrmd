@@ -9,13 +9,13 @@
   top: 0;
   z-index: 100;
   transition-property: height border-bottom;
-  transition-duration: 250ms;
+  transition-duration: 200ms;
   transition-timing-function: ease-in-out;
   border-bottom: transparent solid 0px;
+  height: 4rem;
 }
 
 .nav.scrolled {
-  height: 4rem;
   backdrop-filter: blur(10px);
   border-bottom: var(--border-size-1) solid var(--clr-fg-2);
 }
