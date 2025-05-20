@@ -329,3 +329,11 @@ Minor fixes to UI inconsistencies and quirks. UI behavior fixes and improvements
 ### Changes
 
 - **Moved fields** for post author and title back to the front-matter sidebar
+
+## v0.6.5 - May 19, 2025
+
+Improve animation duration consistency
+
+### Changes
+
+- **Set all animation speeds** to 200ms for UI consistency
