@@ -16,7 +16,7 @@
   background-color: var(--clr-bg-2);
   border: none;
   border-radius: 28px;
-  transition: background-color 250ms ease-in-out;
+  transition: background-color 200ms ease-in-out;
 }
 
 .toggleContainer.toggled {
