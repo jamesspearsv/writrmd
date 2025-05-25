@@ -13,10 +13,14 @@
   },
   "dependencies": {
     "clsx": "^2.1.1",
+    "dotenv": "^16.5.0",
+    "drizzle-orm": "^0.43.1",
     "gray-matter": "^4.0.3",
     "next": "15.2.4",
     "next-auth": "5.0.0-beta.25",
     "open-props": "^1.7.12",
+    "pg": "^8.16.0",
+    "postgres": "^3.4.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-feather": "^2.0.10",
@@ -30,8 +34,10 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "drizzle-kit": "^0.31.1",
     "eslint": "^9",
     "eslint-config-next": "15.1.6",
+    "tsx": "^4.19.4",
     "typescript": "^5"
   }
 }

@@ -17,6 +17,16 @@ services:
     volumes:
       - writrmd_dev_data:/writrmd/content
 
+  postgres:
+    image: postgres:latest
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: writrmd
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
   caddy:
     image: caddy:latest
     restart: unless-stopped
@@ -36,6 +46,7 @@ volumes:
   caddy_data:
   caddy_config:
   writrmd_dev_data:
+  pg_data:
 
 networks:
   writrmd_network:
