@@ -9,7 +9,8 @@
     "lint": "next lint",
     "docker:build": "docker build -t writrmd:dev .",
     "docker:compose": "docker compose -f docker-compose.dev.yaml up",
-    "docker:publish": "./push-image.sh"
+    "docker:publish": "./push-image.sh",
+    "drizzle-kit": "pnpm exec drizzle-kit"
   },
   "dependencies": {
     "clsx": "^2.1.1",
