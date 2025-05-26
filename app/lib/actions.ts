@@ -14,7 +14,8 @@ import {
 } from '@/app/lib/definitions';
 import { Post } from '@/app/lib/types';
 import { includes } from '@/app/lib/helpers';
-import { insertPost } from '@/app/db/queries';
+import { insertPost, updatePost } from '@/app/db/queries';
+import { redirect } from 'next/navigation';
 
 // Absolute path to project dir from filesystem root
 const rootDir = process.env.ROOT_PATH;
@@ -135,8 +136,7 @@ export async function savePost(
   state: PostEditorAction,
   data: {
     post: Post;
-    slug: string | undefined;
-    date: string | undefined;
+    id?: number;
   }
 ) {
   // TODO: Update validation schema and logic
@@ -161,16 +161,32 @@ export async function savePost(
   //   } as PostEditorAction;
   // }
 
-  console.log(data);
-  await insertPost({
-    title: data.post.title,
-    body: data.post.body,
-    excerpt: data.post.excerpt,
-    tags: data.post.tags,
-    published: data.post.published,
-    date: data.date ? new Date(data.date).toISOString() : undefined,
-    slug: data.slug,
-  });
+  const date =
+    data.post.date || data.post.published
+      ? new Date().toISOString()
+      : undefined;
+
+  if (data.id) {
+    await updatePost(data.id, {
+      title: data.post.title,
+      body: data.post.body,
+      excerpt: data.post.excerpt,
+      tags: data.post.tags,
+      published: data.post.published,
+      date: date,
+      slug: data.post.slug,
+    });
+  } else {
+    await insertPost({
+      title: data.post.title,
+      body: data.post.body,
+      excerpt: data.post.excerpt,
+      tags: data.post.tags,
+      published: data.post.published,
+      date: date,
+      slug: data.post.slug,
+    });
+  }
 
   // console.error(`Validation passed! ${new Date().toISOString()}`);
 
@@ -187,37 +203,8 @@ export async function savePost(
   //   publicationDate = '';
   // }
 
-  // // Format post content to write
-  // const fileContents =
-  //   `---\n` +
-  //   `title: "${results.data.title}"\n` +
-  //   `author: "${results.data.author}"\n` +
-  //   `date: "${publicationDate}"\n` +
-  //   `tags: [${results.data.tags.map((tag) => `"${tag}"`)}]\n` +
-  //   `excerpt: "${results.data.excerpt}"\n` +
-  //   `published: ${results.data.published}\n` +
-  //   `---\n` +
-  //   `${results.data.content}` +
-  //   `\n`;
-
-  // // Attempt to write new file to filesystem. Catch if unsuccessful
-  // try {
-  //   await fs.writeFile(
-  //     `${rootDir}/content/posts/${slug.toLowerCase()}.md`,
-  //     fileContents
-  //   );
-  // } catch (error) {
-  //   console.error(error);
-  //   return {
-  //     ok: false,
-  //     message: 'Server error! Please try again later.',
-  //     errors: {},
-  //   } as PostEditorAction;
-  // }
-
   // Redirect client if successful
-  // redirect('/writr/posts');
-  return state;
+  return redirect('/writr/posts');
 }
 
 /**

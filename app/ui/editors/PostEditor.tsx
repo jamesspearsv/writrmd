@@ -1,11 +1,7 @@
 'use client';
 
 import { startTransition, useActionState, useEffect, useState } from 'react';
-import {
-  CommonInputProps,
-  PostContent,
-  PostEditorAction,
-} from '@/app/lib/definitions';
+import { CommonInputProps, PostEditorAction } from '@/app/lib/definitions';
 import { savePost } from '@/app/lib/actions';
 import styles from './PostEditor.module.css';
 import StyledButton from '@/app/ui/common/StyledButton';
@@ -34,9 +30,8 @@ const initialActionState: PostEditorAction = {
  * COMPONENT STARTS HERE *
  ************************/
 export default function PostEditor(props: {
-  post?: PostContent; // KEEP THIS UNTIL REFACTORING IS COMPLETE
-  slug?: string;
-  date?: string;
+  post?: Post; // KEEP THIS UNTIL REFACTORING IS COMPLETE
+  id?: number;
 }) {
   // action state management for editor submission
   const [actionState, editorAction] = useActionState(
@@ -48,12 +43,12 @@ export default function PostEditor(props: {
     props.post
       ? ({
           title: props.post.title,
-          body: props.post.content,
+          body: props.post.body,
           published: props.post.published,
-          date: props.date,
+          date: props.post.date,
           excerpt: props.post.excerpt,
           tags: props.post.tags,
-          slug: props.slug,
+          slug: props.post.slug,
         } as Post)
       : NewPost
   );
@@ -84,8 +79,7 @@ export default function PostEditor(props: {
     startTransition(() => {
       editorAction({
         post: editorData,
-        slug: props.slug,
-        date: props.date,
+        id: props.id,
       });
     });
   }
@@ -167,7 +161,6 @@ export default function PostEditor(props: {
             name="title"
             placeholder="Post Title"
             label="Title"
-            disabled={props.slug ? true : false}
             // variant="borderless"
             // size="large"
             error={actionState.errors.title ? true : false}
