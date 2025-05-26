@@ -17,5 +17,3 @@ export const posts = pgTable('posts', {
   tags: varchar({ length: 256 }),
   slug: varchar({ length: 256 }),
 });
-
-// TODO: Add tags table

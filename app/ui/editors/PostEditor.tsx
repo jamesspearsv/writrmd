@@ -15,14 +15,12 @@ import Input from '@/app/ui/inputs/Input';
 import TextArea from '@/app/ui/inputs/TextArea';
 import List from '@/app/ui/inputs/List';
 import Toggle from '@/app/ui/inputs/Toggle';
+import { Post } from '@/app/lib/types';
 
 // TODO: Simplify state management and input params
-const initialLocalState: PostContent = {
+const NewPost: Post = {
   title: '',
-  author: '',
-  content: '',
-  tags: [],
-  excerpt: '',
+  body: '',
   published: false,
 };
 
@@ -36,7 +34,7 @@ const initialActionState: PostEditorAction = {
  * COMPONENT STARTS HERE *
  ************************/
 export default function PostEditor(props: {
-  post?: PostContent;
+  post?: PostContent; // KEEP THIS UNTIL REFACTORING IS COMPLETE
   slug?: string;
   date?: string;
 }) {
@@ -46,8 +44,18 @@ export default function PostEditor(props: {
     initialActionState
   );
   // local state management for current editor data
-  const [editorData, setEditorData] = useState<PostContent>(
-    props.post ? props.post : initialLocalState
+  const [editorData, setEditorData] = useState<Post>(
+    props.post
+      ? ({
+          title: props.post.title,
+          body: props.post.content,
+          published: props.post.published,
+          date: props.date,
+          excerpt: props.post.excerpt,
+          tags: props.post.tags,
+          slug: props.slug,
+        } as Post)
+      : NewPost
   );
   const [sidebarHidden, setSidebarHidden] = useState(false);
 
@@ -90,7 +98,7 @@ export default function PostEditor(props: {
     if (!Object.keys(editorData).includes(key)) return;
 
     // check that typeof value === typeof Data[key]
-    if (typeof value === typeof editorData[key as keyof PostContent]) {
+    if (typeof value === typeof editorData[key as keyof Post]) {
       setEditorData({ ...editorData, [key]: value });
     }
   };
@@ -131,8 +139,8 @@ export default function PostEditor(props: {
             error={actionState.errors.content ? true : false}
             placeholder="Begin writing your post..."
             controller={{
-              key: 'content',
-              value: editorData.content,
+              key: 'body',
+              value: editorData.body,
               updateValue,
             }}
             sticky
@@ -169,7 +177,7 @@ export default function PostEditor(props: {
               updateValue,
             }}
           />
-          <Input
+          {/* <Input
             name="author"
             placeholder="Author"
             label="Author"
@@ -181,14 +189,14 @@ export default function PostEditor(props: {
               value: editorData.author,
               updateValue,
             }}
-          />
+          /> */}
           <Input
             name="excerpt"
             label="Excerpt"
             error={actionState.errors.excerpt ? true : false}
             controller={{
               key: 'excerpt',
-              value: editorData.excerpt,
+              value: editorData.excerpt || '',
               updateValue,
             }}
           />
@@ -199,7 +207,7 @@ export default function PostEditor(props: {
             limit={3}
             controller={{
               key: 'tags',
-              value: editorData.tags,
+              value: editorData.tags || [],
               updateValue,
             }}
           />

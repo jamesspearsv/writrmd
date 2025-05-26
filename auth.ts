@@ -13,7 +13,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Credentials({
       authorize: async (credentials) => {
         const { ADMIN_USERNAME, ADMIN_PASSWORD } = process.env;
-        if (!ADMIN_USERNAME && ADMIN_PASSWORD) return null;
+        if (!ADMIN_USERNAME || !ADMIN_PASSWORD) return null;
 
         // check that username and password credentials are provided
         const { username, password } = credentials;

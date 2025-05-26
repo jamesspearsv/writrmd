@@ -4,6 +4,6 @@ export interface Post {
   published: boolean;
   date?: string;
   excerpt?: string;
-  tags?: string;
+  tags?: string[];
   slug?: string;
 }

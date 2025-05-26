@@ -11,7 +11,7 @@ export async function insertPost(post: Post) {
     published: post.published,
     date: post.date,
     excerpt: post.excerpt,
-    tags: post.tags,
+    tags: post.tags?.toString(),
     slug: post.slug,
   });
 }
