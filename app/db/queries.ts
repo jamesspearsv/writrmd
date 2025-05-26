@@ -3,6 +3,7 @@
 import { db } from '@/app/db/connection';
 import { posts } from '@/app/db/schema';
 import { Post } from '@/app/lib/types';
+import { eq } from 'drizzle-orm';
 
 export async function insertPost(post: Post) {
   await db.insert(posts).values({
@@ -14,4 +15,9 @@ export async function insertPost(post: Post) {
     tags: post.tags?.toString(),
     slug: post.slug,
   });
+}
+
+export async function selectPost(id: number) {
+  const rows = await db.select().from(posts).where(eq(posts.id, id));
+  return rows[0];
 }

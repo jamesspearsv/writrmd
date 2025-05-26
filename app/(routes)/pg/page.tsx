@@ -1,20 +1,13 @@
-'use client';
+import { selectPost } from '@/app/db/queries';
+import MarkdownWrapper from '@/app/ui/common/MarkdownWrapper';
 
-import { insertPost } from '@/app/db/queries';
-
-export default function Page() {
-  async function handleClick() {
-    await insertPost({
-      title: 'A test post',
-      body: 'This is a test post for pg',
-      published: false,
-    });
-  }
+export default async function Page() {
+  const row = await selectPost(2);
 
   return (
     <main style={{ margin: '3rem' }}>
-      <h1>Postgres Migration</h1>
-      <button onClick={handleClick}>Insert post</button>
+      <h1>{row.title}</h1>
+      <MarkdownWrapper value={row.body} />
     </main>
   );
 }
