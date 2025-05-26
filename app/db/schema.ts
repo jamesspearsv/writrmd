@@ -1,4 +1,5 @@
 import {
+  boolean,
   integer,
   pgTable,
   text,
@@ -10,9 +11,11 @@ export const posts = pgTable('posts', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   title: varchar({ length: 256 }).notNull(),
   body: text().notNull(),
-  published: timestamp(),
+  published: boolean().default(false).notNull(),
+  date: timestamp({ mode: 'string', withTimezone: true }),
   excerpt: varchar({ length: 256 }),
   tags: varchar({ length: 256 }),
+  slug: varchar({ length: 256 }),
 });
 
 // TODO: Add tags table
