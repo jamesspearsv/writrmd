@@ -3,7 +3,7 @@ export interface Post {
   body: string;
   published: boolean;
   date?: string;
-  excerpt?: string;
-  tags?: string[];
-  slug?: string;
+  excerpt: string;
+  tags: string[];
+  slug: string;
 }

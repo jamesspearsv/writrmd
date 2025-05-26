@@ -18,6 +18,9 @@ const NewPost: Post = {
   title: '',
   body: '',
   published: false,
+  excerpt: '',
+  slug: '',
+  tags: [],
 };
 
 const initialActionState: PostEditorAction = {
@@ -159,7 +162,7 @@ export default function PostEditor(props: {
           />
           <Input
             name="title"
-            placeholder="Post Title"
+            placeholder="Write a catchy title"
             label="Title"
             // variant="borderless"
             // size="large"
@@ -170,26 +173,25 @@ export default function PostEditor(props: {
               updateValue,
             }}
           />
-          {/* <Input
-            name="author"
-            placeholder="Author"
-            label="Author"
-            // variant="borderless"
-            // size="medium"
-            error={actionState.errors.author ? true : false}
-            controller={{
-              key: 'author',
-              value: editorData.author,
-              updateValue,
-            }}
-          /> */}
           <Input
             name="excerpt"
             label="Excerpt"
             error={actionState.errors.excerpt ? true : false}
+            placeholder="Write a short blurb"
             controller={{
               key: 'excerpt',
-              value: editorData.excerpt || '',
+              value: editorData.excerpt,
+              updateValue,
+            }}
+          />
+          <Input
+            name="slug"
+            label="Slug"
+            error={false}
+            placeholder="Use a custom slug or leave blank"
+            controller={{
+              key: 'slug',
+              value: editorData.slug,
               updateValue,
             }}
           />

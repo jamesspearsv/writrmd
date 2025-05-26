@@ -161,6 +161,8 @@ export async function savePost(
   //   } as PostEditorAction;
   // }
 
+  // TODO: generate post slug
+
   const date =
     data.post.date || data.post.published
       ? new Date().toISOString()
