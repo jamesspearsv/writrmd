@@ -2,9 +2,12 @@ import { Post } from '@/app/lib/types';
 import { selectPosts } from '@/app/db/queries';
 import PostEditor from '@/app/ui/editors/PostEditor';
 
-export default async function Page(props: { params: Promise<{ id: string }> }) {
-  const id = (await props.params).id;
-  const post = (await selectPosts(parseInt(id)))[0];
+export default async function Page(props: {
+  params: Promise<{ slug: string }>;
+}) {
+  const slug = (await props.params).slug;
+  const post = (await selectPosts({ slug }))[0];
+  console.log(post);
 
   return (
     <>

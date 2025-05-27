@@ -50,8 +50,8 @@ export default function PostEditor(props: {
           body: props.post.body,
           published: props.post.published,
           date: props.post.date,
-          excerpt: props.post.excerpt,
-          tags: props.post.tags,
+          excerpt: props.post.excerpt || '',
+          tags: props.post.tags || '',
           slug: props.post.slug,
         } as Post)
       : NewPost
@@ -181,7 +181,7 @@ export default function PostEditor(props: {
             placeholder="Write a short blurb"
             controller={{
               key: 'excerpt',
-              value: editorData.excerpt || '',
+              value: editorData.excerpt ? editorData.excerpt : '',
               updateValue,
             }}
           />

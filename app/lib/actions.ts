@@ -140,6 +140,7 @@ export async function savePost(
   }
 ) {
   // Validate incoming post data
+  // TODO: handle null date bug
   const { title, body, published, date, excerpt, tags, slug } = data.post;
   const validation = PostSchema.safeParse({
     title,
@@ -151,8 +152,8 @@ export async function savePost(
     slug,
   });
 
-  console.log(validation);
   if (!validation.success) {
+    console.log(validation.error.flatten().fieldErrors);
     return {
       ok: false,
       message: 'Validation failed',
@@ -161,6 +162,7 @@ export async function savePost(
   }
 
   // TODO: generate post slug
+  // TODO: coerce empty strings to null values before inserting or updating
 
   const postDate =
     data.post.date || data.post.published ? new Date().toISOString() : null;

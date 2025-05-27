@@ -2,7 +2,7 @@
 
 import { db } from '@/app/db/connection';
 import { posts } from '@/app/db/schema';
-import { eq } from 'drizzle-orm';
+import { eq, or } from 'drizzle-orm';
 import { Post } from '@/app/lib/types';
 import { Result } from '@/app/lib/definitions';
 
@@ -18,11 +18,17 @@ export async function insertPost(post: Post) {
   });
 }
 
-export async function selectPosts(id?: number) {
+export async function selectPosts(filters: { id?: number; slug?: string }) {
+  const { id, slug } = filters;
   const rows = await db
     .select()
     .from(posts)
-    .where(id ? eq(posts.id, id) : undefined);
+    .where(
+      or(
+        id ? eq(posts.id, id) : undefined,
+        slug ? eq(posts.slug, slug) : undefined
+      )
+    );
   return rows;
 }
 
