@@ -1,9 +1,9 @@
-import { PostFile } from '@/app/lib/definitions';
 import styles from './PostPreview.module.css';
 import Link from 'next/link';
+import { Post } from '@/app/lib/types';
 
 export default function PostPreview(props: {
-  post: PostFile;
+  post: Post;
   variant: 'minimal' | 'full';
 }) {
   const { post } = props;
@@ -12,26 +12,22 @@ export default function PostPreview(props: {
     return (
       <article className={styles.full}>
         <div className={styles.title}>
-          <Link href={`/blog/${post.data.slug}`}>
-            <h2>{post.data.title}</h2>
+          <Link href={`/blog/${post.slug}`}>
+            <h2>{post.title}</h2>
           </Link>
         </div>
-        {post.data.excerpt && <p>{post.data.excerpt}</p>}
-        <p className={styles.byline}>
-          By {post.data.author}
-          <span className={styles.span}>--</span>
-          {new Date(post.data.date).toDateString()}
-        </p>
+        {post.excerpt && <p>{post.excerpt}</p>}
+        <p className={styles.byline}>{new Date(post.date!).toDateString()}</p>
       </article>
     );
   }
 
   if (props.variant === 'minimal') {
     return (
-      <Link className={styles.post_link} href={`/blog/${post.data.slug}`}>
+      <Link className={styles.post_link} href={`/blog/${post.slug}`}>
         <article className={styles.minimal}>
-          <div>{post.data.title}</div>
-          <div>{new Date(post.data.date).toDateString()}</div>
+          <div>{post.title}</div>
+          <div>{new Date(post.date!).toDateString()}</div>
         </article>
       </Link>
     );
