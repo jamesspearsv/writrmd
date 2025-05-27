@@ -2,11 +2,11 @@
 
 import * as fs from 'node:fs/promises';
 import * as matter from 'gray-matter';
-import { BlogSettingsSchema } from '@/app/lib/schemas';
+import { BlogSettingsSchema, PostSchema } from '@/app/lib/schemas';
 import { revalidatePath } from 'next/cache';
 import TaskWorker from '@/app/lib/worker';
 import {
-  Post as GreyMatterPost,
+  PostFile as GreyMatterPost,
   PostEditorAction,
   BlogSettings,
   Result,
@@ -139,34 +139,31 @@ export async function savePost(
     id?: number;
   }
 ) {
-  // TODO: Update validation schema and logic
-  // Validate submitted content against the PostSchema
-  // const results = PostSchema.safeParse({
-  //   title: data.post.title,
-  //   excerpt: data.post.excerpt,
-  //   tags: data.post.tags,
-  //   content: data.post.body,
-  //   published: data.post.published,
-  // } as Post);
+  // Validate incoming post data
+  const { title, body, published, date, excerpt, tags, slug } = data.post;
+  const validation = PostSchema.safeParse({
+    title,
+    body,
+    published,
+    date,
+    excerpt,
+    tags,
+    slug,
+  });
 
-  // Handle unsuccessful validation
-  // if (!results.success) {
-  //   console.error(`Validation failed! ${new Date().toISOString()}`);
-  //   console.error(results.error.flatten().fieldErrors);
-  //   // Return an unsuccessful action state
-  //   return {
-  //     ok: false,
-  //     message: 'Validation failed',
-  //     errors: results.error.flatten().fieldErrors,
-  //   } as PostEditorAction;
-  // }
+  console.log(validation);
+  if (!validation.success) {
+    return {
+      ok: false,
+      message: 'Validation failed',
+      errors: validation.error.flatten().fieldErrors,
+    } as PostEditorAction;
+  }
 
   // TODO: generate post slug
 
-  const date =
-    data.post.date || data.post.published
-      ? new Date().toISOString()
-      : undefined;
+  const postDate =
+    data.post.date || data.post.published ? new Date().toISOString() : null;
 
   if (data.id) {
     await updatePost(data.id, {
@@ -175,7 +172,7 @@ export async function savePost(
       excerpt: data.post.excerpt,
       tags: data.post.tags,
       published: data.post.published,
-      date: date,
+      date: postDate,
       slug: data.post.slug,
     });
   } else {
@@ -185,7 +182,7 @@ export async function savePost(
       excerpt: data.post.excerpt,
       tags: data.post.tags,
       published: data.post.published,
-      date: date,
+      date: postDate,
       slug: data.post.slug,
     });
   }

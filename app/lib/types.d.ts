@@ -2,8 +2,8 @@ export interface Post {
   title: string;
   body: string;
   published: boolean;
-  date?: string;
-  excerpt: string;
-  tags: string[];
+  date: string | null;
+  excerpt: string | null;
+  tags: string | null;
   slug: string;
 }

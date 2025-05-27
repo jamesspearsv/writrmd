@@ -1,8 +1,8 @@
-import { Post } from '@/app/lib/definitions';
+import { PostFile } from '@/app/lib/definitions';
 import PostPreview from '@/app/ui/posts/PostPreview';
 import styles from './PostList.module.css';
 
-export default async function PostList(props: { posts: Post[] }) {
+export default async function PostList(props: { posts: PostFile[] }) {
   const { posts } = props;
   return (
     <section className={styles.section}>

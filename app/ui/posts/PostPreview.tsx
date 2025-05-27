@@ -1,9 +1,9 @@
-import { Post } from '@/app/lib/definitions';
+import { PostFile } from '@/app/lib/definitions';
 import styles from './PostPreview.module.css';
 import Link from 'next/link';
 
 export default function PostPreview(props: {
-  post: Post;
+  post: PostFile;
   variant: 'minimal' | 'full';
 }) {
   const { post } = props;

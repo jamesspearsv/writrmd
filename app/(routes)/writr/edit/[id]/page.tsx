@@ -13,10 +13,12 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
           post
             ? ({
                 title: post.title,
-                excerpt: post.excerpt,
-                tags: post.tags?.split(','),
                 body: post.body,
                 published: post.published,
+                date: post.date,
+                excerpt: post.excerpt,
+                tags: post.tags,
+                slug: post.slug,
               } as Post)
             : undefined
         }

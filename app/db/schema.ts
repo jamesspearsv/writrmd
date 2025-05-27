@@ -15,5 +15,5 @@ export const posts = pgTable('posts', {
   date: timestamp({ mode: 'string', withTimezone: true }),
   excerpt: varchar({ length: 256 }),
   tags: varchar({ length: 256 }),
-  slug: varchar({ length: 256 }),
+  slug: varchar({ length: 256 }).notNull().unique(),
 });

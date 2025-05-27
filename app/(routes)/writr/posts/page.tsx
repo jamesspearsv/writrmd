@@ -13,6 +13,8 @@ export default async function Page() {
   if (!posts.success) return notFound();
   if (posts.data.length === 0) return <PlaceholderPage />;
 
+  rows.forEach((row) => console.log(row));
+
   return (
     <>
       <Header>

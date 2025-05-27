@@ -1,7 +1,8 @@
+import { Post } from '@/app/lib/types';
 import * as matter from 'gray-matter';
 import { User } from 'next-auth';
 
-export interface Post extends matter.GrayMatterFile<string> {
+export interface PostFile extends matter.GrayMatterFile<string> {
   data: {
     title: string;
     date: string;
@@ -47,7 +48,7 @@ export type PostContent = {
 export type PostEditorAction = {
   ok: boolean;
   message: string | null;
-  errors: Partial<Record<keyof PostContent, string>>;
+  errors: Partial<Record<keyof Post, string>>;
 };
 
 export interface Admin extends User {

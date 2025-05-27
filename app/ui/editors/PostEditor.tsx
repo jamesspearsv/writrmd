@@ -18,9 +18,10 @@ const NewPost: Post = {
   title: '',
   body: '',
   published: false,
+  date: null,
   excerpt: '',
+  tags: '',
   slug: '',
-  tags: [],
 };
 
 const initialActionState: PostEditorAction = {
@@ -89,7 +90,7 @@ export default function PostEditor(props: {
 
   // update editorData based on the PostContent type
   const updateValue: CommonInputProps<
-    string | string[] | boolean
+    string | boolean
   >['controller']['updateValue'] = (key, value) => {
     // check that key exists in current data object
     if (!Object.keys(editorData).includes(key)) return;
@@ -103,9 +104,9 @@ export default function PostEditor(props: {
   return (
     <div>
       <div className={styles.editorControls}>
-        {actionState.errors.author && (
+        {(actionState.errors.body || actionState.errors.title) && (
           <div className={styles.error}>
-            Posts must have an author, title, and body
+            Posts must have a title, and a body
           </div>
         )}
         <StyledButton
@@ -133,7 +134,7 @@ export default function PostEditor(props: {
         <div className={styles.editor}>
           <TextArea
             name="content"
-            error={actionState.errors.content ? true : false}
+            error={actionState.errors.body ? true : false}
             placeholder="Begin writing your post..."
             controller={{
               key: 'body',
@@ -180,21 +181,23 @@ export default function PostEditor(props: {
             placeholder="Write a short blurb"
             controller={{
               key: 'excerpt',
-              value: editorData.excerpt,
+              value: editorData.excerpt || '',
               updateValue,
             }}
           />
-          <Input
-            name="slug"
-            label="Slug"
-            error={false}
-            placeholder="Use a custom slug or leave blank"
-            controller={{
-              key: 'slug',
-              value: editorData.slug,
-              updateValue,
-            }}
-          />
+          {!editorData.slug && (
+            <Input
+              name="slug"
+              label="Slug"
+              error={actionState.errors.slug ? true : false}
+              placeholder="Use a custom slug or leave blank"
+              controller={{
+                key: 'slug',
+                value: editorData.slug,
+                updateValue,
+              }}
+            />
+          )}
           <List
             name="tags"
             label="Tags"
@@ -202,7 +205,7 @@ export default function PostEditor(props: {
             limit={3}
             controller={{
               key: 'tags',
-              value: editorData.tags || [],
+              value: editorData.tags || '',
               updateValue,
             }}
           />

@@ -1,9 +1,9 @@
-import { Post } from '@/app/lib/definitions';
+import { PostFile } from '@/app/lib/definitions';
 import styles from './PostAdminPreview.module.css';
 import Link from 'next/link';
 import clsx from 'clsx';
 
-export default function AdminPostPreview(props: { post: Post }) {
+export default function AdminPostPreview(props: { post: PostFile }) {
   const { post } = props;
 
   return (

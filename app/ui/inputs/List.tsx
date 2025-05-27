@@ -7,29 +7,31 @@ import StyledButton from '@/app/ui/common/StyledButton';
 import { Plus, X } from 'react-feather';
 import clsx from 'clsx';
 
-interface ListProps extends CommonInputProps<string[]> {
+interface ListProps extends CommonInputProps<string> {
   label: string;
   limit: number;
 }
 
 export default function List(props: ListProps) {
   const [tag, setTag] = useState('');
+  const [list] = useState(props.controller.value.split(','));
 
   function handleListAddition() {
     const { key, value, updateValue } = props.controller;
 
-    if (value.length >= props.limit) return;
+    const list = value.split(',');
+    if (list.length >= props.limit) return;
 
-    const list = [...value];
     list.push(tag);
-    updateValue(key, list);
+    updateValue(key, list.toString());
     setTag('');
   }
 
   function handleListDeletion(index: number) {
     const { key, value, updateValue } = props.controller;
-    const list = [...value].toSpliced(index, 1);
-    updateValue(key, list);
+    const list = value.split(',');
+    list.splice(index, 1);
+    updateValue(key, list.toString());
   }
 
   return (
@@ -61,7 +63,7 @@ export default function List(props: ListProps) {
             Add some items to get started...
           </p>
         ) : (
-          props.controller.value.map((item, index) => (
+          list.map((item, index) => (
             <div key={index} className={styles.item}>
               <p>{item}</p>
               <StyledButton

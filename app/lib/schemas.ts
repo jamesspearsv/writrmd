@@ -1,17 +1,14 @@
+/** CLIENT SIDE VALIDATION SCHEMAS **/
 import { z } from 'zod';
 
 export const PostSchema = z.object({
   title: z.string().min(1),
-  author: z.string().min(1),
-  content: z.string().min(1),
-  tags: z.array(z.string()), // optional: can be an empty array
-  excerpt: z.string(), // optional can be an empty string
+  body: z.string().min(1),
   published: z.boolean(),
-});
-
-export const PageSchema = z.object({
-  title: z.string().min(1),
-  content: z.string().min(1),
+  date: z.string() || z.null(),
+  excerpt: z.string(), // optional can be an empty string
+  tags: z.string(), // optional: can be an empty string
+  slug: z.string(), // can be an empty string
 });
 
 export const CredentialsSchema = z.object({
