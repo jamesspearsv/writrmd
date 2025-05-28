@@ -62,7 +62,7 @@ export default function TextArea({ ...props }: TextAreaProps) {
   }
 
   return (
-    // TODO: Add an info modal with keyboard shortcuts
+    // TODO: Add an info modal with keyboard shortcuts & a link to a markdown guide
     <div onKeyDown={handleTextAreaKeyDown}>
       <div
         className={clsx(

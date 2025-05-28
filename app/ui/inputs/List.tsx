@@ -12,9 +12,12 @@ interface ListProps extends CommonInputProps<string> {
   limit: number;
 }
 
+// TODO: Fix list parsing UI bug
 export default function List(props: ListProps) {
   const [tag, setTag] = useState('');
-  const [list] = useState(props.controller.value.split(','));
+  const list = props.controller.value.split(',');
+  if (list[0] === '') list.shift();
+  console.log(list);
 
   function handleListAddition() {
     const { key, value, updateValue } = props.controller;
@@ -22,7 +25,7 @@ export default function List(props: ListProps) {
     const list = value.split(',');
     if (list.length >= props.limit) return;
 
-    list.push(tag);
+    list.push(tag.toLowerCase());
     updateValue(key, list.toString());
     setTag('');
   }
@@ -46,19 +49,19 @@ export default function List(props: ListProps) {
           onChange={(e) => setTag(e.currentTarget.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleListAddition()}
           className={clsx(props.error && `styles.error`)}
-          disabled={props.controller.value.length >= props.limit}
+          disabled={list.length >= props.limit}
         />
         <StyledButton
           className={styles.addButton}
           onClick={handleListAddition}
-          disabled={props.controller.value.length >= props.limit}
+          disabled={list.length >= props.limit}
         >
           <Plus />
         </StyledButton>
       </div>
       {props.error && <div className={styles.error}>{props.error}</div>}
       <div className={styles.items}>
-        {props.controller.value.length === 0 ? (
+        {list.length === 0 ? (
           <p className={styles.listPlaceholder}>
             Add some items to get started...
           </p>

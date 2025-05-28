@@ -141,7 +141,6 @@ export async function savePost(
   }
 ) {
   // Validate incoming post data
-  // TODO: handle null date bug
   console.log(data.post);
   const { title, body, published, date, excerpt, tags, slug } = data.post;
   const validation = PostSchema.safeParse({
@@ -172,13 +171,13 @@ export async function savePost(
       : null;
 
   const post = {
-    title: data.post.title,
-    body: data.post.body,
+    title: validation.data.title,
+    body: validation.data.body,
     published: data.post.published,
     date: postDate,
-    excerpt: data.post.excerpt || null,
-    tags: data.post.tags || null,
-    slug: data.post.slug || uniqueSlugify(data.post.title),
+    excerpt: validation.data.excerpt || null,
+    tags: validation.data.tags || null,
+    slug: validation.data.slug || uniqueSlugify(data.post.title),
   };
 
   if (data.id) {

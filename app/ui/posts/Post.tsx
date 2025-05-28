@@ -6,7 +6,7 @@ import { selectPosts } from '@/app/db/queries';
 export default async function Post(props: { slug: string }) {
   const post = (await selectPosts({ slug: props.slug }))[0];
 
-  // TODO: handle failure selecting post
+  // TODO: handle possible failure finding post by the given slug
 
   return (
     <article className={styles.container}>
