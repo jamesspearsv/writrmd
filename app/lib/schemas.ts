@@ -5,7 +5,7 @@ export const PostSchema = z.object({
   title: z.string().min(1),
   body: z.string().min(1),
   published: z.boolean(),
-  date: z.string() || z.null(),
+  date: z.union([z.string(), z.null()]),
   excerpt: z.string(), // optional can be an empty string
   tags: z.string(), // optional: can be an empty string
   slug: z.string(), // can be an empty string

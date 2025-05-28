@@ -35,7 +35,7 @@ const initialActionState: PostEditorAction = {
  ************************/
 export default function PostEditor(props: {
   post?: Post; // KEEP THIS UNTIL REFACTORING IS COMPLETE
-  id?: number;
+  id?: string;
 }) {
   // action state management for editor submission
   const [actionState, editorAction] = useActionState(
@@ -50,13 +50,16 @@ export default function PostEditor(props: {
           body: props.post.body,
           published: props.post.published,
           date: props.post.date,
-          excerpt: props.post.excerpt || '',
-          tags: props.post.tags || '',
+          excerpt: props.post.excerpt ?? '',
+          tags: props.post.tags ?? '',
           slug: props.post.slug,
         } as Post)
       : NewPost
   );
   const [sidebarHidden, setSidebarHidden] = useState(false);
+
+  console.log(props.post);
+  console.log(editorData);
 
   // Add keyboard listener to body for cmd | ctrl + enter submission
   useEffect(() => {
@@ -185,7 +188,7 @@ export default function PostEditor(props: {
               updateValue,
             }}
           />
-          {!editorData.slug && (
+          {!props.post?.slug && (
             <Input
               name="slug"
               label="Slug"

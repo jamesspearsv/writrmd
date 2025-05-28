@@ -1,14 +1,14 @@
 import {
   boolean,
-  integer,
   pgTable,
   text,
   timestamp,
+  uuid,
   varchar,
 } from 'drizzle-orm/pg-core';
 
 export const posts = pgTable('posts', {
-  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  id: uuid().primaryKey().defaultRandom(),
   title: varchar({ length: 256 }).notNull(),
   body: text().notNull(),
   published: boolean().default(false).notNull(),

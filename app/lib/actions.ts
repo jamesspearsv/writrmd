@@ -16,6 +16,7 @@ import { Post } from '@/app/lib/types';
 import { includes } from '@/app/lib/helpers';
 import { insertPost, updatePost } from '@/app/db/queries';
 import { redirect } from 'next/navigation';
+import { uniqueSlugify } from '@/app/lib/slugify';
 
 // Absolute path to project dir from filesystem root
 const rootDir = process.env.ROOT_PATH;
@@ -136,11 +137,12 @@ export async function savePost(
   state: PostEditorAction,
   data: {
     post: Post;
-    id?: number;
+    id?: string;
   }
 ) {
   // Validate incoming post data
   // TODO: handle null date bug
+  console.log(data.post);
   const { title, body, published, date, excerpt, tags, slug } = data.post;
   const validation = PostSchema.safeParse({
     title,
@@ -161,32 +163,28 @@ export async function savePost(
     } as PostEditorAction;
   }
 
-  // TODO: generate post slug
-  // TODO: coerce empty strings to null values before inserting or updating
-
+  console.log(data.post.date);
   const postDate =
-    data.post.date || data.post.published ? new Date().toISOString() : null;
+    data.post.date !== null
+      ? data.post.date
+      : data.post.published
+      ? new Date().toISOString()
+      : null;
+
+  const post = {
+    title: data.post.title,
+    body: data.post.body,
+    published: data.post.published,
+    date: postDate,
+    excerpt: data.post.excerpt || null,
+    tags: data.post.tags || null,
+    slug: data.post.slug || uniqueSlugify(data.post.title),
+  };
 
   if (data.id) {
-    await updatePost(data.id, {
-      title: data.post.title,
-      body: data.post.body,
-      excerpt: data.post.excerpt,
-      tags: data.post.tags,
-      published: data.post.published,
-      date: postDate,
-      slug: data.post.slug,
-    });
+    await updatePost(data.id, post);
   } else {
-    await insertPost({
-      title: data.post.title,
-      body: data.post.body,
-      excerpt: data.post.excerpt,
-      tags: data.post.tags,
-      published: data.post.published,
-      date: postDate,
-      slug: data.post.slug,
-    });
+    await insertPost(post);
   }
 
   // console.error(`Validation passed! ${new Date().toISOString()}`);

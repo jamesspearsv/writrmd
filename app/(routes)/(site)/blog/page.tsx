@@ -25,6 +25,7 @@ export async function generateMetadata({
 
 export default async function BlogPage({ searchParams }: Props) {
   const tag = (await searchParams).tag;
+  console.log(tag);
   const posts = await selectPosts({ published: true });
 
   // if (!posts.success) return <PlaceholderPage />;

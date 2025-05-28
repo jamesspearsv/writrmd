@@ -5,8 +5,6 @@ import { selectPosts } from '@/app/db/queries';
 export default async function Page() {
   const rows = await selectPosts({});
 
-  rows.forEach((row) => console.log(row));
-
   return (
     <>
       <Header>

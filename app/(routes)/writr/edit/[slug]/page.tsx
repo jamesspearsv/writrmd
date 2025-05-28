@@ -7,7 +7,6 @@ export default async function Page(props: {
 }) {
   const slug = (await props.params).slug;
   const post = (await selectPosts({ slug }))[0];
-  console.log(post);
 
   return (
     <>

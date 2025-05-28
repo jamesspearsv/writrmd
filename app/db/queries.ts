@@ -13,13 +13,13 @@ export async function insertPost(post: Post) {
     published: post.published,
     date: post.date,
     excerpt: post.excerpt,
-    tags: post.tags?.toString(),
+    tags: post.tags,
     slug: post.slug,
   });
 }
 
 export async function selectPosts(filters: {
-  id?: number;
+  id?: string;
   slug?: string;
   published?: boolean;
 }) {
@@ -38,7 +38,7 @@ export async function selectPosts(filters: {
   return rows;
 }
 
-export async function updatePost(id: number, data: Post): Promise<Result> {
+export async function updatePost(id: string, data: Post): Promise<Result> {
   try {
     await db
       .update(posts)
