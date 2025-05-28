@@ -12,7 +12,6 @@ interface ListProps extends CommonInputProps<string> {
   limit: number;
 }
 
-// TODO: Fix list parsing UI bug
 export default function List(props: ListProps) {
   const [tag, setTag] = useState('');
   const list = props.controller.value.split(',');
