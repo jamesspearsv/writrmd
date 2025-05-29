@@ -12,7 +12,7 @@ services:
       - NODE_ENV=production
     env_file: ./.env # MAKE SURE THIS FILE IS PRESENT AND ACCURATE
     volumes:
-      - writrmd-data:/writrmd/content
+      - writrmd-data:/app/content
 
   caddy:
     image: caddy:latest

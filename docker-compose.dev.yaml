@@ -1,6 +1,17 @@
-version: '3.3'
-
 services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: writrmd
+    expose:
+      - '5432'
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - writrmd_network
+
   writrmd:
     image: writrmd:dev
     restart: unless-stopped
@@ -14,18 +25,11 @@ services:
       - AUTH_TRUST_HOST=true
       - ADMIN_USERNAME=admin
       - ADMIN_PASSWORD=12345
+      - PG_URL=postgresql://user:password@postgres:5432/writrmd
     volumes:
-      - writrmd_dev_data:/writrmd/content
-
-  postgres:
-    image: postgres:latest
-    container_name: postgres_db
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: writrmd
-    volumes:
-      - pg_data:/var/lib/postgresql/data
+      - writrmd_dev_data:/app/content
+    depends_on:
+      - postgres
 
   caddy:
     image: caddy:latest

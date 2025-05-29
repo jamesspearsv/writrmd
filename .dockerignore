@@ -22,3 +22,4 @@ docker-compose.*
 # Include the default settings and example post
 !/content/settings.json
 !/content/posts/syntax-examples.md
+!docker-migrations/

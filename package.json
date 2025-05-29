@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "docker:build": "docker build -t writrmd:dev .",
+    "docker:build": "docker build -t writrmd:dev --progress=plain .",
     "docker:compose": "docker compose -f docker-compose.dev.yaml up",
     "docker:publish": "./push-image.sh",
     "drizzle-kit": "pnpm exec drizzle-kit"
@@ -20,7 +20,6 @@
     "next": "15.2.4",
     "next-auth": "5.0.0-beta.25",
     "open-props": "^1.7.12",
-    "pg": "^8.16.0",
     "postgres": "^3.4.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
