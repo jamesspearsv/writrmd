@@ -1,3 +1,5 @@
 import { drizzle } from 'drizzle-orm/postgres-js';
 
-export const db = drizzle(process.env.PG_URL || 'postgresql://localhost:5432');
+export const db = drizzle(
+  process.env.POSTGRES_URL || 'postgresql://localhost:5432'
+);

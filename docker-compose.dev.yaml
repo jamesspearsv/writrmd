@@ -1,3 +1,4 @@
+# TODO: Update dev compose to use .dev.env file for consistency
 services:
   postgres:
     image: postgres:latest
@@ -18,14 +19,14 @@ services:
     networks:
       - writrmd_network
     expose:
-      - '3000' # Expose to Caddy but not to the host machine
+      - '3000'
     environment:
       - NODE_ENV=production
       - AUTH_SECRET=GJ6TOTGlA3jGj3pKGFVIUa9gJ8tUlN+w0WoF9803PSo=
       - AUTH_TRUST_HOST=true
       - ADMIN_USERNAME=admin
       - ADMIN_PASSWORD=12345
-      - PG_URL=postgresql://user:password@postgres:5432/writrmd
+      - POSTGRES_URL=postgresql://user:password@postgres:5432/writrmd
     volumes:
       - writrmd_dev_data:/app/content
     depends_on:

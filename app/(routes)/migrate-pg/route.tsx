@@ -3,7 +3,7 @@ import { fetchAllPosts } from '@/app/lib/actions';
 import { Post } from '@/app/lib/types';
 
 export async function GET() {
-  if (!process.env.PG_URL) return;
+  if (!process.env.POSTGRES_URL) return;
   const result = await fetchAllPosts({ publishedOnly: false });
 
   if (!result.success) return Response.json('unable to read files');

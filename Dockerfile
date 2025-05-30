@@ -53,11 +53,11 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 # Copy Drizzle migrations
-COPY ./docker-migrations ./docker-migrations 
-COPY ./drizzle ./docker-migrations/drizzle
-RUN cd ./docker-migrations && pnpm install --prod --prefer-offline
-RUN chown nextjs:nodejs ./docker-migrations/migrate.sh
-RUN chmod +x ./docker-migrations/migrate.sh
+COPY ./drizzle ./drizzle 
+RUN cd ./drizzle && pnpm install --prod --prefer-offline
+RUN chown nextjs:nodejs ./drizzle/migration-entrypoint.sh
+RUN chmod +x ./drizzle/migration-entrypoint.sh
+
 
 USER nextjs
 
@@ -68,6 +68,5 @@ ENV PORT=3000
 # server.js is created by next build from the standalone output
 # https://nextjs.org/docs/pages/api-reference/config/next-config-js/output
 ENV HOSTNAME="0.0.0.0"
-ENTRYPOINT ["./docker-migrations/migrate.sh"]
+ENTRYPOINT ["./drizzle/migration-entrypoint.sh"]
 CMD ["node", "/app/server.js"]
-# CMD ["pnpm", "prod:start"]
