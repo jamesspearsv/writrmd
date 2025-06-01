@@ -22,8 +22,9 @@ import { uniqueSlugify } from '@/app/lib/slugify';
 const rootDir = process.env.ROOT_PATH;
 // filename regex pattern
 const pattern = /^[\w-]+\.md$/;
-const settingsFile =
-  process.env.NODE_ENV === 'production' ? 'settings.json' : 'settings.dev.json';
+const settingsFile = process.env.NODE_ENV
+  ? 'settings.json'
+  : 'settings.dev.json';
 const worker = new TaskWorker();
 
 /**

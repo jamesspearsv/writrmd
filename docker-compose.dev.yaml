@@ -1,15 +1,13 @@
-# TODO: Update dev compose to use .dev.env file for consistency
 services:
   postgres:
     image: postgres:latest
+    env_file: '.env'
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: writrmd
+      - NODE_ENV=production
     expose:
       - '5432'
     volumes:
-      - pg_data:/var/lib/postgresql/data
+      - pg_dev_data:/var/lib/postgresql/data
     networks:
       - writrmd_network
 
@@ -18,40 +16,17 @@ services:
     restart: unless-stopped
     networks:
       - writrmd_network
-    expose:
-      - '3000'
-    environment:
-      - NODE_ENV=production
-      - AUTH_SECRET=GJ6TOTGlA3jGj3pKGFVIUa9gJ8tUlN+w0WoF9803PSo=
-      - AUTH_TRUST_HOST=true
-      - ADMIN_USERNAME=admin
-      - ADMIN_PASSWORD=12345
-      - POSTGRES_URL=postgresql://user:password@postgres:5432/writrmd
+    ports:
+      - '3000:3000'
+    env_file: '.env'
     volumes:
       - writrmd_dev_data:/app/content
     depends_on:
       - postgres
 
-  caddy:
-    image: caddy:latest
-    restart: unless-stopped
-    ports:
-      - '80:80' # Expose port 80 to the host machine
-      - '443:443' # Expose port 443 (optional, for HTTPS)
-    volumes:
-      - ./docker/Caddyfile:/etc/caddy/Caddyfile # Mount the Caddyfile
-      - caddy_data:/data # Persist Caddy data
-      - caddy_config:/config # Persist Caddy config
-    networks:
-      - writrmd_network
-    depends_on:
-      - writrmd # Ensure the app is up before Caddy starts
-
 volumes:
-  caddy_data:
-  caddy_config:
   writrmd_dev_data:
-  pg_data:
+  pg_dev_data:
 
 networks:
   writrmd_network:
