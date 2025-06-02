@@ -19,7 +19,6 @@ services:
     env_file: .env # MAKE SURE THIS FILE IS PRESENT AND ACCURATE
     environment:
       - NODE_ENV=production
-      - POSTGRES_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
     volumes:
       - writrmd-data:/app/content
     depends_on:

@@ -13,18 +13,19 @@ The included `docker-compose.yaml` starts a container running Writr.md using the
 
 ```env
 NODE_ENV=production
-# Admin username and password values
-ADMIN_USERNAME=[...]
-ADMIN_PASSWORD=[...]
-# Two variables below required by Auth.js
-# https://authjs.dev/getting-started/deployment
-AUTH_SECRET=[...]
-AUTH_TRUST_HOST=true
+### NEXTJS VARIABLES (REQUIRED) ###
+AUTH_SECRET=[...] # Secret key for Auth.js
+ADMIN_USERNAME=[...] # Username for admin dashboard access
+ADMIN_PASSWORD=[...] # Password for admin dashboard access
+AUTH_TRUST_HOST=true # Required by AuthJS
 
-# Postgres credentials and connection details
+### POSTGRES DOCKER CONTAINER CREDENTIALS (OPTIONAL) ###
 POSTGRES_USER=[...]
 POSTGRES_PASSWORD=[...]
 POSTGRES_DB=[...]
+
+### POSTGRES CONNECTION STRING (REQUIRED) ###
+POSTGRES_URL=postgres://[...] ## Connection string for your container or Postgres server
 ```
 
 ## Running the app
