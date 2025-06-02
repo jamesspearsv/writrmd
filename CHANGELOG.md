@@ -348,7 +348,8 @@ Animation improvements and bug fixes
 
 Migrates Writr.md data storage to Postgres and deprecates file based approaches.
 
-> v1.0.0 introduces breaking changes to previous post storage approaches, the base docker image, and docker compose deployment
+> [!IMPORTANT]
+> v1.0.0 introduces breaking changes to previous post storage approaches, the base docker image, and docker compose deployment. Check the updated Docker deployment docs for specific changes and how to update your deployment environment. When you're ready to migrate your post files to Postgres go to `/migrate-pg` to start the process.
 
 ### Added
 
