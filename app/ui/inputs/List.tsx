@@ -7,29 +7,33 @@ import StyledButton from '@/app/ui/common/StyledButton';
 import { Plus, X } from 'react-feather';
 import clsx from 'clsx';
 
-interface ListProps extends CommonInputProps<string[]> {
+interface ListProps extends CommonInputProps<string> {
   label: string;
   limit: number;
 }
 
 export default function List(props: ListProps) {
   const [tag, setTag] = useState('');
+  const list = props.controller.value.split(',');
+  if (list[0] === '') list.shift();
+  console.log(list);
 
   function handleListAddition() {
     const { key, value, updateValue } = props.controller;
 
-    if (value.length >= props.limit) return;
+    const list = value.split(',');
+    if (list.length >= props.limit) return;
 
-    const list = [...value];
-    list.push(tag);
-    updateValue(key, list);
+    list.push(tag.toLowerCase());
+    updateValue(key, list.toString());
     setTag('');
   }
 
   function handleListDeletion(index: number) {
     const { key, value, updateValue } = props.controller;
-    const list = [...value].toSpliced(index, 1);
-    updateValue(key, list);
+    const list = value.split(',');
+    list.splice(index, 1);
+    updateValue(key, list.toString());
   }
 
   return (
@@ -44,24 +48,24 @@ export default function List(props: ListProps) {
           onChange={(e) => setTag(e.currentTarget.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleListAddition()}
           className={clsx(props.error && `styles.error`)}
-          disabled={props.controller.value.length >= props.limit}
+          disabled={list.length >= props.limit}
         />
         <StyledButton
           className={styles.addButton}
           onClick={handleListAddition}
-          disabled={props.controller.value.length >= props.limit}
+          disabled={list.length >= props.limit}
         >
           <Plus />
         </StyledButton>
       </div>
       {props.error && <div className={styles.error}>{props.error}</div>}
       <div className={styles.items}>
-        {props.controller.value.length === 0 ? (
+        {list.length === 0 ? (
           <p className={styles.listPlaceholder}>
             Add some items to get started...
           </p>
         ) : (
-          props.controller.value.map((item, index) => (
+          list.map((item, index) => (
             <div key={index} className={styles.item}>
               <p>{item}</p>
               <StyledButton

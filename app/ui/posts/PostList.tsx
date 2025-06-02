@@ -1,6 +1,6 @@
-import { Post } from '@/app/lib/definitions';
 import PostPreview from '@/app/ui/posts/PostPreview';
 import styles from './PostList.module.css';
+import { Post } from '@/app/lib/types';
 
 export default async function PostList(props: { posts: Post[] }) {
   const { posts } = props;

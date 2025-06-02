@@ -343,3 +343,21 @@ Animation improvements and bug fixes
 - **Set all animation speeds** to 200ms for UI consistency
 - **Removed Breadcrumbs** component from post page
 - **Moved new post link** to admin navigation menu
+
+## v1.0.0 - June 1, 2025
+
+Migrates Writr.md data storage to Postgres and deprecates file based approaches.
+
+> [!IMPORTANT]
+> v1.0.0 introduces breaking changes to previous post storage approaches, the base docker image, and docker compose deployment. Check the updated Docker deployment docs for specific changes and how to update your deployment environment. When you're ready to migrate your post files to Postgres go to `/migrate-pg` to start the process.
+
+### Added
+
+- **Drizzle schema and queries** to store, access, and manipulate blog posts
+- **Migration route** to move file-based post content to a Postgres database
+
+### Changes
+
+- **Updates Docker Compose config** to connect to a Postgres container or remote connection string
+- **Update Dockerfile** to apply runtime migrations using Drizzle and a migration entrypoint
+- **Updates production environment** required and optional environment variables

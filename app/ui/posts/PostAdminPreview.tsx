@@ -1,7 +1,7 @@
-import { Post } from '@/app/lib/definitions';
 import styles from './PostAdminPreview.module.css';
 import Link from 'next/link';
 import clsx from 'clsx';
+import { Post } from '@/app/lib/types';
 
 export default function AdminPostPreview(props: { post: Post }) {
   const { post } = props;
@@ -9,22 +9,23 @@ export default function AdminPostPreview(props: { post: Post }) {
   return (
     <article className={styles.article}>
       <div className={styles.heading}>
-        <Link href={`/writr/editor?slug=${post.data.slug}`}>
-          <h2>{post.data.title}</h2>
+        <Link href={`/writr/edit/${post.slug}`}>
+          <h2>{post.title}</h2>
         </Link>
       </div>
       <div className={styles.details}>
-        <p>By {post.data.author}</p>
-        <p>-</p>
-        <p>
-          {post.data.date
-            ? new Date(post.data.date).toDateString()
-            : 'Unpublished'}
-        </p>
-        {post.data.tags && (
+        {post.published ? (
+          <p className={clsx(`${styles.status}`, `${styles.published}`)}>
+            Published
+          </p>
+        ) : (
+          <p className={clsx(`${styles.status}`, `${styles.draft}`)}>Draft</p>
+        )}
+        {post.date && <div>{new Date(post.date).toDateString()}</div>}
+        {post.tags && (
           <div className={styles.tags}>
-            {post.data.tags.length > 0 && <p>Tags:</p>}
-            {post.data.tags?.map((tag) => (
+            {post.tags.length > 0 && <p>Tags:</p>}
+            {post.tags?.split(',').map((tag) => (
               <div key={tag} className={styles.tag}>
                 {tag}
               </div>
@@ -32,13 +33,6 @@ export default function AdminPostPreview(props: { post: Post }) {
           </div>
         )}
       </div>
-      {post.data.published ? (
-        <p className={clsx(`${styles.status}`, `${styles.published}`)}>
-          Published
-        </p>
-      ) : (
-        <p className={clsx(`${styles.status}`, `${styles.draft}`)}>Draft</p>
-      )}
     </article>
   );
 }

@@ -20,7 +20,7 @@ export default function AdminNav() {
             href="/writr/posts"
             label="Posts"
             secondaryLink={{
-              href: '/writr/editor',
+              href: '/writr/new',
               icon: <Icon name="Plus" size={16} />,
             }}
           >

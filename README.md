@@ -17,18 +17,16 @@
   - [Usage](#usage)
     - [Running locally](#running-locally)
     - [Running with Docker](#running-with-docker)
-  - [Adding Content](#adding-content)
 
 ## Description
 
-Writr.md is markdown blogging platform built on Next.js and using gray-matter, marked-react. The project includes a basic Docker deployment method plus the option to fork and host your own version using your method of choice.
+> Writr.md is a blogging platform powered by Markdown, Next.js, and Postgres!
 
 ### Technologies
 
 - [Next.js](https://nextjs.org/) - React framework for building high-quality web applications
 - [Docker](https://www.docker.com/) - Containerized deployment tool
-- [gray-matter](https://github.com/jonschlinkert/gray-matter) - Smarter YAML front-matter parser
-- [react-marked](https://github.com/sibiraj-s/marked-react) - React library for rendering markdown as React components using marked
+- [react-markdown](https://github.com/remarkjs/react-markdown) - Markdown component for React
 - [open-props](https://open-props.style/) - CSS design tokens for consistent design and styles
 - [react-feather](https://github.com/feathericons/react-feather) - React component library for Feather icons
 - [clsx](https://github.com/lukeed/clsx) - A tiny (239B) utility for constructing `className` strings conditionally
@@ -37,13 +35,10 @@ Writr.md is markdown blogging platform built on Next.js and using gray-matter, m
 
 ### Features
 
-- Dynamic post rendering
-- File based routing
 - Default dark and light mode themes
-- YAML front-matter parsing
 - Post tagging and filtering
 - Included admin dashboard
-- In-app blog post editor
+- In-app Markdown editor
 
 ## Usage
 
@@ -62,13 +57,23 @@ pnpm install
 
 Run Writr.md locally using the Next.js dev server
 
-Get started with local development by creating a `.env.local` file at the project root with the following variables
+Get started with local development by creating a `.env` file at the project root with the following variables
 
 ```env
+### NEXTJS VARIABLES (REQUIRED) ###
 ROOT_PATH=[...] # Absolute path to the Writr.md root
 AUTH_SECRET=[...] # Secret key for Auth.js
 ADMIN_USERNAME=[...] # Username for admin dashboard access
 ADMIN_PASSWORD=[...] # Password for admin dashboard access
+AUTH_TRUST_HOST=true # Required by AuthJS
+
+### POSTGRES DOCKER CONTAINER CREDENTIALS (OPTIONAL) ###
+POSTGRES_USER=[...]
+POSTGRES_PASSWORD=[...]
+POSTGRES_DB=[...]
+
+### POSTGRES CONNECTION STRING (REQUIRED) ###
+POSTGRES_URL=postgres://[...] ## Connection string for your container or Postgres server
 ```
 
 Then start the Next.js dev server
@@ -80,13 +85,3 @@ pnpm dev
 ### Running with Docker
 
 Run Writr.md with Docker by using the latest Docker image by using the example `docker-compose.yaml` in the [docker example](https://github.com/jamesspearsv/writrmd/blob/main/docker). Read the provided `README.md` for more information on using Writr.md with Docker.
-
-## Adding Content
-
-Writr.md works by storing posts as markdown content in a flat file structure. All posts are stored in `/content/posts` and accessible by their filenames.
-
-For example, a file in `/content/posts` called `this-is-my-super-awesome-post.md` will be available at the url `/blog/this-is-my-super-awesome-post`.
-
-Writr.md includes a build-in post editor
-
-Unique url slugs are generated at when new blog content is written to the filesystem and present in the resulting document filename.

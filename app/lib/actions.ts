@@ -3,26 +3,28 @@
 import * as fs from 'node:fs/promises';
 import * as matter from 'gray-matter';
 import { BlogSettingsSchema, PostSchema } from '@/app/lib/schemas';
-import { uniqueSlugify } from '@/app/lib/slugify';
-import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import TaskWorker from '@/app/lib/worker';
 import {
-  Post,
-  PostContent,
+  PostFile as GreyMatterPost,
   PostEditorAction,
   BlogSettings,
   Result,
   DefaultSettings,
 } from '@/app/lib/definitions';
+import { Post } from '@/app/lib/types';
 import { includes } from '@/app/lib/helpers';
+import { insertPost, updatePost } from '@/app/db/queries';
+import { redirect } from 'next/navigation';
+import { uniqueSlugify } from '@/app/lib/slugify';
 
 // Absolute path to project dir from filesystem root
 const rootDir = process.env.ROOT_PATH;
 // filename regex pattern
 const pattern = /^[\w-]+\.md$/;
-const settingsFile =
-  process.env.NODE_ENV === 'production' ? 'settings.json' : 'settings.dev.json';
+const settingsFile = process.env.NODE_ENV
+  ? 'settings.json'
+  : 'settings.dev.json';
 const worker = new TaskWorker();
 
 /**
@@ -34,8 +36,8 @@ export async function fetchAllPosts(options?: {
   tag?: string;
   limit?: number;
   publishedOnly: boolean;
-}): Promise<Result<Post[]>> {
-  const posts: Post[] = [];
+}): Promise<Result<GreyMatterPost[]>> {
+  const posts: GreyMatterPost[] = [];
 
   // Attempt to read all posts files from /content/posts
   try {
@@ -45,7 +47,9 @@ export async function fetchAllPosts(options?: {
     // Read file for each existing filename
     for (const file of files) {
       if (file.match(pattern)) {
-        const post = matter.read(`${rootDir}/content/posts/${file}`) as Post;
+        const post = matter.read(
+          `${rootDir}/content/posts/${file}`
+        ) as GreyMatterPost;
         post.data.slug = file.split('.')[0];
         posts.push(post);
       }
@@ -111,10 +115,12 @@ export async function fetchAllPosts(options?: {
  * @param slug Post slug derived from a route url
  * @returns Returns a promise that resolves to a successful Result object with a single post or rejects with an unsuccessful Result object
  */
-export async function fetchPost(slug: string): Promise<Result<Post>> {
+export async function fetchPost(slug: string): Promise<Result<GreyMatterPost>> {
   const filename = slug + '.md';
   try {
-    const post = matter.read(`${rootDir}/content/posts/${filename}`) as Post;
+    const post = matter.read(
+      `${rootDir}/content/posts/${filename}`
+    ) as GreyMatterPost;
     return { success: true, data: post };
   } catch (error) {
     console.error(error);
@@ -129,80 +135,75 @@ export async function fetchPost(slug: string): Promise<Result<Post>> {
  * @returns Returns a new editor state or redirects if a new file was saved successfully
  */
 export async function savePost(
-  _: PostEditorAction,
+  state: PostEditorAction,
   data: {
-    post: PostContent;
-    slug: string | undefined;
-    date: string | undefined;
+    post: Post;
+    id?: string;
   }
 ) {
-  // Validate submitted content against the PostSchema
-  const results = PostSchema.safeParse({
-    title: data.post.title,
-    author: data.post.author,
-    excerpt: data.post.excerpt,
-    tags: data.post.tags,
-    content: data.post.content,
-    published: data.post.published,
-  } as PostContent);
+  // Validate incoming post data
+  console.log(data.post);
+  const { title, body, published, date, excerpt, tags, slug } = data.post;
+  const validation = PostSchema.safeParse({
+    title,
+    body,
+    published,
+    date,
+    excerpt,
+    tags,
+    slug,
+  });
 
-  // Handle unsuccessful validation
-  if (!results.success) {
-    console.error(`Validation failed! ${new Date().toISOString()}`);
-    console.error(results.error.flatten().fieldErrors);
-    // Return an unsuccessful action state
+  if (!validation.success) {
+    console.log(validation.error.flatten().fieldErrors);
     return {
       ok: false,
       message: 'Validation failed',
-      errors: results.error.flatten().fieldErrors,
+      errors: validation.error.flatten().fieldErrors,
     } as PostEditorAction;
   }
 
-  console.error(`Validation passed! ${new Date().toISOString()}`);
+  console.log(data.post.date);
+  const postDate =
+    data.post.date !== null
+      ? data.post.date
+      : data.post.published
+      ? new Date().toISOString()
+      : null;
+
+  const post = {
+    title: validation.data.title,
+    body: validation.data.body,
+    published: data.post.published,
+    date: postDate,
+    excerpt: validation.data.excerpt || null,
+    tags: validation.data.tags || null,
+    slug: validation.data.slug || uniqueSlugify(data.post.title),
+  };
+
+  if (data.id) {
+    await updatePost(data.id, post);
+  } else {
+    await insertPost(post);
+  }
+
+  // console.error(`Validation passed! ${new Date().toISOString()}`);
 
   // Uniquely slugify post name or use existing slug if provided
-  const slug = data.slug ?? uniqueSlugify(results.data.title);
+  // const slug = data.slug ?? uniqueSlugify(results.data.title);
 
   // Derive publication date from published status and existing date
-  let publicationDate;
-  if (data.date) {
-    publicationDate = data.date;
-  } else if (results.data.published) {
-    publicationDate = new Date().toISOString();
-  } else {
-    publicationDate = '';
-  }
-
-  // Format post content to write
-  const fileContents =
-    `---\n` +
-    `title: "${results.data.title}"\n` +
-    `author: "${results.data.author}"\n` +
-    `date: "${publicationDate}"\n` +
-    `tags: [${results.data.tags.map((tag) => `"${tag}"`)}]\n` +
-    `excerpt: "${results.data.excerpt}"\n` +
-    `published: ${results.data.published}\n` +
-    `---\n` +
-    `${results.data.content}` +
-    `\n`;
-
-  // Attempt to write new file to filesystem. Catch if unsuccessful
-  try {
-    await fs.writeFile(
-      `${rootDir}/content/posts/${slug.toLowerCase()}.md`,
-      fileContents
-    );
-  } catch (error) {
-    console.error(error);
-    return {
-      ok: false,
-      message: 'Server error! Please try again later.',
-      errors: {},
-    } as PostEditorAction;
-  }
+  // let publicationDate;
+  // if (data.date) {
+  //   publicationDate = data.date;
+  // } else if (results.data.published) {
+  //   publicationDate = new Date().toISOString();
+  // } else {
+  //   publicationDate = '';
+  // }
 
   // Redirect client if successful
-  redirect('/writr/posts');
+  return redirect('/writr/posts');
 }
 
 /**

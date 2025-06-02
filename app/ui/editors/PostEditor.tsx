@@ -1,11 +1,7 @@
 'use client';
 
 import { startTransition, useActionState, useEffect, useState } from 'react';
-import {
-  CommonInputProps,
-  PostContent,
-  PostEditorAction,
-} from '@/app/lib/definitions';
+import { CommonInputProps, PostEditorAction } from '@/app/lib/definitions';
 import { savePost } from '@/app/lib/actions';
 import styles from './PostEditor.module.css';
 import StyledButton from '@/app/ui/common/StyledButton';
@@ -15,15 +11,17 @@ import Input from '@/app/ui/inputs/Input';
 import TextArea from '@/app/ui/inputs/TextArea';
 import List from '@/app/ui/inputs/List';
 import Toggle from '@/app/ui/inputs/Toggle';
+import { Post } from '@/app/lib/types';
 
 // TODO: Simplify state management and input params
-const initialLocalState: PostContent = {
+const NewPost: Post = {
   title: '',
-  author: '',
-  content: '',
-  tags: [],
-  excerpt: '',
+  body: '',
   published: false,
+  date: null,
+  excerpt: '',
+  tags: '',
+  slug: '',
 };
 
 const initialActionState: PostEditorAction = {
@@ -36,9 +34,8 @@ const initialActionState: PostEditorAction = {
  * COMPONENT STARTS HERE *
  ************************/
 export default function PostEditor(props: {
-  post?: PostContent;
-  slug?: string;
-  date?: string;
+  post?: Post; // KEEP THIS UNTIL REFACTORING IS COMPLETE
+  id?: string;
 }) {
   // action state management for editor submission
   const [actionState, editorAction] = useActionState(
@@ -46,10 +43,23 @@ export default function PostEditor(props: {
     initialActionState
   );
   // local state management for current editor data
-  const [editorData, setEditorData] = useState<PostContent>(
-    props.post ? props.post : initialLocalState
+  const [editorData, setEditorData] = useState<Post>(
+    props.post
+      ? ({
+          title: props.post.title,
+          body: props.post.body,
+          published: props.post.published,
+          date: props.post.date,
+          excerpt: props.post.excerpt ?? '',
+          tags: props.post.tags ?? '',
+          slug: props.post.slug,
+        } as Post)
+      : NewPost
   );
   const [sidebarHidden, setSidebarHidden] = useState(false);
+
+  console.log(props.post);
+  console.log(editorData);
 
   // Add keyboard listener to body for cmd | ctrl + enter submission
   useEffect(() => {
@@ -76,21 +86,20 @@ export default function PostEditor(props: {
     startTransition(() => {
       editorAction({
         post: editorData,
-        slug: props.slug,
-        date: props.date,
+        id: props.id,
       });
     });
   }
 
   // update editorData based on the PostContent type
   const updateValue: CommonInputProps<
-    string | string[] | boolean
+    string | boolean
   >['controller']['updateValue'] = (key, value) => {
     // check that key exists in current data object
     if (!Object.keys(editorData).includes(key)) return;
 
     // check that typeof value === typeof Data[key]
-    if (typeof value === typeof editorData[key as keyof PostContent]) {
+    if (typeof value === typeof editorData[key as keyof Post]) {
       setEditorData({ ...editorData, [key]: value });
     }
   };
@@ -98,9 +107,9 @@ export default function PostEditor(props: {
   return (
     <div>
       <div className={styles.editorControls}>
-        {actionState.errors.author && (
+        {(actionState.errors.body || actionState.errors.title) && (
           <div className={styles.error}>
-            Posts must have an author, title, and body
+            Posts must have a title, and a body
           </div>
         )}
         <StyledButton
@@ -128,11 +137,11 @@ export default function PostEditor(props: {
         <div className={styles.editor}>
           <TextArea
             name="content"
-            error={actionState.errors.content ? true : false}
+            error={actionState.errors.body ? true : false}
             placeholder="Begin writing your post..."
             controller={{
-              key: 'content',
-              value: editorData.content,
+              key: 'body',
+              value: editorData.body,
               updateValue,
             }}
             sticky
@@ -157,9 +166,8 @@ export default function PostEditor(props: {
           />
           <Input
             name="title"
-            placeholder="Post Title"
+            placeholder="Write a catchy title"
             label="Title"
-            disabled={props.slug ? true : false}
             // variant="borderless"
             // size="large"
             error={actionState.errors.title ? true : false}
@@ -170,28 +178,29 @@ export default function PostEditor(props: {
             }}
           />
           <Input
-            name="author"
-            placeholder="Author"
-            label="Author"
-            // variant="borderless"
-            // size="medium"
-            error={actionState.errors.author ? true : false}
-            controller={{
-              key: 'author',
-              value: editorData.author,
-              updateValue,
-            }}
-          />
-          <Input
             name="excerpt"
             label="Excerpt"
             error={actionState.errors.excerpt ? true : false}
+            placeholder="Write a short blurb"
             controller={{
               key: 'excerpt',
-              value: editorData.excerpt,
+              value: editorData.excerpt ? editorData.excerpt : '',
               updateValue,
             }}
           />
+          {!props.post?.slug && (
+            <Input
+              name="slug"
+              label="Slug"
+              error={actionState.errors.slug ? true : false}
+              placeholder="Use a custom slug or leave blank"
+              controller={{
+                key: 'slug',
+                value: editorData.slug,
+                updateValue,
+              }}
+            />
+          )}
           <List
             name="tags"
             label="Tags"
@@ -199,7 +208,7 @@ export default function PostEditor(props: {
             limit={3}
             controller={{
               key: 'tags',
-              value: editorData.tags,
+              value: editorData.tags || '',
               updateValue,
             }}
           />

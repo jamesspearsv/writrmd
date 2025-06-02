@@ -1,30 +1,25 @@
-import { fetchPost } from '@/app/lib/actions';
-import { notFound } from 'next/navigation';
 import styles from './Post.module.css';
 import Link from 'next/link';
 import MarkdownWrapper from '@/app/ui/common/MarkdownWrapper';
+import { selectPosts } from '@/app/db/queries';
 
 export default async function Post(props: { slug: string }) {
-  const result = await fetchPost(props.slug);
+  const post = (await selectPosts({ slug: props.slug }))[0];
 
-  //  404 if post is null
-  if (!result.success) notFound();
-
-  const post = result.data;
-  const date = new Date(post.data.date);
+  // TODO: handle possible failure finding post by the given slug
 
   return (
     <article className={styles.container}>
       <aside className={styles.frontMatter}>
-        <h1 className={styles.title}>{post.data.title}</h1>
+        <h1 className={styles.title}>{post.title}</h1>
         <div className={styles.byline}>
-          <div className={styles.bylineItem}>{post.data.author}</div>
-          <div>—</div>
-          <div className={styles.bylineItem}>{date.toDateString()}</div>
+          <div className={styles.bylineItem}>
+            {new Date(post.date!).toDateString()}
+          </div>
         </div>
         <div className={styles.tags}>
-          {post.data.tags &&
-            post.data.tags.map((tag) => (
+          {post.tags &&
+            post.tags.split(',').map((tag) => (
               <Link key={tag} href={`/blog?tag=${tag}`}>
                 <button className={styles.tag}>{tag}</button>
               </Link>
@@ -33,7 +28,7 @@ export default async function Post(props: { slug: string }) {
       </aside>
       <hr />
       <section className={styles.post}>
-        <MarkdownWrapper value={post.content} />
+        <MarkdownWrapper value={post.body} />
       </section>
     </article>
   );

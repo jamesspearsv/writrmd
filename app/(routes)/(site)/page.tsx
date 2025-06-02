@@ -1,4 +1,4 @@
-import { fetchAllPosts, readSettings } from '@/app/lib/actions';
+import { readSettings } from '@/app/lib/actions';
 import styles from './page.module.css';
 import PlaceholderPage from '@/app/ui/common/PlaceholderPage';
 import MarkdownWrapper from '@/app/ui/common/MarkdownWrapper';
@@ -6,10 +6,12 @@ import PostPreview from '@/app/ui/posts/PostPreview';
 import Header from '@/app/ui/common/Header';
 import { ArrowRight } from 'react-feather';
 import Link from 'next/link';
+import { selectPosts } from '@/app/db/queries';
 
 export default async function Home() {
   const settings = await readSettings();
-  const posts = await fetchAllPosts({ publishedOnly: true, limit: 5 });
+  // const posts = await fetchAllPosts({ publishedOnly: true, limit: 5 });
+  const posts = await selectPosts({ published: true });
 
   if (!settings.success) return <PlaceholderPage />;
 
@@ -21,11 +23,11 @@ export default async function Home() {
         </Header>
         <MarkdownWrapper value={`${settings.data.summary}`} />
       </div>
-      {posts.success && (
+      {posts && (
         <div className={styles.recent_posts}>
           <h2>Recent Posts</h2>
           <hr />
-          {posts.data.map((post, index) => {
+          {posts.map((post, index) => {
             return <PostPreview key={index} post={post} variant="minimal" />;
           })}
           <Link href={'/blog'} className={styles.all_posts}>

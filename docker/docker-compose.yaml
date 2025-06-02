@@ -1,6 +1,14 @@
-version: '3.3'
-
 services:
+  postgres:
+    image: postgres:latest
+    env_file: .env
+    expose:
+      - '5432'
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - writrmd_network
+
   writrmd:
     image: ghcr.io/jamesspearsv/writrmd:latest
     restart: unless-stopped
@@ -8,11 +16,13 @@ services:
       - writrmd_network
     expose:
       - '3000'
+    env_file: .env # MAKE SURE THIS FILE IS PRESENT AND ACCURATE
     environment:
       - NODE_ENV=production
-    env_file: ./.env # MAKE SURE THIS FILE IS PRESENT AND ACCURATE
     volumes:
-      - writrmd-data:/writrmd/content
+      - writrmd-data:/app/content
+    depends_on:
+      - postgres
 
   caddy:
     image: caddy:latest
@@ -33,6 +43,7 @@ volumes:
   caddy_data:
   caddy_config:
   writrmd-data:
+  pg_data:
 
 networks:
   writrmd_network:
