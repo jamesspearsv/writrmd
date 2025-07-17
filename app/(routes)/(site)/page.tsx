@@ -1,27 +1,23 @@
-import { readSettings } from '@/app/lib/actions';
 import styles from './page.module.css';
-import PlaceholderPage from '@/app/ui/common/PlaceholderPage';
 import MarkdownWrapper from '@/app/ui/common/MarkdownWrapper';
 import PostPreview from '@/app/ui/posts/PostPreview';
 import Header from '@/app/ui/common/Header';
 import { ArrowRight } from 'react-feather';
 import Link from 'next/link';
 import { selectPosts } from '@/app/db/queries';
+import SITE_SETTINGS from '@/app/lib/settings';
 
 export default async function Home() {
-  const settings = await readSettings();
   // const posts = await fetchAllPosts({ publishedOnly: true, limit: 5 });
   const posts = await selectPosts({ published: true });
-
-  if (!settings.success) return <PlaceholderPage />;
 
   return (
     <div className={styles.container}>
       <div className={styles.hero}>
         <Header>
-          <h1>{settings.data.name}</h1>
+          <h1>{SITE_SETTINGS.SITE_NAME}</h1>
         </Header>
-        <MarkdownWrapper value={`${settings.data.summary}`} />
+        <MarkdownWrapper value={`${SITE_SETTINGS.SITE_DESCRIPTION}`} />
       </div>
       {posts && (
         <div className={styles.recent_posts}>

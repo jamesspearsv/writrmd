@@ -1,6 +1,6 @@
-import { readSettings } from '@/app/lib/actions';
 import SiteNav from '@/app/ui/nav/SiteNav';
 import styles from './layout.module.css';
+import SITE_SETTINGS from '@/app/lib/settings';
 
 export const dynamic = 'force-dynamic';
 
@@ -10,15 +10,10 @@ export default async function Layout({
   children?: React.ReactNode;
 }) {
   console.log('site layout');
-  const settings = await readSettings();
-
-  if (!settings.success) {
-    console.log('window = ', typeof window !== undefined);
-  }
 
   return (
     <>
-      <SiteNav blogName={settings.success ? settings.data.name : 'Writr.md'} />
+      <SiteNav blogName={SITE_SETTINGS.SITE_NAME} />
       <main className={styles.main}>{children}</main>
     </>
   );
