@@ -5,7 +5,7 @@ export default defineConfig({
   schema: './app/db/schema.ts',
   out: './drizzle/migrations',
   dbCredentials: {
-    url: process.env.POSTGRES_URL || 'postgresql://localhost:5432',
+    url: 'postgres://admin:admin@media.jspears.me:5432/admin_database',
     ssl: false,
   },
 });
