@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import styles from './AdminNav.module.css';
 import { roboto_slab } from '@/app/ui/fonts';
-import { BookOpen, Home, Layout, LogOut, Settings } from 'react-feather';
+import { BookOpen, Home, Layout, LogOut } from 'react-feather';
 import ThemePicker from '@/app/ui/themes/ThemePicker';
 import StyledButton from '@/app/ui/common/StyledButton';
 import { logout } from '@/app/lib/authActions';
@@ -25,9 +25,6 @@ export default function AdminNav() {
             }}
           >
             <BookOpen size={16} />
-          </NavItem>
-          <NavItem href="/writr/settings" label="Settings">
-            <Settings size={16} />
           </NavItem>
         </ul>
       </div>

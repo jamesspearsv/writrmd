@@ -2,15 +2,12 @@
 
 import * as fs from 'node:fs/promises';
 import * as matter from 'gray-matter';
-import { BlogSettingsSchema, PostSchema } from '@/app/lib/schemas';
-import { revalidatePath } from 'next/cache';
+import { PostSchema } from '@/app/lib/schemas';
 import TaskWorker from '@/app/lib/worker';
 import {
   PostFile as GreyMatterPost,
   PostEditorAction,
-  BlogSettings,
   Result,
-  DefaultSettings,
 } from '@/app/lib/definitions';
 import { Post } from '@/app/lib/types';
 import { includes } from '@/app/lib/helpers';
@@ -22,9 +19,6 @@ import { uniqueSlugify } from '@/app/lib/slugify';
 const rootDir = process.env.ROOT_PATH;
 // filename regex pattern
 const pattern = /^[\w-]+\.md$/;
-const settingsFile = process.env.NODE_ENV
-  ? 'settings.json'
-  : 'settings.dev.json';
 const worker = new TaskWorker();
 
 /**
@@ -204,133 +198,6 @@ export async function savePost(
 
   // Redirect client if successful
   return redirect('/writr/posts');
-}
-
-/**
- * Asynchronously read app settings
- * @returns Returns a promise resolves to a successful result object with the current settings or rejects with an unsuccessful result object
- */
-export async function readSettings(): Promise<Result<BlogSettings>> {
-  try {
-    const data = await fs.readFile(`${rootDir}/content/${settingsFile}`, {
-      encoding: 'utf-8',
-    });
-
-    // Handle empty settings files
-    if (!data) {
-      // Provide fallback settings if settings json is empty
-      return { success: true, data: DefaultSettings };
-    }
-
-    // Parse and provide fallback values for settings
-    const json = JSON.parse(data) as BlogSettings;
-    const settings = { ...DefaultSettings, ...json };
-    return { success: true, data: settings };
-  } catch (error) {
-    console.error(error);
-    return {
-      success: false,
-      error: 'Unable to read settings. Try again later.',
-    };
-  }
-}
-
-/**
- * Asynchronously update the app settings file
- * @param _ Current action state
- * @param formData Settings editor form data object
- * @returns Returns a result representing a successful or unsuccessful attempt to update settings
- */
-export async function UpdateSettings(
-  _: Result<BlogSettings>,
-  formData: FormData
-) {
-  // Validate new settings values
-  const results = BlogSettingsSchema.safeParse({
-    name: formData.get('name'),
-    summary: formData.get('summary'),
-  } as BlogSettings);
-
-  // Return an unsuccessful result if validation fails
-  if (!results.success) {
-    console.error('##### Validation Failed #####\n', results.error.errors);
-    return {
-      success: false,
-      error: 'Invalid settings properties. Please try again.',
-    } as Result<BlogSettings>;
-  }
-
-  // Store new settings and attempt to update settings file
-  const updatedSettings: BlogSettings = {
-    name: results.data.name,
-    summary: results.data.summary,
-  };
-
-  try {
-    await fs.writeFile(
-      `${rootDir}/content/${settingsFile}`,
-      JSON.stringify(updatedSettings)
-    );
-  } catch (error) {
-    console.error('##### Server Error #####\n', error);
-    return {
-      success: false,
-      error: 'Unable to save new settings',
-    } as Result<BlogSettings>;
-  }
-
-  revalidatePath('/writr/settings');
-  return { success: true, data: updatedSettings } as Result<BlogSettings>;
-}
-
-/**
- * Asynchronously update a given settings property with a given value
- * @param key A valid property defined in the app settings
- * @param value A valid value that the provided setting should be updated to.
- */
-export async function updateSettingValue<K extends keyof BlogSettings>(
-  key: K,
-  value: BlogSettings[K]
-) {
-  // Define the process to update the provided settings property
-  const process = async () => {
-    const settings = await readSettings();
-
-    // Update the given property if successful
-    if (settings.success) {
-      const newSettings = { ...settings.data };
-      newSettings[key] = value;
-
-      try {
-        await fs.writeFile(
-          `${rootDir}/content/${settingsFile}`,
-          JSON.stringify(newSettings)
-        );
-        return {
-          success: true,
-          data: 'Successfully updated settings',
-        } as Result;
-      } catch (error) {
-        if (error instanceof Error) {
-          console.error(error);
-          return {
-            success: false,
-            error: 'Unable to update settings',
-          } as Result;
-        }
-      }
-    }
-
-    // Handle an unsuccessful attempt to read the app settings
-    return {
-      success: false,
-      error: 'Unable to read settings',
-    } as Result;
-  };
-
-  // Add the update process to worker queue and await the result
-  await worker.add<Result<string>>(process);
-  revalidatePath('/writr/settings');
 }
 
 /**

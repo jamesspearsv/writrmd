@@ -7,25 +7,31 @@ The included `docker-compose.yaml` starts a container running Writr.md using the
 ## Prerequisites
 
 1. Copy the `docker-compose.yaml` and `Caddyfile` from here into an empty directory
-2. Add a `.env` file into your directory with the following variables
+2. Add a `.env` file into your directory with the configuration below
 
 ## Environment setup
 
 ```env
 NODE_ENV=production
+
 ### NEXTJS VARIABLES (REQUIRED) ###
 AUTH_SECRET=[...] # Secret key for Auth.js
 ADMIN_USERNAME=[...] # Username for admin dashboard access
 ADMIN_PASSWORD=[...] # Password for admin dashboard access
 AUTH_TRUST_HOST=true # Required by AuthJS
 
-### POSTGRES DOCKER CONTAINER CREDENTIALS (OPTIONAL) ###
-POSTGRES_USER=[...]
-POSTGRES_PASSWORD=[...]
-POSTGRES_DB=[...]
+### POSTGRES CONTAINER CREDENTIALS (REQUIRED) ###
+POSTGRES_USER=[...] # Postgres container user
+POSTGRES_PASSWORD=[...] # Postgres container password
+POSTGRES_DB=[...] # Postgres container database name
 
 ### POSTGRES CONNECTION STRING (REQUIRED) ###
-POSTGRES_URL=postgres://[...] ## Connection string for your container or Postgres server
+POSTGRES_URL=postgres://[...] # Connection string for your container or Postgres server
+
+### App Settings (REQUIRED) ###
+SITE_NAME=[...]
+SITE_DESCRIPTION=[...]
+
 ```
 
 ## Running the app
